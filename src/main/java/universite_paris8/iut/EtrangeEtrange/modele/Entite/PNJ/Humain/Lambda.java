@@ -29,38 +29,27 @@ public class Lambda extends PnjOffensif {
     @Override
     public void action() {
         int d = (int) (Math.random()*4+1);
-        Direction direction;
-
         switch (d)
         {
             case 1:
-                direction = Direction.DROITE;
                 setDirection(Direction.DROITE);
                 break;
             case 2:
-                direction = Direction.GAUCHE;
                 setDirection(Direction.GAUCHE);
                 break;
             case 3:
-                direction = Direction.HAUT;
                 setDirection(Direction.HAUT);
                 break;
-            default:
-                direction = Direction.BAS;
+            case 4:
                 setDirection(Direction.BAS);
                 break;
         }
 
-
         int rdm = (int) (Math.random() * 501) +1;
 
-        if (rdm > 240 && rdm < 247)
+        if (rdm > 400)
             enlevePv(4);
 
-
-
-        seDeplace(direction);
-
-
+        seDeplace();
     }
 }

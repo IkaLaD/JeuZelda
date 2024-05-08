@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
+import universite_paris8.iut.EtrangeEtrange.controller.Controller;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Defense;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.DefenseSpecial;
@@ -74,13 +75,15 @@ public abstract class Entite {
         this.position.setY(y);
     }
 
-    public void seDeplace(Direction direction)
+    public void seDeplace()
     {
         int x = direction.getX();
         int y = direction.getY();
 
-        position.setX(position.getX() + x*vitesse.getVitesse());
-        position.setY(position.getY() + y*vitesse.getVitesse());
+        if(peutSeDeplacer()) {
+            position.setX(position.getX() + x * vitesse.getVitesse());
+            position.setY(position.getY() + y * vitesse.getVitesse());
+        }
     }
 
 
@@ -99,21 +102,66 @@ public abstract class Entite {
     public void setDirection(Direction direction){
         this.direction = direction;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
     public boolean provoqueUnecollision(double x, double y)
     {
         return getMonde().getTileType((int)x, (int)y) == 3;
+    }
+
+    /**
+     * Méthode qui vérifie si la prochaine position ou souhaite aller l'entité ne soit pas hors map ou un mur
+     * @return
+     */
+    public boolean peutSeDeplacer(){
+        return !horsMap() && !collision();
+    }
+
+    /**
+     * Renvoie "true" si la prochaine position de l'entite est hors map
+     * @return
+     */
+    public boolean horsMap(){
+        System.out.println(hitbox.getPointLePlusADroite(position.getX())+vitesse.getVitesse());
+        return switch (direction){
+            case BAS -> hitbox.getPointLePlusEnBas(position.getY())+vitesse.getVitesse()>Monde.getSizeMondeHauteur();
+            case HAUT -> hitbox.getPointLePlusEnHaut(position.getY())-vitesse.getVitesse()<0;
+            case DROITE -> hitbox.getPointLePlusADroite(position.getX())+vitesse.getVitesse()>Monde.getSizeMondeLargeur();
+            case GAUCHE -> hitbox.getPointLePlusAGauche(position.getX())-vitesse.getVitesse()<0;
+        };
+    }
+
+    public boolean collision(){
+        double x = position.getX();
+        double y = position.getY();
+
+        // Extremité de la hitbox, calculer dans le if en dessous en fonction de la direction (on prend extremite gauche et droite si on va vers le haut ou le bas)
+        double extremite1;
+        double extremite2;
+
+        if (direction==Direction.BAS  || direction==Direction.HAUT){
+            extremite1 = hitbox.getPointLePlusAGauche(x);
+            extremite2 = hitbox.getPointLePlusADroite(x);
+        }
+        else {
+            extremite1 = hitbox.getPointLePlusEnHaut(y);
+            extremite2 = hitbox.getPointLePlusEnBas(y);
+        }
+
+        boolean colision = false;
+        int cpt = (int) extremite1;
+
+        while(cpt <= extremite2 && !colision){
+            colision = switch (direction) {
+                case BAS ->
+                        monde.getFondMonde()[(int) (hitbox.getPointLePlusEnBas(y) + vitesse.getVitesseActuelle())][cpt] == 3;
+                case HAUT ->
+                        monde.getFondMonde()[(int) (hitbox.getPointLePlusEnHaut(y) - vitesse.getVitesseActuelle())][cpt] == 3;
+                case DROITE ->
+                        monde.getFondMonde()[cpt][(int) (hitbox.getPointLePlusADroite(x) + vitesse.getVitesseActuelle())] == 3;
+                case GAUCHE ->
+                        monde.getFondMonde()[cpt][(int) (hitbox.getPointLePlusAGauche(x) - vitesse.getVitesseActuelle())] == 3;
+            };
+            cpt++;
+        }
+        return colision;
     }
 }

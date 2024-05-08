@@ -17,8 +17,8 @@ public class Monde {
      */
     private static final int sizeMondeHauteur = 10;
     private static final int sizeMondeLargeur = 10;
-    private static final double xPointDeDepart = 6;
-    private static final double yPointDeDepart = 6;
+    private static final double xPointDeDepart = 2;
+    private static final double yPointDeDepart = 2;
     /**
      * Ici sont stocké les informations des sols du monde (ex : sol)
      */
@@ -170,50 +170,6 @@ public class Monde {
         };
         this.fondMonde = generationManuelle;
     }
-
-
-    public boolean collision(Entite entite){
-        Hitbox hitbox = entite.getHitbox();
-        Position position = entite.getPosition();
-        Direction direction = entite.getDirection();
-
-        double x = position.getX();
-        double y = position.getY();
-        double vitesseEntite = entite.getVitesse().getVitesseActuelle();
-
-        // Extremité de la hitbox, calculer dans le if en dessous en fonction de la direction (on prend extremite gauche et droite si on va vers le haut ou le bas)
-        double extremite1;
-        double extremite2;
-
-        if (entite.getDirection()==Direction.BAS  || entite.getDirection()==Direction.HAUT){
-            extremite1 = hitbox.getPointLePlusAGauche(x);
-            extremite2 = hitbox.getPointLePlusADroite(x);
-        }
-        else {
-            extremite1 = hitbox.getPointLePlusEnHaut(y);
-            extremite2 = hitbox.getPointLePlusEnBas(y);
-        }
-
-        boolean colision = false;
-        int cpt = (int) extremite1;
-
-        while(cpt <= extremite2 && !colision){
-            colision = switch (direction) {
-                case BAS ->
-                        this.fondMonde[(int) (hitbox.getPointLePlusEnBas(y) + vitesseEntite)][cpt] == 3;
-                case HAUT ->
-                        this.fondMonde[(int) (hitbox.getPointLePlusEnHaut(y) - vitesseEntite)][cpt] == 3;
-                case DROITE ->
-                        this.fondMonde[cpt][(int) (hitbox.getPointLePlusADroite(x) + vitesseEntite)] == 3;
-                case GAUCHE ->
-                        this.fondMonde[cpt][(int) (hitbox.getPointLePlusAGauche(x) - vitesseEntite)] == 3;
-            };
-            cpt++;
-        }
-        return colision;
-    }
-
-
 
     public static double getxPointDeDepart(){
         return xPointDeDepart;

@@ -52,12 +52,12 @@ public class Controller implements Initializable {
         initPane();
         afficherMonde();
 
-        for (int i = 1;i<5;i++)
+        /*for (int i = 0 ; i < 5 ; i++)
         {
             Lambda lambda = new Lambda(monde,i,i,Direction.GAUCHE,new Hitbox(0.50,0.50));
             monde.ajoutEntite(lambda);
             initSprite(lambda);
-        }
+        }*/
 
         initAnimation();
         gameLoop.play();
@@ -71,7 +71,7 @@ public class Controller implements Initializable {
 
         KeyFrame kf = new KeyFrame
                 (
-                    Duration.seconds(0.5),
+                    Duration.seconds(0.1),
 
                     (ev ->
                     {
@@ -174,7 +174,7 @@ public class Controller implements Initializable {
     {
         Position position = entite.getPosition();
         
-        Circle circle = new Circle(position.getX()*Constantes.tailleTile,position.getY()*Constantes.tailleTile, (double) Constantes.tailleTile /4,Color.YELLOW);
+        Circle circle = new Circle((double) Constantes.tailleTile /4,Color.YELLOW);
         
         position.getXProperty().addListener(e-> {
             circle.setTranslateX(position.getX()*Constantes.tailleTile);
@@ -223,29 +223,30 @@ public class Controller implements Initializable {
         switch (keyCode){
             case Q:
                 joueur.setDirection(Direction.GAUCHE);
-                if (!monde.collision(joueur)) {
-                    joueur.getPosition().setX(joueur.getPosition().getX() - joueur.getVitesse().getVitesseActuelle());
+                if (!joueur.collision()) {
+                    joueur.seDeplace();
                 }
                 break;
             case D:
                 joueur.setDirection(Direction.DROITE);
-                if (!monde.collision(joueur)) {
-                    joueur.getPosition().setX(joueur.getPosition().getX() + joueur.getVitesse().getVitesseActuelle());
+                if (!joueur.collision()) {
+                    joueur.seDeplace();
                 }
                 break;
             case Z:
                 joueur.setDirection(Direction.HAUT);
-                if (!monde.collision(joueur)) {
-                    joueur.getPosition().setY(joueur.getPosition().getY() - joueur.getVitesse().getVitesseActuelle());
+                if (!joueur.collision()) {
+                    joueur.seDeplace();
                 }
                 break;
             case S:
                 joueur.setDirection(Direction.BAS);
-                if (!monde.collision(joueur)) {
-                    joueur.getPosition().setY(joueur.getPosition().getY() + joueur.getVitesse().getVitesseActuelle());
+                if (!joueur.collision()) {
+                    joueur.seDeplace();
                 }
                 break;
         }
+        System.out.println(joueur.getPosition().getX()+" "+joueur.getPosition().getY());
     }
 
     public void mouseClick(MouseEvent mouseEvent) {

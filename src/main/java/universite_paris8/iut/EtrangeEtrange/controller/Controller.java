@@ -176,18 +176,18 @@ public class Controller implements Initializable {
         
         Circle circle = new Circle(position.getX()*Constantes.tailleTile,position.getY()*Constantes.tailleTile, (double) Constantes.tailleTile /4,Color.YELLOW);
         
-        position.getXProperty().addListener(e->
-        {
+        position.getXProperty().addListener(e-> {
             circle.setTranslateX(position.getX()*Constantes.tailleTile);
         });
         
-        position.getYProperty().addListener(e->
-        {
+        position.getYProperty().addListener(e-> {
             circle.setTranslateY(position.getY()*Constantes.tailleTile);
         });
-        
-        entite.getPv().getPvActuelleProperty().addListener(e->
-        {
+
+        circle.setTranslateX(position.getX()*Constantes.tailleTile);
+        circle.setTranslateY(position.getY()*Constantes.tailleTile);
+
+        entite.getPv().getPvActuelleProperty().addListener(e-> {
             Color color;
             
             double pv = entite.getPv().getPvActuelle();
@@ -212,10 +212,7 @@ public class Controller implements Initializable {
             }
             
             circle.setFill(color);
-            
-            
         });
-
         this.paneEntite.getChildren().add(circle);
     }
 

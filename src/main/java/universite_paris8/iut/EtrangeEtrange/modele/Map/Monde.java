@@ -1,9 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Map;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entité.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entité.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Entité.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 

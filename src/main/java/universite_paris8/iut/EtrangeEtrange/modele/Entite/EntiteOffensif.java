@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Entité;
+package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Attaque;

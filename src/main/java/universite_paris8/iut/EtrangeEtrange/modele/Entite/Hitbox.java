@@ -1,6 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Entité;
-
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
 public class Hitbox {
 
@@ -11,7 +9,6 @@ public class Hitbox {
         this.hauteur = hauteur;
         this.largeur = largeur;
     }
-
 
     public void setHitbox(double hauteur, double largeur) {
         this.hauteur = hauteur;
@@ -35,7 +32,4 @@ public class Hitbox {
         return y +  hauteur/2;
     }
 
-    public double getLargeur() {
-        return largeur;
-    }
 }

@@ -53,12 +53,12 @@ public class Controller implements Initializable {
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMonde();
 
-        for (int i = 0 ; i < 5 ; i++)
+        /*for (int i = 0 ; i < 5 ; i++)
         {
             Lambda lambda = new Lambda(monde,i,i,Direction.GAUCHE,new Hitbox(0.50,0.50));
             monde.ajoutEntite(lambda);
             initSprite(lambda);
-        }
+        }*/
 
         initAnimation();
         gameLoop.play();
@@ -183,24 +183,31 @@ public class Controller implements Initializable {
 
 
     public void keyPressed(KeyEvent keyEvent) {
-        spriteJoueur.debutAnimationMarche();
         KeyCode keyCode = keyEvent.getCode();
         switch (keyCode){
             case Q:
                 joueur.setDirection(Direction.GAUCHE);
+                spriteJoueur.debutAnimationMarche();
                 joueur.seDeplace();
+
                 break;
             case D:
                 joueur.setDirection(Direction.DROITE);
+                spriteJoueur.debutAnimationMarche();
                 joueur.seDeplace();
+
                 break;
             case Z:
                 joueur.setDirection(Direction.HAUT);
+                spriteJoueur.debutAnimationMarche();
                 joueur.seDeplace();
+
                 break;
             case S:
                 joueur.setDirection(Direction.BAS);
+                spriteJoueur.debutAnimationMarche();
                 joueur.seDeplace();
+
                 break;
         }
 

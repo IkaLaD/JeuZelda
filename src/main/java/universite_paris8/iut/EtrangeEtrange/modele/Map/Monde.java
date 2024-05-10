@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Map;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

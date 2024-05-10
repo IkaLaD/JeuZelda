@@ -149,7 +149,7 @@ public abstract class Entite {
         int cpt = (int) extremite1;
 
         int[][] nontraversable = monde.getNontraversable();
-        System.out.println((hitbox.getPointLePlusADroite(x) + vitesse.getVitesseActuelle())+" "+(int) (hitbox.getPointLePlusADroite(x) + vitesse.getVitesseActuelle()));
+
         while(cpt <= extremite2 && !colision){
             colision = switch (direction) {
                 case BAS ->

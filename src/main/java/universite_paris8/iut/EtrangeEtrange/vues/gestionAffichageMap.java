@@ -8,8 +8,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
 import java.util.ArrayList;
 
-public class gestionMap {
-    private TilePane tilepane;
+public class gestionAffichageMap {
+    private ArrayList<TilePane> TilePaneCouchesMonde;
     private Monde monde;
     private Image grass = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sol/1.png");
     private Image stone = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sol/2.png");
@@ -20,14 +20,15 @@ public class gestionMap {
     private Image rose4 = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/traversable/4.png");
     private Image buisson = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/nontraversable/1.png");
 
-    public gestionMap(Monde monde, TilePane tilePane){
-        this.tilepane = tilePane;
+    public gestionAffichageMap(Monde monde, TilePane sol, TilePane traversable, TilePane nontraversable){
+        this.TilePaneCouchesMonde = new ArrayList<>();
+        this.TilePaneCouchesMonde.add(sol);
+        this.TilePaneCouchesMonde.add(traversable);
+        this.TilePaneCouchesMonde.add(nontraversable);
         this.monde = monde;
-        afficherMonde();
     }
     public void afficherMonde(){
         // Récupération de la première couche de la map.
-        int[][] coucheMonde;
         ArrayList<int[][]> couchesMap = monde.getToutesLesCouches();
 
         // Génération de l'image
@@ -38,7 +39,7 @@ public class gestionMap {
                     ImageView imageView = getImage(i, idTile);
                     imageView.setX(largeur * Constantes.tailleTile);
                     imageView.setY(hauteur * Constantes.tailleTile);
-                    tilepane.getChildren().add(imageView);
+                    TilePaneCouchesMonde.get(i).getChildren().add(imageView);
                 }
             }
         }

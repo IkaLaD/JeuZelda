@@ -6,7 +6,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
@@ -14,8 +13,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -24,33 +21,35 @@ import javafx.scene.shape.Circle;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesPersonnages;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
+import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     @FXML
-    private TilePane TilePaneMonde;
+    private TilePane TilePaneSol;
+    @FXML
+    private TilePane TilePaneTraversable;
+    @FXML
+    private TilePane TilePaneNontraversable;
+
     @FXML
     private Pane paneEntite;
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
     private Circle spriteJoueur;
-    private Image grass = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/1.png");
-    private Image stone = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/2.png");
-    private Image gravel = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/3.png");
-
     int temps = 0;
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initMonde();
         initJoueur();
         initPane();
-        afficherMonde();
+
+        gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+        gestionAffichageMap.afficherMonde();
 
         /*for (int i = 0 ; i < 5 ; i++)
         {
@@ -91,10 +90,20 @@ public class Controller implements Initializable {
 
     public void initPane(){
         // Initialisation taille en fonction de la taille de la map
-        TilePaneMonde.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
-        TilePaneMonde.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
-        TilePaneMonde.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
-        TilePaneMonde.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneSol.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneSol.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneSol.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneSol.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+
+        TilePaneTraversable.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneTraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneTraversable.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneTraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+
+        TilePaneNontraversable.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneNontraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneNontraversable.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneNontraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
 
         // Listener pour que la TilePane et la Pane suivent le joueur
         joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
@@ -108,8 +117,7 @@ public class Controller implements Initializable {
     }
     public void initMonde()
     {
-        //Recupere une map statique depuis un fichier texte
-        monde = new Monde("src/main/resources/universite_paris8/iut/EtrangeEtrange/Map/MapTest");
+        monde = new Monde("src/main/resources/universite_paris8/iut/EtrangeEtrange/TiledMap/", "maptest", Monde.getSizeMondeHauteur(), Monde.getSizeMondeLargeur());
     }
 
     public void initJoueur(){
@@ -131,42 +139,6 @@ public class Controller implements Initializable {
 
         // Ajout du cercle au panneau paneEntité
         paneEntite.getChildren().add(spriteJoueur);
-    }
-
-    public void afficherMonde(){
-        // Récupération de la première couche de la map.
-        int[][] coucheMonde;
-        coucheMonde = monde.getFondMonde();
-
-
-        // Génération de l'image
-        for(int hauteur = 0; hauteur < Monde.getSizeMondeHauteur() ; hauteur++){
-            for(int largeur = 0; largeur < Monde.getSizeMondeLargeur() ; largeur++){
-                // identifiant de la tile à placer
-                int idTile = coucheMonde[hauteur][largeur];
-                // Attribution de la bonne tile à l'imageView
-                ImageView image;
-                if(idTile==1 ) {
-                    image = new ImageView(grass);
-                    image.setX(largeur*Constantes.tailleTile);
-                    image.setY(hauteur*Constantes.tailleTile);
-                    TilePaneMonde.getChildren().add(image);
-                }
-                else if(idTile==2) {
-                    image = new ImageView(stone);
-                    image.setX(largeur*Constantes.tailleTile);
-                    image.setY(hauteur*Constantes.tailleTile);
-                    TilePaneMonde.getChildren().add(image);
-                }
-                else if(idTile==3) {
-                    image = new ImageView(gravel);
-                    image.setX(largeur*Constantes.tailleTile);
-                    image.setY(hauteur*Constantes.tailleTile);
-                    TilePaneMonde.getChildren().add(image);
-                }
-
-            }
-        }
     }
 
 

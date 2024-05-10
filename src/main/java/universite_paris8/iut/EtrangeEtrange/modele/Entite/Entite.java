@@ -1,6 +1,5 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
-import universite_paris8.iut.EtrangeEtrange.controller.Controller;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Defense;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.DefenseSpecial;
@@ -149,16 +148,17 @@ public abstract class Entite {
         boolean colision = false;
         int cpt = (int) extremite1;
 
+        int[][] nontraversable = monde.getNontraversable();
         while(cpt <= extremite2 && !colision){
             colision = switch (direction) {
                 case BAS ->
-                        monde.getFondMonde()[(int) (hitbox.getPointLePlusEnBas(y) + vitesse.getVitesseActuelle())][cpt] == 3;
+                        nontraversable[(int) (hitbox.getPointLePlusEnBas(y) + vitesse.getVitesseActuelle())][cpt] != -1;
                 case HAUT ->
-                        monde.getFondMonde()[(int) (hitbox.getPointLePlusEnHaut(y) - vitesse.getVitesseActuelle())][cpt] == 3;
+                        nontraversable[(int) (hitbox.getPointLePlusEnHaut(y) - vitesse.getVitesseActuelle())][cpt] != -1;
                 case DROITE ->
-                        monde.getFondMonde()[cpt][(int) (hitbox.getPointLePlusADroite(x) + vitesse.getVitesseActuelle())] == 3;
+                        nontraversable[cpt][(int) (hitbox.getPointLePlusADroite(x) + vitesse.getVitesseActuelle())] != -1;
                 case GAUCHE ->
-                        monde.getFondMonde()[cpt][(int) (hitbox.getPointLePlusAGauche(x) - vitesse.getVitesseActuelle())] == 3;
+                        nontraversable[cpt][(int) (hitbox.getPointLePlusAGauche(x) - vitesse.getVitesseActuelle())] != -1;
             };
             cpt++;
         }

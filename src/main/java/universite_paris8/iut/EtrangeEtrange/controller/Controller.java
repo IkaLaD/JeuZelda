@@ -2,14 +2,15 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Personnage.Guerrier;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
@@ -209,6 +210,7 @@ public class Controller implements Initializable {
             {
                 color = Color.BLACK;
                 this.paneEntite.getChildren().remove(circle);
+                this.monde.enleveEntite(entite);
             }
             
             circle.setFill(color);
@@ -246,12 +248,14 @@ public class Controller implements Initializable {
                 }
                 break;
         }
-        System.out.println(joueur.getPosition().getX()+" "+joueur.getPosition().getY());
+
     }
 
-    public void mouseClick(MouseEvent mouseEvent) {
+    public void mouseClick(MouseEvent mouseEvent)
+    {
         this.paneEntite.requestFocus();
 
-        this.joueur.actionMainDroite();
+        if (mouseEvent.getButton() == MouseButton.PRIMARY)
+            this.joueur.actionMainDroite();
     }
 }

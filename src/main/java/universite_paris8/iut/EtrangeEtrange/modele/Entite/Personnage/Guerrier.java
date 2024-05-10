@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Personnage;
+package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;

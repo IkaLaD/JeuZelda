@@ -194,6 +194,10 @@ public class Monde {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
+    public void enleveEntite(Entite entite)
+    {
+        this.entites.remove(entite);
+    }
 
     public static double getxPointDeDepart(){
         return xPointDeDepart;

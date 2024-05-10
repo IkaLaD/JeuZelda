@@ -16,7 +16,7 @@ public class Monde {
     private static final int sizeMondeHauteur = 33;
     private static final int sizeMondeLargeur = 33;
     private static final double xPointDeDepart = 16;
-    private static final double yPointDeDepart = 32;
+    private static final double yPointDeDepart = 16;
     /**
      * Ici sont stocké les informations des sols du monde (ex : sol)
      */

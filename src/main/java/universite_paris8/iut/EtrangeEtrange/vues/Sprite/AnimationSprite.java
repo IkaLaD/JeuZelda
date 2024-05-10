@@ -11,6 +11,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
 public class AnimationSprite {
     private Entite entite;
+    private String typeEntite;
     private ImageView sprite;
     int image = 1;
 
@@ -23,15 +24,15 @@ public class AnimationSprite {
         };
 
         if(image == 1){
-            sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+face+image+".png"));
+            sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+typeEntite+"/"+face+image+".png"));
             image=2;
         }
         else if(image == 2){
-            sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+face+image+".png"));
+            sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+typeEntite+"/"+face+image+".png"));
             image=3;
         }
         else {
-            sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+face+image+".png"));
+            sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+typeEntite+"/"+face+image+".png"));
             image=2;
         }
 
@@ -42,9 +43,10 @@ public class AnimationSprite {
      * @param spriteDefaut
      * @param entite
      */
-    public AnimationSprite(ImageView spriteDefaut, Entite entite){
+    public AnimationSprite(ImageView spriteDefaut, Entite entite, String typeEntite){
         this.sprite = spriteDefaut;
         this.entite = entite;
+        this.typeEntite = typeEntite;
 
         entite.getPosition().getXProperty().addListener((obs, old, nouv)->
                 sprite.setTranslateX(entite.getPosition().getX()* Constantes.tailleTile-32)
@@ -72,7 +74,7 @@ public class AnimationSprite {
             case DROITE -> "droite";
             case GAUCHE -> "gauche";
         };
-        this.sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+face+1+".png"));
+        this.sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+typeEntite+"/"+face+1+".png"));
     }
 
     public ImageView getSprite(){

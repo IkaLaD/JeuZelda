@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
@@ -53,12 +54,15 @@ public class Controller implements Initializable {
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMonde();
 
-        /*for (int i = 0 ; i < 5 ; i++)
-        {
-            Lambda lambda = new Lambda(monde,i,i,Direction.GAUCHE,new Hitbox(0.50,0.50));
-            monde.ajoutEntite(lambda);
-            initSprite(lambda);
-        }*/
+
+        Lambda lambda = new Lambda(monde,16,16,Direction.GAUCHE,new Hitbox(0.50,0.50));
+        AnimationSprite animLambda = new AnimationSprite(new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/pnjtest/bas1.png"), lambda, "pnjtest");
+        animLambda.debutAnimationMarche();
+        paneEntite.getChildren().add(animLambda.getSprite());
+        monde.ajoutEntite(lambda);
+
+        //initSprite(lambda);
+
 
         initAnimation();
         gameLoop.play();
@@ -126,7 +130,7 @@ public class Controller implements Initializable {
         // Initialisation Coordonnées centre monde et des listeners
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS) {
         };
-        spriteJoueur = new AnimationSprite(new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/bas1.png"), joueur);
+        spriteJoueur = new AnimationSprite(new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/chevalier/bas1.png"), joueur, "chevalier");
 
         // Ajout du cercle au panneau paneEntité
         paneEntite.getChildren().add(spriteJoueur.getSprite());

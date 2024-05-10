@@ -9,7 +9,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 public class Lambda extends Humanoide implements Controlable {
     public Lambda(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(100, 5, 50, 1, 20, 0.8,null,null,null, monde, x, y, direction, hitbox);
+        super(100, 5, 50, 1, 20, 0.1,null,null,null, monde, x, y, direction, hitbox);
     }
 
     @Override

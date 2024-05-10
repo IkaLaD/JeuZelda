@@ -3,6 +3,7 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
@@ -52,12 +53,12 @@ public class Controller implements Initializable {
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMonde();
 
-        /*for (int i = 0 ; i < 5 ; i++)
+        for (int i = 0 ; i < 5 ; i++)
         {
             Lambda lambda = new Lambda(monde,i,i,Direction.GAUCHE,new Hitbox(0.50,0.50));
             monde.ajoutEntite(lambda);
             initSprite(lambda);
-        }*/
+        }
 
         initAnimation();
         gameLoop.play();
@@ -149,7 +150,8 @@ public class Controller implements Initializable {
         circle.setTranslateX(position.getX()*Constantes.tailleTile);
         circle.setTranslateY(position.getY()*Constantes.tailleTile);
 
-        entite.getPv().getPvActuelleProperty().addListener(e-> {
+        entite.getPv().getPvActuelleProperty().addListener(e->
+        {
             Color color;
             
             double pv = entite.getPv().getPvActuelle();
@@ -165,12 +167,12 @@ public class Controller implements Initializable {
             else if (pv > 0)
             {
                 color = Color.RED;
-                System.out.println(pv);
             }
             else
             {
                 color = Color.BLACK;
                 this.paneEntite.getChildren().remove(circle);
+                this.monde.enleveEntite(entite);
             }
             
             circle.setFill(color);
@@ -181,6 +183,7 @@ public class Controller implements Initializable {
 
 
     public void keyPressed(KeyEvent keyEvent) {
+        spriteJoueur.debutAnimationMarche();
         KeyCode keyCode = keyEvent.getCode();
         switch (keyCode){
             case Q:
@@ -200,17 +203,20 @@ public class Controller implements Initializable {
                 joueur.seDeplace();
                 break;
         }
+
     }
     public void onKeyReleased(KeyEvent keyEvent) {
         spriteJoueur.finAnimationMarche();
     }
 
-    public void oneKeyTyped(KeyEvent keyEvent) {
-        spriteJoueur.debutAnimationMarche();
-    }
 
-    public void mouseClick(MouseEvent mouseEvent) {
+
+    public void mouseClick(MouseEvent mouseEvent)
+    {
         this.paneEntite.requestFocus();
+
+        if (mouseEvent.getButton() == MouseButton.PRIMARY)
+            this.joueur.actionMainDroite();
     }
 
 

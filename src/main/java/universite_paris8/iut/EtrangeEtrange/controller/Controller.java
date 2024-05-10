@@ -187,7 +187,8 @@ public class Controller implements Initializable {
         circle.setTranslateX(position.getX()*Constantes.tailleTile);
         circle.setTranslateY(position.getY()*Constantes.tailleTile);
 
-        entite.getPv().getPvActuelleProperty().addListener(e-> {
+        entite.getPv().getPvActuelleProperty().addListener(e->
+        {
             Color color;
             
             double pv = entite.getPv().getPvActuelle();
@@ -203,7 +204,6 @@ public class Controller implements Initializable {
             else if (pv > 0)
             {
                 color = Color.RED;
-                System.out.println(pv);
             }
             else
             {

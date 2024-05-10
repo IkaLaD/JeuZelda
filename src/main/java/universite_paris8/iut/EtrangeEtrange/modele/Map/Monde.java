@@ -171,6 +171,30 @@ public class Monde {
         this.fondMonde = generationManuelle;
     }
 
+    public ArrayList<Entite> getEntites(Position pos, double rayon)
+    {
+        ArrayList<Entite> entitesDansRayon = new ArrayList<>();
+
+        for (Entite entite : this.entites)
+        {
+            if (calculerDistance(entite.getPosition(), pos) <= rayon) {
+                entitesDansRayon.add(entite);
+            }
+        }
+
+        return entitesDansRayon;
+    }
+
+
+    private double calculerDistance(Position pos1, Position pos2)
+    {
+        double dx = pos2.getX() - pos1.getX();
+        double dy = pos2.getY() - pos1.getY();
+
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+
     public static double getxPointDeDepart(){
         return xPointDeDepart;
     }

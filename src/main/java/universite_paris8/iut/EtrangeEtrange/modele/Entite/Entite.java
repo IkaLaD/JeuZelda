@@ -129,7 +129,8 @@ public abstract class Entite {
         };
     }
 
-    public boolean collision(){
+    public boolean collision()
+    {
         double x = position.getX();
         double y = position.getY();
 

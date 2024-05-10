@@ -101,10 +101,6 @@ public abstract class Entite {
     public void setDirection(Direction direction){
         this.direction = direction;
     }
-    public boolean provoqueUnecollision(double x, double y)
-    {
-        return getMonde().getTileType((int)x, (int)y) == 3;
-    }
 
     /**
      * Méthode qui vérifie si la prochaine position ou souhaite aller l'entité ne soit pas hors map ou un mur
@@ -123,7 +119,6 @@ public abstract class Entite {
      * @return
      */
     public boolean horsMap(){
-        System.out.println(hitbox.getPointLePlusADroite(position.getX())+vitesse.getVitesse());
         return switch (direction){
             case BAS -> hitbox.getPointLePlusEnBas(position.getY())+vitesse.getVitesseActuelle()>=Monde.getSizeMondeHauteur();
             case HAUT -> hitbox.getPointLePlusEnHaut(position.getY())-vitesse.getVitesseActuelle()<0;
@@ -132,7 +127,8 @@ public abstract class Entite {
         };
     }
 
-    public boolean collision(){
+    public boolean collision()
+    {
         double x = position.getX();
         double y = position.getY();
 

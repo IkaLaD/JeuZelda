@@ -1,13 +1,15 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PnjOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
-public class Lambda extends PnjOffensif {
+public class Lambda extends Humanoide implements Controlable {
     public Lambda(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(100, 5, 50, 1, 20, 0.1, monde, x, y, direction, hitbox);
+        super(100, 5, 50, 1, 20, 0.8,null,null,null, monde, x, y, direction, hitbox);
     }
 
     @Override
@@ -22,12 +24,18 @@ public class Lambda extends PnjOffensif {
     }
 
     @Override
+    public void actionMainDroite() {
+
+    }
+
+    @Override
     public void attaque() {
 
     }
 
     @Override
-    public void action() {
+    public void action()
+    {
         int d = (int) (Math.random()*4+1);
         switch (d)
         {
@@ -44,12 +52,6 @@ public class Lambda extends PnjOffensif {
                 setDirection(Direction.BAS);
                 break;
         }
-
-        int rdm = (int) (Math.random() * 501) +1;
-
-        if (rdm > 400)
-            enlevePv(4);
-
         seDeplace();
     }
 }

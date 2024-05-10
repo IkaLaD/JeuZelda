@@ -2,6 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
@@ -18,9 +19,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesPersonnages;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import java.net.URL;
@@ -39,7 +40,7 @@ public class Controller implements Initializable {
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
-    private Circle spriteJoueur;
+    private AnimationSprite spriteJoueur;
     int temps = 0;
 
     @Override
@@ -124,21 +125,10 @@ public class Controller implements Initializable {
         // Initialisation Coordonnées centre monde et des listeners
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS) {
         };
-        spriteJoueur = new Circle((ConstantesPersonnages.GUERRIER_HITBOX/2)*Constantes.tailleTile, Color.RED);
-
-        joueur.getPosition().getXProperty().addListener((obs, old, nouv)->
-                spriteJoueur.setTranslateX(joueur.getPosition().getX()*Constantes.tailleTile)
-        );
-        joueur.getPosition().getYProperty().addListener((obs, old, nouv)->
-                spriteJoueur.setTranslateY(joueur.getPosition().getY()*Constantes.tailleTile)
-        );
-
-        // Paramètres cercle pour visualiser le joueur
-        spriteJoueur.setTranslateX(joueur.getPosition().getX()*Constantes.tailleTile);
-        spriteJoueur.setTranslateY(joueur.getPosition().getY()*Constantes.tailleTile);
+        spriteJoueur = new AnimationSprite(new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/bas1.png"), joueur);
 
         // Ajout du cercle au panneau paneEntité
-        paneEntite.getChildren().add(spriteJoueur);
+        paneEntite.getChildren().add(spriteJoueur.getSprite());
     }
 
 
@@ -211,8 +201,17 @@ public class Controller implements Initializable {
                 break;
         }
     }
+    public void onKeyReleased(KeyEvent keyEvent) {
+        spriteJoueur.finAnimationMarche();
+    }
+
+    public void oneKeyTyped(KeyEvent keyEvent) {
+        spriteJoueur.debutAnimationMarche();
+    }
 
     public void mouseClick(MouseEvent mouseEvent) {
         this.paneEntite.requestFocus();
     }
+
+
 }

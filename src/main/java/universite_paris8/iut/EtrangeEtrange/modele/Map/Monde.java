@@ -12,10 +12,10 @@ public class Monde {
      * Taille du monde (généré aléatoirement)
      * Ces valeurs ne servent que pour tester le fonctionnement de la scrolling map, elles seront supprimées lorsque les tests seront finis.
      */
-    private static final int sizeMondeHauteur = 32;
-    private static final int sizeMondeLargeur = 32;
-    private static final double xPointDeDepart = 2;
-    private static final double yPointDeDepart = 2;
+    private static final int sizeMondeHauteur = 33;
+    private static final int sizeMondeLargeur = 33;
+    private static final double xPointDeDepart = 16;
+    private static final double yPointDeDepart = 32;
     /**
      * Ici sont stocké les informations des sols du monde (ex : sol)
      */

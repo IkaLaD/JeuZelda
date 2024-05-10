@@ -111,7 +111,11 @@ public abstract class Entite {
      * @return
      */
     public boolean peutSeDeplacer(){
-        return !horsMap() && !collision();
+        if(horsMap())
+            return false;
+        if(collision())
+            return false;
+        return true;
     }
 
     /**
@@ -121,10 +125,10 @@ public abstract class Entite {
     public boolean horsMap(){
         System.out.println(hitbox.getPointLePlusADroite(position.getX())+vitesse.getVitesse());
         return switch (direction){
-            case BAS -> hitbox.getPointLePlusEnBas(position.getY())+vitesse.getVitesse()>Monde.getSizeMondeHauteur();
-            case HAUT -> hitbox.getPointLePlusEnHaut(position.getY())-vitesse.getVitesse()<0;
-            case DROITE -> hitbox.getPointLePlusADroite(position.getX())+vitesse.getVitesse()>Monde.getSizeMondeLargeur();
-            case GAUCHE -> hitbox.getPointLePlusAGauche(position.getX())-vitesse.getVitesse()<0;
+            case BAS -> hitbox.getPointLePlusEnBas(position.getY())+vitesse.getVitesseActuelle()>=Monde.getSizeMondeHauteur();
+            case HAUT -> hitbox.getPointLePlusEnHaut(position.getY())-vitesse.getVitesseActuelle()<0;
+            case DROITE -> hitbox.getPointLePlusADroite(position.getX())+vitesse.getVitesseActuelle()>=Monde.getSizeMondeLargeur();
+            case GAUCHE -> hitbox.getPointLePlusAGauche(position.getX())-vitesse.getVitesseActuelle()<0;
         };
     }
 
@@ -149,6 +153,7 @@ public abstract class Entite {
         int cpt = (int) extremite1;
 
         int[][] nontraversable = monde.getNontraversable();
+        System.out.println((hitbox.getPointLePlusADroite(x) + vitesse.getVitesseActuelle())+" "+(int) (hitbox.getPointLePlusADroite(x) + vitesse.getVitesseActuelle()));
         while(cpt <= extremite2 && !colision){
             colision = switch (direction) {
                 case BAS ->

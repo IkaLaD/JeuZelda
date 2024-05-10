@@ -9,6 +9,8 @@
 
 <Pane fx:id="paneEntite" onKeyPressed="#keyPressed" onMouseClicked="#mouseClick" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.Controller">
    <children>
-      <TilePane fx:id="TilePaneMonde"/>
+      <TilePane fx:id="TilePaneSol"/>
+      <TilePane fx:id="TilePaneTraversable"/>
+      <TilePane fx:id="TilePaneNontraversable"/>
    </children>
 </Pane>

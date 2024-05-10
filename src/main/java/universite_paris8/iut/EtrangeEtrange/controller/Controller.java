@@ -195,30 +195,21 @@ public class Controller implements Initializable {
         switch (keyCode){
             case Q:
                 joueur.setDirection(Direction.GAUCHE);
-                if (!joueur.collision()) {
-                    joueur.seDeplace();
-                }
+                joueur.seDeplace();
                 break;
             case D:
                 joueur.setDirection(Direction.DROITE);
-                if (!joueur.collision()) {
-                    joueur.seDeplace();
-                }
+                joueur.seDeplace();
                 break;
             case Z:
                 joueur.setDirection(Direction.HAUT);
-                if (!joueur.collision()) {
-                    joueur.seDeplace();
-                }
+                joueur.seDeplace();
                 break;
             case S:
                 joueur.setDirection(Direction.BAS);
-                if (!joueur.collision()) {
-                    joueur.seDeplace();
-                }
+                joueur.seDeplace();
                 break;
         }
-        System.out.println(joueur.getPosition().getX()+" "+joueur.getPosition().getY());
     }
 
     public void mouseClick(MouseEvent mouseEvent) {

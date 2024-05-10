@@ -27,4 +27,14 @@ public class EpeeDeSoldat extends Arme {
     public double delaieEntreCoup() {
         return 1;
     }
+
+    @Override
+    public String getNom() {
+        return "Epée De Soldat";
+    }
+
+    @Override
+    public int stackMax() {
+        return 1;
+    }
 }

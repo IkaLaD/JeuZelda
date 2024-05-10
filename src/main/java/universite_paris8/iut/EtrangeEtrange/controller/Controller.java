@@ -8,8 +8,8 @@ import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Personnage.Guerrier;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
@@ -52,12 +52,12 @@ public class Controller implements Initializable {
         initPane();
         afficherMonde();
 
-        /*for (int i = 0 ; i < 5 ; i++)
+        for (int i = 0 ; i < 5 ; i++)
         {
             Lambda lambda = new Lambda(monde,i,i,Direction.GAUCHE,new Hitbox(0.50,0.50));
             monde.ajoutEntite(lambda);
             initSprite(lambda);
-        }*/
+        }
 
         initAnimation();
         gameLoop.play();
@@ -251,5 +251,7 @@ public class Controller implements Initializable {
 
     public void mouseClick(MouseEvent mouseEvent) {
         this.paneEntite.requestFocus();
+
+        this.joueur.actionMainDroite();
     }
 }

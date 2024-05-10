@@ -7,6 +7,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Humanoide extends EntiteOffensif
@@ -29,7 +30,29 @@ public abstract class Humanoide extends EntiteOffensif
 
     public void attaque()
     {
-        List<Entite> entites = getMonde().getEntities();
+        Dommageable arme = (Dommageable) objetMainDroite;
+
+        ArrayList<Entite> entites = getMonde().getEntites(getPosition(),arme.portee());
+
+        for (Entite entite : entites)
+            entite.subitDegat(getAttaque().getAttaqueActuelle(),getAttaqueSpecial().getAttaqueSpecialActuelle());
+
     }
 
+
+    @Override
+    protected double subitDegatPhysique(double attaque) {
+        return attaque - getDefense().getDefenseActuelle();
+    }
+
+    @Override
+    protected double subitDegatSpecial(double attaqueSpecial) {
+        return attaqueSpecial - getDefenseSpecial().getDefenseSpecialActuelle();
+    }
+
+
+    public Objet getObjetMainDroite()
+    {
+        return this.objetMainDroite;
+    }
 }

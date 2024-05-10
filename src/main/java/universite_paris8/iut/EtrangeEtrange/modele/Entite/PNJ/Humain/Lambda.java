@@ -45,10 +45,7 @@ public class Lambda extends PnjOffensif {
                 break;
         }
 
-        int rdm = (int) (Math.random() * 501) +1;
 
-        if (rdm > 400)
-            enlevePv(4);
 
         seDeplace();
     }

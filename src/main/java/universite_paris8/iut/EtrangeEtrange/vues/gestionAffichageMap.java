@@ -12,8 +12,11 @@ public class gestionAffichageMap {
     private ArrayList<TilePane> TilePaneCouchesMonde;
     private Monde monde;
     private Image grass = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sol/1.png");
-    private Image stone = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sol/2.png");
-    private Image gravel = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sol/3.png");
+    private Image gravel = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sol/2.png");
+    private Image stone1 = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sol/3.png");
+    private Image stone2 = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sol/4.png");
+    private Image stone3 = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sol/5.png");
+    private Image stone4 = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sol/6.png");
     private Image rose1 = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/traversable/1.png");
     private Image rose2 = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/traversable/2.png");
     private Image rose3 = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/traversable/3.png");
@@ -53,10 +56,19 @@ public class gestionAffichageMap {
                     image = new ImageView(grass);
                     break;
                 case 2 :
-                    image = new ImageView(stone);
+                    image = new ImageView(gravel);
                     break;
                 case 3:
-                    image = new ImageView(gravel);
+                    image = new ImageView(stone1);
+                    break;
+                case 4:
+                    image = new ImageView(stone2);
+                    break;
+                case 5:
+                    image = new ImageView(stone3);
+                    break;
+                case 6:
+                    image = new ImageView(stone4);
                     break;
                 default:
                     image = new ImageView();

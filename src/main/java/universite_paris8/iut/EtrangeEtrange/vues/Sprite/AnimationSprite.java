@@ -13,28 +13,17 @@ public class AnimationSprite {
     private Entite entite;
     private String typeEntite;
     private ImageView sprite;
-    int image = 1;
+    int image;
 
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.25), event -> {
+    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.15), event -> {
         String face = switch (entite.getDirection()){
             case BAS -> "bas";
             case HAUT -> "haut";
             case DROITE -> "droite";
             case GAUCHE -> "gauche";
         };
-
-        if(image == 1){
-            sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+typeEntite+"/"+face+image+".png"));
-            image=2;
-        }
-        else if(image == 2){
-            sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+typeEntite+"/"+face+image+".png"));
-            image=3;
-        }
-        else {
-            sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+typeEntite+"/"+face+image+".png"));
-            image=2;
-        }
+        sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+typeEntite+"/"+face+image+".png"));
+        miseAJourAnimation();
 
     }));
 
@@ -44,6 +33,7 @@ public class AnimationSprite {
      * @param entite
      */
     public AnimationSprite(ImageView spriteDefaut, Entite entite, String typeEntite){
+        this.image = 1;
         this.sprite = spriteDefaut;
         this.entite = entite;
         this.typeEntite = typeEntite;
@@ -66,8 +56,16 @@ public class AnimationSprite {
         timeline.play();
     }
 
+    public void miseAJourAnimation(){
+        if(image==6)
+            image=2;
+        else
+            image++;
+    }
+
     public void finAnimationMarche(){
         timeline.stop();
+        image=1;
         String face = switch (entite.getDirection()){
             case BAS -> "bas";
             case HAUT -> "haut";

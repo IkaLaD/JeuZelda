@@ -120,6 +120,13 @@ public class Controller implements Initializable {
         TilePaneNontraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
 
         // Listener pour que la TilePane et la Pane suivent le joueur
+        joueur.getPosition().getXProperty().addListener((obs, old, nouv)->
+                paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0)
+        );
+        joueur.getPosition().getYProperty().addListener((obs, old, nouv)->
+                paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0)
+        );
+
 
         paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0);
         paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0);

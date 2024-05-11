@@ -2,6 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Map;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -294,4 +295,65 @@ public class Monde {
             return -1;
         }
     }
+
+
+
+
+
+
+
+    public Sommet[][] getSommet()
+    {
+         return  null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

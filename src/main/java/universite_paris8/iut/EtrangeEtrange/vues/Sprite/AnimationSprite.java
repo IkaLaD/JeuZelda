@@ -15,7 +15,7 @@ public class AnimationSprite {
     private ImageView sprite;
     int image = 1;
 
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.25), event -> {
+    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.02), event -> {
         String face = switch (entite.getDirection()){
             case BAS -> "bas";
             case HAUT -> "haut";

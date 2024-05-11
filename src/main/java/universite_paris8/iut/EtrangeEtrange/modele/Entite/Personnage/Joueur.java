@@ -3,8 +3,11 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Guerrisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Mangeable;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Soins;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -27,7 +30,20 @@ public abstract class Joueur extends Humanoide
                 if (objet instanceof Dommageable)
                 {
                     attaque();
+                    System.out.println("fzf");
                 }
+
+                if (objet instanceof Mangeable)
+                {
+                    System.out.println("fzdzf");
+                }
+
+                if (objet instanceof Soins)
+                {
+                    getPv().ajoutPv(((Guerrisable) objet).restoration());
+                    System.out.println("soins");
+                }
+
             }
         }
     }

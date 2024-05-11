@@ -23,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
+import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
@@ -45,6 +46,8 @@ public class Controller implements Initializable {
     private AnimationSprite spriteJoueur;
     int temps = 0;
 
+    private Deplacement deplacement;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initMonde();
@@ -57,14 +60,19 @@ public class Controller implements Initializable {
 
         Lambda lambda = new Lambda(monde,16,16,Direction.GAUCHE,new Hitbox(0.50,0.50));
         AnimationSprite animLambda = new AnimationSprite(new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/pnjtest/bas1.png"), lambda, "pnjtest");
+
+        initSprite(lambda,animLambda);
+
+
         animLambda.debutAnimationMarche();
-        paneEntite.getChildren().add(animLambda.getSprite());
+
         monde.ajoutEntite(lambda);
 
         //initSprite(lambda);
 
-
+        deplacement = new Deplacement(joueur,spriteJoueur);
         initAnimation();
+        initSprite(joueur,spriteJoueur);
         gameLoop.play();
     }
 
@@ -112,12 +120,7 @@ public class Controller implements Initializable {
         TilePaneNontraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
 
         // Listener pour que la TilePane et la Pane suivent le joueur
-        joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
-            paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0);
-        });
-        joueur.getPosition().getYProperty().addListener((obs, old, nouv)-> {
-            paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0);
-        });
+
         paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0);
         paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0);
     }
@@ -137,22 +140,8 @@ public class Controller implements Initializable {
     }
 
 
-    private void initSprite(Entite entite)
+    private void initSprite(Entite entite,AnimationSprite s)
     {
-        Position position = entite.getPosition();
-        
-        Circle circle = new Circle((double) Constantes.tailleTile /4,Color.YELLOW);
-        
-        position.getXProperty().addListener(e-> {
-            circle.setTranslateX(position.getX()*Constantes.tailleTile);
-        });
-        
-        position.getYProperty().addListener(e-> {
-            circle.setTranslateY(position.getY()*Constantes.tailleTile);
-        });
-
-        circle.setTranslateX(position.getX()*Constantes.tailleTile);
-        circle.setTranslateY(position.getY()*Constantes.tailleTile);
 
         entite.getPv().getPvActuelleProperty().addListener(e->
         {
@@ -174,14 +163,12 @@ public class Controller implements Initializable {
             }
             else
             {
-                color = Color.BLACK;
-                this.paneEntite.getChildren().remove(circle);
+                this.paneEntite.getChildren().remove(s.getSprite());
                 this.monde.enleveEntite(entite);
             }
-            
-            circle.setFill(color);
+            System.out.println(entite.getPv().getPvActuelle());
         });
-        this.paneEntite.getChildren().add(circle);
+
     }
 
 
@@ -190,34 +177,26 @@ public class Controller implements Initializable {
         KeyCode keyCode = keyEvent.getCode();
         switch (keyCode){
             case Q:
-                joueur.setDirection(Direction.GAUCHE);
-                spriteJoueur.debutAnimationMarche();
-                joueur.seDeplace();
-
+                deplacement.addKeyCode(KeyCode.Q);
                 break;
             case D:
-                joueur.setDirection(Direction.DROITE);
-                spriteJoueur.debutAnimationMarche();
-                joueur.seDeplace();
-
+                deplacement.addKeyCode(KeyCode.D);
                 break;
             case Z:
-                joueur.setDirection(Direction.HAUT);
-                spriteJoueur.debutAnimationMarche();
-                joueur.seDeplace();
-
+                deplacement.addKeyCode(KeyCode.Z);
                 break;
             case S:
-                joueur.setDirection(Direction.BAS);
-                spriteJoueur.debutAnimationMarche();
-                joueur.seDeplace();
-
+                deplacement.addKeyCode(KeyCode.S);
+                break;
+            case M:
+                joueur.enlevePv(60);
                 break;
         }
 
     }
     public void onKeyReleased(KeyEvent keyEvent) {
         spriteJoueur.finAnimationMarche();
+        deplacement.removeKeyCode(keyEvent.getCode());
     }
 
 

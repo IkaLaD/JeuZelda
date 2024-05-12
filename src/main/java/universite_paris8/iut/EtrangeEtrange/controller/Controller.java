@@ -20,11 +20,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import java.net.URL;
@@ -37,7 +36,6 @@ public class Controller implements Initializable {
     private TilePane TilePaneTraversable;
     @FXML
     private TilePane TilePaneNontraversable;
-
     @FXML
     private Pane paneEntite;
     private Monde monde;
@@ -45,7 +43,6 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private AnimationSprite spriteJoueur;
     int temps = 0;
-
     private Deplacement deplacement;
 
     @Override
@@ -54,30 +51,26 @@ public class Controller implements Initializable {
         initJoueur();
         initPane();
 
+        gestionAffichageSprite gestionAffichageSprite = new gestionAffichageSprite(paneEntite);
+        monde.getObservableListEntites().addListener(gestionAffichageSprite);
+
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMonde();
 
 
-        Lambda lambda = new Lambda(monde,16,16,Direction.GAUCHE,new Hitbox(0.50,0.50));
-        AnimationSprite animLambda = new AnimationSprite(new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/pnjtest/bas1.png"), lambda, "pnjtest");
+        for(int i = 0 ; i < 10 ; i++) {
+            Lambda lambda = new Lambda(monde, 16, 16, Direction.GAUCHE, new Hitbox(0.50, 0.50));
+            monde.ajoutEntite(lambda);
+        }
 
-        initSprite(lambda,animLambda);
-
-
-        animLambda.debutAnimationMarche();
-
-        monde.ajoutEntite(lambda);
-
-        //initSprite(lambda);
 
         deplacement = new Deplacement(joueur,spriteJoueur);
-        initAnimation();
-        initSprite(joueur,spriteJoueur);
+        initGameLoop();
         gameLoop.play();
     }
 
 
-    private void initAnimation() {
+    private void initGameLoop() {
         gameLoop = new Timeline();
         temps=0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -138,47 +131,13 @@ public class Controller implements Initializable {
 
     public void initJoueur(){
         // Initialisation Coordonnées centre monde et des listeners
-        joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS) {
-        };
-        spriteJoueur = new AnimationSprite(new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/chevalier/bas1.png"), joueur, "chevalier");
+        joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
+
+        spriteJoueur = new AnimationSprite(joueur, "chevalier");
 
         // Ajout du cercle au panneau paneEntité
         paneEntite.getChildren().add(spriteJoueur.getSprite());
     }
-
-
-    private void initSprite(Entite entite,AnimationSprite s)
-    {
-
-        entite.getPv().getPvActuelleProperty().addListener(e->
-        {
-            Color color;
-            
-            double pv = entite.getPv().getPvActuelle();
-            
-            if (pv > 75)
-            {
-                color = Color.YELLOW;
-            }
-            else if (pv > 50)
-            {
-                color = Color.ORANGE;
-            }
-            else if (pv > 0)
-            {
-                color = Color.RED;
-            }
-            else
-            {
-                this.paneEntite.getChildren().remove(s.getSprite());
-                this.monde.enleveEntite(entite);
-            }
-            System.out.println(entite.getPv().getPvActuelle());
-        });
-
-    }
-
-
 
     public void keyPressed(KeyEvent keyEvent) {
         KeyCode keyCode = keyEvent.getCode();

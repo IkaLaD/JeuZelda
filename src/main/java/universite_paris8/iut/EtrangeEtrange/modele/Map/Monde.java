@@ -243,6 +243,10 @@ public class Monde {
         return entitesDansRayon;
     }
 
+    public ObservableList<Entite> getObservableListEntites(){
+        return this.entites;
+    }
+
 
     private double calculerDistance(Position pos1, Position pos2)
     {

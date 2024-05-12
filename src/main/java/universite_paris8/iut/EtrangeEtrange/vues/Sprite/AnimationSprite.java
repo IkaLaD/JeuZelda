@@ -11,7 +11,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
 public class AnimationSprite {
     private Entite entite;
-    private String typeEntite;
+    private String skin;
     private ImageView sprite;
     int image;
 
@@ -22,21 +22,19 @@ public class AnimationSprite {
             case DROITE -> "droite";
             case GAUCHE -> "gauche";
         };
-        sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+typeEntite+"/"+face+image+".png"));
+        sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+ skin +"/"+face+image+".png"));
         miseAJourAnimation();
 
     }));
 
     /**
      * La class est uniquement adapté pour le joueur pour le moment (les sprites de chevalier)
-     * @param spriteDefaut
-     * @param entite
      */
-    public AnimationSprite(ImageView spriteDefaut, Entite entite, String typeEntite){
+    public AnimationSprite(Entite entite, String skin){
         this.image = 1;
-        this.sprite = spriteDefaut;
+        this.sprite = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+skin+"/bas1.png");
         this.entite = entite;
-        this.typeEntite = typeEntite;
+        this.skin = skin;
 
         // On lie le sprite et l'entité par un même identifiant
         this.sprite.setId(entite.getId()+"");
@@ -75,7 +73,7 @@ public class AnimationSprite {
             case DROITE -> "droite";
             case GAUCHE -> "gauche";
         };
-        this.sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+typeEntite+"/"+face+1+".png"));
+        this.sprite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+ skin +"/"+face+1+".png"));
     }
 
     public ImageView getSprite(){

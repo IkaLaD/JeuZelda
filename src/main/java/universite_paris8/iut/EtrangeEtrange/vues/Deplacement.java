@@ -31,11 +31,6 @@ public class Deplacement {
         this.timeline.play();
     }
 
-
-
-
-
-
     private void initAnimationTimer() {
         this.timeline = new Timeline(new KeyFrame(Duration.seconds(0.020), event -> {
             seDeplace();

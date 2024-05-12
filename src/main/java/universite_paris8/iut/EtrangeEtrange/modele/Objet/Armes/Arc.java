@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arc;
+package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;

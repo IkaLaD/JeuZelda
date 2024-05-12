@@ -38,6 +38,9 @@ public class AnimationSprite {
         this.entite = entite;
         this.typeEntite = typeEntite;
 
+        // On lie le sprite et l'entité par un même identifiant
+        this.sprite.setId(entite.getId()+"");
+
         entite.getPosition().getXProperty().addListener((obs, old, nouv)->
                 sprite.setTranslateX(entite.getPosition().getX()* Constantes.tailleTile-32)
         );

@@ -1,5 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Map;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
@@ -28,7 +30,7 @@ public class Monde {
      * Ici sont stocké les informations des éléments du monde traversables (ex : buissons, fleurs, hautes herbes, etc.)
      */
 
-    private ArrayList<Entite> entites;
+    private ObservableList<Entite> entites;
 
     /**
      * Liste des identifiants des éléments du structureMonde :
@@ -36,7 +38,7 @@ public class Monde {
 
     public Monde(){
         this.sol = new int[sizeMondeHauteur][sizeMondeLargeur];
-        this.entites = new ArrayList<>();
+        this.entites = FXCollections.observableArrayList();
     }
 
     /**
@@ -45,8 +47,7 @@ public class Monde {
      * @param nommap
      */
     public Monde(String chemin, String nommap, int hauteur, int largeur){
-        this.entites = new ArrayList<>();
-
+        this.entites = FXCollections.observableArrayList();
         this.sol = new int[hauteur][largeur];
         this.traversable = new int[hauteur][largeur];
         this.nontraversable = new int[hauteur][largeur];
@@ -96,7 +97,7 @@ public class Monde {
      */
     public Monde(String nom)
     {
-        this.entites = new ArrayList<>();
+        this.entites = FXCollections.observableArrayList();
         try
         {
             BufferedReader reader = new BufferedReader(new FileReader(nom));
@@ -141,7 +142,6 @@ public class Monde {
     public int[][] getSol() {
         return sol;
     }
-
     public int[][] getNontraversable(){
         return nontraversable;
     }

@@ -23,7 +23,6 @@ public abstract class Entite {
     public Entite(double pv,double defense,double defenseSpecial,double vitesse,Monde monde,double x,double y,Direction direction, Hitbox hitbox)
     {
         this.id = staticIdEntité++;
-
         this.pv = new Pv(pv);
         this.defense = new Defense(defense);
         this.defenseSpecial = new DefenseSpecial(defenseSpecial);
@@ -86,9 +85,10 @@ public abstract class Entite {
     }
 
 
-
-
     public Pv getPv() {return this.pv;}
+    public int getId(){
+        return this.id;
+    }
     public Defense getDefense(){return this.defense;}
     public DefenseSpecial getDefenseSpecial(){return this.defenseSpecial;}
     public Vitesse getVitesse(){return this.vitesse;}

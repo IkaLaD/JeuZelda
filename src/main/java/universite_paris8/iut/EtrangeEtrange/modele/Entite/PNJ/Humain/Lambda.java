@@ -36,21 +36,23 @@ public class Lambda extends Humanoide implements Controlable {
     @Override
     public void action()
     {
-        int d = (int) (Math.random()*4+1);
-        switch (d)
-        {
-            case 1:
-                setDirection(Direction.DROITE);
-                break;
-            case 2:
-                setDirection(Direction.GAUCHE);
-                break;
-            case 3:
-                setDirection(Direction.HAUT);
-                break;
-            case 4:
-                setDirection(Direction.BAS);
-                break;
+        double probaChangement = Math.random();
+        if(probaChangement>0.80) {
+            int d = (int) (Math.random() * 4 + 1);
+            switch (d) {
+                case 1:
+                    setDirection(Direction.DROITE);
+                    break;
+                case 2:
+                    setDirection(Direction.GAUCHE);
+                    break;
+                case 3:
+                    setDirection(Direction.HAUT);
+                    break;
+                case 4:
+                    setDirection(Direction.BAS);
+                    break;
+            }
         }
         seDeplace();
     }

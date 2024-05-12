@@ -1,42 +1,26 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+
+import java.util.ArrayList;
+
 public class Sommet
 {
-    private double x,y;
-    private double poids;
-    private double heuristique;
-
-    public Sommet(double x, double y,double poids)
+    private int x,y;
+    public Sommet(int x, int y)
     {
         this.x = x;
         this.y = y;
-        this.poids = poids;
     }
 
 
-    public void setHeuristique(double heuristique)
-    {
-        this.heuristique = heuristique;
-    }
-
-    public double getY() {
+    public int getY() {
         return y;
     }
 
-    public double getX()
+    public int getX()
     {
         return x;
-    }
-
-
-    public double getPoids()
-    {
-        return this.poids;
-    }
-
-    public double getHeuristique()
-    {
-        return this.heuristique;
     }
 }
 

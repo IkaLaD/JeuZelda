@@ -145,7 +145,9 @@ public class Monde {
     public int[][] getNontraversable(){
         return nontraversable;
     }
-
+    public int[][] getTraversable(){
+        return this.traversable;
+    }
     /**
      * Génération totalement aléatoire d'un monde (pour les tests).
      */

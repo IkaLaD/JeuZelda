@@ -1,17 +1,19 @@
 package universite_paris8.iut.EtrangeEtrange.vues.Sprite;
 
 import javafx.collections.ListChangeListener;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
-import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
+
+import java.util.ArrayList;
 
 public class gestionAffichageSprite implements ListChangeListener<Entite> {
     private Pane paneEntite;
+    private ArrayList<AnimationSprite> animationSprites;
     public gestionAffichageSprite(Pane paneEntite){
         this.paneEntite = paneEntite;
+        this.animationSprites = new ArrayList<>();
     }
     @Override
     public void onChanged(Change<? extends Entite> change) {
@@ -19,8 +21,9 @@ public class gestionAffichageSprite implements ListChangeListener<Entite> {
             for (Entite entite : change.getAddedSubList()) {
                 creeSprite(entite);
             }
-            for(Entite entite : change.getRemoved())
+            for(Entite entite : change.getRemoved()) {
                 suprimmerSprite(entite);
+            }
         }
     }
     /**
@@ -44,9 +47,10 @@ public class gestionAffichageSprite implements ListChangeListener<Entite> {
         marche, et non l'activer dès le début que l'entite est ajouter à la liste
          */
         animationSprite.debutAnimationMarche();
+        animationSprites.add(animationSprite);
 
-
-        paneEntite.getChildren().add(animationSprite.getSprite());
+        paneEntite.getChildren().add(animationSprite.getSpriteEntite());
+        paneEntite.getChildren().add(animationSprite.ajoutBarrePv());
     }
 
     /**
@@ -54,6 +58,15 @@ public class gestionAffichageSprite implements ListChangeListener<Entite> {
      * @param entite
      */
     public void suprimmerSprite(Entite entite){
-        paneEntite.getChildren().remove(paneEntite.lookup(entite.getId()+""));
+        AnimationSprite animationSprite = null;
+        for(int i = 0 ; i < animationSprites.size() ; i++){
+            if(animationSprites.get(i).getId() == entite.getId()){
+                animationSprite = animationSprites.get(i);
+            }
+        }
+        if(animationSprite!=null) {
+            paneEntite.getChildren().remove(animationSprite.getSpriteVie());
+            paneEntite.getChildren().remove(animationSprite.getSpriteEntite());
+        }
     }
 }

@@ -40,8 +40,6 @@ public class gestionAffichageMap {
                 for (int largeur = 0; largeur < Monde.getSizeMondeLargeur(); largeur++) {
                     int idTile = couchesMap.get(i)[hauteur][largeur];
                     ImageView imageView = getImage(i, idTile);
-                    imageView.setX(largeur * Constantes.tailleTile);
-                    imageView.setY(hauteur * Constantes.tailleTile);
                     TilePaneCouchesMonde.get(i).getChildren().add(imageView);
                 }
             }

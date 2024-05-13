@@ -5,7 +5,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 public class EpeeDeSoldat extends Arme {
     @Override
     public double degatPhysique() {
-        return 20;
+        return 2;
     }
 
     @Override

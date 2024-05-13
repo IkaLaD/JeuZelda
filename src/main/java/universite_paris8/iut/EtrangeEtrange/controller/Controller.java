@@ -2,7 +2,6 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -19,7 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
@@ -52,13 +50,13 @@ public class Controller implements Initializable {
         initPane();
 
         gestionAffichageSprite gestionAffichageSprite = new gestionAffichageSprite(paneEntite);
-        monde.getObservableListEntites().addListener(gestionAffichageSprite);
+        monde.setListenerListeEntites(gestionAffichageSprite);
 
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMonde();
 
 
-        for(int i = 0 ; i < 10 ; i++) {
+        for(int i = 0 ; i < 30 ; i++) {
             Lambda lambda = new Lambda(monde, 16, 16, Direction.GAUCHE, new Hitbox(0.50, 0.50));
             monde.ajoutEntite(lambda);
         }
@@ -99,18 +97,13 @@ public class Controller implements Initializable {
         // Initialisation taille en fonction de la taille de la map
         TilePaneSol.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
         TilePaneSol.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
-        TilePaneSol.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
-        TilePaneSol.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
 
-        TilePaneTraversable.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
-        TilePaneTraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
         TilePaneTraversable.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
         TilePaneTraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
 
         TilePaneNontraversable.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
         TilePaneNontraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
-        TilePaneNontraversable.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
-        TilePaneNontraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+
 
         // Listener pour que la TilePane et la Pane suivent le joueur
         joueur.getPosition().getXProperty().addListener((obs, old, nouv)->
@@ -119,7 +112,6 @@ public class Controller implements Initializable {
         joueur.getPosition().getYProperty().addListener((obs, old, nouv)->
                 paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0)
         );
-
 
         paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0);
         paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0);
@@ -136,7 +128,7 @@ public class Controller implements Initializable {
         spriteJoueur = new AnimationSprite(joueur, "chevalier");
 
         // Ajout du cercle au panneau paneEntité
-        paneEntite.getChildren().add(spriteJoueur.getSprite());
+        paneEntite.getChildren().add(spriteJoueur.getSpriteEntite());
     }
 
     public void keyPressed(KeyEvent keyEvent) {

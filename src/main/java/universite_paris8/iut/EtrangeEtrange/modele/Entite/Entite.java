@@ -1,12 +1,18 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Defense;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.DefenseSpecial;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Vitesse;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Surface;
+import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.CauseDegat;
+import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.DegatParEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.DegatParEpee;
+import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.DegatParProjectile;
 
 public abstract class Entite {
     private static int staticIdEntité = 0;
@@ -34,14 +40,34 @@ public abstract class Entite {
         this.hitbox = hitbox;
     }
 
-    public void subitDegat(double attaque,double attaqueSpecial)
+    public void subitDegat(CauseDegat causeDegat)
     {
-        double pvPerdu = subitDegatPhysique(attaque)+subitDegatSpecial(attaqueSpecial);
-        this.pv.enleverPv(pvPerdu);
+
+        if (causeDegat instanceof DegatParEntite)
+        {
+            EntiteOffensif entiteOffensif = ((DegatParEntite) causeDegat).getOrigineDegat();
+
+            if (causeDegat instanceof DegatParEpee)
+            {
+                enlevePv(20);
+
+                subitDegatPhysique(causeDegat.getOrgineAttaque().degatPhysique(),((DegatParEpee) causeDegat).getOrigineDegat().getAttaque().getAttaqueActuelle());
+                subitDegatSpecial(causeDegat.getOrgineAttaque().degatSpecial(),((DegatParEpee) causeDegat).getOrigineDegat().getAttaqueSpecial().getAttaqueSpecialActuelle());
+            }
+            else if (causeDegat instanceof DegatParProjectile)
+            {
+                enlevePv(20);
+                Projectile projectile = (Projectile) causeDegat.getOrgineAttaque();
+                projectile.toucher();
+            }
+
+        }
+
+
     }
 
-    protected abstract double subitDegatPhysique(double attaque);
-    protected abstract double subitDegatSpecial(double attaqueSpecial);
+    protected abstract double subitDegatPhysique(double degat,double forceEntite);
+    protected abstract double subitDegatSpecial(double attaqueSpecial,double forceEntite);
 
 
     public void enlevePv(double pv)
@@ -164,5 +190,10 @@ public abstract class Entite {
             cpt++;
         }
         return colision;
+    }
+
+    public Surface getSurface()
+    {
+        return new Surface(position,hitbox);
     }
 }

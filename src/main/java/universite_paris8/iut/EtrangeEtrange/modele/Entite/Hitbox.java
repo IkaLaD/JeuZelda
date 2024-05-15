@@ -32,4 +32,12 @@ public class Hitbox {
         return y +  hauteur/2;
     }
 
+
+    public double getLargeur() {
+        return this.largeur;
+    }
+
+    public double getHauteur() {
+        return this.hauteur;
+    }
 }

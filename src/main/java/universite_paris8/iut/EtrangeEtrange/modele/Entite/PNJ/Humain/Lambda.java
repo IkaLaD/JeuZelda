@@ -12,16 +12,7 @@ public class Lambda extends Humanoide implements Controlable {
         super(100, 5, 50, 1, 20, 0.1,null,null,null, monde, x, y, direction, hitbox);
     }
 
-    @Override
-    protected double subitDegatPhysique(double attaque)
-    {
-        return getDefense().getDefenseActuelle() - attaque;
-    }
 
-    @Override
-    protected double subitDegatSpecial(double attaqueSpecial) {
-        return getDefenseSpecial().getDefenseSpecialActuelle() - attaqueSpecial;
-    }
 
     @Override
     public void actionMainDroite() {

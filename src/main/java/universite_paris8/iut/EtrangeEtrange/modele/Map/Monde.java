@@ -1,16 +1,24 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Map;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
+import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.CauseDegat;
+import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.DegatParEpee;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionProjectile;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Monde {
     /**
@@ -33,6 +41,10 @@ public class Monde {
 
     private ObservableList<Entite> entites;
 
+    private ArrayList<CauseDegat> causeDegats;
+
+    private ObservableList<Projectile> projectiles = FXCollections.observableArrayList();
+
     /**
      * Liste des identifiants des éléments du structureMonde :
      */
@@ -40,6 +52,7 @@ public class Monde {
     public Monde(){
         this.sol = new int[sizeMondeHauteur][sizeMondeLargeur];
         this.entites = FXCollections.observableArrayList();
+        this.causeDegats = new ArrayList<>();
     }
 
     /**
@@ -47,12 +60,13 @@ public class Monde {
      * @param chemin
      * @param nommap
      */
-    public Monde(String chemin, String nommap, int hauteur, int largeur){
+    public Monde(String chemin, String nommap, int hauteur, int largeur)
+    {
         this.entites = FXCollections.observableArrayList();
         this.sol = new int[hauteur][largeur];
         this.traversable = new int[hauteur][largeur];
         this.nontraversable = new int[hauteur][largeur];
-
+        this.causeDegats = new ArrayList<>();
         ArrayList<int[][]> coucheMap = new ArrayList<>();
         coucheMap.add(this.sol);
         coucheMap.add(this.traversable);
@@ -81,15 +95,6 @@ public class Monde {
                 System.err.println("Erreur de format dans le fichier : " + e.getMessage());
             }
         }
-        for(int[][] map : coucheMap){
-            for(int i = 0 ; i < map.length ; i++){
-                for(int j = 0 ; j < map[i].length ; j++)
-                    System.out.print(map[i][j]+"\t");
-                System.out.println();
-            }
-            System.out.println("\n\n");
-        }
-
     }
 
     /**
@@ -98,6 +103,7 @@ public class Monde {
      */
     public Monde(String nom)
     {
+        this.causeDegats = new ArrayList<>();
         this.entites = FXCollections.observableArrayList();
         try
         {
@@ -243,8 +249,29 @@ public class Monde {
         entites.addListener(gestionAffichageSprite);
     }
 
+    public void setListenerProjectile(GestionProjectile gestionProjectile)
+    {
+        this.projectiles.addListener(gestionProjectile);
+    }
+
+    public void ajoutCauseDegat(CauseDegat causeDegat)
+    {
+        this.causeDegats.add(causeDegat);
+    }
+
+    public void ajoutProjectile(Projectile projectile)
+    {
+        this.projectiles.add(projectile);
+    }
 
 
+    public void deplacementProjectile()
+    {
+        for (Projectile projectile : projectiles) {
+            projectile.seDeplace();
+            System.out.println(projectile.getX()+"-"+projectile.getY());
+        }
+    }
 
 
     public Sommet[][] getSommet()
@@ -254,51 +281,69 @@ public class Monde {
 
 
 
+    public void verificationCollisionAvecArme()
+    {
+        for (int i = entites.size()-1;i>=0;i--)
+        {
+            Entite entite = entites.get(i);
 
+            for (int j = causeDegats.size()-1;j>=0;j--)
+            {
+                CauseDegat causeDegat = causeDegats.get(j);
 
+                if (entite.getSurface().collision(causeDegat.surfaceDegat()))
+                    entite.subitDegat(causeDegat);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                if (causeDegat instanceof DegatParEpee)
+                    causeDegats.remove(causeDegat);
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

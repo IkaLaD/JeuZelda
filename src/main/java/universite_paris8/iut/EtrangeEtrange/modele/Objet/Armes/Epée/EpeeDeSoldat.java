@@ -1,8 +1,14 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epée;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 
-public class EpeeDeSoldat extends Arme {
+public class EpeeDeSoldat extends Epee
+{
+    public EpeeDeSoldat(Hitbox hitbox) {
+        super(hitbox);
+    }
+
     @Override
     public double degatPhysique() {
         return 2;

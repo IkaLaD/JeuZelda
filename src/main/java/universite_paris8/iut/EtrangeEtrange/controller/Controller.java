@@ -21,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionProjectile;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
@@ -52,6 +53,10 @@ public class Controller implements Initializable {
         gestionAffichageSprite gestionAffichageSprite = new gestionAffichageSprite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSprite);
 
+        GestionProjectile gestionProjectile = new GestionProjectile(paneEntite);
+        monde.setListenerProjectile(gestionProjectile);
+
+
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMonde();
 
@@ -79,15 +84,15 @@ public class Controller implements Initializable {
 
                     (ev ->
                     {
-                        if(temps==100000)
-                            gameLoop.stop();
 
                         for (Entite entite : monde.getEntities())
                         {
                             Lambda lambda1 = (Lambda) entite;
                             lambda1.action();
                         }
-                        temps++;
+
+                        monde.deplacementProjectile();
+                        monde.verificationCollisionAvecArme();
                     })
         );
         gameLoop.getKeyFrames().add(kf);

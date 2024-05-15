@@ -2,9 +2,14 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epée.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.DegatParEpee;
+import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.DegatParProjectile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,23 +34,20 @@ public abstract class Humanoide extends EntiteOffensif
 
     public void attaque()
     {
-        Dommageable arme = (Dommageable) objetMainDroite;
-
-        ArrayList<Entite> entites = getMonde().getEntites(getPosition(),arme.portee());
-
-        for (Entite entite : entites)
-            entite.subitDegat(getAttaque().getAttaqueActuelle(),getAttaqueSpecial().getAttaqueSpecialActuelle());
+        Fleche fleche = new FlecheSimple(getMonde(),getPosition(),getDirection());
+        getMonde().ajoutProjectile(fleche);
+        getMonde().ajoutCauseDegat(new DegatParProjectile(this,fleche));
 
     }
 
 
     @Override
-    protected double subitDegatPhysique(double attaque) {
+    protected double subitDegatPhysique(double attaque,double forceEntite) {
         return attaque - getDefense().getDefenseActuelle();
     }
 
     @Override
-    protected double subitDegatSpecial(double attaqueSpecial) {
+    protected double subitDegatSpecial(double attaqueSpecial,double forceEntite) {
         return attaqueSpecial - getDefenseSpecial().getDefenseSpecialActuelle();
     }
 

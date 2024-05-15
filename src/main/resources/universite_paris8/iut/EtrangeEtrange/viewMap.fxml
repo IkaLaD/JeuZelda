@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.TilePane?>
 
-
-<Pane fx:id="paneEntite" onKeyPressed="#keyPressed" onMouseClicked="#mouseClick" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.Controller">
+<Pane fx:id="paneEntite" onKeyReleased="#onKeyReleased" onKeyPressed="#keyPressed" onMouseClicked="#mouseClick" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.Controller">
    <children>
-      <TilePane fx:id="TilePaneMonde"/>
+      <TilePane fx:id="TilePaneSol" />
+      <TilePane fx:id="TilePaneTraversable" />
+      <TilePane fx:id="TilePaneNontraversable" />
    </children>
 </Pane>

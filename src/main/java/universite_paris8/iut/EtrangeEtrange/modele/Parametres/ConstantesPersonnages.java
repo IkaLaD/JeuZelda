@@ -7,7 +7,7 @@ public class ConstantesPersonnages
     public static final double GUERRIER_DEFENSE = 50;
     public static final double GUERRIER_ATTAQUE_SPECIAL = 10;
     public static final double GUERRIER_DEFENSE_SEPCIAL = 25;
-    public static final double GUERRIER_VITESSE = 0.10;
+    public static final double GUERRIER_VITESSE = 0.05;
     public static final double GUERRIER_HITBOX = 0.50;
 
 }

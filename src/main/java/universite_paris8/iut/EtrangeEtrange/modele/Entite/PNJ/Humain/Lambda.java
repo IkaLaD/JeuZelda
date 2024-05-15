@@ -1,13 +1,15 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PnjOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
-public class Lambda extends PnjOffensif {
+public class Lambda extends Humanoide implements Controlable {
     public Lambda(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(100, 5, 50, 1, 20, 0.1, monde, x, y, direction, hitbox);
+        super(100, 5, 50, 1, 20, 0.1,null,null,null, monde, x, y, direction, hitbox);
     }
 
     @Override
@@ -22,45 +24,36 @@ public class Lambda extends PnjOffensif {
     }
 
     @Override
+    public void actionMainDroite() {
+
+    }
+
+    @Override
     public void attaque() {
 
     }
 
     @Override
-    public void action() {
-        int d = (int) (Math.random()*4+1);
-        Direction direction;
-
-        switch (d)
-        {
-            case 1:
-                direction = Direction.DROITE;
-                setDirection(Direction.DROITE);
-                break;
-            case 2:
-                direction = Direction.GAUCHE;
-                setDirection(Direction.GAUCHE);
-                break;
-            case 3:
-                direction = Direction.HAUT;
-                setDirection(Direction.HAUT);
-                break;
-            default:
-                direction = Direction.BAS;
-                setDirection(Direction.BAS);
-                break;
+    public void action()
+    {
+        double probaChangement = Math.random();
+        if(probaChangement>0.80) {
+            int d = (int) (Math.random() * 4 + 1);
+            switch (d) {
+                case 1:
+                    setDirection(Direction.DROITE);
+                    break;
+                case 2:
+                    setDirection(Direction.GAUCHE);
+                    break;
+                case 3:
+                    setDirection(Direction.HAUT);
+                    break;
+                case 4:
+                    setDirection(Direction.BAS);
+                    break;
+            }
         }
-
-
-        int rdm = (int) (Math.random() * 501) +1;
-
-        if (rdm > 240 && rdm < 247)
-            enlevePv(4);
-
-
-
-        seDeplace(direction);
-
-
+        seDeplace();
     }
 }

@@ -1,5 +1,8 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public enum Direction
 {
     GAUCHE(-1,0),
@@ -8,7 +11,7 @@ public enum Direction
     BAS(0,1);
 
 
-    int x,y;
+    int x, y;
     private Direction(int x,int y)
     {
         this.x = x;
@@ -22,4 +25,5 @@ public enum Direction
     public int getX() {
         return x;
     }
+
 }

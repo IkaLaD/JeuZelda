@@ -1,19 +1,35 @@
 package universite_paris8.iut.EtrangeEtrange.vues.Sprite;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 
 import java.util.ArrayList;
 
 public class gestionAffichageSprite implements ListChangeListener<Entite> {
     private Pane paneEntite;
     private ArrayList<AnimationSprite> animationSprites;
+    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.15), event -> {
+        for(AnimationSprite animationSprite : animationSprites){
+            if(animationSprite.getEntite().isSeDeplace())
+                animationSprite.miseAJourAnimation();
+            else
+                animationSprite.finAnimationMarche();
+        }
+    }));
     public gestionAffichageSprite(Pane paneEntite){
         this.paneEntite = paneEntite;
         this.animationSprites = new ArrayList<>();
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
     @Override
     public void onChanged(Change<? extends Entite> change) {
@@ -39,18 +55,26 @@ public class gestionAffichageSprite implements ListChangeListener<Entite> {
         } else {
             skin = "pnjtest";
         }
-
         AnimationSprite animationSprite = new AnimationSprite(entite, skin);
 
-        /*
-        ATTENTION : Il faut modifier les méthodes du code, pour que l'animation de marche se déclenche lorsque l'entite
-        marche, et non l'activer dès le début que l'entite est ajouter à la liste
-         */
-        animationSprite.debutAnimationMarche();
         animationSprites.add(animationSprite);
-
         paneEntite.getChildren().add(animationSprite.getSpriteEntite());
-        paneEntite.getChildren().add(animationSprite.ajoutBarrePv());
+
+        // On ajoute une barre de vie visible uniquement si ce n'est pas le joueur
+        if(!(entite instanceof Joueur))
+            paneEntite.getChildren().add(animationSprite.ajoutBarrePv());
+    }
+
+    /**
+     * Utiliser pour ajouter le joueur dans les sprites dans l'ajouter aux entités du monde
+     * @param joueur
+     */
+    public void ajouterJoueur(Joueur joueur){
+        creeSprite(joueur);
+        joueur.getPv().getPvActuelleProperty().addListener((obs, old, nouv)->{
+            if(joueur.getPv().getPvActuelle()<=0)
+                suprimmerSprite(joueur);
+        });
     }
 
     /**
@@ -67,6 +91,7 @@ public class gestionAffichageSprite implements ListChangeListener<Entite> {
         if(animationSprite!=null) {
             paneEntite.getChildren().remove(animationSprite.getSpriteVie());
             paneEntite.getChildren().remove(animationSprite.getSpriteEntite());
+            animationSprites.remove(animationSprite);
         }
     }
 }

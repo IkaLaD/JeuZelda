@@ -36,6 +36,11 @@ public class Lambda extends Humanoide implements Controlable {
     @Override
     public void action()
     {
+        if(isSeDeplace())
+            seDeplace();
+        if(Math.random()>0.95)
+            setSeDeplace(!isSeDeplace());
+
         double probaChangement = Math.random();
         if(probaChangement>0.80) {
             int d = (int) (Math.random() * 4 + 1);
@@ -54,6 +59,6 @@ public class Lambda extends Humanoide implements Controlable {
                     break;
             }
         }
-        seDeplace();
+
     }
 }

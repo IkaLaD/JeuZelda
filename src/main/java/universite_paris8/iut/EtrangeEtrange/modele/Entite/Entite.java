@@ -19,6 +19,7 @@ public abstract class Entite {
     private Monde monde;
     private Hitbox hitbox;
     private int id;
+    private boolean seDeplace;
 
     public Entite(double pv,double defense,double defenseSpecial,double vitesse,Monde monde,double x,double y,Direction direction, Hitbox hitbox)
     {
@@ -27,6 +28,7 @@ public abstract class Entite {
         this.defense = new Defense(defense);
         this.defenseSpecial = new DefenseSpecial(defenseSpecial);
         this.vitesse = new Vitesse(vitesse);
+        this.seDeplace = false;
 
         this.monde = monde;
         this.position = new Position(x, y);
@@ -71,6 +73,14 @@ public abstract class Entite {
     {
         this.position.setX(x);
         this.position.setY(y);
+    }
+
+    public boolean isSeDeplace() {
+        return seDeplace;
+    }
+
+    public void setSeDeplace(boolean seDeplace) {
+        this.seDeplace = seDeplace;
     }
 
     public void seDeplace()

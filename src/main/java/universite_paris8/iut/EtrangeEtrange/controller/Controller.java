@@ -39,7 +39,6 @@ public class Controller implements Initializable {
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
-    private AnimationSprite spriteJoueur;
     int temps = 0;
     private Deplacement deplacement;
 
@@ -51,6 +50,7 @@ public class Controller implements Initializable {
 
         gestionAffichageSprite gestionAffichageSprite = new gestionAffichageSprite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSprite);
+        gestionAffichageSprite.ajouterJoueur(joueur);
 
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMonde();
@@ -62,7 +62,7 @@ public class Controller implements Initializable {
         }
 
 
-        deplacement = new Deplacement(joueur,spriteJoueur);
+        deplacement = new Deplacement(joueur);
         initGameLoop();
         gameLoop.play();
     }
@@ -95,6 +95,8 @@ public class Controller implements Initializable {
 
     public void initPane(){
         // Initialisation taille en fonction de la taille de la map
+        int largeur = Monde.getSizeMondeLargeur()*Constantes.tailleTile;
+        int hauteur = Monde.getSizeMondeHauteur()*Constantes.tailleTile;
         TilePaneSol.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
         TilePaneSol.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
 
@@ -124,11 +126,6 @@ public class Controller implements Initializable {
     public void initJoueur(){
         // Initialisation Coordonnées centre monde et des listeners
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
-
-        spriteJoueur = new AnimationSprite(joueur, "chevalier");
-
-        // Ajout du cercle au panneau paneEntité
-        paneEntite.getChildren().add(spriteJoueur.getSpriteEntite());
     }
 
     public void keyPressed(KeyEvent keyEvent) {
@@ -153,7 +150,6 @@ public class Controller implements Initializable {
 
     }
     public void onKeyReleased(KeyEvent keyEvent) {
-        spriteJoueur.finAnimationMarche();
         deplacement.removeKeyCode(keyEvent.getCode());
     }
 

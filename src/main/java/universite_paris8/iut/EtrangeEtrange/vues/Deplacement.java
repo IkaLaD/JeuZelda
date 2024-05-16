@@ -1,29 +1,30 @@
 package universite_paris8.iut.EtrangeEtrange.vues;
 
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import static javafx.scene.input.KeyCode.*;
 
+
+/**
+ * La classe deplacement permet de controller les déplacements du joueur :
+ *      -> Elle stock les touches qui sont appuyées au clavier (touches de déplacements : Z, Q, S, D) et
+ *      effectue les appels de méthode de déplacement nécessaire.
+ */
 public class Deplacement {
     private Timeline timeline;
     private Joueur joueur;
     private Set<KeyCode> keyCode;
-    private AnimationSprite spriteJoueur;
 
-    public Deplacement(Joueur joueur, AnimationSprite spriteJoueur) {
+    public Deplacement(Joueur joueur) {
         this.joueur = joueur;
-        this.spriteJoueur = spriteJoueur;
         this.keyCode = new HashSet<>();
 
         initAnimationTimer();
@@ -36,42 +37,50 @@ public class Deplacement {
             seDeplace();
         }));
     }
+
     private void seDeplace()
     {
+        // Modifie l'état de déplacement du joueur en fonction des touches appuyées
+        if(keyCode.isEmpty())
+            joueur.setSeDeplace(false);
+        else
+            joueur.setSeDeplace(true);
 
+        // Effectue les déplacements
         if (keyCode.contains(Q))
         {
             joueur.setDirection(Direction.GAUCHE);
-            spriteJoueur.debutAnimationMarche();
             joueur.seDeplace();
         }
-
         if (keyCode.contains(D))
         {
             joueur.setDirection(Direction.DROITE);
-            spriteJoueur.debutAnimationMarche();
             joueur.seDeplace();
         }
-
         if (keyCode.contains(Z))
         {
             joueur.setDirection(Direction.HAUT);
-            spriteJoueur.debutAnimationMarche();
             joueur.seDeplace();
         }
-
         if (keyCode.contains(S))
         {
             joueur.setDirection(Direction.BAS);
-            spriteJoueur.debutAnimationMarche();
             joueur.seDeplace();
         }
     }
 
+    /**
+     * Récupère la touche appuyée et l'ajoute à la liste
+     * @param kc
+     */
     public void addKeyCode(KeyCode kc) {
         this.keyCode.add(kc);
     }
 
+    /**
+     * Récupère la touche relachée et l'enlève de la liste
+     * @param kc
+     */
     public void removeKeyCode(KeyCode kc) {
         this.keyCode.remove(kc);
     }

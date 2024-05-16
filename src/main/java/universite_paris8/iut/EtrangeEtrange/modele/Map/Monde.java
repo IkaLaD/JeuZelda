@@ -3,6 +3,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;

@@ -52,7 +52,7 @@ public class GestionProjectile implements ListChangeListener<Projectile>
         });
 
         projectile.getPosition().getYProperty().addListener((obs, old, nouv)->{
-            rectangle.setTranslateX(projectile.getPosition().getY()* Constantes.tailleTile-64);
+            rectangle.setTranslateY(projectile.getPosition().getY()* Constantes.tailleTile-64);
         });
 
     }

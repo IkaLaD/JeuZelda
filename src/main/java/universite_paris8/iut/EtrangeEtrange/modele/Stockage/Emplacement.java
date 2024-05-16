@@ -65,6 +65,19 @@ public class Emplacement
         return quantiteObjet()+1 < this.stackPossible;
     }
 
+
+
+    public <T extends Objet> boolean estDuMemeType(Class<T> typeObjet) {
+
+        boolean estDuMemeType = false;
+
+        if (!objets.isEmpty())
+            estDuMemeType = typeObjet.isInstance(objets.get(0));
+
+        return estDuMemeType;
+    }
+
+
     public String nomObjet()
     {
         String nom = "";

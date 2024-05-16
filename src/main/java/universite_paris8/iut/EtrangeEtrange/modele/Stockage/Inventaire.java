@@ -135,6 +135,25 @@ public class Inventaire implements Conteneur
         return objet;
     }
 
+
+    public <T extends Objet> T trouveObjet(Class<T> typeObjet)
+    {
+        T objet = null;
+
+        for (int i = 0; i < inventaire.length && objet == null; i++)
+        {
+            Emplacement emplacement = inventaire[i];
+
+            if (emplacement.estDuMemeType(typeObjet))
+                objet = typeObjet.cast(emplacement.retourneUnObjet());
+
+        }
+
+        return objet;
+    }
+
+
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

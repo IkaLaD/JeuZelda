@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public abstract class ObjetConteneur extends Objet implements Conteneur
 {
-    private Inventaire inv;
+    protected Inventaire inv;
 
     public ObjetConteneur(int taille)
     {
@@ -56,5 +56,10 @@ public abstract class ObjetConteneur extends Objet implements Conteneur
     @Override
     public Objet retourneObjet(int emplacement) {
         return this.inv.retourneObjet(emplacement);
+    }
+
+    @Override
+    public <T extends Objet> T trouveObjet(Class<T> typeObjet) {
+        return inv.trouveObjet(typeObjet);
     }
 }

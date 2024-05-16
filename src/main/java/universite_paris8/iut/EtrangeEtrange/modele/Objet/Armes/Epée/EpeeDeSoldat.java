@@ -39,8 +39,5 @@ public class EpeeDeSoldat extends Epee
         return "Epée De Soldat";
     }
 
-    @Override
-    public int stackMax() {
-        return 1;
-    }
+
 }

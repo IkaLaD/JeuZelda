@@ -34,9 +34,9 @@ public abstract class Humanoide extends EntiteOffensif
 
     public void attaque()
     {
-        Fleche fleche = new FlecheSimple(getMonde(),getPosition(),getDirection());
-        getMonde().ajoutProjectile(fleche);
-        getMonde().ajoutCauseDegat(new DegatParProjectile(this,fleche));
+        Dommageable arme = (Dommageable) objetMainDroite;
+
+
 
     }
 
@@ -51,7 +51,10 @@ public abstract class Humanoide extends EntiteOffensif
         return attaqueSpecial - getDefenseSpecial().getDefenseSpecialActuelle();
     }
 
-
+    public Sac getSac()
+    {
+        return this.sac;
+    }
     public Objet getObjetMainDroite()
     {
         return this.objetMainDroite;

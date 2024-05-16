@@ -14,6 +14,8 @@ public interface Conteneur
     int nombresObjets();
     int getTailleMax();
 
+    public <T extends Objet> T trouveObjet(Class<T> typeObjet);
+
     ArrayList<Objet> retourneObjets(int emplacement);
     Objet retourneObjet(int emplacement);
 }

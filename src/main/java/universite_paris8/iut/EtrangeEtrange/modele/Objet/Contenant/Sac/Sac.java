@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.ObjetConteneur;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 
 public abstract class Sac extends ObjetConteneur
 {
@@ -9,9 +10,15 @@ public abstract class Sac extends ObjetConteneur
         super(taille);
     }
 
+    @Override
+    public String getNom() {
+        return null;
+    }
+
     public int stackMax()
     {
         return 1;
     }
+
 
 }

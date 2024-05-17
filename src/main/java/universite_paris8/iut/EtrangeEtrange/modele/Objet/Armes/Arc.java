@@ -20,7 +20,7 @@ public class Arc extends Arme
 
     public Arc(EntiteOffensif joueur)
     {
-        this.deteneur = joueur;
+
     }
 
     public EntiteOffensif getDeteneur()

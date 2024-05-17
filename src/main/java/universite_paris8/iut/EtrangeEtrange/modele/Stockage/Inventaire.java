@@ -1,7 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Stockage;
 
-
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Emplacement;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -147,9 +147,9 @@ public class Inventaire<T extends Objet> implements Conteneur<T>
     }
 
 
-    public  T trouveObjet(Class<T> typeObjet)
+    public <U extends Objet> U trouveObjet(Class<U> typeObjet)
     {
-        T objet = null;
+        U objet = null;
 
         for (int i = 0; i < inventaire.length && objet == null; i++)
         {

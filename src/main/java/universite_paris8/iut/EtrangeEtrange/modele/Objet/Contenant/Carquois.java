@@ -21,6 +21,9 @@ public class Carquois extends ObjetConteneur<Fleche>
         return 1;
     }
 
-
+    public Fleche retourneUneFleche()
+    {
+        return retourneObjet(0);
+    }
 
 }

@@ -1,13 +1,12 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
-public class Lambda extends Humanoide implements Controlable {
+public class Lambda extends Humanoide implements Controlable{
     public Lambda(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(100, 5, 50, 1, 20, 0.1,null,null,null, monde, x, y, direction, hitbox);
     }
@@ -47,4 +46,6 @@ public class Lambda extends Humanoide implements Controlable {
         }
         seDeplace();
     }
+
+
 }

@@ -67,8 +67,7 @@ public class Emplacement <T extends Objet>
 
 
 
-    public boolean estDuMemeType(Class<T> typeObjet) {
-
+    public <U extends Objet> boolean estDuMemeType(Class<U> typeObjet) {
         boolean estDuMemeType = false;
 
         if (!objets.isEmpty())

@@ -19,6 +19,13 @@ public abstract class Joueur extends Humanoide
     }
 
 
+    public boolean recupereObjet(Objet objet)
+    {
+        return getSac().ajoutItem(objet);
+    }
+
+
+
     public void actionMainDroite()
     {
         Objet objet = getObjetMainDroite();
@@ -30,7 +37,6 @@ public abstract class Joueur extends Humanoide
                 if (objet instanceof Dommageable)
                 {
                     attaque();
-                    System.out.println("fzf");
                 }
 
                 if (objet instanceof Mangeable)

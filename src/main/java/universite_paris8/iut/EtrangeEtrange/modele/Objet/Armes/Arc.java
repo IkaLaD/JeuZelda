@@ -72,7 +72,7 @@ public class Arc extends Arme
         {
             Sac sac = ((Joueur) entite).getSac();
 
-            Fleche fleche = sac.trouveObjet(Fleche.class);
+
 
 
 

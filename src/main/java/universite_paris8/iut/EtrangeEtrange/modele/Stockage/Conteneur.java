@@ -4,9 +4,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 
 import java.util.ArrayList;
 
-public interface Conteneur
+public interface Conteneur<T extends Objet>
 {
-    void ajoutItem(Objet objet);
+    boolean ajoutItem(T objet);
 
     void vider();
     boolean estPlein();
@@ -14,8 +14,8 @@ public interface Conteneur
     int nombresObjets();
     int getTailleMax();
 
-    public <T extends Objet> T trouveObjet(Class<T> typeObjet);
 
-    ArrayList<Objet> retourneObjets(int emplacement);
-    Objet retourneObjet(int emplacement);
+
+    ArrayList<T> retourneObjets(int emplacement);
+    T retourneObjet(int emplacement);
 }

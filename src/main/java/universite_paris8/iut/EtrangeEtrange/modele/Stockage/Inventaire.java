@@ -4,24 +4,27 @@ package universite_paris8.iut.EtrangeEtrange.modele.Stockage;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-public class Inventaire implements Conteneur
+public class Inventaire<T extends Objet> implements Conteneur<T>
 {
     private int taille;
-    private Emplacement[] inventaire;
+    private Emplacement<T>[] inventaire;
 
     public Inventaire(int taille)
     {
         this.taille = taille;
-        this.inventaire = new Emplacement[taille];
+        this.inventaire = (Emplacement<T>[]) new Emplacement[taille];
 
         for (int i = 0;i < this.inventaire.length;i++)
-            this.inventaire[i] = new Emplacement();
+            this.inventaire[i] = new Emplacement<>();
     }
 
-    public void ajoutItem(Objet objet)
+    public boolean ajoutItem(T objet)
     {
-        Emplacement emplacement = null;
+        boolean ajoutReussi = false;
+
+        Emplacement<T> emplacement = null;
 
         if (objet.stackMax() > 1)
             emplacement = chercheEmplacementStackable(objet);
@@ -30,17 +33,21 @@ public class Inventaire implements Conteneur
             emplacement = chercheEmplacementVide();
 
 
-        if (emplacement != null)
+        if (emplacement != null) {
             emplacement.ajoutObjet(objet);
+            ajoutReussi = true;
+        }
+
+        return ajoutReussi;
     }
-    public Emplacement chercheEmplacementStackable(Objet objet)
+    public Emplacement<T> chercheEmplacementStackable(T objet)
     {
-        Emplacement emplacement = null;
+        Emplacement<T> emplacement = null;
         boolean emplacementTrouver = false;
 
         for (int i = 0; i < this.inventaire.length && !emplacementTrouver ;i++)
         {
-            Emplacement emplacementAverifier = this.inventaire[i];
+            Emplacement<T> emplacementAverifier = this.inventaire[i];
 
             if (emplacementAverifier.peuEncoreStacker() &&emplacementAverifier.estDeMemeClass(objet))
             {
@@ -51,14 +58,14 @@ public class Inventaire implements Conteneur
 
         return emplacement;
     }
-    public Emplacement chercheEmplacementVide()
+    public Emplacement<T> chercheEmplacementVide()
     {
-        Emplacement emplacement = null;
+        Emplacement<T> emplacement = null;
         boolean emplacementTrouver = false;
 
         for (int i = 0; i < this.inventaire.length && !emplacementTrouver;i++)
         {
-            Emplacement emplacementAverifier = this.inventaire[i];
+            Emplacement<T> emplacementAverifier = this.inventaire[i];
 
             if (emplacementAverifier.estVide())
             {
@@ -69,6 +76,8 @@ public class Inventaire implements Conteneur
 
         return emplacement;
     }
+
+
 
     public void vider() {
         for (Emplacement emplacement : inventaire) {
@@ -115,8 +124,10 @@ public class Inventaire implements Conteneur
     }
 
 
-    public ArrayList<Objet> retourneObjets(int emplacement) {
-        ArrayList<Objet> objets = new ArrayList<>();
+
+
+    public ArrayList<T> retourneObjets(int emplacement) {
+        ArrayList<T> objets = new ArrayList<>();
 
         if (emplacement >= 0 && emplacement < this.inventaire.length && !this.inventaire[emplacement].estVide())
             objets.addAll(this.inventaire[emplacement].retourneToutLesObject());
@@ -125,9 +136,9 @@ public class Inventaire implements Conteneur
     }
 
 
-    public Objet retourneObjet(int emplacement)
+    public T retourneObjet(int emplacement)
     {
-        Objet objet = null;
+        T objet = null;
 
         if (emplacement >= 0 && emplacement < this.inventaire.length && !this.inventaire[emplacement].estVide())
             objet = this.inventaire[emplacement].retourneUnObjet();
@@ -136,13 +147,13 @@ public class Inventaire implements Conteneur
     }
 
 
-    public <T extends Objet> T trouveObjet(Class<T> typeObjet)
+    public  T trouveObjet(Class<T> typeObjet)
     {
         T objet = null;
 
         for (int i = 0; i < inventaire.length && objet == null; i++)
         {
-            Emplacement emplacement = inventaire[i];
+            Emplacement<T> emplacement = inventaire[i];
 
             if (emplacement.estDuMemeType(typeObjet))
                 objet = typeObjet.cast(emplacement.retourneUnObjet());

@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
+import javafx.geometry.Pos;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Defense;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.DefenseSpecial;
@@ -7,6 +8,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Vitesse;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
+
+import java.util.ArrayList;
 
 public abstract class Entite {
     private static int staticIdEntité = 0;
@@ -139,8 +142,8 @@ public abstract class Entite {
 
     public boolean collision()
     {
-        double x = position.getX();
-        double y = position.getY();
+        double x = position.getX()+vitesse.getVitesseActuelle()*direction.getX();
+        double y = position.getY()+vitesse.getVitesseActuelle()*direction.getY();
 
         // Extremité de la hitbox, calculer dans le if en dessous en fonction de la direction (on prend extremite gauche et droite si on va vers le haut ou le bas)
         double extremite1;
@@ -163,16 +166,48 @@ public abstract class Entite {
         while(cpt <= extremite2 && !colision){
             colision = switch (direction) {
                 case BAS ->
-                        nontraversable[(int) (hitbox.getPointLePlusEnBas(y) + vitesse.getVitesseActuelle())][cpt] != -1;
+                        nontraversable[(int) (hitbox.getPointLePlusEnBas(y) )][cpt] != -1;
                 case HAUT ->
-                        nontraversable[(int) (hitbox.getPointLePlusEnHaut(y) - vitesse.getVitesseActuelle())][cpt] != -1;
+                        nontraversable[(int) (hitbox.getPointLePlusEnHaut(y))][cpt] != -1;
                 case DROITE ->
-                        nontraversable[cpt][(int) (hitbox.getPointLePlusADroite(x) + vitesse.getVitesseActuelle())] != -1;
+                        nontraversable[cpt][(int) (hitbox.getPointLePlusADroite(x))] != -1;
                 case GAUCHE ->
-                        nontraversable[cpt][(int) (hitbox.getPointLePlusAGauche(x) - vitesse.getVitesseActuelle())] != -1;
+                        nontraversable[cpt][(int) (hitbox.getPointLePlusAGauche(x))] != -1;
             };
             cpt++;
         }
-        return colision;
+        if(colision)
+            return colision;
+
+        // Calcul de collision en fonction des autres entités
+
+        // Entité principale
+        Position hautDroite = new Position(this.hitbox.getPointLePlusADroite(x), this.hitbox.getPointLePlusEnHaut(y));
+        Position hautGauche = new Position(this.hitbox.getPointLePlusAGauche(x), this.hitbox.getPointLePlusEnHaut(y));
+        Position basDroite = new Position(this.hitbox.getPointLePlusADroite(x), this.hitbox.getPointLePlusEnBas(y));
+        Position basGauche = new Position(this.hitbox.getPointLePlusAGauche(x), this.hitbox.getPointLePlusEnBas(y));
+        ArrayList<Position> coins = new ArrayList<>();
+        coins.add(hautDroite);
+        coins.add(hautGauche);
+        coins.add(basDroite);
+        coins.add(basGauche);
+
+        ArrayList<Entite> entitesAutour = monde.getEntites(position, Math.sqrt(2));
+        entitesAutour.add(monde.getJoueur());
+
+        for (Entite entite : entitesAutour) {
+            if(!entite.equals(this)) {
+                Hitbox hitboxEntite = entite.getHitbox();
+                Position positionEntite = entite.getPosition();
+                for (Position coin : coins)
+                    if (coin.getX() <= hitboxEntite.getPointLePlusADroite(positionEntite.getX()) &&
+                            coin.getX() >= hitboxEntite.getPointLePlusAGauche(positionEntite.getX()) &&
+                            coin.getY() <= hitboxEntite.getPointLePlusEnBas(positionEntite.getY()) &&
+                            coin.getY() >= hitboxEntite.getPointLePlusEnHaut(positionEntite.getY()))
+                        return true;
+            }
+        }
+
+        return false;
     }
 }

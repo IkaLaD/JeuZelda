@@ -20,7 +20,7 @@ public class Monde {
      */
     private static final int sizeMondeHauteur = 33;
     private static final int sizeMondeLargeur = 33;
-    private static final double xPointDeDepart = 16;
+    private static final double xPointDeDepart = 17;
     private static final double yPointDeDepart = 16;
     /**
      * Ici sont stocké les informations des sols du monde (ex : sol)
@@ -33,6 +33,7 @@ public class Monde {
      */
 
     private ObservableList<Entite> entites;
+    private Joueur joueur;
 
     /**
      * Liste des identifiants des éléments du structureMonde :
@@ -41,6 +42,7 @@ public class Monde {
     public Monde(){
         this.sol = new int[sizeMondeHauteur][sizeMondeLargeur];
         this.entites = FXCollections.observableArrayList();
+        this.joueur = null;
     }
 
     /**
@@ -90,7 +92,6 @@ public class Monde {
             }
             System.out.println("\n\n");
         }
-
     }
 
     /**
@@ -216,6 +217,13 @@ public class Monde {
             if (entite.getPv().getPvActuelle() <= 0)
                 entites.remove(entite);
         });
+    }
+
+    public void setJoueur(Joueur joueur){
+        this.joueur = joueur;
+    }
+    public Joueur getJoueur(){
+        return this.joueur;
     }
 
     public ArrayList<Entite> getEntities()

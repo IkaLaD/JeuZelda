@@ -56,9 +56,11 @@ public class Controller implements Initializable {
         gestionAffichageMap.afficherMonde();
 
 
-        for(int i = 0 ; i < 30 ; i++) {
-            Lambda lambda = new Lambda(monde, 16, 16, Direction.GAUCHE, new Hitbox(0.50, 0.50));
-            monde.ajoutEntite(lambda);
+        for(int i = 14 ; i <= 16 ; i++) {
+            for(int j = 14 ; j <= 16 ;j++) {
+                Lambda lambda = new Lambda(monde, i, j, Direction.GAUCHE, new Hitbox(0.50, 0.50));
+                monde.ajoutEntite(lambda);
+            }
         }
 
 
@@ -126,6 +128,7 @@ public class Controller implements Initializable {
     public void initJoueur(){
         // Initialisation Coordonnées centre monde et des listeners
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
+        monde.setJoueur(joueur);
     }
 
     public void keyPressed(KeyEvent keyEvent) {

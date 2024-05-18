@@ -61,13 +61,14 @@ public class Controller implements Initializable {
         gestionAffichageMap.afficherMonde();
         gestionAffichageDropAuSol gestionAffichageDropAuSol = new gestionAffichageDropAuSol(paneEntite);
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
-        monde.ajouterDropAuSol(new DropAuSol(new Arc(10, 10), 1, new Position(1, 1), joueur));
+        monde.ajouterDropAuSol(new DropAuSol(new Arc(10, 10), 1, new Position(23, 23), joueur));
 
 
-        for(int i = 0 ; i < 0 ; i++) {
-            Lambda lambda = new Lambda(monde, 16, 16, Direction.GAUCHE, new Hitbox(0.50, 0.50));
+        for(int i = 0 ; i < 3 ; i++) {
+            Lambda lambda = new Lambda(monde, 16, 16+i, Direction.GAUCHE, new Hitbox(0.50, 0.50));
             monde.ajoutEntite(lambda);
         }
+        monde.setJoueur(joueur);
 
 
         deplacement = new Deplacement(joueur);

@@ -17,4 +17,9 @@ public class Potion extends Soins
     public int stackMax() {
         return 6;
     }
+
+    @Override
+    public void utilise() {
+
+    }
 }

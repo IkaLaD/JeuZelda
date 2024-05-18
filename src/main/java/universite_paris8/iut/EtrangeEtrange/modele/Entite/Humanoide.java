@@ -2,6 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epée.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
@@ -34,7 +35,7 @@ public abstract class Humanoide extends EntiteOffensif
 
     public void attaque()
     {
-        Dommageable arme = (Dommageable) objetMainDroite;
+        Arme arme = (Arme) objetMainDroite;
 
 
 

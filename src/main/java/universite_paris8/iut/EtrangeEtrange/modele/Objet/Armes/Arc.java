@@ -17,6 +17,10 @@ import java.util.ArrayList;
 public class Arc extends Arme
 {
 
+    public Arc(EntiteOffensif joueur)
+    {
+
+    }
 
     public Arc()
     {
@@ -63,6 +67,12 @@ public class Arc extends Arme
     @Override
     public void utilise()
     {
+        EntiteOffensif entite = getDeteneur();
+
+        if (entite instanceof Joueur)
+        {
+            Sac sac = ((Joueur) entite).getSac();
+
 
     }
 }

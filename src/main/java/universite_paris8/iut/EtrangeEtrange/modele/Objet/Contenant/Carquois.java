@@ -4,7 +4,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Conteneur;
 
-public class Carquois extends ObjetConteneur implements Conteneur {
+public class Carquois extends ObjetConteneur<Fleche>
+{
+
     public Carquois() {
         super(1);
     }
@@ -19,11 +21,9 @@ public class Carquois extends ObjetConteneur implements Conteneur {
         return 1;
     }
 
-    @Override
-    public void ajoutItem(Objet objet)
+    public Fleche retourneUneFleche()
     {
-        if (objet instanceof Fleche)
-            inv.ajoutItem(objet);
+        return retourneObjet(0);
     }
 
 }

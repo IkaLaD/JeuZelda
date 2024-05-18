@@ -1,6 +1,7 @@
 module com.example.essaie {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.json;
 
 
     opens universite_paris8.iut.EtrangeEtrange to javafx.fxml;

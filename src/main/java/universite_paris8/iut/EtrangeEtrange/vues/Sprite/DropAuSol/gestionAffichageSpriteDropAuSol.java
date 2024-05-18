@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.vues.DropAuSol;
+package universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -6,28 +6,23 @@ import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epée.EpeeDeSoldat;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
 
 import java.util.ArrayList;
 
-public class gestionAffichageDropAuSol implements ListChangeListener<DropAuSol> {
+public class gestionAffichageSpriteDropAuSol implements ListChangeListener<DropAuSol> {
     private Pane pane;
-    private ArrayList<AnimationDropAuSol> animationDropsAuSol;
+    private ArrayList<SpriteDropAuSol> animationDropsAuSol;
 
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.15), event -> {
-        for(AnimationDropAuSol animationDropAuSol : animationDropsAuSol){
+        for(SpriteDropAuSol animationDropAuSol : animationDropsAuSol){
             animationDropAuSol.miseAJourAnimation();
         }
     }));
 
-    public gestionAffichageDropAuSol(Pane pane){
+    public gestionAffichageSpriteDropAuSol(Pane pane){
         this.pane = pane;
         this.animationDropsAuSol = new ArrayList<>();
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -54,7 +49,7 @@ public class gestionAffichageDropAuSol implements ListChangeListener<DropAuSol> 
         else
             skin = null;
 
-        AnimationDropAuSol animationDropAuSol = new AnimationDropAuSol(dropAuSol, skin);
+        SpriteDropAuSol animationDropAuSol = new SpriteDropAuSol(dropAuSol, skin);
 
         animationDropsAuSol.add(animationDropAuSol);
         pane.getChildren().add(animationDropAuSol.getSpriteDropAuSol());
@@ -63,7 +58,7 @@ public class gestionAffichageDropAuSol implements ListChangeListener<DropAuSol> 
     }
 
     public void suprimmerSprite(DropAuSol dropAuSol){
-        AnimationDropAuSol animationDropAuSol = null;
+        SpriteDropAuSol animationDropAuSol = null;
         for(int i = 0 ; i < animationDropsAuSol.size() ; i++){
             if(animationDropsAuSol.get(i).getId() == dropAuSol.getId()){
                 animationDropAuSol = animationDropsAuSol.get(i);

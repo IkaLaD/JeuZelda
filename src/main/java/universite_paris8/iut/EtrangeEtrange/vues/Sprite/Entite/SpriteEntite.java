@@ -1,36 +1,35 @@
-package universite_paris8.iut.EtrangeEtrange.vues.Sprite;
+package universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.scene.Node;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
-public class AnimationSprite {
+public class SpriteEntite {
     private Entite entite;
     private String skin;
     private ImageView SpriteEntite;
     private Rectangle SpriteVie;
+    private ColorAdjust effetCouleur;
+    private boolean appliquerEffet;
     private int id;
     int image;
 
-    public AnimationSprite(Entite entite, String skin){
+    public SpriteEntite(Entite entite, String skin){
         this.image = 1;
         this.SpriteEntite = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+skin+"/bas1.png");
         this.entite = entite;
         this.skin = skin;
         this.id = entite.getId();
 
+
         if(!(entite instanceof Joueur))
             this.SpriteVie = new Rectangle();
-        else
-            this.SpriteVie = null;
 
         // On lie le sprite et l'entité par un même identifiant
         this.SpriteEntite.setId(entite.getId()+"");
@@ -43,9 +42,26 @@ public class AnimationSprite {
                 SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64)
         );
 
+        effetCouleur = new ColorAdjust();
+        SpriteEntite.setEffect(effetCouleur);
+        // Listener pour savoir si on doit appliquer un effet suite à un dégat ou un heal
+        entite.getPv().getPvActuelleProperty().addListener((obs, old, nouv) -> {
+            demarrerEffet();
+        });
+
         //
         SpriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32);
         SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64);
+    }
+
+    public void demarrerEffet(){
+        appliquerEffet=true;
+        effetCouleur.setBrightness(0.65);
+    }
+
+    public void arreterEffet(){
+        effetCouleur.setBrightness(0);
+        appliquerEffet=false;
     }
 
     public Rectangle ajoutBarrePv(){
@@ -124,5 +140,12 @@ public class AnimationSprite {
 
     public Entite getEntite() {
         return entite;
+    }
+    public boolean getAppliquerEffet(){
+        return this.appliquerEffet;
+    }
+
+    public void setAppliquerEffet(boolean bool){
+        this.appliquerEffet=bool;
     }
 }

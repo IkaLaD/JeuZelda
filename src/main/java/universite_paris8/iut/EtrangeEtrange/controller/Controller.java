@@ -2,7 +2,6 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -24,9 +23,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
-import universite_paris8.iut.EtrangeEtrange.vues.DropAuSol.gestionAffichageDropAuSol;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import java.net.URL;
@@ -53,20 +51,23 @@ public class Controller implements Initializable {
         initJoueur();
         initPane();
 
-        gestionAffichageSprite gestionAffichageSprite = new gestionAffichageSprite(paneEntite);
+        gestionAffichageSpriteEntite gestionAffichageSprite = new gestionAffichageSpriteEntite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
 
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
-        gestionAffichageMap.afficherMonde();
-        gestionAffichageDropAuSol gestionAffichageDropAuSol = new gestionAffichageDropAuSol(paneEntite);
+        gestionAffichageMap.afficherMondeJSON();
+        gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol = new gestionAffichageSpriteDropAuSol(paneEntite);
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
         monde.ajouterDropAuSol(new DropAuSol(new Arc(10, 10), 1, new Position(23, 23), joueur));
 
 
-        for(int i = 0 ; i < 3 ; i++) {
-            Lambda lambda = new Lambda(monde, 16, 16+i, Direction.GAUCHE, new Hitbox(0.50, 0.50));
-            monde.ajoutEntite(lambda);
+        for(int i = -1 ; i <= 1 ; i++) {
+            for(int j = -1 ; j <= 1 ; j++) {
+                Lambda lambda = new Lambda(monde, 16 + j, 16 + i, Direction.GAUCHE, new Hitbox(0.50, 0.50));
+                monde.ajoutEntite(lambda);
+
+            }
         }
         monde.setJoueur(joueur);
 

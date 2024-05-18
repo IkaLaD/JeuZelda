@@ -7,8 +7,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
-import universite_paris8.iut.EtrangeEtrange.vues.DropAuSol.gestionAffichageDropAuSol;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,8 +22,8 @@ public class Monde {
      */
     private static final int sizeMondeHauteur = 33;
     private static final int sizeMondeLargeur = 33;
-    private static final double xPointDeDepart = 17;
-    private static final double yPointDeDepart = 16;
+    private static final double xPointDeDepart = 23;
+    private static final double yPointDeDepart = 23;
     /**
      * Ici sont stocké les informations des sols du monde (ex : sol)
      */
@@ -93,14 +93,6 @@ public class Monde {
             } catch (NumberFormatException e) {
                 System.err.println("Erreur de format dans le fichier : " + e.getMessage());
             }
-        }
-        for(int[][] map : coucheMap){
-            for(int i = 0 ; i < map.length ; i++){
-                for(int j = 0 ; j < map[i].length ; j++)
-                    System.out.print(map[i][j]+"\t");
-                System.out.println();
-            }
-            System.out.println("\n\n");
         }
     }
 
@@ -264,7 +256,7 @@ public class Monde {
         }
     }
 
-    public void setListenerListeEntites(gestionAffichageSprite gestionAffichageSprite){
+    public void setListenerListeEntites(gestionAffichageSpriteEntite gestionAffichageSprite){
         entites.addListener(gestionAffichageSprite);
     }
 
@@ -278,7 +270,7 @@ public class Monde {
     }
 
 
-    public void setListenerListeDropsAuSol(gestionAffichageDropAuSol gestionAffichageDropAuSol) {
+    public void setListenerListeDropsAuSol(gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol) {
         this.dropsAuSol.addListener(gestionAffichageDropAuSol);
     }
 }

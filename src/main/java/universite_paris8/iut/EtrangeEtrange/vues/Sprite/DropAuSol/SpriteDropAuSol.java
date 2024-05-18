@@ -1,18 +1,12 @@
-package universite_paris8.iut.EtrangeEtrange.vues.DropAuSol;
+package universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
 
-import java.lang.runtime.ObjectMethods;
-
-public class AnimationDropAuSol {
+public class SpriteDropAuSol {
 
     private static int tailleFlottementMax = 20;
     private DropAuSol dropAuSol;
@@ -23,7 +17,7 @@ public class AnimationDropAuSol {
     private IntegerProperty positionFlottement;
     private boolean animationDescendante;
 
-    public AnimationDropAuSol(DropAuSol dropAuSol, String skin){
+    public SpriteDropAuSol(DropAuSol dropAuSol, String skin){
         this.dropAuSol = dropAuSol;
         this.skin = skin;
 

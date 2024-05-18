@@ -81,6 +81,11 @@ public  abstract class Projectile extends Objet implements Dommageable
         return this.hitbox.getHauteur();
     }
 
+    public Direction getDirection()
+    {
+        return this.direction;
+    }
+
     public final Position getPosition() {
         return this.position;
     }

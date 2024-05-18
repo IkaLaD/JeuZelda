@@ -7,9 +7,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public class FlecheSimple extends Fleche
 {
-    public FlecheSimple(Monde monde, Position positionOrigine, Direction direction)
+    public FlecheSimple()
     {
-        super(monde, positionOrigine, new Vitesse(1), direction);
+        super();
     }
 
     @Override

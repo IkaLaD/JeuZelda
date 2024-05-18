@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision;
+package universite_paris8.iut.EtrangeEtrange.modele.GestionDegat;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
@@ -27,4 +27,6 @@ public abstract class CauseDegat
     {
         return new Surface(getPosition(),getHitbox());
     }
+
+    public abstract void miseAjour();
 }

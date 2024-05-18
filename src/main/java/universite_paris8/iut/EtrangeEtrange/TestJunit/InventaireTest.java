@@ -4,7 +4,7 @@ package universite_paris8.iut.EtrangeEtrange.TestJunit;
 
 import org.junit.Test;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epée.EpeeDeSoldat;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 
@@ -33,8 +33,8 @@ public class InventaireTest {
     {
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat(new Hitbox(1,1));
-        objet3 = new EpeeDeSoldat(new Hitbox(1,1));
+        objet2 = new EpeeDeSoldat();
+        objet3 = new EpeeDeSoldat();
         objet4 = new Potion();
 
 
@@ -50,8 +50,8 @@ public class InventaireTest {
     {
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat(new Hitbox(1,1));
-        objet3 = new EpeeDeSoldat(new Hitbox(1,1));
+        objet2 = new EpeeDeSoldat();
+        objet3 = new EpeeDeSoldat();
         objet4 = new Potion();
 
         inventaire.ajoutItem(objet1);
@@ -70,8 +70,8 @@ public class InventaireTest {
 
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat(new Hitbox(1,1));
-        objet3 = new EpeeDeSoldat(new Hitbox(1,1));
+        objet2 = new EpeeDeSoldat();
+        objet3 = new EpeeDeSoldat();
         objet4 = new Potion();
 
 
@@ -95,8 +95,8 @@ public class InventaireTest {
 
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat(new Hitbox(1,1));
-        objet3 = new EpeeDeSoldat(new Hitbox(1,1));
+        objet2 = new EpeeDeSoldat();
+        objet3 = new EpeeDeSoldat();
         objet4 = new Potion();
 
 
@@ -112,8 +112,8 @@ public class InventaireTest {
     {
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat(new Hitbox(1,1));
-        objet3 = new EpeeDeSoldat(new Hitbox(1,1));
+        objet2 = new EpeeDeSoldat();
+        objet3 = new EpeeDeSoldat();
         objet4 = new Potion();
 
         assertFalse(inventaire.estPlein());
@@ -128,8 +128,8 @@ public class InventaireTest {
 
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat(new Hitbox(1,1));
-        objet3 = new EpeeDeSoldat(new Hitbox(1,1));
+        objet2 = new EpeeDeSoldat();
+        objet3 = new EpeeDeSoldat();
         objet4 = new Potion();
 
         assertTrue(inventaire.estVide());
@@ -142,8 +142,8 @@ public class InventaireTest {
     {
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat(new Hitbox(1,1));
-        objet3 = new EpeeDeSoldat(new Hitbox(1,1));
+        objet2 = new EpeeDeSoldat();
+        objet3 = new EpeeDeSoldat();
         objet4 = new Potion();
 
 
@@ -171,8 +171,8 @@ public class InventaireTest {
 
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat(new Hitbox(1,1));
-        objet3 = new EpeeDeSoldat(new Hitbox(1,1));
+        objet2 = new EpeeDeSoldat();
+        objet3 = new EpeeDeSoldat();
         objet4 = new Potion();
 
         inventaire.ajoutItem(objet1);
@@ -196,8 +196,8 @@ public class InventaireTest {
 
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat(new Hitbox(1,1));
-        objet3 = new EpeeDeSoldat(new Hitbox(1,1));
+        objet2 = new EpeeDeSoldat();
+        objet3 = new EpeeDeSoldat();
         objet4 = new Potion();
 
 
@@ -219,8 +219,8 @@ public class InventaireTest {
     {
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat(new Hitbox(1,1));
-        objet3 = new EpeeDeSoldat(new Hitbox(1,1));
+        objet2 = new EpeeDeSoldat();
+        objet3 = new EpeeDeSoldat();
         objet4 = new Potion();
 
         inventaire.ajoutItem(objet1);

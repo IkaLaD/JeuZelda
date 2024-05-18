@@ -9,10 +9,10 @@ import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Vitesse;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Surface;
-import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.CauseDegat;
-import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.DegatParEntite;
-import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.DegatParEpee;
-import universite_paris8.iut.EtrangeEtrange.vues.DetectionCollision.DegatParProjectile;
+import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.CauseDegat;
+import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParEntite;
+import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParEpee;
+import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParProjectile;
 
 public abstract class Entite {
     private static int staticIdEntité = 0;

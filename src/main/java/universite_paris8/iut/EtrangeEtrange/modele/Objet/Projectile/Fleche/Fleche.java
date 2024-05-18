@@ -11,8 +11,8 @@ public abstract class Fleche extends Projectile
 {
 
 
-    public Fleche(Monde monde, Position positionOrigine, Vitesse vitesse, Direction direction) {
-        super(monde, new Hitbox(0.2,0.2), positionOrigine, vitesse, direction);
+    public Fleche() {
+        super(new Hitbox(0.5,0.2));
     }
 
     @Override

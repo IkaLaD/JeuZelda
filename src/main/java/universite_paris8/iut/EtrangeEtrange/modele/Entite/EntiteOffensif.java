@@ -1,6 +1,8 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Attaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.AttaqueSpecial;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -16,6 +18,9 @@ public abstract class EntiteOffensif extends Entite
         this.attaqueSpecial = new AttaqueSpecial(attaqueSpecial);
     }
     public abstract void attaque();
+
+
+
 
     public void setAttaque(double attaque) {this.attaque.setAttaque(attaque);}
     public void setAttaqueActuelle(double attaque) {this.attaque.setAttaqueActuelle(attaque);}

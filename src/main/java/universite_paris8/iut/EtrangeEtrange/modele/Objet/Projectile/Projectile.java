@@ -22,17 +22,31 @@ public  abstract class Projectile extends Objet implements Dommageable
 
     private BooleanProperty aToucherUneCible;
 
-    public Projectile(Monde monde,Hitbox hitbox,Position positionOrigine,Vitesse vitesse,Direction direction)
+    public Projectile(Hitbox hitbox)
     {
         this.aToucherUneCible = new SimpleBooleanProperty(false);
-        this.position = new Position(positionOrigine.getX(),positionOrigine.getY());
+
         this.hitbox = hitbox;
-        this.monde = monde;
-        this.vitesse = vitesse;
-        this.direction = direction;
+
+        this.vitesse = new Vitesse(1);
+        this.direction = null;
     }
 
+     public void setPositionOrigine(Position position)
+     {
+         this.positionOrigine = position;
+         this.position = new Position(positionOrigine.getX(),positionOrigine.getY());
+     }
 
+    public void setVitesse(double vitesse)
+    {
+        this.vitesse.setVitesse(vitesse);
+    }
+
+    public void setDirection(Direction direction)
+    {
+        this.direction = direction;
+    }
 
     public void seDeplace()
     {

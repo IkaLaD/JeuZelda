@@ -4,8 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
+import universite_paris8.iut.EtrangeEtrange.vues.DropAuSol.gestionAffichageDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;
 
 import java.io.BufferedReader;
@@ -33,7 +35,11 @@ public class Monde {
      */
 
     private ObservableList<Entite> entites;
+
     private Joueur joueur;
+
+    private ObservableList<DropAuSol> dropsAuSol;
+
 
     /**
      * Liste des identifiants des éléments du structureMonde :
@@ -42,7 +48,10 @@ public class Monde {
     public Monde(){
         this.sol = new int[sizeMondeHauteur][sizeMondeLargeur];
         this.entites = FXCollections.observableArrayList();
+
         this.joueur = null;
+
+        this.dropsAuSol = FXCollections.observableArrayList();
     }
 
     /**
@@ -55,6 +64,7 @@ public class Monde {
         this.sol = new int[hauteur][largeur];
         this.traversable = new int[hauteur][largeur];
         this.nontraversable = new int[hauteur][largeur];
+        this.dropsAuSol = FXCollections.observableArrayList();
 
         ArrayList<int[][]> coucheMap = new ArrayList<>();
         coucheMap.add(this.sol);
@@ -101,6 +111,7 @@ public class Monde {
     public Monde(String nom)
     {
         this.entites = FXCollections.observableArrayList();
+        this.dropsAuSol = FXCollections.observableArrayList();
         try
         {
             BufferedReader reader = new BufferedReader(new FileReader(nom));
@@ -179,6 +190,12 @@ public class Monde {
 
     public ObservableList<Entite> getObservableListEntites(){
         return this.entites;
+    }
+    public void ajouterDropAuSol(DropAuSol dropAuSol){
+        this.dropsAuSol.add(dropAuSol);
+    }
+    public void supprimerDropAuSol(DropAuSol dropAuSol){
+        this.dropsAuSol.remove(dropAuSol);
     }
 
 
@@ -261,52 +278,7 @@ public class Monde {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void setListenerListeDropsAuSol(gestionAffichageDropAuSol gestionAffichageDropAuSol) {
+        this.dropsAuSol.addListener(gestionAffichageDropAuSol);
+    }
 }

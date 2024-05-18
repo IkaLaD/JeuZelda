@@ -2,6 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -12,14 +13,18 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
+import universite_paris8.iut.EtrangeEtrange.vues.DropAuSol.gestionAffichageDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
@@ -54,13 +59,14 @@ public class Controller implements Initializable {
 
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMonde();
+        gestionAffichageDropAuSol gestionAffichageDropAuSol = new gestionAffichageDropAuSol(paneEntite);
+        monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
+        monde.ajouterDropAuSol(new DropAuSol(new Arc(10, 10), 1, new Position(1, 1), joueur));
 
 
-        for(int i = 14 ; i <= 16 ; i++) {
-            for(int j = 14 ; j <= 16 ;j++) {
-                Lambda lambda = new Lambda(monde, i, j, Direction.GAUCHE, new Hitbox(0.50, 0.50));
-                monde.ajoutEntite(lambda);
-            }
+        for(int i = 0 ; i < 0 ; i++) {
+            Lambda lambda = new Lambda(monde, 16, 16, Direction.GAUCHE, new Hitbox(0.50, 0.50));
+            monde.ajoutEntite(lambda);
         }
 
 
@@ -128,7 +134,6 @@ public class Controller implements Initializable {
     public void initJoueur(){
         // Initialisation Coordonnées centre monde et des listeners
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
-        monde.setJoueur(joueur);
     }
 
     public void keyPressed(KeyEvent keyEvent) {

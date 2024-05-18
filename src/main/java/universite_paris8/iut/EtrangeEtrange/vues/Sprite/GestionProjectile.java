@@ -8,6 +8,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 public class GestionProjectile implements ListChangeListener<Projectile>
 {
@@ -34,7 +35,16 @@ public class GestionProjectile implements ListChangeListener<Projectile>
     private void initSpriteProjectile(Projectile projectile)
     {
 
-        Rectangle rectangle = new Rectangle(projectile.getX(),projectile.getY(),projectile.getLargeur()* Constantes.tailleTile,projectile.getHauteur()*Constantes.tailleTile);
+        Rectangle rectangle;
+
+        Direction direction = projectile.getDirection();
+
+        if (direction == Direction.BAS || direction == Direction.HAUT)
+            rectangle = new Rectangle(projectile.getX(),projectile.getY(),projectile.getLargeur()* Constantes.tailleTile,projectile.getHauteur()*Constantes.tailleTile);
+        else
+            rectangle = new Rectangle(projectile.getX(),projectile.getY(),projectile.getHauteur()* Constantes.tailleTile,projectile.getLargeur()*Constantes.tailleTile);
+
+
         rectangle.setFill(Color.RED);
 
         rectangle.setTranslateX(projectile.getPosition().getX()*Constantes.tailleTile-32);

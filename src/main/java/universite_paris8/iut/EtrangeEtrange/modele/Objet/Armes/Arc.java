@@ -16,17 +16,14 @@ import java.util.ArrayList;
 
 public class Arc extends Arme
 {
-    private Joueur deteneur;
 
-    public Arc(EntiteOffensif joueur)
+
+    public Arc()
     {
-        this.deteneur = joueur;
+
     }
 
-    public EntiteOffensif getDeteneur()
-    {
-        return this.deteneur;
-    }
+
     @Override
     public double degatPhysique() {
         return 0;
@@ -66,17 +63,6 @@ public class Arc extends Arme
     @Override
     public void utilise()
     {
-        EntiteOffensif entite = getDeteneur();
 
-        if (entite instanceof Joueur)
-        {
-            Sac sac = ((Joueur) entite).getSac();
-
-            Fleche fleche = sac.trouveObjet(Fleche.class);
-
-
-
-
-        }
     }
 }

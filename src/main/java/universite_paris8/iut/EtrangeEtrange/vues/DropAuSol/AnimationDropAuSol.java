@@ -41,6 +41,9 @@ public class AnimationDropAuSol {
         this.animationDescendante = false;
     }
 
+    /**
+     * Permet de crée l'effet de flottement des objets au sol.
+     */
     public void miseAJourAnimation(){
         if(animationDescendante){
             if(positionFlottement.get()<=0) {

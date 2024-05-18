@@ -60,7 +60,7 @@ public class AnimationSprite {
                 SpriteVie.setFill(Color.RED);
         });
 
-        // Listener pour que la barre d'hp suivent l'entité
+        // Listener pour que la barre d'hp suivent le sprite de l'entité
         entite.getPosition().getXProperty().addListener((obs, old, nouv)->
                 SpriteVie.setTranslateX(entite.getPosition().getX()* Constantes.tailleTile-32)
         );

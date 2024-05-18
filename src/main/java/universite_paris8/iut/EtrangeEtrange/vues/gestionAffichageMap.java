@@ -30,6 +30,10 @@ public class gestionAffichageMap {
         this.TilePaneCouchesMonde.add(nontraversable);
         this.monde = monde;
     }
+
+    /**
+     * Récupères les tableaus dans la classe monde et affiche les tuiles qui y sont associées.
+     */
     public void afficherMonde(){
         // Récupération de la première couche de la map.
         ArrayList<int[][]> couchesMap = monde.getToutesLesCouches();

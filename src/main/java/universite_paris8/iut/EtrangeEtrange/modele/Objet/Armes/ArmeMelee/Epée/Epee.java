@@ -1,12 +1,12 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée;
 
-import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionObjetMainDroite.ActionAttaque.ActionAttaqueMelee.ActionAttaquerAvecEpee;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionSurObjet;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParEpee;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionObjet;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
-import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParEpee;
 
 public abstract class Epee extends Arme implements Dommageable
 {
@@ -24,10 +24,18 @@ public abstract class Epee extends Arme implements Dommageable
 
 
     @Override
-    public void utilise(ActionSurObjet action)
+    public void utilise(ParametreActionObjet param)
     {
-        if (action instanceof ActionAttaquerAvecEpee)
-            action.action();
+        if (param instanceof ParametreActionAttaqueEpee)
+            attaque((ParametreActionAttaque) param);
+    }
+
+    @Override
+    public void attaque(ParametreActionAttaque param)
+    {
+        ParametreActionAttaqueEpee paramEpee = (ParametreActionAttaqueEpee) param;
+
+        paramEpee.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParEpee(paramEpee.getOrigineAction(),paramEpee.getArme()));
     }
 
     @Override

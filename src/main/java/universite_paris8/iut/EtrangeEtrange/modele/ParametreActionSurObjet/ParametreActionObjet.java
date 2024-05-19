@@ -1,19 +1,16 @@
-package universite_paris8.iut.EtrangeEtrange.modele.ActionObjet;
+package universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 
-public abstract class ActionSurObjet
+public abstract class ParametreActionObjet
 {
     protected Entite origineAction;
 
 
-    public ActionSurObjet(Entite origineAction)
+    public ParametreActionObjet(Entite origineAction)
     {
         this.origineAction = origineAction;
     }
-
-    public abstract void action();
 
     public Entite getOrigineAction()
     {

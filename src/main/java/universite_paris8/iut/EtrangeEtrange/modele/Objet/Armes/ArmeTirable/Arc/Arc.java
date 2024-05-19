@@ -1,11 +1,13 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc;
 
-import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionObjetMainDroite.ActionAttaque.ActionAttaqueDistance.ActionAttaqueAvecArc;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionSurObjet;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParProjectile;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionObjet;
 
 public class Arc extends Arme
 {
@@ -45,18 +47,16 @@ public class Arc extends Arme
     }
 
 
-
-    public void tirerUneFleche(EntiteOffensif tireur,Fleche fleche)
+    @Override
+    public void utilise(ParametreActionObjet param)
     {
-        tireur.getMonde().ajoutCauseDegat(new DegatParProjectile(tireur,fleche));
+        if (param instanceof ParametreActionAttaqueArc)
+            attaque((ParametreActionAttaque) param);
     }
 
     @Override
-    public void utilise(ActionSurObjet action)
-    {
-        if (action instanceof ActionAttaqueAvecArc)
-            action.action();
+    public void attaque(ParametreActionAttaque param) {
+        ParametreActionAttaqueArc paramArc = (ParametreActionAttaqueArc) param;
+        paramArc.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParProjectile(paramArc.getOrigineAction(), paramArc.getProjectile()));
     }
-
-
 }

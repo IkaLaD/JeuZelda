@@ -1,9 +1,9 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
-import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionObjetMainDroite.ActionAttaque.ActionAttaqueDistance.ActionAttaqueAvecArc;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionObjetMainDroite.ActionAttaque.ActionAttaqueMelee.ActionAttaquerAvecEpee;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionObjetMainDroite.ActionAttaque.ActionAttaquer;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
@@ -14,7 +14,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.A
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Mangeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
@@ -62,15 +61,15 @@ public abstract class Joueur extends Humanoide
     public void attaque()
     {
         Arme arme = (Arme) objetMainDroite;
-        ActionAttaquer actionAttaquer = null;
+        ParametreActionAttaque actionAttaquer = null;
 
         if (arme instanceof Epee)
         {
-            actionAttaquer = new ActionAttaquerAvecEpee(this, (Epee) arme);
+            actionAttaquer = new ParametreActionAttaqueEpee(this);
         }
         else if (arme instanceof Arc)
         {
-            actionAttaquer = new ActionAttaqueAvecArc(this,(Arc) arme,new FlecheSimple());
+            actionAttaquer = new ParametreActionAttaqueArc(this,new FlecheSimple());
         }
 
         arme.attaque(actionAttaquer);

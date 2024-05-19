@@ -1,9 +1,11 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
-import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionObjetMainDroite.ActionAttaque.ActionAttaqueDistance.ActionAttaqueAvecArc;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionObjetMainDroite.ActionAttaque.ActionAttaqueMelee.ActionAttaquerAvecEpee;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionObjetMainDroite.ActionAttaque.ActionAttaquer;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
+
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
+
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
@@ -56,15 +58,15 @@ public class Lambda extends Humanoide implements Controlable{
     public void attaque()
     {
         Arme arme = (Arme) objetMainDroite;
-        ActionAttaquer actionAttaquer = null;
+        ParametreActionAttaque actionAttaquer = null;
 
         if (arme instanceof Epee)
         {
-            actionAttaquer = new ActionAttaquerAvecEpee(this, (Epee) arme);
+            actionAttaquer = new ParametreActionAttaqueEpee(this);
         }
         else if (arme instanceof Arc)
         {
-            actionAttaquer = new ActionAttaqueAvecArc(this,(Arc) arme,new FlecheSimple());
+            actionAttaquer = new ParametreActionAttaqueArc(this,new FlecheSimple());
         }
 
         arme.attaque(actionAttaquer);

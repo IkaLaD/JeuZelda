@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins;
 
-import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionSurObjet;
+
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionObjet;
 
 public class Potion extends Soins
 {
@@ -22,7 +23,7 @@ public class Potion extends Soins
 
 
     @Override
-    public void utilise(ActionSurObjet action) {
+    public void utilise(ParametreActionObjet param) {
 
     }
 }

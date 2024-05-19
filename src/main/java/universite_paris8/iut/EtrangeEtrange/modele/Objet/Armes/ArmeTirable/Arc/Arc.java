@@ -15,37 +15,30 @@ public class Arc extends Arme
     public double degatPhysique() {
         return 0;
     }
-
     @Override
     public double degatSpecial() {
         return 0;
     }
-
     @Override
     public double portee() {
         return 0;
     }
-
     @Override
     public double angle() {
         return 0;
     }
-
     @Override
     public double delaieEntreCoup() {
         return 0;
     }
-
     @Override
     public String getNom() {
         return null;
     }
-
     @Override
     public int stackMax() {
-        return 0;
+        return 1;
     }
-
 
     @Override
     public void utilise(ParametreActionObjet param)
@@ -53,9 +46,9 @@ public class Arc extends Arme
         if (param instanceof ParametreActionAttaqueArc)
             attaque((ParametreActionAttaque) param);
     }
-
     @Override
-    public void attaque(ParametreActionAttaque param) {
+    public void attaque(ParametreActionAttaque param)
+    {
         ParametreActionAttaqueArc paramArc = (ParametreActionAttaqueArc) param;
         paramArc.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParProjectile(paramArc.getOrigineAction(), paramArc.getProjectile()));
     }

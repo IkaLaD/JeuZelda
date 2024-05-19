@@ -35,7 +35,7 @@ public abstract class Epee extends Arme implements Dommageable
     {
         ParametreActionAttaqueEpee paramEpee = (ParametreActionAttaqueEpee) param;
 
-        paramEpee.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParEpee(paramEpee.getOrigineAction(),paramEpee.getArme()));
+        paramEpee.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParEpee(paramEpee.getOrigineAction(),this));
     }
 
     @Override

@@ -112,6 +112,10 @@ public abstract class Entite {
     }
 
 
+    public void soigner(double pv)
+    {
+        this.pv.ajoutPv(pv);
+    }
     public abstract void consommer();
 
 

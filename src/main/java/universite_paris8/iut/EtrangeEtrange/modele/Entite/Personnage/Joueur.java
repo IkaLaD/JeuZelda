@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
@@ -11,7 +12,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Mangeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
@@ -46,7 +46,7 @@ public abstract class Joueur extends Humanoide
                     attaque();
                 }
 
-                if (objet instanceof Mangeable)
+                if (objet instanceof Consommable)
                 {
                     consommer();
                 }

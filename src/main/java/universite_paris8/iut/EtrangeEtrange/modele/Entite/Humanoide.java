@@ -26,7 +26,10 @@ public abstract class Humanoide extends EntiteOffensif
     public abstract void actionMainDroite();
 
 
+    public void consommer()
+    {
 
+    }
 
 
     @Override

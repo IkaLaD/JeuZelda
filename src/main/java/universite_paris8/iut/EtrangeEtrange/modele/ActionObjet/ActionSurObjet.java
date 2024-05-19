@@ -5,17 +5,19 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 
 public abstract class ActionSurObjet
 {
-    private Entite origineAction;
+    protected Entite origineAction;
 
 
     public ActionSurObjet(Entite origineAction)
     {
         this.origineAction = origineAction;
-
     }
+
+    public abstract void action();
 
     public Entite getOrigineAction()
     {
         return this.origineAction;
     }
+
 }

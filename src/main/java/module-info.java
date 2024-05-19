@@ -17,4 +17,6 @@ module com.example.essaie {
 
     opens universite_paris8.iut.EtrangeEtrange.TestJunit to org.junit.platform.commons; // Ouvre le package des tests pour JUnit
     exports universite_paris8.iut.EtrangeEtrange.TestJunit;
+    exports universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
+    opens universite_paris8.iut.EtrangeEtrange.modele.Utilitaire to javafx.fxml;
 }

@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Entite;
+package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
 public class Hitbox {
 

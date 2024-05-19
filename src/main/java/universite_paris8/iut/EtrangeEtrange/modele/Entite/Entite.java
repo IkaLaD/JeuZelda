@@ -7,6 +7,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Statistique.DefenseSpecial;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Vitesse;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Surface;
 import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.CauseDegat;
@@ -109,6 +110,9 @@ public abstract class Entite {
             position.setY(position.getY() + y * vitesse.getVitesse());
         }
     }
+
+
+    public abstract void consommer();
 
 
     public Pv getPv() {return this.pv;}

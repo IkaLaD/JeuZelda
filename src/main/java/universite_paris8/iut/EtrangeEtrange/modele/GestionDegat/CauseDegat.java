@@ -1,6 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.GestionDegat;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Surface;

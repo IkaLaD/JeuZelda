@@ -1,6 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Parametres;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
 public class ConstanteEpee
 {

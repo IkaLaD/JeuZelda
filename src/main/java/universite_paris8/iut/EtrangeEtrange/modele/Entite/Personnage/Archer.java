@@ -1,6 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;

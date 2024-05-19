@@ -55,11 +55,8 @@ public class Arc extends Arme
     public void utilise(ActionSurObjet action)
     {
         if (action instanceof ActionAttaqueAvecArc)
-            tirer((ActionAttaqueAvecArc) action);
+            action.action();
     }
 
-    private void tirer(ActionAttaqueAvecArc action)
-    {
-        action.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParProjectile(action.getOrigineAction(),action.getProjectile()));
-    }
+
 }

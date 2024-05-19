@@ -2,7 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée;
 
 import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionSurObjet;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParEpee;
 
 public class EpeeDeSoldat extends Epee
@@ -42,8 +42,5 @@ public class EpeeDeSoldat extends Epee
     }
 
 
-    @Override
-    public void utilise(ActionSurObjet action) {
-        action.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParEpee((EntiteOffensif) action.getOrigineAction(),this));
-    }
+
 }

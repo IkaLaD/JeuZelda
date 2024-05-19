@@ -2,13 +2,16 @@ package universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionObjetMainD
 
 import universite_paris8.iut.EtrangeEtrange.modele.ActionObjet.ActionSurObjet;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 
 
 public abstract class ActionAttaquer extends ActionSurObjet
 {
-    public ActionAttaquer(EntiteOffensif origineAction)
+    protected Arme arme;
+    public ActionAttaquer(EntiteOffensif origineAction,Arme arme)
     {
         super(origineAction);
+        this.arme = arme;
     }
 
     public EntiteOffensif getOrigineAction()
@@ -16,4 +19,10 @@ public abstract class ActionAttaquer extends ActionSurObjet
         return (EntiteOffensif) super.getOrigineAction();
     }
 
+    public void action()
+    {
+        attaque();
+    }
+
+    public abstract void attaque();
 }

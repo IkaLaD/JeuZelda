@@ -1,7 +1,5 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
-
 public class Surface
 {
     private Position position;

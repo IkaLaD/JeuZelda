@@ -63,7 +63,7 @@ public class Controller implements Initializable {
 
 
 
-        for(int i = 0 ; i < 16 ; i++) {
+        for(int i = 0 ; i < 16  ; i++) {
             Lambda lambda = new Lambda(monde, 16, 16, Direction.GAUCHE, new Hitbox(0.50, 0.50));
            monde.ajoutEntite(lambda);
         }

@@ -13,7 +13,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arc;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,9 +28,9 @@ import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import java.net.URL;
@@ -71,7 +71,7 @@ public class Controller implements Initializable {
         gestionAffichageMap.afficherMondeJSON();
         gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol = new gestionAffichageSpriteDropAuSol(paneEntite);
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
-        monde.ajouterDropAuSol(new DropAuSol(new Arc(10, 10), 1, new Position(23, 23), joueur));
+        monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
 
 
         for(int i = -1 ; i <= 1 ; i++) {

@@ -14,8 +14,6 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageS
 import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.CauseDegat;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;
-
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -309,6 +307,7 @@ public class Monde {
 
     public void setListenerListeDropsAuSol(gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol) {
         this.dropsAuSol.addListener(gestionAffichageDropAuSol);
+    }
 
 
     public void verificationCollisionAvecArme()

@@ -56,6 +56,7 @@ public class Monde {
      */
     public Monde(String chemin, String nommap, int hauteur, int largeur)
     {
+
         this.entites = FXCollections.observableArrayList();
         this.sol = new int[hauteur][largeur];
         this.traversable = new int[hauteur][largeur];
@@ -65,6 +66,7 @@ public class Monde {
         coucheMap.add(this.sol);
         coucheMap.add(this.traversable);
         coucheMap.add(this.nontraversable);
+
 
         String[] fichiers = {"sol", "traversable", "nontraversable"};
 
@@ -89,6 +91,9 @@ public class Monde {
                 System.err.println("Erreur de format dans le fichier : " + e.getMessage());
             }
         }
+
+       // BossTest bossTest = new BossTest(this,1.5,1.5, Direction.GAUCHE);
+      //  this.entites.add(bossTest);
     }
 
     /**

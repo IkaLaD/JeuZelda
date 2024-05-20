@@ -2,9 +2,12 @@ package universite_paris8.iut.EtrangeEtrange.vues.Sprite;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
 import java.util.ArrayList;
 
@@ -37,7 +40,12 @@ public class gestionAffichageSprite implements ListChangeListener<Entite> {
         } else if (entite.getClass().equals(Lambda.class)) {
             skin = "squelette";
         } else {
-            skin = "pnjtest";
+            Rectangle rectangle = new Rectangle(entite.getPosition().getX(),entite.getPosition().getY(),entite.getHitbox().getLargeur()* Constantes.tailleTile,entite.getHitbox().getHauteur()*Constantes.tailleTile);
+            rectangle.setTranslateX(entite.getPosition().getX()*Constantes.tailleTile-32);
+            rectangle.setTranslateY(entite.getPosition().getY()*Constantes.tailleTile-64);
+            rectangle.setFill(Color.ORANGE);
+            paneEntite.getChildren().add(rectangle);
+            return;
         }
 
         AnimationSprite animationSprite = new AnimationSprite(entite, skin);

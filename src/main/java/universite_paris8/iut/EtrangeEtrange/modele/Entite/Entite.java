@@ -57,9 +57,12 @@ public abstract class Entite {
             }
             else if (causeDegat instanceof DegatParProjectile)
             {
-                enlevePv(20);
-                Projectile projectile = (Projectile) causeDegat.getOrgineAttaque();
-                projectile.toucher();
+                if (((DegatParProjectile) causeDegat).getOrigineDegat() != this)
+                {
+                    enlevePv(20);
+                    Projectile projectile = (Projectile) causeDegat.getOrgineAttaque();
+                    projectile.toucher();
+                }
             }
 
         }

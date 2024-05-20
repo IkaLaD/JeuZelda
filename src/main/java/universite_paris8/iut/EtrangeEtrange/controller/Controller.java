@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
@@ -61,9 +62,10 @@ public class Controller implements Initializable {
         gestionAffichageMap.afficherMonde();
 
 
-        for(int i = 0 ; i < 30 ; i++) {
+
+        for(int i = 0 ; i < 16 ; i++) {
             Lambda lambda = new Lambda(monde, 16, 16, Direction.GAUCHE, new Hitbox(0.50, 0.50));
-            monde.ajoutEntite(lambda);
+           monde.ajoutEntite(lambda);
         }
 
 
@@ -87,7 +89,7 @@ public class Controller implements Initializable {
 
                         for (Entite entite : monde.getEntities())
                         {
-                            Lambda lambda1 = (Lambda) entite;
+                            Controlable lambda1 = (Controlable) entite;
                             lambda1.action();
                         }
 

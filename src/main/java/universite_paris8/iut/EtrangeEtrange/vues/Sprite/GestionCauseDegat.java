@@ -36,7 +36,6 @@ public class GestionCauseDegat implements ListChangeListener<CauseDegat>
 
     private void initSpriteProjectile(Projectile projectile)
     {
-
         Rectangle rectangle;
 
         Direction direction = projectile.getDirection();

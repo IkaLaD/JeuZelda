@@ -28,6 +28,7 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageS
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -42,7 +43,7 @@ public class Controller implements Initializable {
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
-    int temps = 0;
+    private int temps = 0;
     private Deplacement deplacement;
 
     @Override
@@ -50,6 +51,7 @@ public class Controller implements Initializable {
         initMonde();
         initJoueur();
         initPane();
+
 
         gestionAffichageSpriteEntite gestionAffichageSprite = new gestionAffichageSpriteEntite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSprite);
@@ -107,23 +109,27 @@ public class Controller implements Initializable {
         // Initialisation taille en fonction de la taille de la map
         int largeur = Monde.getSizeMondeLargeur()*Constantes.tailleTile;
         int hauteur = Monde.getSizeMondeHauteur()*Constantes.tailleTile;
-        TilePaneSol.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
-        TilePaneSol.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneSol.setMaxSize(largeur, hauteur);
+        TilePaneSol.setMinSize(largeur, hauteur);
 
-        TilePaneTraversable.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
-        TilePaneTraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneTraversable.setMaxSize(largeur, hauteur);
+        TilePaneTraversable.setMinSize(largeur, hauteur);
 
-        TilePaneNontraversable.setMaxSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
-        TilePaneNontraversable.setMinSize(Monde.getSizeMondeLargeur()*Constantes.tailleTile, Monde.getSizeMondeHauteur()*Constantes.tailleTile);
+        TilePaneNontraversable.setMaxSize(largeur, hauteur);
+        TilePaneNontraversable.setMinSize(largeur, hauteur);
 
 
         // Listener pour que la TilePane et la Pane suivent le joueur
-        joueur.getPosition().getXProperty().addListener((obs, old, nouv)->
-                paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0)
-        );
-        joueur.getPosition().getYProperty().addListener((obs, old, nouv)->
-                paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0)
-        );
+        joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
+            if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 < 0)
+                if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 > -Monde.getSizeMondeLargeur()*Constantes.tailleTile+Constantes.largeurEcran )
+                    paneEntite.setTranslateX(-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0);
+        });
+        joueur.getPosition().getYProperty().addListener((obs, old, nouv)-> {
+            if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0 < 0)
+                if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0  > -Monde.getSizeMondeHauteur()*Constantes.tailleTile+Constantes.hauteurEcran)
+                    paneEntite.setTranslateY(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0);
+        });
 
         paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0);
         paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0);
@@ -162,8 +168,6 @@ public class Controller implements Initializable {
     public void onKeyReleased(KeyEvent keyEvent) {
         deplacement.removeKeyCode(keyEvent.getCode());
     }
-
-
 
     public void mouseClick(MouseEvent mouseEvent)
     {

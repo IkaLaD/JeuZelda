@@ -166,7 +166,7 @@ public abstract class Entite {
         while(cpt <= extremite2 && !colision){
             colision = switch (direction) {
                 case BAS ->
-                        nontraversable[(int) (hitbox.getPointLePlusEnBas(y) )][cpt] != -1;
+                        nontraversable[(int) (hitbox.getPointLePlusEnBas(y))][cpt] != -1;
                 case HAUT ->
                         nontraversable[(int) (hitbox.getPointLePlusEnHaut(y))][cpt] != -1;
                 case DROITE ->

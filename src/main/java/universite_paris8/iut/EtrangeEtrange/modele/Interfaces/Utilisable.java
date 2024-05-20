@@ -1,4 +1,9 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Interfaces;
 
-public interface Utilisable {
+
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionObjet;
+
+public interface Utilisable
+{
+    void utilise(ParametreActionObjet param);
 }

@@ -10,7 +10,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
-public class SpriteEntite {
+public class AnimationSprite {
     private Entite entite;
     private String skin;
     private ImageView SpriteEntite;
@@ -20,7 +20,11 @@ public class SpriteEntite {
     private int id;
     int image;
 
-    public SpriteEntite(Entite entite, String skin){
+    /**
+     * La class est uniquement adapté pour le joueur pour le moment (les sprites de chevalier)
+     */
+    public AnimationSprite(Entite entite, String skin)
+    {
         this.image = 1;
         this.SpriteEntite = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+skin+"/bas1.png");
         this.entite = entite;

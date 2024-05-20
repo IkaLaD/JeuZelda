@@ -4,6 +4,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Attaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.AttaqueSpecial;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
 public abstract class EntiteOffensif extends Entite
 {
@@ -16,6 +17,9 @@ public abstract class EntiteOffensif extends Entite
         this.attaqueSpecial = new AttaqueSpecial(attaqueSpecial);
     }
     public abstract void attaque();
+
+
+
 
     public void setAttaque(double attaque) {this.attaque.setAttaque(attaque);}
     public void setAttaqueActuelle(double attaque) {this.attaque.setAttaqueActuelle(attaque);}

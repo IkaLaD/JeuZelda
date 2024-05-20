@@ -1,23 +1,25 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Conteneur;
+import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Emplacement;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Inventaire;
 
 import java.util.ArrayList;
 
-public abstract class ObjetConteneur extends Objet implements Conteneur
+public abstract class ObjetConteneur<T extends Objet> extends Objet implements Conteneur<T>
 {
-    private Inventaire inv;
+    private Inventaire<T> inv;
 
     public ObjetConteneur(int taille)
     {
-        this.inv = new Inventaire(taille);
+        this.inv = new Inventaire<>(taille);
     }
     @Override
-    public void ajoutItem(Objet objet)
+    public boolean ajoutItem(T objet)
     {
-        this.inv.ajoutItem(objet);
+       return this.inv.ajoutItem(objet);
     }
 
     @Override
@@ -49,12 +51,17 @@ public abstract class ObjetConteneur extends Objet implements Conteneur
     }
 
     @Override
-    public ArrayList<Objet> retourneObjets(int emplacement) {
+    public ArrayList<T> retourneObjets(int emplacement) {
         return this.inv.retourneObjets(emplacement);
     }
 
     @Override
-    public Objet retourneObjet(int emplacement) {
+    public T retourneObjet(int emplacement) {
         return this.inv.retourneObjet(emplacement);
     }
+
+
+
+
+
 }

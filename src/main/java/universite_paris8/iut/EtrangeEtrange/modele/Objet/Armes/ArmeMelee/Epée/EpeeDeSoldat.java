@@ -1,8 +1,13 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epée;
+package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
-public class EpeeDeSoldat extends Arme {
+public class EpeeDeSoldat extends Epee
+{
+    public EpeeDeSoldat() {
+        super(new Hitbox(1,1));
+    }
+
     @Override
     public double degatPhysique() {
         return 2;
@@ -33,8 +38,6 @@ public class EpeeDeSoldat extends Arme {
         return "Epée De Soldat";
     }
 
-    @Override
-    public int stackMax() {
-        return 1;
-    }
+
+
 }

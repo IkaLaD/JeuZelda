@@ -8,7 +8,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
 import java.io.IOException;
 
-public class Runner extends Application {
+public class  Runner extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("viewMap.fxml"));

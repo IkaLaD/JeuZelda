@@ -7,8 +7,15 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
+
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
+
+import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.CauseDegat;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
+
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -36,9 +43,14 @@ public class Monde {
 
     private ObservableList<Entite> entites;
 
+
     private Joueur joueur;
 
     private ObservableList<DropAuSol> dropsAuSol;
+
+    private ObservableList<CauseDegat> causeDegats =  FXCollections.observableArrayList();
+
+
 
 
     /**
@@ -59,7 +71,9 @@ public class Monde {
      * @param chemin
      * @param nommap
      */
-    public Monde(String chemin, String nommap, int hauteur, int largeur){
+    public Monde(String chemin, String nommap, int hauteur, int largeur)
+    {
+
         this.entites = FXCollections.observableArrayList();
         this.sol = new int[hauteur][largeur];
         this.traversable = new int[hauteur][largeur];
@@ -70,6 +84,7 @@ public class Monde {
         coucheMap.add(this.sol);
         coucheMap.add(this.traversable);
         coucheMap.add(this.nontraversable);
+
 
         String[] fichiers = {"sol", "traversable", "nontraversable"};
 
@@ -102,6 +117,7 @@ public class Monde {
      */
     public Monde(String nom)
     {
+
         this.entites = FXCollections.observableArrayList();
         this.dropsAuSol = FXCollections.observableArrayList();
         try
@@ -254,14 +270,35 @@ public class Monde {
         } else {
             return -1;
         }
+        
     }
 
     public void setListenerListeEntites(gestionAffichageSpriteEntite gestionAffichageSprite){
         entites.addListener(gestionAffichageSprite);
     }
 
+    public void setListenerProjectile(GestionCauseDegat gestionCauseDegats)
+    {
+        this.causeDegats.addListener(gestionCauseDegats);
+    }
+
+    public void ajoutCauseDegat(CauseDegat causeDegat)
+    {
+        this.causeDegats.add(causeDegat);
+    }
 
 
+
+   public void miseAjourCauseDegats()
+   {
+       for (int i = causeDegats.size()-1; i>=0; i--)
+           causeDegats.get(i).miseAjour();
+   }
+
+   public void enleveCauseDegat(CauseDegat causeDegat)
+   {
+       this.causeDegats.remove(causeDegat);
+   }
 
 
     public Sommet[][] getSommet()
@@ -272,5 +309,68 @@ public class Monde {
 
     public void setListenerListeDropsAuSol(gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol) {
         this.dropsAuSol.addListener(gestionAffichageDropAuSol);
+
+
+    public void verificationCollisionAvecArme()
+    {
+        for (int i = entites.size()-1;i>=0;i--)
+        {
+            Entite entite = entites.get(i);
+
+            for (int j = causeDegats.size()-1;j>=0;j--)
+            {
+                CauseDegat causeDegat = causeDegats.get(j);
+
+                if (entite.getSurface().collision(causeDegat.surfaceDegat()))
+                    entite.subitDegat(causeDegat);
+            }
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

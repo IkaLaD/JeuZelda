@@ -7,7 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Hitbox;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
@@ -23,8 +24,13 @@ import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
+
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
+
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.AnimationSprite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.gestionAffichageSprite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import java.net.URL;
@@ -57,6 +63,10 @@ public class Controller implements Initializable {
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
 
+        GestionCauseDegat gestionCauseDegat = new GestionCauseDegat(paneEntite);
+        monde.setListenerProjectile(gestionCauseDegat);
+
+
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMondeJSON();
         gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol = new gestionAffichageSpriteDropAuSol(paneEntite);
@@ -71,6 +81,7 @@ public class Controller implements Initializable {
 
             }
         }
+        
         monde.setJoueur(joueur);
 
 
@@ -91,15 +102,16 @@ public class Controller implements Initializable {
 
                     (ev ->
                     {
-                        if(temps==100000)
-                            gameLoop.stop();
 
                         for (Entite entite : monde.getEntities())
                         {
-                            Lambda lambda1 = (Lambda) entite;
+                            Controlable lambda1 = (Controlable) entite;
                             lambda1.action();
                         }
-                        temps++;
+
+                        monde.verificationCollisionAvecArme();
+                        monde.miseAjourCauseDegats();
+
                     })
         );
         gameLoop.getKeyFrames().add(kf);

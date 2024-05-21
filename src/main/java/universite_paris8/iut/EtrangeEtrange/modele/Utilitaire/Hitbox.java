@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Entite;
+package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
 public class Hitbox {
 
@@ -32,4 +32,12 @@ public class Hitbox {
         return y +  hauteur/2;
     }
 
+
+    public double getLargeur() {
+        return this.largeur;
+    }
+
+    public double getHauteur() {
+        return this.hauteur;
+    }
 }

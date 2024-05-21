@@ -4,10 +4,10 @@ package universite_paris8.iut.EtrangeEtrange.modele.Stockage;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 
 import java.util.ArrayList;
-public class Emplacement
+public class Emplacement <T extends Objet>
 {
     private int stackPossible;
-    private ArrayList<Objet> objets;
+    private ArrayList<T> objets;
 
     public Emplacement()
     {
@@ -15,7 +15,7 @@ public class Emplacement
         this.stackPossible = 1;
     }
 
-    public void ajoutObjet(Objet objet)
+    public void ajoutObjet(T objet)
     {
         if (this.objets.isEmpty())
         {
@@ -29,14 +29,14 @@ public class Emplacement
         }
     }
 
-    public Objet retourneUnObjet()
+    public T retourneUnObjet()
     {
         return this.objets.remove(0);
     }
 
-    public ArrayList<Objet> retourneToutLesObject()
+    public ArrayList<T> retourneToutLesObject()
     {
-        ArrayList<Objet> nvList = new ArrayList<>(this.objets);
+        ArrayList<T> nvList = new ArrayList<>(this.objets);
         vider();
         return nvList;
     }
@@ -64,6 +64,18 @@ public class Emplacement
     {
         return quantiteObjet()+1 < this.stackPossible;
     }
+
+
+
+    public <U extends Objet> boolean estDuMemeType(Class<U> typeObjet) {
+        boolean estDuMemeType = false;
+
+        if (!objets.isEmpty())
+            estDuMemeType = typeObjet.isInstance(objets.get(0));
+
+        return estDuMemeType;
+    }
+
 
     public String nomObjet()
     {

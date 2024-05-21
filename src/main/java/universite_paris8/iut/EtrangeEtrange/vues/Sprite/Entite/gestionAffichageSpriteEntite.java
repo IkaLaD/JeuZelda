@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class gestionAffichageSpriteEntite implements ListChangeListener<Entite> {
     private Pane paneEntite;
     private ArrayList<SpriteEntite> animationSprites;
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.15), event -> {
+    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.075), event -> {
         for(SpriteEntite animationSprite : animationSprites){
             if(animationSprite.getEntite().isSeDeplace())
                 animationSprite.miseAJourAnimation();

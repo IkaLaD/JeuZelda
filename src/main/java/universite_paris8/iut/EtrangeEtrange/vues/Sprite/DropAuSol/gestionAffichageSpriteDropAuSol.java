@@ -6,8 +6,8 @@ import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arc;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epée.EpeeDeSoldat;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 
 import java.util.ArrayList;

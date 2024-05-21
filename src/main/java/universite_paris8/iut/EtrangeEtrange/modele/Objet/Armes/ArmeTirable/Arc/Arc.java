@@ -33,7 +33,7 @@ public class Arc extends Arme
     }
     @Override
     public String getNom() {
-        return null;
+        return "arc";
     }
     @Override
     public int stackMax() {

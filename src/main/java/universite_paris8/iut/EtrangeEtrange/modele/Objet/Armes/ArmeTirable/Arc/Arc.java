@@ -8,6 +8,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParProjecti
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionObjet;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
+
+import java.util.TimerTask;
 
 public class Arc extends Arme
 {
@@ -28,12 +31,25 @@ public class Arc extends Arme
         return 0;
     }
     @Override
-    public double delaieEntreCoup() {
+    public long delaieEntreCoup() {
         return 0;
     }
+
+
+
+    @Override
+    public void cooldown() {
+        TimerAction.addAction(new TimerTask() {
+            @Override
+            public void run() {
+                peuxTaper = true;
+            }
+        },delaieEntreCoup());
+    }
+
     @Override
     public String getNom() {
-        return null;
+        return "arc";
     }
     @Override
     public int stackMax() {
@@ -49,7 +65,12 @@ public class Arc extends Arme
     @Override
     public void attaque(ParametreActionAttaque param)
     {
-        ParametreActionAttaqueArc paramArc = (ParametreActionAttaqueArc) param;
-        paramArc.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParProjectile(paramArc.getOrigineAction(), paramArc.getProjectile()));
+        if (peuxTaper)
+        {
+            ParametreActionAttaqueArc paramArc = (ParametreActionAttaqueArc) param;
+            paramArc.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParProjectile(paramArc.getOrigineAction(), paramArc.getProjectile()));
+            peuxTaper = false;
+            cooldown();
+        }
     }
 }

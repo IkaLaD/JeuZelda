@@ -7,5 +7,15 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 
 public abstract class Arme  extends Objet implements Dommageable, Utilisable
 {
+    protected boolean peuxTaper;
+
+    public Arme()
+    {
+        this.peuxTaper = true;
+    }
+
+
     public abstract void attaque(ParametreActionAttaque action);
+
+
 }

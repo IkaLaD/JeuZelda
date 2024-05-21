@@ -30,9 +30,10 @@ public class Arc extends Arme
     public double angle() {
         return 0;
     }
+
     @Override
     public long delaieEntreCoup() {
-        return 0;
+        return 1000;
     }
 
 

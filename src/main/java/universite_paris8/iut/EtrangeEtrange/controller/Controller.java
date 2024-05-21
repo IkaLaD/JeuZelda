@@ -52,7 +52,7 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private int temps = 0;
     private Deplacement deplacement;
-
+    private StockeurDonnees stockeurDonnees = StockeurDonnees.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,7 +83,7 @@ public class Controller implements Initializable {
 
             }
         }
-        
+
         monde.setJoueur(joueur);
 
 
@@ -101,22 +101,22 @@ public class Controller implements Initializable {
 
         KeyFrame kf = new KeyFrame
                 (
-                    Duration.seconds(0.1),
+                        Duration.seconds(0.1),
 
-                    (ev ->
-                    {
-
-                        for (Entite entite : monde.getEntities())
+                        (ev ->
                         {
-                            Controlable lambda1 = (Controlable) entite;
-                            lambda1.action();
-                        }
 
-                        monde.verificationCollisionAvecArme();
-                        monde.miseAjourCauseDegats();
+                            for (Entite entite : monde.getEntities())
+                            {
+                                Controlable lambda1 = (Controlable) entite;
+                                lambda1.action();
+                            }
 
-                    })
-        );
+                            monde.verificationCollisionAvecArme();
+                            monde.miseAjourCauseDegats();
+
+                        })
+                );
         gameLoop.getKeyFrames().add(kf);
     }
 
@@ -196,4 +196,18 @@ public class Controller implements Initializable {
             this.joueur.actionMainDroite();
     }
 
+
+    public void scroll(ScrollEvent scrollEvent) throws IOException{
+        Scene scene;
+        if(stockeurDonnees.getSceneMenu()==null) {
+            FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("menu.fxml"));
+            scene = new Scene(fxmlLoader.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
+        }
+        else {
+            scene = stockeurDonnees.getSceneMenu();
+        }
+
+        stockeurDonnees.getStage().setScene(scene);
+        stockeurDonnees.getStage().show();
+    }
 }

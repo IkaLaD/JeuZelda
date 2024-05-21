@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import universite_paris8.iut.EtrangeEtrange.controller.StockeurDonnees;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
 import java.io.IOException;
@@ -11,8 +12,11 @@ import java.io.IOException;
 public class Runner extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        StockeurDonnees stockeurDonnees = StockeurDonnees.getInstance();
         FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("viewMap.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
+        stockeurDonnees.setSceneJeu(scene);
+        stockeurDonnees.setStage(stage);
         stage.setScene(scene);
         stage.show();
     }

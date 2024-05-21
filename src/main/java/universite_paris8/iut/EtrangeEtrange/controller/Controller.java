@@ -2,10 +2,13 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.input.MouseButton;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -17,9 +20,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.A
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
@@ -33,6 +33,7 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -51,6 +52,7 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private int temps = 0;
     private Deplacement deplacement;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,6 +90,7 @@ public class Controller implements Initializable {
         deplacement = new Deplacement(joueur);
         initGameLoop();
         gameLoop.play();
+
     }
 
 
@@ -121,6 +124,7 @@ public class Controller implements Initializable {
         // Initialisation taille en fonction de la taille de la map
         int largeur = Monde.getSizeMondeLargeur()*Constantes.tailleTile;
         int hauteur = Monde.getSizeMondeHauteur()*Constantes.tailleTile;
+
         TilePaneSol.setMaxSize(largeur, hauteur);
         TilePaneSol.setMinSize(largeur, hauteur);
 
@@ -171,6 +175,9 @@ public class Controller implements Initializable {
             case S:
                 deplacement.addKeyCode(KeyCode.S);
                 break;
+            case E:
+                joueur.ramasserObjet();
+                break;
             case M:
                 joueur.enlevePv(60);
                 break;
@@ -188,6 +195,5 @@ public class Controller implements Initializable {
         if (mouseEvent.getButton() == MouseButton.PRIMARY)
             this.joueur.actionMainDroite();
     }
-
 
 }

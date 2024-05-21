@@ -19,5 +19,4 @@ public abstract class Sac extends ObjetConteneur<Objet>
         return 1;
     }
 
-
 }

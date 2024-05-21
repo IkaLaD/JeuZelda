@@ -233,6 +233,11 @@ public class Monde {
     public static int getSizeMondeLargeur() {
         return sizeMondeLargeur;
     }
+    public ArrayList<DropAuSol> getDropAuSol(){
+        ArrayList<DropAuSol> dropAuSols = new ArrayList<>();
+        dropAuSols.addAll(this.dropsAuSol);
+        return dropAuSols;
+    }
     public void ajoutEntite(Entite entite)
     {
         this.entites.add(entite);
@@ -240,6 +245,10 @@ public class Monde {
             if (entite.getPv().getPvActuelle() <= 0)
                 entites.remove(entite);
         });
+    }
+
+    public void enleverDropAuSol(DropAuSol dropAuSol){
+        this.dropsAuSol.remove(dropAuSol);
     }
 
     public void setJoueur(Joueur joueur){

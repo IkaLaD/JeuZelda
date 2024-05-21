@@ -4,14 +4,17 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
+
+import java.util.ArrayList;
 
 public abstract class Humanoide extends EntiteOffensif
 {
     protected Objet objetMainGauche;
     protected Objet objetMainDroite;
-
     protected Sac sac;
 
 
@@ -49,5 +52,20 @@ public abstract class Humanoide extends EntiteOffensif
     public Objet getObjetMainDroite()
     {
         return this.objetMainDroite;
+    }
+
+    public void ramasserObjet() {
+        ArrayList<DropAuSol> dropAuSols = getMonde().getDropAuSol();
+
+        for(int i = 0 ; i < dropAuSols.size() ; i++){
+            Position position1 = dropAuSols.get(i).getPosition();
+            if(Math.abs(getPosition().getX()+getDirection().getX()-position1.getX())<1)
+                if(Math.abs(getPosition().getY()+getDirection().getY()-position1.getY())<1) {
+                    if (sac.ajoutItem(dropAuSols.get(i).getObjet())) {
+                        getMonde().enleverDropAuSol(dropAuSols.get(i));
+                        i++;
+                    }
+                }
+        }
     }
 }

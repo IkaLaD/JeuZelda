@@ -60,8 +60,8 @@ public abstract class ObjetConteneur<T extends Objet> extends Objet implements C
         return this.inv.retourneObjet(emplacement);
     }
 
-
-
-
+    public String toString(){
+        return inv.toString();
+    }
 
 }

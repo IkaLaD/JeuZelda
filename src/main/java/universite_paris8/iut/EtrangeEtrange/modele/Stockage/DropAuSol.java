@@ -22,16 +22,6 @@ public class DropAuSol {
         this.quantite = quantite;
         this.position = position;
         this.id = idStatic++;
-
-        // TODO : à programmer lorsque la classe inventaire sera finie
-        /*joueur.getPosition().getXProperty().addListener((obs, old, nouv)->{
-            if(Math.abs(joueur.getPosition().getX()-position.getX())<=distancePourRamasser && Math.abs(joueur.getPosition().getY()-position.getY())<=distancePourRamasser)
-                // Méthode pour voir si l'inventaire du joueur à une place, si oui : drop au sol part dans l'inventaire du joueur
-        });
-        joueur.getPosition().getYProperty().addListener((obs, old, nouv)->{
-            if(Math.abs(joueur.getPosition().getX()-position.getX())<=distancePourRamasser && Math.abs(joueur.getPosition().getY()-position.getY())<=distancePourRamasser)
-                // Méthode pour voir si l'inventaire du joueur à une place, si oui : drop au sol part dans l'inventaire du joueur
-        });*/
     }
 
     public Position getPosition() {

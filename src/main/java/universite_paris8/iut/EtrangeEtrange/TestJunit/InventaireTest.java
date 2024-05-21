@@ -1,8 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.TestJunit;
 
-
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
@@ -22,9 +20,6 @@ public class InventaireTest {
     private Objet objet2;
     private Objet objet3;
     private Objet objet4;
-
-
-
 
 
     @Test

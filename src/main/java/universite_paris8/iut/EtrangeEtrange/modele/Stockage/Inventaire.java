@@ -32,11 +32,12 @@ public class Inventaire<T extends Objet> implements Conteneur<T>
         if (emplacement == null)
             emplacement = chercheEmplacementVide();
 
-
         if (emplacement != null) {
             emplacement.ajoutObjet(objet);
             ajoutReussi = true;
         }
+        for(int i = 0 ; i < inventaire.length ; i++)
+            System.out.println(inventaire[i].nomObjet());
 
         return ajoutReussi;
     }

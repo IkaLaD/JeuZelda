@@ -31,31 +31,25 @@ public class Arc extends Arme
         return 0;
     }
     @Override
-    public double delaieEntreCoup() {
-        return 1000;
+    public long delaieEntreCoup() {
+        return 0;
     }
 
-    @Override
-    public boolean peuTaper() {
-        return peuxTaper;
-    }
+
 
     @Override
-    public void cooldown()
-    {
+    public void cooldown() {
         TimerAction.addAction(new TimerTask() {
             @Override
             public void run() {
                 peuxTaper = true;
             }
-        }, (long) delaieEntreCoup());
-
+        },delaieEntreCoup());
     }
-
 
     @Override
     public String getNom() {
-        return null;
+        return "arc";
     }
     @Override
     public int stackMax() {
@@ -71,12 +65,12 @@ public class Arc extends Arme
     @Override
     public void attaque(ParametreActionAttaque param)
     {
-       if (peuxTaper)
-       {
-           ParametreActionAttaqueArc paramArc = (ParametreActionAttaqueArc) param;
-           paramArc.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParProjectile(paramArc.getOrigineAction(), paramArc.getProjectile()));
-           this.peuxTaper = false;
-           cooldown();
-       }
+        if (peuxTaper)
+        {
+            ParametreActionAttaqueArc paramArc = (ParametreActionAttaqueArc) param;
+            paramArc.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParProjectile(paramArc.getOrigineAction(), paramArc.getProjectile()));
+            peuxTaper = false;
+            cooldown();
+        }
     }
 }

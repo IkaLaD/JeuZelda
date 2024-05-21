@@ -29,14 +29,11 @@ public class EpeeDeSoldat extends Epee
     }
 
     @Override
-    public double delaieEntreCoup() {
+    public long delaieEntreCoup() {
         return 1;
     }
 
-    @Override
-    public boolean peuTaper() {
-        return false;
-    }
+
 
     @Override
     public void cooldown() {

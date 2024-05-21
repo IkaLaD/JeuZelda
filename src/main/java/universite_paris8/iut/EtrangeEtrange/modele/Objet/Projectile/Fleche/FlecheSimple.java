@@ -23,14 +23,11 @@ public class FlecheSimple extends Fleche
     }
 
     @Override
-    public double delaieEntreCoup() {
+    public long delaieEntreCoup() {
         return 0;
     }
 
-    @Override
-    public boolean peuTaper() {
-        return false;
-    }
+
 
     @Override
     public void cooldown() {

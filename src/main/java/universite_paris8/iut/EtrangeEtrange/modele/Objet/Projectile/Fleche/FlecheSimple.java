@@ -28,6 +28,16 @@ public class FlecheSimple extends Fleche
     }
 
     @Override
+    public boolean peuTaper() {
+        return false;
+    }
+
+    @Override
+    public void cooldown() {
+
+    }
+
+    @Override
     public String getNom() {
         return "Fleche";
     }

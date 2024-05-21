@@ -7,5 +7,7 @@ public interface Dommageable
     public abstract double portee();
     public abstract double angle();
     public abstract double delaieEntreCoup();
+    public abstract boolean peuTaper();
+    public abstract void cooldown();
 
 }

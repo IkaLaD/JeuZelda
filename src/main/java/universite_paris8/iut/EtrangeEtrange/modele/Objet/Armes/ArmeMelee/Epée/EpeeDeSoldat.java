@@ -34,6 +34,16 @@ public class EpeeDeSoldat extends Epee
     }
 
     @Override
+    public boolean peuTaper() {
+        return false;
+    }
+
+    @Override
+    public void cooldown() {
+
+    }
+
+    @Override
     public String getNom() {
         return "Epée De Soldat";
     }

@@ -2,13 +2,10 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -28,14 +25,10 @@ import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -52,14 +45,14 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private int temps = 0;
     private Deplacement deplacement;
-    private StockeurDonnees stockeurDonnees = StockeurDonnees.getInstance();
+    private SwitchScene switchDonnees;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        switchDonnees = SwitchScene.getSwitchScene();
         initMonde();
         initJoueur();
         initPane();
-
 
         gestionAffichageSpriteEntite gestionAffichageSprite = new gestionAffichageSpriteEntite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSprite);
@@ -76,8 +69,8 @@ public class Controller implements Initializable {
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
 
 
-        for(int i = -1 ; i <= 1 ; i++) {
-            for(int j = -1 ; j <= 1 ; j++) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
                 Lambda lambda = new Lambda(monde, 16 + j, 16 + i, Direction.GAUCHE, new Hitbox(0.50, 0.50));
                 monde.ajoutEntite(lambda);
 
@@ -85,12 +78,11 @@ public class Controller implements Initializable {
         }
 
         monde.setJoueur(joueur);
-
+        System.out.println("test2");
 
         deplacement = new Deplacement(joueur);
         initGameLoop();
         gameLoop.play();
-
     }
 
 
@@ -158,6 +150,7 @@ public class Controller implements Initializable {
     public void initJoueur(){
         // Initialisation Coordonnées centre monde et des listeners
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
+        switchDonnees.setJoueur(joueur);
     }
 
     public void keyPressed(KeyEvent keyEvent) {
@@ -196,18 +189,16 @@ public class Controller implements Initializable {
             this.joueur.actionMainDroite();
     }
 
+    public void onScroll(ScrollEvent scrollEvent) {
+        switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+        switchDonnees.getControllerMenu().recupererDonnees();
+        switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());
+        switchDonnees.getStage().show();
+        System.out.println("Changement de scène vers Menu");
+    }
 
-    public void scroll(ScrollEvent scrollEvent) throws IOException{
-        Scene scene;
-        if(stockeurDonnees.getSceneMenu()==null) {
-            FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("menu.fxml"));
-            scene = new Scene(fxmlLoader.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
-        }
-        else {
-            scene = stockeurDonnees.getSceneMenu();
-        }
-
-        stockeurDonnees.getStage().setScene(scene);
-        stockeurDonnees.getStage().show();
+    public void recupererDonnees() {
+        switchDonnees.recupererPane(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+        System.out.println(switchDonnees.getStage().getScene()+" JEU");
     }
 }

@@ -1,0 +1,11 @@
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+
+
+<Pane fx:id="paneEntite" onMouseClicked="#onClicked" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControllerMenu">
+    <children>
+        <TilePane fx:id="TilePaneSol" />
+        <TilePane fx:id="TilePaneTraversable" />
+        <TilePane fx:id="TilePaneNontraversable" />
+    </children>
+</Pane>

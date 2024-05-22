@@ -2,6 +2,7 @@ module com.example.essaie {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.json;
+    requires org.junit.jupiter;
     requires org.junit.jupiter.api;
     requires org.junit.platform.commons;
 

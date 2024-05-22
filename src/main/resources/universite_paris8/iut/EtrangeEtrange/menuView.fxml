@@ -1,11 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<Pane fx:id="paneEntite" onMouseClicked="#onClicked" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControllerMenu">
-    <children>
-        <TilePane fx:id="TilePaneSol" />
-        <TilePane fx:id="TilePaneTraversable" />
-        <TilePane fx:id="TilePaneNontraversable" />
-    </children>
-</Pane>
+<StackPane fx:id="mainConteneur" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControllerMenu">
+    <Pane fx:id="paneEntite">
+        <children>
+            <TilePane fx:id="TilePaneSol" />
+            <TilePane fx:id="TilePaneTraversable" />
+            <TilePane fx:id="TilePaneNontraversable" />
+        </children>
+    </Pane>
+    <TabPane fx:id="TabPane" onMouseClicked="#onClicked" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="Inventaire">
+            <content>
+               <VBox>
+                  <children>
+                     <ImageView fx:id="titreInventaire" pickOnBounds="true" preserveRatio="true">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin></ImageView>
+                     <StackPane>
+                        <children>
+                           <TilePane />
+                           <TilePane />
+                        </children>
+                     </StackPane>
+                     <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                           <Pane fx:id="conteneurObjetMainDroite" maxHeight="64" maxWidth="64" minHeight="64" minWidth="64" />
+                           <ImageView fx:id="titreMainDroite" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <HBox.margin>
+                                 <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+                              </HBox.margin></ImageView>
+                        </children>
+                     </HBox>
+                     <HBox prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                           <Pane fx:id="conteneurObjetMainGauche" maxHeight="64" maxWidth="64" minHeight="64" minWidth="64" />
+                           <ImageView fx:id="titreMainGauche" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <HBox.margin>
+                                 <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+                              </HBox.margin></ImageView>
+                        </children>
+                     </HBox>
+                  </children>
+                  <padding>
+                     <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                  </padding>
+               </VBox>
+            </content></Tab>
+        </tabs>
+    </TabPane>
+</StackPane>

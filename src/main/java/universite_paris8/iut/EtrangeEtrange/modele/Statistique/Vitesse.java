@@ -5,28 +5,28 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 public class Vitesse
 {
+    private DoubleProperty vitesseMaximum;
     private DoubleProperty vitesse;
-    private DoubleProperty vitesseActuelle;
 
     public Vitesse(double vitesse)
     {
+        this.vitesseMaximum = new SimpleDoubleProperty(vitesse);
         this.vitesse = new SimpleDoubleProperty(vitesse);
-        this.vitesseActuelle = new SimpleDoubleProperty(vitesse);
     }
 
-    public void setVitesseActuelle(double pvActuelle) {
-        this.vitesseActuelle.set(pvActuelle);
+    public void setVitesse(double pvActuelle) {
+        this.vitesse.set(pvActuelle);
     }
 
-    public void setVitesse(double pvMax) {
-        this.vitesse.set(pvMax);
-    }
-
-    public double getVitesseActuelle() {
-        return this.vitesseActuelle.get();
+    public void setVitesseMaximum(double pvMax) {
+        this.vitesseMaximum.set(pvMax);
     }
 
     public double getVitesse() {
         return this.vitesse.get();
+    }
+
+    public double getVitesseMaximum() {
+        return this.vitesseMaximum.get();
     }
 }

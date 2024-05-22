@@ -8,27 +8,29 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
 public abstract class EntiteOffensif extends Entite
 {
-    private Attaque attaque;
-    private AttaqueSpecial attaqueSpecial;
+    protected Attaque statsAttaque;
+    protected AttaqueSpecial statsAttaqueSpecial;
     public EntiteOffensif(double pv, double attaque, double defense, double attaqueSpecial , double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox)
     {
         super(pv, defense, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
-        this.attaque = new Attaque(attaque);
-        this.attaqueSpecial = new AttaqueSpecial(attaqueSpecial);
+        this.statsAttaque = new Attaque(attaque);
+        this.statsAttaqueSpecial = new AttaqueSpecial(attaqueSpecial);
     }
     public abstract void attaque();
 
 
+    public void setAttaqueMaximum(double attaque) {this.statsAttaque.setAttaqueMaximum(attaque);}
+    public void setAttaque(double attaque) {this.statsAttaque.setAttaque(attaque);}
 
+    public void setAttaqueSpecialMaximum(double attaqueSpecial){this.statsAttaqueSpecial.setAttaqueSpecialMaximum(attaqueSpecial);}
+    public void setAttaqueSpecial(double attaqueSpecial){this.statsAttaqueSpecial.setAttaqueSpecial(attaqueSpecial);}
 
-    public void setAttaque(double attaque) {this.attaque.setAttaque(attaque);}
-    public void setAttaqueActuelle(double attaque) {this.attaque.setAttaqueActuelle(attaque);}
+    public Attaque getStatsAttaque(){return this.statsAttaque;}
+    public AttaqueSpecial getStatsAttaqueSpecial(){return this.statsAttaqueSpecial;}
 
-    public void setAttaqueSpecial(double attaqueSpecial){this.attaqueSpecial.setAttaqueSpecial(attaqueSpecial);}
-    public void setAttaqueSpecialActuelle(double attaqueSpecial){this.attaqueSpecial.setAttaqueSpecialActuelle(attaqueSpecial);}
+    public double getAttaque(){ return this.statsAttaque.getAttaque();}
+    public double getAttaqueSpecial(){ return this.statsAttaqueSpecial.getAttaqueSpecial();}
 
-    public Attaque getAttaque(){return this.attaque;}
-    public AttaqueSpecial getAttaqueSpecial(){return this.attaqueSpecial;}
 
 
 

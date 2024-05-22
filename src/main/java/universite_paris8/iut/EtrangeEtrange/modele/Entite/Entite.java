@@ -1,44 +1,43 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
-import javafx.geometry.Pos;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEntite;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEpee;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Defense;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.DefenseSpecial;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Vitesse;
-import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Surface;
-import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.CauseDegat;
-import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParEntite;
-import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParEpee;
-import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParProjectile;
+
 
 import java.util.ArrayList;
 
 public abstract class Entite {
     private static int staticIdEntité = 0;
-    private Pv pv;
-    private Defense defense;
-    private DefenseSpecial defenseSpecial;
-    private Vitesse vitesse;
-    private Position position;
-    private Direction direction;
-    private Monde monde;
-    private Hitbox hitbox;
+    protected Pv statsPv;
+    protected Defense statsDefense;
+    protected DefenseSpecial statsDefenseSpecial;
+    protected Vitesse statsVitesse;
+    protected Position position;
+    protected Direction direction;
+    protected Monde monde;
+    protected Hitbox hitbox;
     private int id;
     private boolean seDeplace;
 
     public Entite(double pv,double defense,double defenseSpecial,double vitesse,Monde monde,double x,double y,Direction direction, Hitbox hitbox)
     {
         this.id = staticIdEntité++;
-        this.pv = new Pv(pv);
-        this.defense = new Defense(defense);
-        this.defenseSpecial = new DefenseSpecial(defenseSpecial);
-        this.vitesse = new Vitesse(vitesse);
+        this.statsPv = new Pv(pv);
+        this.statsDefense = new Defense(defense);
+        this.statsDefenseSpecial = new DefenseSpecial(defenseSpecial);
+        this.statsVitesse = new Vitesse(vitesse);
         this.seDeplace = false;
 
         this.monde = monde;
@@ -47,23 +46,23 @@ public abstract class Entite {
         this.hitbox = hitbox;
     }
 
-    public void subitDegat(CauseDegat causeDegat)
+    public void subitDegat(ActionDegat causeDegat)
     {
 
-        if (causeDegat instanceof DegatParEntite)
+        if (causeDegat instanceof ActionDegatParEntite)
         {
-            EntiteOffensif entiteOffensif = ((DegatParEntite) causeDegat).getOrigineDegat();
+            EntiteOffensif entiteOffensif = ((ActionDegatParEntite) causeDegat).getOrigineDegat();
 
-            if (causeDegat instanceof DegatParEpee)
+            if (causeDegat instanceof ActionDegatParEpee)
             {
                 enlevePv(20);
 
-                subitDegatPhysique(causeDegat.getOrgineAttaque().degatPhysique(),((DegatParEpee) causeDegat).getOrigineDegat().getAttaque().getAttaqueActuelle());
-                subitDegatSpecial(causeDegat.getOrgineAttaque().degatSpecial(),((DegatParEpee) causeDegat).getOrigineDegat().getAttaqueSpecial().getAttaqueSpecialActuelle());
+                subitDegatPhysique(causeDegat.getOrgineAttaque().degatPhysique(),((ActionDegatParEpee) causeDegat).getOrigineDegat().getAttaque());
+                subitDegatSpecial(causeDegat.getOrgineAttaque().degatSpecial(),((ActionDegatParEpee) causeDegat).getOrigineDegat().getAttaqueSpecial());
             }
-            else if (causeDegat instanceof DegatParProjectile)
+            else if (causeDegat instanceof ActionDegatParProjectile)
             {
-                if (((DegatParProjectile) causeDegat).getOrigineDegat() != this)
+                if (((ActionDegatParProjectile) causeDegat).getOrigineDegat() != this)
                 {
                     enlevePv(20);
                     Projectile projectile = (Projectile) causeDegat.getOrgineAttaque();
@@ -82,25 +81,25 @@ public abstract class Entite {
 
     public void enlevePv(double pv)
     {
-        this.pv.enleverPv(pv);
+        this.statsPv.enleverPv(pv);
     }
 
 
 
 
-    public void setPv(double pv) {this.pv.setPv(pv);}
-    public void setPvActuelle(double pv) {this.pv.setPvActuelle(pv);}
+    public void setPvMaximum(double statsPv) {this.statsPv.setPvMaximum(statsPv);}
+    public void setPv(double pv) {this.statsPv.setPv(pv);}
 
-    public void setDefense(double defense){this.defense.setDefense(defense);}
-    public void setDefenseActuelle(double defense){this.defense.setDefenseActuelle(defense);}
-
-
-    public void setDefenseSpecial(double defenseSpecial) {this.defenseSpecial.setDefenseSpecial(defenseSpecial);}
-    public void setDefenseSpecialActuelle(double defenseSpecial) {this.defenseSpecial.setDefenseSpecialActuelle(defenseSpecial);}
+    public void setDefenseMaximum(double statsDefense){this.statsDefense.setDefenseMaximum(statsDefense);}
+    public void setDefense(double defense){this.statsDefense.setDefense(defense);}
 
 
-    public void setVitesse(double vitesse) {this.vitesse.setVitesse(vitesse);}
-    public void setVitesseActuelle(double vitesse) {this.vitesse.setVitesseActuelle(vitesse);}
+    public void setDefenseSpecialMaximum(double statsDefenseSpecial) {this.statsDefenseSpecial.setDefenseSpecialMaximum(statsDefenseSpecial);}
+    public void setDefenseSpecial(double defenseSpecial) {this.statsDefenseSpecial.setDefenseSpecial(defenseSpecial);}
+
+
+    public void setVitesseMaximum(double statsVitesse) {this.statsVitesse.setVitesseMaximum(statsVitesse);}
+    public void setVitesse(double vitesse) {this.statsVitesse.setVitesse(vitesse);}
 
 
     public void setPosition(double x, double y)
@@ -123,26 +122,30 @@ public abstract class Entite {
         int y = direction.getY();
 
         if(peutSeDeplacer()) {
-            position.setX(position.getX() + x * vitesse.getVitesse());
-            position.setY(position.getY() + y * vitesse.getVitesse());
+            position.setX(position.getX() + x * statsVitesse.getVitesseMaximum());
+            position.setY(position.getY() + y * statsVitesse.getVitesseMaximum());
         }
     }
 
 
     public void soigner(double pv)
     {
-        this.pv.ajoutPv(pv);
+        this.statsPv.ajoutPv(pv);
     }
     public abstract void consommer();
 
 
-    public Pv getPv() {return this.pv;}
+    public Pv getStatsPv() {return this.statsPv;}
+    public double getPv(){ return this.statsPv.getPv(); }
+    public double getDefense(){ return this.statsDefense.getDefense();}
+    public double getDefenseSpecial(){ return this.statsDefenseSpecial.getDefenseSpecial();}
+    public double getVitesse(){ return this.statsVitesse.getVitesse();}
     public int getId(){
         return this.id;
     }
-    public Defense getDefense(){return this.defense;}
-    public DefenseSpecial getDefenseSpecial(){return this.defenseSpecial;}
-    public Vitesse getVitesse(){return this.vitesse;}
+    public Defense getStatsDefense(){return this.statsDefense;}
+    public DefenseSpecial getStatsDefenseSpecial(){return this.statsDefenseSpecial;}
+    public Vitesse getStatsVitesse(){return this.statsVitesse;}
     public Position getPosition(){return this.position;}
     public Direction getDirection() {return this.direction;}
     public Monde getMonde(){return this.monde;}
@@ -171,17 +174,17 @@ public abstract class Entite {
      */
     public boolean horsMap(){
         return switch (direction){
-            case BAS -> hitbox.getPointLePlusEnBas(position.getY())+vitesse.getVitesseActuelle()>=Monde.getSizeMondeHauteur();
-            case HAUT -> hitbox.getPointLePlusEnHaut(position.getY())-vitesse.getVitesseActuelle()<0;
-            case DROITE -> hitbox.getPointLePlusADroite(position.getX())+vitesse.getVitesseActuelle()>=Monde.getSizeMondeLargeur();
-            case GAUCHE -> hitbox.getPointLePlusAGauche(position.getX())-vitesse.getVitesseActuelle()<0;
+            case BAS -> hitbox.getPointLePlusEnBas(position.getY())+ statsVitesse.getVitesse()>=Monde.getSizeMondeHauteur();
+            case HAUT -> hitbox.getPointLePlusEnHaut(position.getY())- statsVitesse.getVitesse()<0;
+            case DROITE -> hitbox.getPointLePlusADroite(position.getX())+ statsVitesse.getVitesse()>=Monde.getSizeMondeLargeur();
+            case GAUCHE -> hitbox.getPointLePlusAGauche(position.getX())- statsVitesse.getVitesse()<0;
         };
     }
 
     public boolean collision()
     {
-        double x = position.getX()+vitesse.getVitesseActuelle()*direction.getX();
-        double y = position.getY()+vitesse.getVitesseActuelle()*direction.getY();
+        double x = position.getX()+ statsVitesse.getVitesse()*direction.getX();
+        double y = position.getY()+ statsVitesse.getVitesse()*direction.getY();
 
         // Extremité de la hitbox, calculer dans le if en dessous en fonction de la direction (on prend extremite gauche et droite si on va vers le haut ou le bas)
         double extremite1;

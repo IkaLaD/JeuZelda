@@ -2,6 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
@@ -11,7 +12,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
-import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.CauseDegat;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
 
 
@@ -46,7 +46,7 @@ public class Monde {
 
     private ObservableList<DropAuSol> dropsAuSol;
 
-    private ObservableList<CauseDegat> causeDegats =  FXCollections.observableArrayList();
+    private ObservableList<ActionDegat> causeDegats =  FXCollections.observableArrayList();
 
 
 
@@ -241,8 +241,8 @@ public class Monde {
     public void ajoutEntite(Entite entite)
     {
         this.entites.add(entite);
-        entite.getPv().getPvActuelleProperty().addListener((old, obs, nouv)-> {
-            if (entite.getPv().getPvActuelle() <= 0)
+        entite.getStatsPv().getPvActuelleProperty().addListener((old, obs, nouv)-> {
+            if (entite.getStatsPv().getPv() <= 0)
                 entites.remove(entite);
         });
     }
@@ -289,7 +289,7 @@ public class Monde {
         this.causeDegats.addListener(gestionCauseDegats);
     }
 
-    public void ajoutCauseDegat(CauseDegat causeDegat)
+    public void ajoutCauseDegat(ActionDegat causeDegat)
     {
         this.causeDegats.add(causeDegat);
     }
@@ -302,7 +302,7 @@ public class Monde {
            causeDegats.get(i).miseAjour();
    }
 
-   public void enleveCauseDegat(CauseDegat causeDegat)
+   public void enleveCauseDegat(ActionDegat causeDegat)
    {
        this.causeDegats.remove(causeDegat);
    }
@@ -327,7 +327,7 @@ public class Monde {
 
             for (int j = causeDegats.size()-1;j>=0;j--)
             {
-                CauseDegat causeDegat = causeDegats.get(j);
+                ActionDegat causeDegat = causeDegats.get(j);
 
                 if (entite.getSurface().collision(causeDegat.surfaceDegat()))
                     entite.subitDegat(causeDegat);

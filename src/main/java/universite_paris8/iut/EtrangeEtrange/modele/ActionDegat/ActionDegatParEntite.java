@@ -1,13 +1,13 @@
-package universite_paris8.iut.EtrangeEtrange.modele.GestionDegat;
+package universite_paris8.iut.EtrangeEtrange.modele.ActionDegat;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 
-public abstract class DegatParEntite extends CauseDegat
+public abstract class ActionDegatParEntite extends ActionDegat
 {
     private EntiteOffensif origineAttaque;
 
-    public DegatParEntite(EntiteOffensif origineAttaque, Dommageable orgineDegat)
+    public ActionDegatParEntite(EntiteOffensif origineAttaque, Dommageable orgineDegat)
     {
         super(orgineDegat);
         this.origineAttaque = origineAttaque;

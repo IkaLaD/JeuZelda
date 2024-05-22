@@ -40,7 +40,7 @@ public  abstract class Projectile extends Objet implements Dommageable
 
     public void setVitesse(double vitesse)
     {
-        this.vitesse.setVitesse(vitesse);
+        this.vitesse.setVitesseMaximum(vitesse);
     }
 
     public void setDirection(Direction direction)
@@ -53,8 +53,8 @@ public  abstract class Projectile extends Objet implements Dommageable
         int x = direction.getX();
         int y = direction.getY();
 
-        position.setX(position.getX() + x * vitesse.getVitesse());
-        position.setY(position.getY() + y * vitesse.getVitesse());
+        position.setX(position.getX() + x * vitesse.getVitesseMaximum());
+        position.setY(position.getY() + y * vitesse.getVitesseMaximum());
     }
 
     public Hitbox getHitbox()

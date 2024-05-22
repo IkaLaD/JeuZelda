@@ -5,28 +5,28 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 public class Attaque
 {
+    private DoubleProperty attaqueMaximum;
     private DoubleProperty attaque;
-    private DoubleProperty attaqueActuelle;
 
     public Attaque(double attaque)
     {
+        this.attaqueMaximum = new SimpleDoubleProperty(attaque);
         this.attaque = new SimpleDoubleProperty(attaque);
-        this.attaqueActuelle = new SimpleDoubleProperty(attaque);
-    }
-
-    public void setAttaqueActuelle(double attaqueActuelle) {
-        this.attaqueActuelle.set(attaqueActuelle);
     }
 
     public void setAttaque(double attaque) {
         this.attaque.set(attaque);
     }
 
-    public double getAttaqueActuelle() {
-        return this.attaqueActuelle.get();
+    public void setAttaqueMaximum(double attaqueMaximum) {
+        this.attaqueMaximum.set(attaqueMaximum);
     }
 
     public double getAttaque() {
         return this.attaque.get();
+    }
+
+    public double getAttaqueMaximum() {
+        return this.attaqueMaximum.get();
     }
 }

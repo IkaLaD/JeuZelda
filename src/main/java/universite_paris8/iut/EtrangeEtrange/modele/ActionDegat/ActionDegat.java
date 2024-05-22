@@ -1,16 +1,16 @@
-package universite_paris8.iut.EtrangeEtrange.modele.GestionDegat;
+package universite_paris8.iut.EtrangeEtrange.modele.ActionDegat;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Surface;
 
-public abstract class CauseDegat
+public abstract class ActionDegat
 {
     private Dommageable orgineDegat;
 
 
-    public CauseDegat(Dommageable origineDegat)
+    public ActionDegat(Dommageable origineDegat)
     {
         this.orgineDegat = origineDegat;
     }

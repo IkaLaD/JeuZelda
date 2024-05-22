@@ -5,28 +5,28 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 public class AttaqueSpecial
 {
+    private DoubleProperty attaqueSpecialMaximum;
     private DoubleProperty attaqueSpecial;
-    private DoubleProperty attaqueActuelleSpecial;
 
     public AttaqueSpecial(double attaqueSpecial)
     {
+        this.attaqueSpecialMaximum = new SimpleDoubleProperty(attaqueSpecial);
         this.attaqueSpecial = new SimpleDoubleProperty(attaqueSpecial);
-        this.attaqueActuelleSpecial = new SimpleDoubleProperty(attaqueSpecial);
     }
 
-    public void setAttaqueSpecialActuelle(double attaqueSpecialActuelle) {
-        this.attaqueActuelleSpecial.set(attaqueSpecialActuelle);
+    public void setAttaqueSpecial(double attaqueSpecialActuelle) {
+        this.attaqueSpecial.set(attaqueSpecialActuelle);
     }
 
-    public void setAttaqueSpecial(double attaqueSpecial) {
-        this.attaqueSpecial.set(attaqueSpecial);
-    }
-
-    public double getAttaqueSpecialActuelle() {
-        return this.attaqueActuelleSpecial.get();
+    public void setAttaqueSpecialMaximum(double attaqueSpecialMaximum) {
+        this.attaqueSpecialMaximum.set(attaqueSpecialMaximum);
     }
 
     public double getAttaqueSpecial() {
         return this.attaqueSpecial.get();
+    }
+
+    public double getAttaqueSpecialMaximum() {
+        return this.attaqueSpecialMaximum.get();
     }
 }

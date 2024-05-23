@@ -14,13 +14,15 @@ import java.util.TimerTask;
 
 public class SortilegePluitDeFleche extends Sortilege
 {
-    private final int NOMBRE_FLECHE = 1000;
+    private final int NOMBRE_FLECHE = 100;
 
     @Override
     public void action(EntiteOffensif utilisateur)
     {
+        double x = utilisateur.getPosition().getX();
+        double y = utilisateur.getPosition().getY();
 
-
+        Direction direction = utilisateur.getDirection();
         for (int i = 0;i<NOMBRE_FLECHE;i++)
         {
             TimerAction.addAction(new TimerTask()
@@ -30,12 +32,12 @@ public class SortilegePluitDeFleche extends Sortilege
                 {
                     Platform.runLater(() -> {
                         FlecheSimple flecheSimple = new FlecheSimple();
-                        flecheSimple.setDirection(utilisateur.getDirection());
-                        flecheSimple.setPositionOrigine(positionAleaAutourDe(utilisateur.getPosition().getX(), utilisateur.getPosition().getY(), utilisateur.getDirection()));
+                        flecheSimple.setDirection(direction);
+                        flecheSimple.setPositionOrigine(positionAleaAutourDe(x,y, direction));
                         utilisateur.getMonde().ajoutCauseDegat(new ActionDegatParProjectile(utilisateur, flecheSimple));
                     });
                 }
-            }, i * NOMBRE_FLECHE);
+            }, i * 100);
         }
     }
 

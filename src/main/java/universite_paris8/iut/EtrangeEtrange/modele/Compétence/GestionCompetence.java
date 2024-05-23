@@ -1,5 +1,8 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Compétence;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.Competence;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,15 +10,20 @@ public class GestionCompetence
 {
 
     private HashMap<Competence,ArrayList<Competence>> mapParent;
+
     public GestionCompetence()
     {
         this.mapParent = new HashMap<>();
     }
-    
-    public void debloquerCompetence(Competence competence)
+
+
+
+    public void debloquerCompetence(Competence competence,Joueur joueur)
     {
-        if (!competence.estDebloquer() && parentDebloquer(competence))
+        if (!competence.estDebloquer() && parentDebloquer(competence)) {
             competence.debloquer();
+            competence.monterDeNiveau(joueur);
+        }
     }
 
 

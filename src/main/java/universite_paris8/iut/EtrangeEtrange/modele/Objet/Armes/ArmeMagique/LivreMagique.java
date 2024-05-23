@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public abstract class LivreMagique extends Objet implements Utilisable
 {
     private ArrayList<Sortilege> sortileges;
+    private final int sortMaximum = 3;
 
 
 
@@ -35,6 +36,11 @@ public abstract class LivreMagique extends Objet implements Utilisable
     }
 
 
+    public void ajoutSortilege(Sortilege sortilege)
+    {
+        if (sortileges.size() +1 < sortMaximum)
+            sortileges.add(sortilege);
+    }
 
 
 

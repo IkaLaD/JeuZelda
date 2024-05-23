@@ -252,6 +252,11 @@ public abstract class Entite {
         return false;
     }
 
+    public void augmentePvMaximum(double pv)
+    {
+        setPvMaximum(getStatsPv().getPvMaximum() + pv);
+    }
+
     public Surface getSurface()
     {
         return new Surface(position,hitbox);

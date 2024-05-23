@@ -8,6 +8,9 @@ import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+
+import static universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction.*;
 
 public class SpriteEntite {
     private Entite entite;
@@ -105,12 +108,17 @@ public class SpriteEntite {
     }
 
     public void miseAJourAnimation(){
-        String face = switch (entite.getDirection()){
-            case BAS -> "bas";
-            case HAUT -> "haut";
-            case DROITE -> "droite";
-            case GAUCHE -> "gauche";
-        };
+        String face = null;
+        if (entite.getDirection() == Direction.BAS) {
+            face = "bas";
+        } else if (entite.getDirection() == Direction.HAUT) {
+            face = "haut";
+        } else if (entite.getDirection() == Direction.DROITE) {
+            face = "droite";
+        } else if (entite.getDirection() == Direction.GAUCHE) {
+            face = "gauche";
+        }
+
         SpriteEntite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+ skin +"/"+face+image+".png"));
         if(image==6)
             image=1;
@@ -120,12 +128,16 @@ public class SpriteEntite {
 
     public void finAnimationMarche(){
         image=1;
-        String face = switch (entite.getDirection()){
-            case BAS -> "bas";
-            case HAUT -> "haut";
-            case DROITE -> "droite";
-            case GAUCHE -> "gauche";
-        };
+        String face = null;
+        if (entite.getDirection() == Direction.BAS) {
+            face = "bas";
+        } else if (entite.getDirection() == Direction.HAUT) {
+            face = "haut";
+        } else if (entite.getDirection() == Direction.DROITE) {
+            face = "droite";
+        } else if (entite.getDirection() == Direction.GAUCHE) {
+            face = "gauche";
+        }
         this.SpriteEntite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+ skin +"/"+face+1+".png"));
     }
 

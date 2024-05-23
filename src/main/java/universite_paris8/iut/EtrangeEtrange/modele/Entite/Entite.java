@@ -18,6 +18,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Surface;
 
 import java.util.ArrayList;
 
+import static universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction.*;
+
 public abstract class Entite {
     private static int staticIdEntité = 0;
     protected Pv statsPv;
@@ -172,14 +174,27 @@ public abstract class Entite {
      * Renvoie "true" si la prochaine position de l'entite est hors map
      * @return
      */
-    public boolean horsMap(){
-        return switch (direction){
-            case BAS -> hitbox.getPointLePlusEnBas(position.getY())+ statsVitesse.getVitesse()>=Monde.getSizeMondeHauteur();
-            case HAUT -> hitbox.getPointLePlusEnHaut(position.getY())- statsVitesse.getVitesse()<0;
-            case DROITE -> hitbox.getPointLePlusADroite(position.getX())+ statsVitesse.getVitesse()>=Monde.getSizeMondeLargeur();
-            case GAUCHE -> hitbox.getPointLePlusAGauche(position.getX())- statsVitesse.getVitesse()<0;
-        };
+    public boolean horsMap()
+    {
+        boolean collision;
+
+        if (direction == BAS) {
+            collision = hitbox.getPointLePlusEnBas(position.getY()) + statsVitesse.getVitesse() >= Monde.getSizeMondeHauteur();
+        } else if (direction == HAUT) {
+            collision = hitbox.getPointLePlusEnHaut(position.getY()) - statsVitesse.getVitesse() < 0;
+        } else if (direction == Direction.DROITE) {
+            collision = hitbox.getPointLePlusADroite(position.getX()) + statsVitesse.getVitesse() >= Monde.getSizeMondeLargeur();
+        } else if (direction == GAUCHE) {
+            collision = hitbox.getPointLePlusAGauche(position.getX()) - statsVitesse.getVitesse() < 0;
+        }
+        else
+        {
+            collision = false;
+        }
+
+        return collision;
     }
+
 
     public boolean collision()
     {
@@ -190,7 +205,7 @@ public abstract class Entite {
         double extremite1;
         double extremite2;
 
-        if (direction==Direction.BAS  || direction==Direction.HAUT){
+        if (direction== BAS  || direction== HAUT){
             extremite1 = hitbox.getPointLePlusAGauche(x);
             extremite2 = hitbox.getPointLePlusADroite(x);
         }
@@ -204,17 +219,16 @@ public abstract class Entite {
 
         int[][] nontraversable = monde.getNontraversable();
 
-        while(cpt <= extremite2 && !colision){
-            colision = switch (direction) {
-                case BAS ->
-                        nontraversable[(int) (hitbox.getPointLePlusEnBas(y))][cpt] != -1;
-                case HAUT ->
-                        nontraversable[(int) (hitbox.getPointLePlusEnHaut(y))][cpt] != -1;
-                case DROITE ->
-                        nontraversable[cpt][(int) (hitbox.getPointLePlusADroite(x))] != -1;
-                case GAUCHE ->
-                        nontraversable[cpt][(int) (hitbox.getPointLePlusAGauche(x))] != -1;
-            };
+        while (cpt <= extremite2 && !colision) {
+            if (direction == BAS) {
+                colision = nontraversable[(int) (hitbox.getPointLePlusEnBas(y))][cpt] != -1;
+            } else if (direction == HAUT) {
+                colision = nontraversable[(int) (hitbox.getPointLePlusEnHaut(y))][cpt] != -1;
+            } else if (direction == DROITE) {
+                colision = nontraversable[cpt][(int) (hitbox.getPointLePlusADroite(x))] != -1;
+            } else if (direction == GAUCHE) {
+                colision = nontraversable[cpt][(int) (hitbox.getPointLePlusAGauche(x))] != -1;
+            }
             cpt++;
         }
         if(colision)

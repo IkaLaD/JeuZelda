@@ -6,6 +6,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
@@ -16,14 +17,15 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.A
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 public abstract class Joueur extends Humanoide
 {
     protected Carquois carquois;
 
-    public Joueur(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse,Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
+    protected boolean peuCourir;
+    public Joueur(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(pv, attaque, defense, attaqueSpecial, defenseSpecial,vitesse, sac, objetMainGauche, objetMainDroite, monde, x, y, direction, hitbox);
+        peuCourir = false;
     }
 
 
@@ -80,6 +82,12 @@ public abstract class Joueur extends Humanoide
         arme.attaque(actionAttaquer);
 
 
+    }
+
+
+    public void peuCourir(boolean peuCourir)
+    {
+        this.peuCourir = peuCourir;
     }
 
     @Override

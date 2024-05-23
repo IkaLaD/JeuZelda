@@ -2,15 +2,13 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
@@ -21,21 +19,17 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -53,9 +47,19 @@ public class Controller implements Initializable {
     private int temps = 0;
     private Deplacement deplacement;
 
+    private HashMap<KeyCode, Direction> directionHashMap = new HashMap<>();
+
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        directionHashMap.put(KeyCode.Q,Direction.GAUCHE);
+        directionHashMap.put(KeyCode.D,Direction.DROITE);
+        directionHashMap.put(KeyCode.Z,Direction.HAUT);
+        directionHashMap.put(KeyCode.S,Direction.BAS);
+
+
+
         initMonde();
         initJoueur();
         initPane();
@@ -164,28 +168,36 @@ public class Controller implements Initializable {
         KeyCode keyCode = keyEvent.getCode();
         switch (keyCode){
             case Q:
-                deplacement.addKeyCode(KeyCode.Q);
+                deplacement.ajoutDirection(directionHashMap.get(KeyCode.Q));
                 break;
             case D:
-                deplacement.addKeyCode(KeyCode.D);
+                deplacement.ajoutDirection(directionHashMap.get(KeyCode.D));
                 break;
             case Z:
-                deplacement.addKeyCode(KeyCode.Z);
+                deplacement.ajoutDirection(directionHashMap.get(KeyCode.Z));
                 break;
             case S:
-                deplacement.addKeyCode(KeyCode.S);
+                deplacement.ajoutDirection(directionHashMap.get(KeyCode.S));
                 break;
             case E:
                 joueur.ramasserObjet();
                 break;
-            case M:
-                joueur.enlevePv(60);
+            case F:
+                deplacement.entrainDeCourir(true);
                 break;
         }
 
     }
     public void onKeyReleased(KeyEvent keyEvent) {
-        deplacement.removeKeyCode(keyEvent.getCode());
+
+        Direction direction = directionHashMap.get(keyEvent.getCode());
+
+        if (direction != null)
+            deplacement.enleveDirection(direction);
+
+        if (keyEvent.getCode() == KeyCode.F)
+            deplacement.entrainDeCourir(false);
+
     }
 
     public void mouseClick(MouseEvent mouseEvent)

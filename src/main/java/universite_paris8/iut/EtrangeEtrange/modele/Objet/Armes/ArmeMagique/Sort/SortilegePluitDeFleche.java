@@ -3,9 +3,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort
 import javafx.application.Platform;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
@@ -41,7 +39,7 @@ public class SortilegePluitDeFleche extends Sortilege
         }
     }
 
-    private Position positionAleaAutourDe(double x, double y,Direction direction)
+    private Position positionAleaAutourDe(double x, double y, Direction direction)
     {
         final double dispersionSurLesCotes = 3 ;
         final double dispersionFace = 3 ;

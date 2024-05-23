@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.SortilegePluitDeFleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
@@ -37,7 +38,7 @@ public abstract class Joueur extends Humanoide
     public void actionMainDroite()
     {
         Objet objet = getObjetMainDroite();
-
+      new SortilegePluitDeFleche().action(this);
         if (objet != null)
         {
             if (objet instanceof Utilisable)
@@ -70,7 +71,10 @@ public abstract class Joueur extends Humanoide
         }
         else if (arme instanceof Arc)
         {
-            actionAttaquer = new ParametreActionAttaqueArc(this,new FlecheSimple());
+            FlecheSimple flecheSimple = new FlecheSimple();
+            flecheSimple.setPositionOrigine(position);
+            flecheSimple.setDirection(direction);
+            actionAttaquer = new ParametreActionAttaqueArc(this,flecheSimple);
         }
 
         arme.attaque(actionAttaquer);

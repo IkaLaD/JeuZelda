@@ -6,4 +6,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 public interface Utilisable
 {
     void utilise(ParametreActionObjet param);
+
+
 }

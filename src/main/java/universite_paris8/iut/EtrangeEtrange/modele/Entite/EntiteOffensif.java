@@ -1,6 +1,9 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionLivreMagique.ParametreActionLivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Attaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.AttaqueSpecial;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -18,7 +21,10 @@ public abstract class EntiteOffensif extends Entite
     }
     public abstract void attaque();
 
+    public void lanceUnSort(ParametreActionLivreMagique param)
+    {
 
+    }
     public void setAttaqueMaximum(double attaque) {this.statsAttaque.setAttaqueMaximum(attaque);}
     public void setAttaque(double attaque) {this.statsAttaque.setAttaque(attaque);}
 

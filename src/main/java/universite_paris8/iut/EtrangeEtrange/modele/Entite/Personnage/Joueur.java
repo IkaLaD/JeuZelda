@@ -1,11 +1,14 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.SortilegePluitDeFleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionLivreMagique.ParametreActionLivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
@@ -39,7 +42,7 @@ public abstract class Joueur extends Humanoide
     public void actionMainDroite()
     {
         Objet objet = getObjetMainDroite();
-      new SortilegePluitDeFleche().action(this);
+
         if (objet != null)
         {
             if (objet instanceof Utilisable)
@@ -57,6 +60,22 @@ public abstract class Joueur extends Humanoide
 
             }
         }
+    }
+
+    @Override
+    public void lanceUnSort(ParametreActionLivreMagique param)
+    {
+        if (objetMainDroite instanceof LivreMagique)
+        {
+            LivreMagique livreMagique = (LivreMagique) objetMainDroite;
+            livreMagique.utilise(param);
+        }
+    }
+
+
+    public void action(ActionJoueur action)
+    {
+        action.executer(this);
     }
 
 

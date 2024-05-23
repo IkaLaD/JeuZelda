@@ -9,6 +9,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.Runner;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementBas;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementDroite;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementGauche;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementHaut;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort1;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort2;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort3;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSortilege;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -36,7 +46,11 @@ import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import static javafx.scene.input.KeyCode.*;
+import static javafx.scene.input.KeyCode.S;
 
 public class Controller implements Initializable {
     @FXML
@@ -52,6 +66,10 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private int temps = 0;
     private Deplacement deplacement;
+
+
+
+
 
 
     @Override
@@ -160,28 +178,39 @@ public class Controller implements Initializable {
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
     }
 
-    public void keyPressed(KeyEvent keyEvent) {
-        KeyCode keyCode = keyEvent.getCode();
-        switch (keyCode){
-            case Q:
-                deplacement.addKeyCode(KeyCode.Q);
+    public void keyPressed(KeyEvent keyEvent)
+    {
+        ActionJoueur actionJoueur = null;
+
+        switch (keyEvent.getCode())
+        {
+            case A :
+                actionJoueur = new ActionUtiliserSort1();
                 break;
-            case D:
-                deplacement.addKeyCode(KeyCode.D);
+            case F :
+                actionJoueur = new ActionUtiliserSort2();
                 break;
-            case Z:
-                deplacement.addKeyCode(KeyCode.Z);
+            case R :
+                actionJoueur = new ActionUtiliserSort3();
                 break;
-            case S:
-                deplacement.addKeyCode(KeyCode.S);
+            case Z :
+                deplacement.addKeyCode(Z);
                 break;
-            case E:
-                joueur.ramasserObjet();
+            case D :
+                deplacement.addKeyCode(D);
                 break;
-            case M:
-                joueur.enlevePv(60);
+            case Q :
+                deplacement.addKeyCode(Q);
+                break;
+            case S :
+                deplacement.addKeyCode(S);
                 break;
         }
+
+        if (actionJoueur != null)
+            joueur.action(actionJoueur);
+
+
 
     }
     public void onKeyReleased(KeyEvent keyEvent) {
@@ -193,7 +222,7 @@ public class Controller implements Initializable {
         this.paneEntite.requestFocus();
 
         if (mouseEvent.getButton() == MouseButton.PRIMARY)
-            this.joueur.actionMainDroite();
+            this.joueur.action(new ActionUtiliserMainDroite());
     }
 
 }

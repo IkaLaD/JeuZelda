@@ -4,6 +4,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementBas;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementDroite;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementGauche;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementHaut;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
@@ -40,6 +45,7 @@ public class Deplacement {
 
     private void seDeplace()
     {
+        ActionJoueur actionJoueur = null;
         // Modifie l'état de déplacement du joueur en fonction des touches appuyées
         if(keyCode.isEmpty())
             joueur.setSeDeplace(false);
@@ -49,24 +55,23 @@ public class Deplacement {
         // Effectue les déplacements
         if (keyCode.contains(Q))
         {
-            joueur.setDirection(Direction.GAUCHE);
-            joueur.seDeplace();
+            actionJoueur = new ActionDeplacementGauche();
         }
         if (keyCode.contains(D))
         {
-            joueur.setDirection(Direction.DROITE);
-            joueur.seDeplace();
+            actionJoueur = new ActionDeplacementDroite();
         }
         if (keyCode.contains(Z))
         {
-            joueur.setDirection(Direction.HAUT);
-            joueur.seDeplace();
+            actionJoueur = new ActionDeplacementHaut();
         }
         if (keyCode.contains(S))
         {
-            joueur.setDirection(Direction.BAS);
-            joueur.seDeplace();
+            actionJoueur = new ActionDeplacementBas();
         }
+
+        if (actionJoueur != null)
+            joueur.action(actionJoueur);
     }
 
     /**

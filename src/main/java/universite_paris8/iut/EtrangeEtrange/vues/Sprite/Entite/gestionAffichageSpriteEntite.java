@@ -14,7 +14,7 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.ComparePositionSprite;
 
 import java.util.ArrayList;
 
-public class gestionAffichageSpriteEntite implements ListChangeListener<Entite> {
+public class  gestionAffichageSpriteEntite implements ListChangeListener<Entite> {
     private Pane paneEntite;
     private ArrayList<SpriteEntite> animationSprites;
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.075), event -> {

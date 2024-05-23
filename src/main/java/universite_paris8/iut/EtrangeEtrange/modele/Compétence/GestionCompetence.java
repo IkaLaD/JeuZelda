@@ -2,29 +2,35 @@ package universite_paris8.iut.EtrangeEtrange.modele.Compétence;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 public class GestionCompetence
 {
-    private Competence competencePrincipal;
-    private HashMap<Competence,ArrayList<Competence>> parent;
-    public GestionCompetence(Competence competencePrincipal)
+
+    private HashMap<Competence,ArrayList<Competence>> mapParent;
+    public GestionCompetence()
     {
-        this.competencePrincipal = competencePrincipal;
+        this.mapParent = new HashMap<>();
     }
     
     public void debloquerCompetence(Competence competence)
     {
-
         if (!competence.estDebloquer() && parentDebloquer(competence))
             competence.debloquer();
     }
 
 
+    public void ajoutCompetence(Competence competence,ArrayList<Competence> parents)
+    {
+        if (!mapParent.containsKey(competence)) // verifier si competence not in parents
+            mapParent.put(competence,parents);
+    }
+
+
+
+
     private boolean parentDebloquer(Competence competence)
     {
-        ArrayList<Competence> parentsCompetence = this.parent.get(competence);
-
+        ArrayList<Competence> parentsCompetence = this.mapParent.get(competence);
         boolean parentDebloquer = false;
 
         if (parentsCompetence != null && !parentsCompetence.isEmpty() )
@@ -40,27 +46,8 @@ public class GestionCompetence
             parentDebloquer = true;
         }
 
-
         return parentDebloquer;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

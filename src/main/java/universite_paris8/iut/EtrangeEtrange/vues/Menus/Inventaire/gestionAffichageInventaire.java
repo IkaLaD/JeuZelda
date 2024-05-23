@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import universite_paris8.iut.EtrangeEtrange.controller.SwitchScene;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
@@ -78,7 +79,6 @@ public class gestionAffichageInventaire {
     }
 
     public void initialisationInventaire(){
-
         // Ajout des textes de la page inventaire : "Inventaire", "Main droite", "Main Gauche"
         titreInventaire.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/InventaireTitre.png"));
         titreMainDroite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/MainDroiteTitre.png"));
@@ -88,36 +88,36 @@ public class gestionAffichageInventaire {
         Image caseStockage = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/caseStockage.png");
         ImageView caseStockageMainDroite = new ImageView(caseStockage);
         ImageView caseStockageMainGauche = new ImageView(caseStockage);
-        // Positionnement de ces cases
-        caseStockageMainDroite.setX(0);
-        caseStockageMainGauche.setY(0);
-        caseStockageMainGauche.setX(0);
-        caseStockageMainDroite.setY(0);
+        conteneurObjetMainGauche.getChildren().add(caseStockageMainGauche);
+        conteneurObjetMainDroite.getChildren().add(caseStockageMainDroite);
 
         // Création des ImageView qui contiendront par la suite les images des objets présents dans les mains droite et gauche
         objetMainDroite = new ImageView();
         objetMainGauche = new ImageView();
         // Quelques propriétés pour agrandir l'image et pour la placer correctement dans la case
-        objetMainDroite.setScaleX(1.5);
-        objetMainGauche.setScaleY(1.5);
-        objetMainGauche.setScaleX(1.5);
-        objetMainDroite.setScaleY(1.5);
-        objetMainGauche.setX(16);
-        objetMainDroite.setX(16);
-        objetMainGauche.setY(16);
-        objetMainDroite.setY(16);
+        setParamatresImageViewObjetMain(objetMainDroite, true);
+        setParamatresImageViewObjetMain(objetMainGauche, true);
 
-        // Ajout des cases de stockage et du futur emplacement des images pour les mains droite et gauche
-        conteneurObjetMainDroite.getChildren().add(caseStockageMainDroite);
+        // Ajout du futur emplacement des images pour les mains droite et gauche
         conteneurObjetMainGauche.getChildren().add(objetMainGauche);
-        conteneurObjetMainGauche.getChildren().add(caseStockageMainGauche);
         conteneurObjetMainDroite.getChildren().add(objetMainDroite);
+    }
+
+    public void setParamatresImageViewObjetMain(ImageView imageView, boolean objetMain){
+        imageView.setScaleX(1.3);
+        imageView.setScaleY(1.3);
+        if(objetMain) {
+            imageView.setTranslateX(16);
+            imageView.setTranslateY(16);
+        }
     }
     public void gestionInventaire(){
         // recupère l'image de l'objet présent dans la main droite
-        objetMainDroite.setImage(getImageObjet(joueur.getObjetMainDroite().getClass()));
+        if(joueur.getObjetMainDroite()!=null)
+            objetMainDroite.setImage(getImageObjet(joueur.getObjetMainDroite().getClass()));
         // recupère l'image de l'objet présent dans la main gauche
-        objetMainGauche.setImage(getImageObjet(joueur.getObjetMainDroite().getClass()));
+        if(joueur.getObjetMainGauche()!=null)
+            objetMainGauche.setImage(getImageObjet(joueur.getObjetMainGauche().getClass()));
 
         joueur.getSac().getTailleMaxProperty().addListener((obs, old ,nouv)->{
             affichageInventaire(joueur.getSac());
@@ -143,24 +143,25 @@ public class gestionAffichageInventaire {
             // Si l'emplacement de l'inventaire n'est pas vide, on ajoute l'objet qui y est présent à l'écran
             if(joueur.getSac().objetALemplacement(i)!=null) {
                 imageView = new ImageView(getImageObjet(joueur.getSac().objetALemplacement(i).getClass()));
-                // Aggrandissement de l'icone de l'objet
-                imageView.setScaleX(1.5);
-                imageView.setScaleY(1.5);
+                // Aggrandisement de l'icône de l'objet
+                setParamatresImageViewObjetMain(imageView, false);
             }
 
             // S'il y a un objet, on ajoute son image sinon une case vide
             if(imageView!=null) {
                 TextField textField = new TextField();
-                textField.setText(joueur.getSac().getInv().getEmplacement(i).quantiteObjet()+"");
-                textField.setStyle("-fx-text-fill: white;");
+                textField.setAlignment(Pos.BOTTOM_RIGHT);
                 textField.setBackground(Background.EMPTY);
                 textField.setMaxSize(64, 64);
                 textField.setMinSize(64, 64);
-                textField.setAlignment(Pos.BOTTOM_RIGHT);
+                textField.setText(joueur.getSac().getInv().getEmplacement(i).quantiteObjet()+"");
+                textField.setStyle("-fx-text-fill: white;");
+                // Ajout de l'image de l'objet et de sa quantité dans la case
                 objetsInventaire.getChildren().add(imageView);
                 quantiteObjetInventaire.getChildren().add(textField);
             }
             else {
+                // Si pas d'objet, on rempli la case avec du vide
                 objetsInventaire.getChildren().add(new ImageView());
                 quantiteObjetInventaire.getChildren().add(new ImageView());
             }

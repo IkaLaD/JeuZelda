@@ -85,6 +85,7 @@ public class Controller implements Initializable {
         gameLoop.play();
 
         joueur.getSac().ajoutItem(new Arc());
+
     }
 
 

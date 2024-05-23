@@ -54,6 +54,10 @@ public abstract class Humanoide extends EntiteOffensif
         return this.objetMainDroite;
     }
 
+    public Objet getObjetMainGauche(){
+        return this.objetMainGauche;
+    }
+
     public void ramasserObjet() {
         ArrayList<DropAuSol> dropAuSols = getMonde().getDropAuSol();
 

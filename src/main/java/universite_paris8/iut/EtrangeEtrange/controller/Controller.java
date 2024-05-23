@@ -11,6 +11,8 @@ import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
@@ -60,7 +62,6 @@ public class Controller implements Initializable {
         initJoueur();
         initPane();
 
-
         gestionAffichageSpriteEntite gestionAffichageSprite = new gestionAffichageSpriteEntite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
@@ -75,17 +76,8 @@ public class Controller implements Initializable {
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
 
-
-        for(int i = -1 ; i <= 1 ; i++) {
-            for(int j = -1 ; j <= 1 ; j++) {
-                Lambda lambda = new Lambda(monde, 16 + j, 16 + i, Direction.GAUCHE, new Hitbox(0.50, 0.50));
-                monde.ajoutEntite(lambda);
-
-            }
-        }
-        
+        initLoups();
         monde.setJoueur(joueur);
-
 
         deplacement = new Deplacement(joueur);
         initGameLoop();
@@ -93,32 +85,48 @@ public class Controller implements Initializable {
 
     }
 
+    private void initLoups() {
+        double rayonDetection = 5.0; // Augmenter le rayon de détection à 5 (ou toute autre valeur)
+        Loup loup1 = new Loup(joueur, monde, 10.0, 10.0, Direction.BAS, new Hitbox(0.5, 0.5), new Aetoile(monde, joueur), rayonDetection);
+        System.out.println("Ajout du Loup 1");
+        Loup loup2 = new Loup(joueur, monde, 15.0, 15.0, Direction.BAS, new Hitbox(0.5, 0.5), new Aetoile(monde, joueur), rayonDetection);
+        System.out.println("Ajout du Loup 2");
+        monde.ajoutEntite(loup1);
+        monde.ajoutEntite(loup2);
+    }
+
+
+
+
+
 
     private void initGameLoop() {
         gameLoop = new Timeline();
-        temps=0;
+        temps = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
-        KeyFrame kf = new KeyFrame
-                (
-                    Duration.seconds(0.1),
-
-                    (ev ->
-                    {
-
-                        for (Entite entite : monde.getEntities())
-                        {
-                            Controlable lambda1 = (Controlable) entite;
-                            lambda1.action();
+        KeyFrame kf = new KeyFrame(
+                Duration.seconds(0.1),
+                (ev -> {
+                    for (Entite entite : monde.getEntities()) {
+                        if (entite instanceof Loup) {
+                            Loup loup = (Loup) entite;
+                            loup.seDeplacerVersJoueur(joueur, loup.getAetoile(), monde.getNontraversable());
+                        } else if (entite instanceof Controlable) {
+                            Controlable controlableEntite = (Controlable) entite;
+                            controlableEntite.action();
                         }
+                    }
 
-                        monde.verificationCollisionAvecArme();
-                        monde.miseAjourCauseDegats();
-
-                    })
+                    monde.verificationCollisionAvecArme();
+                    monde.miseAjourCauseDegats();
+                })
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
+
+
 
     public void initPane(){
         // Initialisation taille en fonction de la taille de la map

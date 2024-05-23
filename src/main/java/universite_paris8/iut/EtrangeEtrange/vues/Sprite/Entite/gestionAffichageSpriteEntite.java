@@ -7,6 +7,7 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
@@ -52,7 +53,7 @@ public class gestionAffichageSpriteEntite implements ListChangeListener<Entite> 
         String skin;
         if (entite.getClass().equals(Guerrier.class)) {
             skin = "chevalier";
-        } else if (entite.getClass().equals(Lambda.class)) {
+        } else if (entite.getClass().equals(Loup.class)) {
             skin = "squelette";
         } else {
             skin = "pnjtest";

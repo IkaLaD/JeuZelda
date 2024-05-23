@@ -1,11 +1,13 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
 
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
 
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
@@ -75,6 +77,11 @@ public class Lambda extends Humanoide implements Controlable{
         }
 
         arme.attaque(actionAttaquer);
+
+    }
+
+    @Override
+    public void seDeplacerVersJoueur(Joueur joueur, Aetoile aetoile, int[][] grille) {
 
     }
 

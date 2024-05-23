@@ -66,6 +66,9 @@ public abstract class ObjetConteneur<T extends Objet> extends Objet implements C
     public T retourneObjet(int emplacement) {
         return this.inv.retourneObjet(emplacement);
     }
+    public Inventaire<T> getInv(){
+        return this.inv;
+    }
 
     public String toString(){
         return inv.toString();

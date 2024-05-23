@@ -174,6 +174,10 @@ public class Inventaire<T extends Objet> implements Conteneur<T>
         return objet;
     }
 
+    public Emplacement<T> getEmplacement(int emplacement){
+        return inventaire[emplacement];
+    }
+
 
 
     @Override

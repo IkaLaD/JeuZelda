@@ -13,21 +13,28 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.vues.Menus.Inventaire.gestionAffichageInventaire;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ControllerMenu implements Initializable {
+
     /**
      * TilePane qui va stocker les images des objets dans l'inventaire
      */
     @FXML
-    public TilePane objetsInventaire;
+    private TilePane objetsInventaire;
     /**
      * Tilepane qui va stocker les images des cases de stockage de l'inventaire
      */
     @FXML
-    public TilePane caseStockageInventaire;
+    private TilePane caseStockageInventaire;
+    /**
+     * Tilepane qui va stocker les quantités de chaque objets présent dans l'inventaire
+     */
+    @FXML
+    public TilePane quantitéObjetInventaire;
     /**
      * Pane qui permet de stocker l'ImageView de la case de stockage de la main droite et l'ImageView de l'objet dans la main droite
      */
@@ -45,6 +52,7 @@ public class ControllerMenu implements Initializable {
     /**
      * ImageView de l'objet dans la main gauche
      */
+    @FXML
     private ImageView objetMainGauche;
     @FXML
     private TabPane TabPane;
@@ -78,14 +86,14 @@ public class ControllerMenu implements Initializable {
     /**
      * Switch donnéees qui permet de récupérer les données nécessaires (voir class SwitchScene)
      */
-    private SwitchScene switchDonnees;
+    private SwitchScene switchScene;
 
     public void onClicked(MouseEvent mouseEvent) {
         // Renvoie le contenu de la pane et des tilePane du jeu qui était affiché en arrière-plan, pour pouvoir le re afficher dans le Controller du jeu
-        switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
-        switchDonnees.getControllerJeu().recupererDonnees();
-        switchDonnees.getStage().setScene(switchDonnees.getSceneJeu());
-        switchDonnees.getStage().show();
+        switchScene.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+        switchScene.getControllerJeu().recupererDonnees();
+        switchScene.getStage().setScene(switchScene.getSceneJeu());
+        switchScene.getStage().show();
     }
 
     public void initBackgroundJeu(){
@@ -102,7 +110,7 @@ public class ControllerMenu implements Initializable {
         TilePaneNontraversable.setMaxSize(largeur, hauteur);
         TilePaneNontraversable.setMinSize(largeur, hauteur);
 
-        Joueur joueur = switchDonnees.getJoueur();
+        Joueur joueur = switchScene.getJoueur();
         // Listener pour que la TilePane et la Pane suivent le joueur
         joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
             if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 < 0)
@@ -114,15 +122,25 @@ public class ControllerMenu implements Initializable {
                 if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0  > -Monde.getSizeMondeHauteur()*Constantes.tailleTile+Constantes.hauteurEcran)
                     paneEntite.setTranslateY(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0);
         });
-        paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0);
-        paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0);
+        if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 < 0)
+            if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 > -Monde.getSizeMondeLargeur()*Constantes.tailleTile+Constantes.largeurEcran )
+                paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0);
+        if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0 < 0)
+            if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0  > -Monde.getSizeMondeHauteur()*Constantes.tailleTile+Constantes.hauteurEcran)
+                paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0);
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Récupération Pane + Joueur
-        switchDonnees = SwitchScene.getSwitchScene();
+        switchScene = SwitchScene.getSwitchScene();
+
+        gestionAffichageInventaire gestionAffichageInventaire = new gestionAffichageInventaire(switchScene.getJoueur(), objetsInventaire, caseStockageInventaire, quantitéObjetInventaire,
+                conteneurObjetMainDroite, objetMainDroite, conteneurObjetMainGauche,  objetMainGauche, titreInventaire,
+                titreMainDroite, titreMainGauche);
+
+
 
         // Effet sombre sur le jeu en arrière-plan
         ColorAdjust colorAdjust = new ColorAdjust();
@@ -133,10 +151,7 @@ public class ControllerMenu implements Initializable {
         TilePaneNontraversable.setEffect(colorAdjust);
 
         initBackgroundJeu();
-        initialisationInventaire();
-    }
 
-    public void initialisationInventaire(){
         // Placement du menu au milieu de l'écran et application de l'image de fond du menu
         Image fondInventaire = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/fondInventaire.png");
         TabPane.setTranslateX(0);
@@ -144,101 +159,13 @@ public class ControllerMenu implements Initializable {
         TabPane.setMaxSize(fondInventaire.getWidth(), fondInventaire.getHeight());
         TabPane.setMinSize(fondInventaire.getWidth(), fondInventaire.getHeight());
         TabPane.setBackground(new Background(new BackgroundImage(fondInventaire, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-
-
-        // Ajout des textes de la page inventaire : "Inventaire", "Main droite", "Main Gauche"
-        titreInventaire.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/InventaireTitre.png"));
-        titreMainDroite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/MainDroiteTitre.png"));
-        titreMainGauche.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/MainGaucheTitre.png"));
-
-        // Ajout des cases de stockage pour la main droite et la main gauche et des images des objets qui y seront présents
-        Image caseStockage = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/caseStockage.png");
-
-            // Placement des images des cases de stockage pour la main droite et la main gauche
-            ImageView caseStockageMainDroite = new ImageView(caseStockage);
-            ImageView caseStockageMainGauche = new ImageView(caseStockage);
-            caseStockageMainDroite.setX(0);
-            caseStockageMainGauche.setY(0);
-            caseStockageMainGauche.setX(0);
-            caseStockageMainDroite.setY(0);
-
-            // Création des ImageView qui contiendront par la suite les images des objets présents dans les mains droite et gauche
-            objetMainDroite = new ImageView();
-            objetMainGauche = new ImageView();
-            // Quelques propriétés pour agrandir l'image et pour la placer correctement dans la case
-            objetMainDroite.setScaleX(1.5);
-            objetMainGauche.setScaleY(1.5);
-            objetMainGauche.setScaleX(1.5);
-            objetMainDroite.setScaleY(1.5);
-            objetMainGauche.setX(16);
-            objetMainDroite.setX(16);
-            objetMainGauche.setY(16);
-            objetMainDroite.setY(16);
-
-            // Ajout des cases de stockage et du futur emplacement des images pour les mains droite et gauche
-            conteneurObjetMainDroite.getChildren().add(caseStockageMainDroite);
-            conteneurObjetMainGauche.getChildren().add(objetMainGauche);
-            conteneurObjetMainGauche.getChildren().add(caseStockageMainGauche);
-            conteneurObjetMainDroite.getChildren().add(objetMainDroite);
-    }
-    public void gestionInventaire(){
-        Joueur joueur = switchDonnees.getJoueur();
-
-        // recupère l'image de l'objet présent dans la main droite
-        objetMainDroite.setImage(getImageObjet(joueur.getObjetMainDroite().getClass()));
-        // recupère l'image de l'objet présent dans la main gauche
-        objetMainGauche.setImage(getImageObjet(joueur.getObjetMainDroite().getClass()));
-
-
-        joueur.getSac().getTailleMaxProperty().addListener((obs, old ,nouv)->{
-                   objetsInventaire.getChildren().clear();
-                   caseStockageInventaire.getChildren().clear();
-                   for(int i = 0 ; i < joueur.getSac().getTailleMax() ; i++){
-                       caseStockageInventaire.getChildren().add(new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/caseStockage.png")));
-                       ImageView imageView = null;
-                       if(joueur.getSac().objetALemplacement(i)!=null) {
-                           imageView = new ImageView(getImageObjet(joueur.getSac().objetALemplacement(i).getClass()));
-                           imageView.setScaleX(1.5);
-                           imageView.setScaleY(1.5);
-                       }
-
-                       if(imageView!=null)
-                           objetsInventaire.getChildren().add(imageView);
-                       else
-                           objetsInventaire.getChildren().add(new ImageView());
-                   }
-        });
-
-        objetsInventaire.getChildren().clear();
-        caseStockageInventaire.getChildren().clear();
-        for(int i = 0 ; i < joueur.getSac().getTailleMax() ; i++){
-            caseStockageInventaire.getChildren().add(new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/caseStockage.png")));
-            ImageView imageView = null;
-            if(joueur.getSac().objetALemplacement(i)!=null) {
-                imageView = new ImageView(getImageObjet(joueur.getSac().objetALemplacement(i).getClass()));
-                imageView.setScaleX(1.5);
-                imageView.setScaleY(1.5);
-            }
-
-            if(imageView!=null) {
-                objetsInventaire.getChildren().add(imageView);
-            }
-            else
-                objetsInventaire.getChildren().add(new ImageView());
-        }
     }
 
-    public Image getImageObjet(Class<? extends Objet> objet){
-        if (objet.equals(Arc.class))
-            return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/arc.png");
 
-        System.out.println("Pas d'objet");
-        return null;
-    }
+
 
     public void recupererDonnees() {
-        switchDonnees.recupererPane(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
-        gestionInventaire();
-        System.out.println(switchDonnees.getStage().getScene()+" MENU");
+        switchScene.recupererPane(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+        System.out.println(switchScene.getStage().getScene()+" MENU");
     }
 }

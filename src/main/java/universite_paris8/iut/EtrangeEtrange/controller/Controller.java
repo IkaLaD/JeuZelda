@@ -83,6 +83,8 @@ public class Controller implements Initializable {
         deplacement = new Deplacement(joueur);
         initGameLoop();
         gameLoop.play();
+
+        joueur.getSac().ajoutItem(new Arc());
     }
 
 

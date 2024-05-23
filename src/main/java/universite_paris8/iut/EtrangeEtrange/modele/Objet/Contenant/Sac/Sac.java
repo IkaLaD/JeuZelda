@@ -8,7 +8,6 @@ public abstract class Sac extends ObjetConteneur<Objet>
     public Sac(int taille) {
         super(taille);
     }
-
     @Override
     public String getNom() {
         return null;

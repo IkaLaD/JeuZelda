@@ -11,10 +11,6 @@ public class ActionDegatParProjectile extends ActionDegatParEntite
     public ActionDegatParProjectile(EntiteOffensif origineAttaque, Projectile projectile)
     {
         super(origineAttaque, projectile);
-        projectile.setDirection(origineAttaque.getDirection());
-        projectile.setPositionOrigine(origineAttaque.getPosition());
-
-
     }
 
     @Override

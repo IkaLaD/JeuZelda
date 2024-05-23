@@ -1,9 +1,8 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant;
 
+import javafx.beans.property.IntegerProperty;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Conteneur;
-import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Emplacement;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Inventaire;
 
 import java.util.ArrayList;
@@ -49,10 +48,18 @@ public abstract class ObjetConteneur<T extends Objet> extends Objet implements C
     public int getTailleMax() {
         return this.inv.getTailleMax();
     }
+    @Override
+    public IntegerProperty getTailleMaxProperty(){
+        return inv.getTailleMaxProperty();
+    }
 
     @Override
-    public ArrayList<T> retourneObjets(int emplacement) {
-        return this.inv.retourneObjets(emplacement);
+    public T objetALemplacement(int emplacement){
+        return inv.objetALemplacement(emplacement);
+    }
+    @Override
+    public ArrayList<T> enleverObjet(int emplacement) {
+        return this.inv.enleverObjet(emplacement);
     }
 
     @Override

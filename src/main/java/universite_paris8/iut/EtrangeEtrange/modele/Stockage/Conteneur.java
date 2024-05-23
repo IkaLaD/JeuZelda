@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Stockage;
 
+import javafx.beans.property.IntegerProperty;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 
 import java.util.ArrayList;
@@ -15,7 +16,10 @@ public interface Conteneur<T extends Objet>
     int getTailleMax();
 
 
+    IntegerProperty getTailleMaxProperty();
 
-    ArrayList<T> retourneObjets(int emplacement);
+    T objetALemplacement(int emplacement);
+
+    ArrayList<T> enleverObjet(int emplacement);
     T retourneObjet(int emplacement);
 }

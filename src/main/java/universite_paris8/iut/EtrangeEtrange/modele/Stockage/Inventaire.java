@@ -1,19 +1,19 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Stockage;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
-import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Emplacement;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Inventaire<T extends Objet> implements Conteneur<T>
 {
-    private int taille;
+    private IntegerProperty taille;
     private Emplacement<T>[] inventaire;
 
     public Inventaire(int taille)
     {
-        this.taille = taille;
+        this.taille = new SimpleIntegerProperty(taille);
         this.inventaire = (Emplacement<T>[]) new Emplacement[taille];
 
         for (int i = 0;i < this.inventaire.length;i++)
@@ -121,19 +121,29 @@ public class Inventaire<T extends Objet> implements Conteneur<T>
 
     public int getTailleMax()
     {
+        return this.taille.get();
+    }
+    public IntegerProperty getTailleMaxProperty(){
         return this.taille;
     }
 
-
-
-
-    public ArrayList<T> retourneObjets(int emplacement) {
+    public ArrayList<T> enleverObjet(int emplacement) {
         ArrayList<T> objets = new ArrayList<>();
 
         if (emplacement >= 0 && emplacement < this.inventaire.length && !this.inventaire[emplacement].estVide())
-            objets.addAll(this.inventaire[emplacement].retourneToutLesObject());
+            objets.addAll(this.inventaire[emplacement].enleverToutLesObjets());
 
         return objets;
+    }
+
+
+    public T objetALemplacement(int emplacement){
+        T objet = null;
+
+        if (emplacement >= 0 && emplacement < this.inventaire.length && !this.inventaire[emplacement].estVide())
+            objet = this.inventaire[emplacement].objetDansLemplacement();
+
+        return objet;
     }
 
 
@@ -142,7 +152,7 @@ public class Inventaire<T extends Objet> implements Conteneur<T>
         T objet = null;
 
         if (emplacement >= 0 && emplacement < this.inventaire.length && !this.inventaire[emplacement].estVide())
-            objet = this.inventaire[emplacement].retourneUnObjet();
+            objet = this.inventaire[emplacement].enleveObjet();
 
         return objet;
     }
@@ -157,7 +167,7 @@ public class Inventaire<T extends Objet> implements Conteneur<T>
             Emplacement<T> emplacement = inventaire[i];
 
             if (emplacement.estDuMemeType(typeObjet))
-                objet = typeObjet.cast(emplacement.retourneUnObjet());
+                objet = typeObjet.cast(emplacement.enleveObjet());
 
         }
 

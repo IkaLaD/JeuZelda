@@ -29,12 +29,17 @@ public class Emplacement <T extends Objet>
         }
     }
 
-    public T retourneUnObjet()
+
+    /**
+     * La méthode enlève l'objet de l'inventaire
+     * @return
+     */
+    public T enleveObjet()
     {
         return this.objets.remove(0);
     }
 
-    public ArrayList<T> retourneToutLesObject()
+    public ArrayList<T> enleverToutLesObjets()
     {
         ArrayList<T> nvList = new ArrayList<>(this.objets);
         vider();
@@ -85,5 +90,9 @@ public class Emplacement <T extends Objet>
             nom = this.objets.get(0).getNom();
 
         return nom;
+    }
+
+    public T objetDansLemplacement() {
+        return this.objets.get(0);
     }
 }

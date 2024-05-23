@@ -26,13 +26,16 @@
                   <children>
                      <ImageView fx:id="titreInventaire" pickOnBounds="true" preserveRatio="true">
                         <VBox.margin>
-                           <Insets />
+                           <Insets bottom="15.0" top="15.0" />
                         </VBox.margin></ImageView>
                      <StackPane>
                         <children>
-                           <TilePane />
-                           <TilePane />
+                           <TilePane fx:id="caseStockageInventaire" prefColumns="0" prefRows="0" prefTileHeight="64.0" prefTileWidth="64.0" />
+                           <TilePane fx:id="objetsInventaire" prefColumns="0" prefRows="0" prefTileHeight="64.0" prefTileWidth="64.0" />
                         </children>
+                        <VBox.margin>
+                           <Insets bottom="30.0" top="15.0" />
+                        </VBox.margin>
                      </StackPane>
                      <HBox prefHeight="100.0" prefWidth="200.0">
                         <children>

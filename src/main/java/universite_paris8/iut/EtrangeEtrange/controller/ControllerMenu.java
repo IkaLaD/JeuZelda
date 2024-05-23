@@ -19,6 +19,16 @@ import java.util.ResourceBundle;
 
 public class ControllerMenu implements Initializable {
     /**
+     * TilePane qui va stocker les images des objets dans l'inventaire
+     */
+    @FXML
+    public TilePane objetsInventaire;
+    /**
+     * Tilepane qui va stocker les images des cases de stockage de l'inventaire
+     */
+    @FXML
+    public TilePane caseStockageInventaire;
+    /**
      * Pane qui permet de stocker l'ImageView de la case de stockage de la main droite et l'ImageView de l'objet dans la main droite
      */
     @FXML
@@ -179,11 +189,48 @@ public class ControllerMenu implements Initializable {
         // recupère l'image de l'objet présent dans la main gauche
         objetMainGauche.setImage(getImageObjet(joueur.getObjetMainDroite().getClass()));
 
+
+        joueur.getSac().getTailleMaxProperty().addListener((obs, old ,nouv)->{
+                   objetsInventaire.getChildren().clear();
+                   caseStockageInventaire.getChildren().clear();
+                   for(int i = 0 ; i < joueur.getSac().getTailleMax() ; i++){
+                       caseStockageInventaire.getChildren().add(new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/caseStockage.png")));
+                       ImageView imageView = null;
+                       if(joueur.getSac().objetALemplacement(i)!=null) {
+                           imageView = new ImageView(getImageObjet(joueur.getSac().objetALemplacement(i).getClass()));
+                           imageView.setScaleX(1.5);
+                           imageView.setScaleY(1.5);
+                       }
+
+                       if(imageView!=null)
+                           objetsInventaire.getChildren().add(imageView);
+                       else
+                           objetsInventaire.getChildren().add(new ImageView());
+                   }
+        });
+
+        objetsInventaire.getChildren().clear();
+        caseStockageInventaire.getChildren().clear();
+        for(int i = 0 ; i < joueur.getSac().getTailleMax() ; i++){
+            caseStockageInventaire.getChildren().add(new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/caseStockage.png")));
+            ImageView imageView = null;
+            if(joueur.getSac().objetALemplacement(i)!=null) {
+                imageView = new ImageView(getImageObjet(joueur.getSac().objetALemplacement(i).getClass()));
+                imageView.setScaleX(1.5);
+                imageView.setScaleY(1.5);
+            }
+
+            if(imageView!=null) {
+                objetsInventaire.getChildren().add(imageView);
+            }
+            else
+                objetsInventaire.getChildren().add(new ImageView());
+        }
     }
 
     public Image getImageObjet(Class<? extends Objet> objet){
         if (objet.equals(Arc.class))
-            return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/arc/droparc.png");
+            return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/arc.png");
 
         System.out.println("Pas d'objet");
         return null;

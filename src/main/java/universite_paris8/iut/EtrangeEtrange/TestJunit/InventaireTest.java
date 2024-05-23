@@ -174,11 +174,11 @@ public class InventaireTest {
         inventaire.ajoutItem(objet4);
 
 
-        ArrayList<Objet> objets = inventaire.retourneObjets(0);
+        ArrayList<Objet> objets = inventaire.enleverObjet(0);
         assertEquals(2, objets.size());
 
 
-        objets = inventaire.retourneObjets(1);
+        objets = inventaire.enleverObjet(1);
         assertEquals(1, objets.size());
 
     }

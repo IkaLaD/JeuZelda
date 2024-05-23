@@ -25,7 +25,7 @@ public class SpriteDropAuSol {
         this.ombre.setTranslateX(dropAuSol.getPosition().getX()*Constantes.tailleTile);
         this.ombre.setTranslateY(dropAuSol.getPosition().getY()*Constantes.tailleTile);
 
-        this.SpriteDropAuSol = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/"+skin+"/drop"+skin+".png");
+        this.SpriteDropAuSol = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/"+skin+".png");
         this.positionFlottement = new SimpleIntegerProperty((int)(Math.random()*tailleFlottementMax));
         this.SpriteDropAuSol.setTranslateX(dropAuSol.getPosition().getX()*Constantes.tailleTile);
         this.positionFlottement.addListener((obs, old, nouv)->

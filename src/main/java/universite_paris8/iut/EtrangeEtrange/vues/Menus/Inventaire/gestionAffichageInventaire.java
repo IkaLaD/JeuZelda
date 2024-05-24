@@ -1,19 +1,17 @@
 package universite_paris8.iut.EtrangeEtrange.vues.Menus.Inventaire;
 
-import javafx.fxml.FXML;
+import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Pos;
-import javafx.scene.control.TabPane;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import universite_paris8.iut.EtrangeEtrange.controller.SwitchScene;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public class gestionAffichageInventaire {
 
@@ -59,6 +57,7 @@ public class gestionAffichageInventaire {
      */
     private ImageView titreMainGauche;
     private Joueur joueur;
+    private int caseVerouilleInventaire;
 
     public gestionAffichageInventaire(Joueur joueur, TilePane objetsInventaire, TilePane caseStockageInventaire, TilePane quantiteInventaire, Pane conteneurObjetMainDroite,
                                       ImageView objetMainDroite, Pane conteneurObjetMainGauche, ImageView objetMainGauche,
@@ -74,6 +73,7 @@ public class gestionAffichageInventaire {
         this.titreInventaire = titreInventaire;
         this.titreMainDroite = titreMainDroite;
         this.titreMainGauche = titreMainGauche;
+        this.caseVerouilleInventaire = -1; // Négatif = pas de case sélectionné dans l'inventaire
         initialisationInventaire();
         gestionInventaire();
     }
@@ -161,11 +161,34 @@ public class gestionAffichageInventaire {
                 quantiteObjetInventaire.getChildren().add(textField);
             }
             else {
-                // Si pas d'objet, on rempli la case avec du vide
+                // Si pas d'objet, ont rempli la case avec du vide
                 objetsInventaire.getChildren().add(new ImageView());
                 quantiteObjetInventaire.getChildren().add(new ImageView());
             }
         }
+    }
+
+    public void caseVerouille(int emplacement){
+        if (caseVerouilleInventaire >= 0) {
+            ColorAdjust colorReset = new ColorAdjust();
+            caseStockageInventaire.getChildren().get(caseVerouilleInventaire).setEffect(colorReset);
+        }
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(0.8);
+        caseStockageInventaire.getChildren().get(emplacement).setEffect(colorAdjust);
+    }
+
+    public void listenerCaseSurvolé(IntegerProperty integerProperty){
+        integerProperty.addListener((obs, old, nouv)->{
+            for(Node imageView : caseStockageInventaire.getChildren())
+                imageView.setEffect(new ColorAdjust());
+
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setBrightness(0.8);
+            caseStockageInventaire.getChildren().get(integerProperty.get()).setEffect(colorAdjust);
+
+        });
     }
 
     /**

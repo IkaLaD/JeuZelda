@@ -193,11 +193,13 @@ public class Controller implements Initializable {
     }
 
     public void onScroll(ScrollEvent scrollEvent) {
-        switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
-        switchDonnees.getControllerMenu().recupererDonnees();
-        switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());
-        switchDonnees.getStage().show();
-        System.out.println("Changement de scène vers Menu");
+        if(scrollEvent.getDeltaY()<0) {
+            switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+            switchDonnees.getControllerMenu().recupererDonnees();
+            switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());
+            switchDonnees.getStage().show();
+            System.out.println("Changement de scène vers Menu");
+        }
     }
 
     public void recupererDonnees() {

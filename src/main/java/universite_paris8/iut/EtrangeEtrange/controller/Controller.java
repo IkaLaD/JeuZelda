@@ -11,6 +11,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Familie;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -86,18 +87,13 @@ public class Controller implements Initializable {
     }
 
     private void initLoups() {
-        double rayonDetection = 5.0; // Augmenter le rayon de détection à 5 (ou toute autre valeur)
+        double rayonDetection = 3.0; // Ajuster le rayon de détection si nécessaire
         Loup loup1 = new Loup(joueur, monde, 10.0, 10.0, Direction.BAS, new Hitbox(0.5, 0.5), new Aetoile(monde, joueur), rayonDetection);
-        System.out.println("Ajout du Loup 1");
         Loup loup2 = new Loup(joueur, monde, 15.0, 15.0, Direction.BAS, new Hitbox(0.5, 0.5), new Aetoile(monde, joueur), rayonDetection);
-        System.out.println("Ajout du Loup 2");
         monde.ajoutEntite(loup1);
         monde.ajoutEntite(loup2);
+        System.out.println("Loups initialisés");
     }
-
-
-
-
 
 
     private void initGameLoop() {
@@ -109,10 +105,7 @@ public class Controller implements Initializable {
                 Duration.seconds(0.1),
                 (ev -> {
                     for (Entite entite : monde.getEntities()) {
-                        if (entite instanceof Loup) {
-                            Loup loup = (Loup) entite;
-                            loup.seDeplacerVersJoueur(joueur, loup.getAetoile(), monde.getNontraversable());
-                        } else if (entite instanceof Controlable) {
+                        if (entite instanceof Controlable) {
                             Controlable controlableEntite = (Controlable) entite;
                             controlableEntite.action();
                         }
@@ -124,6 +117,9 @@ public class Controller implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
+
+
 
 
 

@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
@@ -8,61 +9,97 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-import java.util.List;
+public class Familie extends EntiteOffensif implements Controlable {
 
-public abstract class Familie extends EntiteOffensif {
-    protected Joueur joueur;
-    private Aetoile aetoile;
+    private Joueur joueur;
+    private double rayonDetection;
 
-    public Familie(Joueur joueur, double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox, Aetoile aetoile) {
+    public Familie(Joueur joueur, double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox, double rayonDetection) {
         super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
         this.joueur = joueur;
-        this.aetoile = aetoile;
+        this.rayonDetection = rayonDetection;
     }
 
-    public Aetoile getAetoile() {
-        return aetoile;
+    @Override
+    public void action() {
+        if (detecteJoueur(joueur)) {
+            disparaitre();
+        } else {
+            seDeplaceAleatoire();
+        }
     }
 
-    public void mettreAJourPosition() {
+    private boolean detecteJoueur(Joueur joueur) {
         Position positionJoueur = joueur.getPosition();
-        Direction directionJoueur = joueur.getDirection();
-        Position positionCible = calculerPositionDerriere(positionJoueur, directionJoueur);
+        double distance = Math.sqrt(Math.pow(getPosition().getX() - positionJoueur.getX(), 2) +
+                Math.pow(getPosition().getY() - positionJoueur.getY(), 2));
+        System.out.println("Position du joueur: " + positionJoueur.getX() + ", " + positionJoueur.getY());
+        System.out.println("Position de la famille: " + getPosition().getX() + ", " + getPosition().getY());
+        System.out.println("Distance calculée: " + distance);
 
-        List<int[]> chemin = aetoile.trouverChemin((int) this.getPosition().getX(), (int) this.getPosition().getY(), (int) positionCible.getX(), (int) positionCible.getY());
-        if (!chemin.isEmpty()) {
-            int[] prochainePosition = chemin.get(0);
-            this.setPosition(prochainePosition[0], prochainePosition[1]);
+        boolean detected = distance <= rayonDetection;
+        if (detected) {
+            System.out.println("Familier a détecté le joueur à distance : " + distance);
         }
+        return detected;
     }
 
-    private Position calculerPositionDerriere(Position positionJoueur, Direction directionJoueur) {
-        double nouvelleX = positionJoueur.getX();
-        double nouvelleY = positionJoueur.getY();
-        switch (directionJoueur) {
-            case HAUT:
-                nouvelleY += 1;
-                break;
-            case BAS:
-                nouvelleY -= 1;
-                break;
-            case DROITE:
-                nouvelleX += 1;
-                break;
-            case GAUCHE:
-                nouvelleX -= 1;
-                break;
+    private void disparaitre() {
+        System.out.println("Familier disparaît");
+        getMonde().enleveEntite(this);
+    }
+
+    private void seDeplaceAleatoire() {
+        if (Math.random() > 0.95) {
+            setSeDeplace(!isSeDeplace());
         }
-        return new Position(nouvelleX, nouvelleY);
+
+        double probaChangement = Math.random();
+        if (probaChangement > 0.80) {
+            int d = (int) (Math.random() * 4);
+            switch (d) {
+                case 0:
+                    setDirection(Direction.DROITE);
+                    break;
+                case 1:
+                    setDirection(Direction.GAUCHE);
+                    break;
+                case 2:
+                    setDirection(Direction.HAUT);
+                    break;
+                case 3:
+                    setDirection(Direction.BAS);
+                    break;
+            }
+        }
+
+        if (isSeDeplace()) {
+            seDeplace();
+        }
     }
 
     @Override
     public void attaque() {
-        // Implémenter la logique d'attaque
+        // Implémenter la logique d'attaque si nécessaire
     }
 
     @Override
     public void seDeplacerVersJoueur(Joueur joueur, Aetoile aetoile, int[][] grille) {
-        mettreAJourPosition();
+
+    }
+
+    @Override
+    protected double subitDegatPhysique(double degat, double forceEntite) {
+        return 0;
+    }
+
+    @Override
+    protected double subitDegatSpecial(double attaqueSpecial, double forceEntite) {
+        return 0;
+    }
+
+    @Override
+    public void consommer() {
+
     }
 }

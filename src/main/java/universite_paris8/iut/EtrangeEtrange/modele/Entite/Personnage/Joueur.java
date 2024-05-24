@@ -38,15 +38,6 @@ public abstract class Joueur extends Humanoide
         this.familier = familier;
     }
 
-    @Override
-    //donne le feu vert au familier pour se deplacer
-    public void seDeplace() {
-        super.seDeplace();
-        if (familier != null) {
-            familier.mettreAJourPosition();
-        }
-    }
-
     public boolean ifSeDeplace() {
         return this.isSeDeplace();
     }
@@ -70,8 +61,6 @@ public abstract class Joueur extends Humanoide
                 {
                     consommer();
                 }
-
-
             }
         }
     }

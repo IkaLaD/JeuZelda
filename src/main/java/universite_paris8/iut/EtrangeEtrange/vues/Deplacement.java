@@ -26,11 +26,11 @@ import static javafx.scene.input.KeyCode.*;
 public class Deplacement {
     private Timeline timeline;
     private Joueur joueur;
-    private Set<KeyCode> keyCode;
+    private Set<Direction> directions;
 
     public Deplacement(Joueur joueur) {
         this.joueur = joueur;
-        this.keyCode = new HashSet<>();
+        this.directions = new HashSet<>();
 
         initAnimationTimer();
         this.timeline.setCycleCount(Timeline.INDEFINITE);
@@ -45,48 +45,47 @@ public class Deplacement {
 
     private void seDeplace()
     {
-        ActionJoueur actionJoueur = null;
-        // Modifie l'état de déplacement du joueur en fonction des touches appuyées
-        if(keyCode.isEmpty())
+        ActionJoueur actionJoueur;
+
+        if(directions.isEmpty())
             joueur.setSeDeplace(false);
         else
             joueur.setSeDeplace(true);
 
-        // Effectue les déplacements
-        if (keyCode.contains(Q))
+
+        if (directions.contains(Direction.GAUCHE))
         {
             actionJoueur = new ActionDeplacementGauche();
+            joueur.action(actionJoueur);
         }
-        if (keyCode.contains(D))
+
+        if (directions.contains(Direction.DROITE))
         {
             actionJoueur = new ActionDeplacementDroite();
+            joueur.action(actionJoueur);
         }
-        if (keyCode.contains(Z))
+
+        if (directions.contains(Direction.HAUT))
         {
             actionJoueur = new ActionDeplacementHaut();
+            joueur.action(actionJoueur);
         }
-        if (keyCode.contains(S))
+
+        if (directions.contains(Direction.BAS))
         {
             actionJoueur = new ActionDeplacementBas();
+            joueur.action(actionJoueur);
         }
 
-        if (actionJoueur != null)
-            joueur.action(actionJoueur);
     }
 
-    /**
-     * Récupère la touche appuyée et l'ajoute à la liste
-     * @param kc
-     */
-    public void addKeyCode(KeyCode kc) {
-        this.keyCode.add(kc);
+
+    public void ajoutDirection(Direction direction) {
+        this.directions.add(direction);
     }
 
-    /**
-     * Récupère la touche relachée et l'enlève de la liste
-     * @param kc
-     */
-    public void removeKeyCode(KeyCode kc) {
-        this.keyCode.remove(kc);
+
+    public void enleveDirection(Direction direction) {
+        this.directions.remove(direction);
     }
 }

@@ -194,16 +194,16 @@ public class Controller implements Initializable {
                 actionJoueur = new ActionUtiliserSort3();
                 break;
             case Z :
-                deplacement.addKeyCode(Z);
+                deplacement.ajoutDirection(Direction.HAUT);
                 break;
             case D :
-                deplacement.addKeyCode(D);
+                deplacement.ajoutDirection(Direction.DROITE);
                 break;
             case Q :
-                deplacement.addKeyCode(Q);
+                deplacement.ajoutDirection(Direction.GAUCHE);
                 break;
             case S :
-                deplacement.addKeyCode(S);
+                deplacement.ajoutDirection(Direction.BAS);
                 break;
         }
 
@@ -213,8 +213,23 @@ public class Controller implements Initializable {
 
 
     }
-    public void onKeyReleased(KeyEvent keyEvent) {
-        deplacement.removeKeyCode(keyEvent.getCode());
+    public void onKeyReleased(KeyEvent keyEvent)
+    {
+        switch (keyEvent.getCode())
+        {
+            case Z :
+                deplacement.enleveDirection(Direction.HAUT);
+                break;
+            case D :
+                deplacement.enleveDirection(Direction.DROITE);
+                break;
+            case Q :
+                deplacement.enleveDirection(Direction.GAUCHE);
+                break;
+            case S :
+                deplacement.enleveDirection(Direction.BAS);
+                break;
+        }
     }
 
     public void mouseClick(MouseEvent mouseEvent)

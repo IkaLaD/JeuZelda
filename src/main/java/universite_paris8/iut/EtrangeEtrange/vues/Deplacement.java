@@ -12,10 +12,9 @@ import java.util.Set;
 
 import static javafx.scene.input.KeyCode.*;
 
-
 /**
- * La classe deplacement permet de controller les déplacements du joueur :
- *      -> Elle stock les touches qui sont appuyées au clavier (touches de déplacements : Z, Q, S, D) et
+ * La classe deplacement permet de contrôler les déplacements du joueur :
+ *      -> Elle stocke les touches qui sont appuyées au clavier (touches de déplacements : Z, Q, S, D) et
  *      effectue les appels de méthode de déplacement nécessaire.
  */
 public class Deplacement {
@@ -38,32 +37,27 @@ public class Deplacement {
         }));
     }
 
-    private void seDeplace()
-    {
+    private void seDeplace() {
         // Modifie l'état de déplacement du joueur en fonction des touches appuyées
-        if(keyCode.isEmpty())
+        if (keyCode.isEmpty())
             joueur.setSeDeplace(false);
         else
             joueur.setSeDeplace(true);
 
         // Effectue les déplacements
-        if (keyCode.contains(Q))
-        {
+        if (keyCode.contains(Q)) {
             joueur.setDirection(Direction.GAUCHE);
             joueur.seDeplace();
         }
-        if (keyCode.contains(D))
-        {
+        if (keyCode.contains(D)) {
             joueur.setDirection(Direction.DROITE);
             joueur.seDeplace();
         }
-        if (keyCode.contains(Z))
-        {
+        if (keyCode.contains(Z)) {
             joueur.setDirection(Direction.HAUT);
             joueur.seDeplace();
         }
-        if (keyCode.contains(S))
-        {
+        if (keyCode.contains(S)) {
             joueur.setDirection(Direction.BAS);
             joueur.seDeplace();
         }
@@ -78,7 +72,7 @@ public class Deplacement {
     }
 
     /**
-     * Récupère la touche relachée et l'enlève de la liste
+     * Récupère la touche relâchée et l'enlève de la liste
      * @param kc
      */
     public void removeKeyCode(KeyCode kc) {

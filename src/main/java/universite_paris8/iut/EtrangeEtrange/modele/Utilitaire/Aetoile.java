@@ -1,112 +1,170 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
 import java.util.*;
 
 public class Aetoile {
     private Monde monde;
-    private Entite arrivee;
+    private Sommet[][] graphe;
 
-    public Aetoile(Monde monde, Entite arrivee){
+    public Aetoile(Monde monde) {
         this.monde = monde;
-        this.arrivee = arrivee;
+        construireGraphe();
     }
 
-    public ArrayList<Position> cheminAetoile(Entite depart) {
-        return new ArrayList<>();
-    }
+    private void construireGraphe() {
+        int hauteur = Monde.getSizeMondeHauteur();
+        int largeur = Monde.getSizeMondeLargeur();
+        graphe = new Sommet[hauteur][largeur];
 
-    public ArrayList<Position> getAdjacents(Sommet sommet) {
-        ArrayList<Position> adjacents = new ArrayList<>();
-        for (int i = -1; i <= 1; i += 2) {
-            if (sommet.getX() + i >= 0 && sommet.getX() + i < Monde.getSizeMondeLargeur()) {
-                adjacents.add(new Position(sommet.getX() + i, sommet.getY()));
-            }
-            if (sommet.getY() + i >= 0 && sommet.getY() < Monde.getSizeMondeHauteur()) {
-                adjacents.add(new Position(sommet.getX(), sommet.getY() + i));
+        // Initialiser les sommets
+        for (int y = 0; y < hauteur; y++) {
+            for (int x = 0; x < largeur; x++) {
+                boolean traversable = monde.getNontraversable()[y][x] == -1;
+                graphe[y][x] = new Sommet(new Position(x, y), traversable);
             }
         }
-        return adjacents;
-    }
 
-    public double getPoidsSommet(Sommet sommet) {
-        if (monde.getNontraversable()[sommet.getY()][sommet.getX()] != -1) {
-            return -1;
+        // Ajouter les voisins
+        for (int y = 0; y < hauteur; y++) {
+            for (int x = 0; x < largeur; x++) {
+                if (graphe[y][x].isTraversable()) {
+                    ajouterVoisins(graphe[y][x], x, y);
+                }
+            }
         }
-        return poidsTuiles(sommet);
     }
 
-    public double poidsTuiles(Sommet sommet) {
-        double poids = 1; // Poids par défaut pour une tuile traversable
-        int idTuiles = monde.getTraversable()[sommet.getY()][sommet.getX()];
-        switch (idTuiles) {
-            default -> poids += 0;
+    private void ajouterVoisins(Sommet sommet, int x, int y) {
+        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        for (int[] dir : directions) {
+            int nx = x + dir[0];
+            int ny = y + dir[1];
+            if (nx >= 0 && ny >= 0 && nx < graphe[0].length && ny < graphe.length && graphe[ny][nx].isTraversable()) {
+                sommet.addVoisin(graphe[ny][nx]);
+            }
         }
-        idTuiles = monde.getSol()[sommet.getY()][sommet.getX()];
-        switch (idTuiles) {
-            default -> poids += 0;
+    }
+
+    public List<Position> trouverChemin(Position depart, Position arrivee) {
+        Sommet sommetDepart = positionToSommet(depart);
+        Sommet sommetArrivee = positionToSommet(arrivee);
+
+        if (sommetDepart == null || sommetArrivee == null) {
+            System.out.println("Positions invalides.");
+            return Collections.emptyList();
         }
-        return poids;
-    }
 
-    public double getHeuristique(Sommet sommet) {
-        return Math.abs(sommet.getX() - arrivee.getPosition().getX()) +
-                Math.abs(sommet.getY() - arrivee.getPosition().getY());
-    }
+        System.out.println("Départ : " + sommetDepart.getPosition().getX() + ", " + sommetDepart.getPosition().getY());
+        System.out.println("Arrivée : " + sommetArrivee.getPosition().getX() + ", " + sommetArrivee.getPosition().getY());
 
-    public List<int[]> trouverChemin(int x, int y, int x1, int y1) {
-        PriorityQueue<Sommet> openList = new PriorityQueue<>(Comparator.comparingDouble(Sommet::getF));
-        Set<Sommet> closedList = new HashSet<>();
-        Map<Sommet, Sommet> cameFrom = new HashMap<>();
-        Map<Sommet, Double> gScore = new HashMap<>();
-        Map<Sommet, Double> fScore = new HashMap<>();
+        PriorityQueue<Noeud> openList = new PriorityQueue<>(Comparator.comparingDouble(Noeud::getF));
+        Map<Sommet, Noeud> allNodes = new HashMap<>();
 
-        Sommet start = new Sommet(x, y);
-        Sommet goal = new Sommet(x1, y1);
-        openList.add(start);
-        gScore.put(start, 0.0);
-        fScore.put(start, getHeuristique(start));
+        Noeud startNode = new Noeud(sommetDepart, null, 0, sommetDepart.distance(sommetArrivee));
+        openList.add(startNode);
+        allNodes.put(sommetDepart, startNode);
 
         while (!openList.isEmpty()) {
-            Sommet current = openList.poll();
-            if (current.equals(goal)) {
-                return reconstruireChemin(cameFrom, current);
+            Noeud currentNode = openList.poll();
+
+            if (currentNode.getSommet().equals(sommetArrivee)) {
+                return reconstruireChemin(currentNode);
             }
 
-            closedList.add(current);
+            for (Sommet voisin : currentNode.getSommet().getVoisins()) {
+                double tentativeG = currentNode.getG() + currentNode.getSommet().distance(voisin);
 
-            for (Position adj : getAdjacents(current)) {
-                Sommet neighbor = new Sommet((int) adj.getX(), (int) adj.getY());
-                if (closedList.contains(neighbor)) {
-                    continue;
-                }
-
-                double tentativeGScore = gScore.getOrDefault(current, Double.POSITIVE_INFINITY) + getPoidsSommet(neighbor);
-
-                if (tentativeGScore < gScore.getOrDefault(neighbor, Double.POSITIVE_INFINITY)) {
-                    cameFrom.put(neighbor, current);
-                    gScore.put(neighbor, tentativeGScore);
-                    fScore.put(neighbor, tentativeGScore + getHeuristique(neighbor));
-                    if (!openList.contains(neighbor)) {
-                        openList.add(neighbor);
+                Noeud voisinNode = allNodes.getOrDefault(voisin, new Noeud(voisin));
+                if (tentativeG < voisinNode.getG()) {
+                    voisinNode.setParent(currentNode);
+                    voisinNode.setG(tentativeG);
+                    voisinNode.setH(voisin.distance(sommetArrivee));
+                    allNodes.put(voisin, voisinNode);
+                    if (!openList.contains(voisinNode)) {
+                        openList.add(voisinNode);
                     }
                 }
             }
         }
-
+        System.out.println("Aucun chemin trouvé.");
         return Collections.emptyList();
     }
 
-    private List<int[]> reconstruireChemin(Map<Sommet, Sommet> cameFrom, Sommet current) {
-        List<int[]> totalPath = new ArrayList<>();
-        while (cameFrom.containsKey(current)) {
-            totalPath.add(new int[]{current.getX(), current.getY()});
-            current = cameFrom.get(current);
+    private List<Position> reconstruireChemin(Noeud noeud) {
+        List<Position> chemin = new ArrayList<>();
+        while (noeud != null) {
+            chemin.add(getCentreSommet(noeud.getSommet()));
+            noeud = noeud.getParent();
         }
-        Collections.reverse(totalPath);
-        return totalPath;
+        Collections.reverse(chemin);
+        return chemin;
+    }
+
+    public Sommet positionToSommet(Position position) {
+        int x = (int) Math.floor(position.getX());
+        int y = (int) Math.floor(position.getY());
+        if (x >= 0 && y >= 0 && x < graphe[0].length && y < graphe.length) {
+            return graphe[y][x];
+        }
+        return null;
+    }
+
+    public Position getCentreSommet(Sommet sommet) {
+        int x = (int) sommet.getPosition().getX();
+        int y = (int) sommet.getPosition().getY();
+        return new Position(x + 0.5, y + 0.5);
+    }
+
+    private static class Noeud {
+        private Sommet sommet;
+        private Noeud parent;
+        private double g;
+        private double h;
+
+        public Noeud(Sommet sommet) {
+            this.sommet = sommet;
+            this.g = Double.MAX_VALUE;
+        }
+
+        public Noeud(Sommet sommet, Noeud parent, double g, double h) {
+            this.sommet = sommet;
+            this.parent = parent;
+            this.g = g;
+            this.h = h;
+        }
+
+        public Sommet getSommet() {
+            return sommet;
+        }
+
+        public Noeud getParent() {
+            return parent;
+        }
+
+        public void setParent(Noeud parent) {
+            this.parent = parent;
+        }
+
+        public double getG() {
+            return g;
+        }
+
+        public void setG(double g) {
+            this.g = g;
+        }
+
+        public double getH() {
+            return h;
+        }
+
+        public void setH(double h) {
+            this.h = h;
+        }
+
+        public double getF() {
+            return g + h;
+        }
     }
 }

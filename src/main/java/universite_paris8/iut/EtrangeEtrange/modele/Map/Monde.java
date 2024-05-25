@@ -277,7 +277,7 @@ public class Monde {
         } else {
             return -1;
         }
-        
+
     }
 
     public void setListenerListeEntites(gestionAffichageSpriteEntite gestionAffichageSprite){
@@ -296,21 +296,21 @@ public class Monde {
 
 
 
-   public void miseAjourCauseDegats()
-   {
-       for (int i = causeDegats.size()-1; i>=0; i--)
-           causeDegats.get(i).miseAjour();
-   }
+    public void miseAjourCauseDegats()
+    {
+        for (int i = causeDegats.size()-1; i>=0; i--)
+            causeDegats.get(i).miseAjour();
+    }
 
-   public void enleveCauseDegat(CauseDegat causeDegat)
-   {
-       this.causeDegats.remove(causeDegat);
-   }
+    public void enleveCauseDegat(CauseDegat causeDegat)
+    {
+        this.causeDegats.remove(causeDegat);
+    }
 
 
     public Sommet[][] getSommet()
     {
-         return  null;
+        return  null;
     }
 
 
@@ -335,50 +335,3 @@ public class Monde {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

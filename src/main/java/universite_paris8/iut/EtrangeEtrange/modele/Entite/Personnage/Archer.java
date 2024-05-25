@@ -14,7 +14,7 @@ public class Archer extends Joueur
     }
 
     @Override
-    public void seDeplacerVersJoueur(Joueur joueur, Aetoile aetoile, int[][] grille) {
+    public void seDeplacerVersJoueur() {
 
     }
 }

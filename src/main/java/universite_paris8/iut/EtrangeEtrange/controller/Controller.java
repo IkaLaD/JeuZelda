@@ -63,6 +63,9 @@ public class Controller implements Initializable {
         initJoueur();
         initPane();
 
+        Aetoile aetoile = new Aetoile(monde);
+
+
         gestionAffichageSpriteEntite gestionAffichageSprite = new gestionAffichageSpriteEntite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
@@ -77,7 +80,7 @@ public class Controller implements Initializable {
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
 
-        initLoups();
+        initLoups(aetoile);
         monde.setJoueur(joueur);
 
         deplacement = new Deplacement(joueur);
@@ -86,15 +89,12 @@ public class Controller implements Initializable {
 
     }
 
-    private void initLoups() {
-        double rayonDetection = 3.0; // Ajuster le rayon de détection si nécessaire
-        Loup loup1 = new Loup(joueur, monde, 10.0, 10.0, Direction.BAS, new Hitbox(0.5, 0.5), new Aetoile(monde, joueur), rayonDetection);
-        Loup loup2 = new Loup(joueur, monde, 15.0, 15.0, Direction.BAS, new Hitbox(0.5, 0.5), new Aetoile(monde, joueur), rayonDetection);
+    private void initLoups(Aetoile aetoile) {
+        Loup loup1 = new Loup(joueur, monde, 10, 10, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
+        Loup loup2 = new Loup(joueur, monde, 15, 15, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
         monde.ajoutEntite(loup1);
         monde.ajoutEntite(loup2);
-        System.out.println("Loups initialisés");
     }
-
 
     private void initGameLoop() {
         gameLoop = new Timeline();
@@ -106,8 +106,7 @@ public class Controller implements Initializable {
                 (ev -> {
                     for (Entite entite : monde.getEntities()) {
                         if (entite instanceof Controlable) {
-                            Controlable controlableEntite = (Controlable) entite;
-                            controlableEntite.action();
+                            ((Controlable) entite).action();
                         }
                     }
 

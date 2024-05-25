@@ -81,7 +81,7 @@ public class Lambda extends Humanoide implements Controlable{
     }
 
     @Override
-    public void seDeplacerVersJoueur(Joueur joueur, Aetoile aetoile, int[][] grille) {
+    public void seDeplacerVersJoueur() {
 
     }
 

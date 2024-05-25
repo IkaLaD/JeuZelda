@@ -9,23 +9,42 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
+import java.util.List;
+
 public class Familie extends EntiteOffensif implements Controlable {
 
-    private Joueur joueur;
-    private double rayonDetection;
+    protected Joueur joueur;
+    protected boolean estFamilier;
+    protected double rayonDetection;
+    protected Aetoile aetoile;
+    private List<Position> chemin;
+    private int currentStep;
+    private double vitesse;
 
-    public Familie(Joueur joueur, double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox, double rayonDetection) {
+    public Familie(Joueur joueur, double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox, double rayonDetection, Aetoile aetoile) {
         super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
         this.joueur = joueur;
         this.rayonDetection = rayonDetection;
+        this.estFamilier = false;
+        this.aetoile = aetoile;
+        this.chemin = null;
+        this.currentStep = 0;
+        this.vitesse = vitesse;
     }
 
     @Override
     public void action() {
-        if (detecteJoueur(joueur)) {
-            disparaitre();
+        if (!estFamilier) {
+            if (detecteJoueur(joueur)) {
+                estFamilier = true;
+                System.out.println("Familier a détecté le joueur et devient familier");
+                chemin = aetoile.trouverChemin(getPosition(), joueur.getPosition());
+                currentStep = 0;
+            } else {
+                seDeplaceAleatoire();
+            }
         } else {
-            seDeplaceAleatoire();
+            seDeplacerVersJoueur();
         }
     }
 
@@ -33,20 +52,44 @@ public class Familie extends EntiteOffensif implements Controlable {
         Position positionJoueur = joueur.getPosition();
         double distance = Math.sqrt(Math.pow(getPosition().getX() - positionJoueur.getX(), 2) +
                 Math.pow(getPosition().getY() - positionJoueur.getY(), 2));
-        System.out.println("Position du joueur: " + positionJoueur.getX() + ", " + positionJoueur.getY());
-        System.out.println("Position de la famille: " + getPosition().getX() + ", " + getPosition().getY());
-        System.out.println("Distance calculée: " + distance);
-
-        boolean detected = distance <= rayonDetection;
-        if (detected) {
-            System.out.println("Familier a détecté le joueur à distance : " + distance);
-        }
-        return detected;
+        return distance <= rayonDetection;
     }
 
-    private void disparaitre() {
-        System.out.println("Familier disparaît");
-        getMonde().enleveEntite(this);
+    public void seDeplacerVersJoueur() {
+        System.out.println("Tentative de déplacement vers le joueur");
+
+        if (chemin == null || chemin.isEmpty()) {
+            chemin = aetoile.trouverChemin(getPosition(), joueur.getPosition());
+            currentStep = 0;
+            if (chemin.isEmpty()) {
+                System.out.println("Aucun chemin trouvé pour atteindre le joueur.");
+                return;
+            }
+        }
+
+        if (currentStep < chemin.size()) {
+            Position prochainePosition = chemin.get(currentStep);
+            double deltaX = prochainePosition.getX() - getPosition().getX();
+            double deltaY = prochainePosition.getY() - getPosition().getY();
+            double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            if (distance < vitesse) {
+                // Si le familier est très proche de la prochaine position, le téléporter directement
+                setPosition(prochainePosition.getX(), prochainePosition.getY());
+                currentStep++;
+            } else {
+                // Sinon, déplacer le familier progressivement vers la prochaine position
+                double ratio = vitesse / distance;
+                double newX = getPosition().getX() + deltaX * ratio;
+                double newY = getPosition().getY() + deltaY * ratio;
+                setPosition(newX, newY);
+            }
+
+            System.out.println("Familier se déplace vers : " + getPosition().getX() + ", " + getPosition().getY());
+        } else {
+            chemin = aetoile.trouverChemin(getPosition(), joueur.getPosition());
+            currentStep = 0;
+        }
     }
 
     private void seDeplaceAleatoire() {
@@ -84,11 +127,6 @@ public class Familie extends EntiteOffensif implements Controlable {
     }
 
     @Override
-    public void seDeplacerVersJoueur(Joueur joueur, Aetoile aetoile, int[][] grille) {
-
-    }
-
-    @Override
     protected double subitDegatPhysique(double degat, double forceEntite) {
         return 0;
     }
@@ -100,6 +138,6 @@ public class Familie extends EntiteOffensif implements Controlable {
 
     @Override
     public void consommer() {
-
+        // Implémenter la logique de consommation si nécessaire
     }
 }

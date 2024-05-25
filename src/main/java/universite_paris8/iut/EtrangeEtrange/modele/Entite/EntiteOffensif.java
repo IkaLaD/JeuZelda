@@ -20,7 +20,7 @@ public abstract class EntiteOffensif extends Entite {
 
     public abstract void attaque();
 
-    public abstract void seDeplacerVersJoueur(Joueur joueur, Aetoile aetoile, int[][] grille);
+    public abstract void seDeplacerVersJoueur();
 
     public void setAttaque(double attaque) { this.attaque.setAttaque(attaque); }
     public void setAttaqueActuelle(double attaque) { this.attaque.setAttaqueActuelle(attaque); }

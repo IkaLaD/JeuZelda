@@ -1,41 +1,36 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Sommet {
-    private int x;
-    private int y;
-    private double f;
+    private Position position;
+    private boolean traversable;
+    private List<Sommet> voisins;
 
-    public Sommet(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Sommet(Position position, boolean traversable) {
+        this.position = position;
+        this.traversable = traversable;
+        this.voisins = new ArrayList<>();
     }
 
-    public int getX() {
-        return x;
+    public Position getPosition() {
+        return position;
     }
 
-    public int getY() {
-        return y;
+    public boolean isTraversable() {
+        return traversable;
     }
 
-    public double getF() {
-        return f;
+    public void addVoisin(Sommet voisin) {
+        this.voisins.add(voisin);
     }
 
-    public void setF(double f) {
-        this.f = f;
+    public List<Sommet> getVoisins() {
+        return voisins;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Sommet sommet = (Sommet) obj;
-        return x == sommet.x && y == sommet.y;
-    }
-
-    @Override
-    public int hashCode() {
-        return 31 * x + y;
+    public double distance(Sommet autre) {
+        return this.position.distance(autre.getPosition());
     }
 }

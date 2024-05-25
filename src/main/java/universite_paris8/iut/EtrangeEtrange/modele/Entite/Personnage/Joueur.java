@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.GestionCompetence;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.SortilegePluitDeFleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
@@ -23,6 +24,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 public abstract class Joueur extends Humanoide
 {
+    private GestionCompetence competences;
     protected Carquois carquois;
     protected boolean peuCourir;
     public Joueur(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse,Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {

@@ -9,7 +9,7 @@ public class CreationArbreDeCompetence
 {
     private static GestionCompetence gestionCompetence;
 
-
+    private static
 
 
 

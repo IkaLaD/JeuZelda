@@ -123,13 +123,7 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
         } else {
             setDirection(deltaY > 0 ? Direction.BAS : Direction.HAUT);
         }
-
-        // Déplacer l'entité si elle peut se déplacer
-        if (peutSeDeplacer()) {
             seDeplace();
-        } else {
-            System.out.println("Collision détectée, déplacement annulé.");
-        }
     }
 
     // Vérifie si le Roi Squelette a atteint une certaine position

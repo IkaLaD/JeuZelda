@@ -84,7 +84,7 @@ public class Controller implements Initializable {
 
 
         initBoss(monde, joueur, aetoile);
-      //  initSquelette(aetoile);
+      //initSquelette(aetoile);
         monde.setJoueur(joueur);
 
         deplacement = new Deplacement(joueur);

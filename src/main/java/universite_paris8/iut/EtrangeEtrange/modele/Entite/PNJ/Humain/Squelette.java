@@ -80,12 +80,13 @@ public class Squelette extends EntiteOffensif implements Controlable, SeDeplacer
 
         // Déplacer l'entité si elle peut se déplacer
         if (peutSeDeplacer()) {
+            setSeDeplace(true);
             seDeplace();
         } else {
             System.out.println("Collision détectée, déplacement annulé.");
         }
 
-        // Vérifier si l'entité a atteint la prochaine position
+        // Vérifier si l'entité a atteint la prochaine positionq
         if (positionAtteinte(prochainePosition)) {
             aetoile.getChemin().remove(0); // Supprimer la position atteinte du chemin
             // Ajuster la position à des coordonnées arrondies au dixième
@@ -94,15 +95,6 @@ public class Squelette extends EntiteOffensif implements Controlable, SeDeplacer
 
         System.out.println("Squelette se déplace vers : " + getPosition().getX() + ", " + getPosition().getY());
     }
-
-    private boolean peutSeDeplacerVers(double x, double y) {
-        Position oldPosition = getPosition();
-        setPosition(x, y);
-        boolean peutSeDeplacer = peutSeDeplacer();
-        setPosition(oldPosition.getX(), oldPosition.getY());
-        return peutSeDeplacer;
-    }
-
 
     private boolean positionAtteinte(Position position) {
         return Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1;

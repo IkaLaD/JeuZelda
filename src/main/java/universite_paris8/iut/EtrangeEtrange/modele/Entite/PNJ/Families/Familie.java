@@ -108,7 +108,7 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
 
     @Override
     public void attaque() {
-        // Implémenter la logique d'attaque si nécessaire
+
     }
 
     private void seDeplaceAleatoire() {

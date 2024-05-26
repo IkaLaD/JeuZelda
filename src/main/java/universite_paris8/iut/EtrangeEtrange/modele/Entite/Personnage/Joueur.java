@@ -1,12 +1,16 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.SortilegePluitDeFleche;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.GestionCompetence;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionLivreMagique.ParametreActionLivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
@@ -20,6 +24,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Flech
 
 public abstract class Joueur extends Humanoide
 {
+
     protected Carquois carquois;
 
     protected boolean peuCourir;
@@ -40,19 +45,19 @@ public abstract class Joueur extends Humanoide
     public void actionMainDroite()
     {
         Objet objet = getObjetMainDroite();
-      new SortilegePluitDeFleche().action(this);
+
         if (objet != null)
         {
             if (objet instanceof Utilisable)
             {
-                if (objet instanceof Arme)
+                if (objet instanceof Arme arme)
                 {
-                    attaque();
+                    attaque(arme);
                 }
 
-                if (objet instanceof Consommable)
+                if (objet instanceof Consommable consommable)
                 {
-                    consommer();
+                    consommer(consommable);
                 }
 
 
@@ -60,26 +65,49 @@ public abstract class Joueur extends Humanoide
         }
     }
 
+    @Override
+    public void lanceUnSort(ParametreActionLivreMagique param)
+    {
+        if (objetMainDroite instanceof LivreMagique)
+        {
+            LivreMagique livreMagique = (LivreMagique) objetMainDroite;
+            livreMagique.utilise(param);
+        }
+    }
+
+
+    public void action(ActionJoueur action)
+    {
+        action.executer(this);
+    }
+
 
     @Override
-    public void attaque()
+    public void attaque(Arme arme)
     {
-        Arme arme = (Arme) objetMainDroite;
+
         ParametreActionAttaque actionAttaquer = null;
 
         if (arme instanceof Epee)
         {
             actionAttaquer = new ParametreActionAttaqueEpee(this);
+            arme.attaque(actionAttaquer);
         }
         else if (arme instanceof Arc)
         {
-            FlecheSimple flecheSimple = new FlecheSimple();
-            flecheSimple.setPositionOrigine(position);
-            flecheSimple.setDirection(direction);
-            actionAttaquer = new ParametreActionAttaqueArc(this,flecheSimple);
+            Fleche flecheSimple = carquois.retourneUneFleche();
+
+            if (flecheSimple != null)
+            {
+                flecheSimple.setPositionOrigine(position);
+                flecheSimple.setDirection(direction);
+                actionAttaquer = new ParametreActionAttaqueArc(this,flecheSimple);
+                arme.attaque(actionAttaquer);
+            }
+
         }
 
-        arme.attaque(actionAttaquer);
+
 
 
     }
@@ -90,11 +118,6 @@ public abstract class Joueur extends Humanoide
         this.peuCourir = peuCourir;
     }
 
-    @Override
-    public void consommer()
-    {
-
-    }
 
 
 }

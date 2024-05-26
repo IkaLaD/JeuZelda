@@ -28,20 +28,17 @@ public abstract class Humanoide extends EntiteOffensif
     public abstract void actionMainDroite();
 
 
-    public void consommer()
-    {
 
-    }
 
 
     @Override
     protected double subitDegatPhysique(double attaque,double forceEntite) {
-        return attaque - getStatsDefense().getDefense();
+        return (attaque * forceEntite) / (getDefense() - (attaque/6));
     }
 
     @Override
     protected double subitDegatSpecial(double attaqueSpecial,double forceEntite) {
-        return attaqueSpecial - getStatsDefenseSpecial().getDefenseSpecial();
+        return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
     }
 
     public Sac getSac()

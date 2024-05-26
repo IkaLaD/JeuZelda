@@ -5,11 +5,14 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class GestionCompetence
 {
 
+    private Competence root;
     private HashMap<Competence,ArrayList<Competence>> mapParent;
+    private HashMap<Competence,ArrayList<Competence>> mapEnfant;
 
     public GestionCompetence()
     {
@@ -27,7 +30,7 @@ public class GestionCompetence
     }
 
 
-    public void ajoutCompetence(Competence competence,ArrayList<Competence> parents)
+    public void ajoutCompetence(Competence competence,ArrayList<Competence> parents,ArrayList<Competence> enfants)
     {
         if (!mapParent.containsKey(competence)) // verifier si competence not in parents
             mapParent.put(competence,parents);
@@ -58,5 +61,19 @@ public class GestionCompetence
     }
 
 
+    public Competence getRoot()
+    {
+        return this.root;
+    }
+
+    public ArrayList<Competence> getEnfants(Competence competence)
+    {
+        return this.mapEnfant.get(competence);
+    }
+
+    public ArrayList<Competence> getParents(Competence competence)
+    {
+        return this.mapParent.get(competence);
+    }
 
 }

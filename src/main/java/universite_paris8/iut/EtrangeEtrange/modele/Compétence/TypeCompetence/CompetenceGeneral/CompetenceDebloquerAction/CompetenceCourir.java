@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.CompetenceGeneral;
+package universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.CompetenceGeneral.CompetenceDebloquerAction;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.Competence;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;

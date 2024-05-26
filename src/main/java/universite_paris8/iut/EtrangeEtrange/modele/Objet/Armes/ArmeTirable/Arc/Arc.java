@@ -67,7 +67,7 @@ public class Arc extends Arme
         if (peuxTaper)
         {
             ParametreActionAttaqueArc paramArc = (ParametreActionAttaqueArc) param;
-                paramArc.getOrigineAction().getMonde().ajoutCauseDegat(new ActionDegatParProjectile(paramArc.getOrigineAction(), paramArc.getProjectile()));
+            paramArc.getOrigineAction().getMonde().ajoutCauseDegat(new ActionDegatParProjectile(paramArc.getOrigineAction(), paramArc.getProjectile()));
             peuxTaper = false;
             cooldown();
         }

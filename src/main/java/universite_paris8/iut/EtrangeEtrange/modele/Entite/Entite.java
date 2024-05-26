@@ -5,7 +5,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEnt
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ActionConsomable.ParametreActionConsomable;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Defense;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.DefenseSpecial;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
@@ -57,16 +59,15 @@ public abstract class Entite {
 
             if (causeDegat instanceof ActionDegatParEpee)
             {
-                enlevePv(20);
-
-                subitDegatPhysique(causeDegat.getOrgineAttaque().degatPhysique(),((ActionDegatParEpee) causeDegat).getOrigineDegat().getAttaque());
-                subitDegatSpecial(causeDegat.getOrgineAttaque().degatSpecial(),((ActionDegatParEpee) causeDegat).getOrigineDegat().getAttaqueSpecial());
+                enlevePv(subitDegatPhysique(causeDegat.getOrgineAttaque().degatPhysique(),((ActionDegatParEpee) causeDegat).getOrigineDegat().getAttaque()));
+                enlevePv(subitDegatSpecial(causeDegat.getOrgineAttaque().degatSpecial(),((ActionDegatParEpee) causeDegat).getOrigineDegat().getAttaqueSpecial()));
             }
             else if (causeDegat instanceof ActionDegatParProjectile)
             {
                 if (((ActionDegatParProjectile) causeDegat).getOrigineDegat() != this)
                 {
-                    enlevePv(20);
+                    enlevePv(subitDegatPhysique(causeDegat.getOrgineAttaque().degatPhysique(),((ActionDegatParProjectile) causeDegat).getOrigineDegat().getAttaque()));
+                    enlevePv(subitDegatSpecial(causeDegat.getOrgineAttaque().degatSpecial(),((ActionDegatParProjectile) causeDegat).getOrigineDegat().getAttaqueSpecial()));
                     Projectile projectile = (Projectile) causeDegat.getOrgineAttaque();
                     projectile.toucher();
                 }
@@ -134,7 +135,6 @@ public abstract class Entite {
     {
         this.statsPv.ajoutPv(pv);
     }
-    public abstract void consommer();
 
 
     public Pv getStatsPv() {return this.statsPv;}
@@ -274,6 +274,12 @@ public abstract class Entite {
     public Surface getSurface()
     {
         return new Surface(position,hitbox);
+    }
+
+
+    public void consommer(Consommable consommable)
+    {
+        consommable.consommer(new ParametreActionConsomable(this));
     }
 
 }

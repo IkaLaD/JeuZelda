@@ -6,6 +6,11 @@ import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort1;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort2;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort3;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -32,6 +37,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+
+
 public class Controller implements Initializable {
     @FXML
     private TilePane TilePaneSol;
@@ -48,6 +55,10 @@ public class Controller implements Initializable {
     private Deplacement deplacement;
 
     private HashMap<KeyCode, Direction> directionHashMap = new HashMap<>();
+
+
+
+
 
 
     @Override
@@ -164,40 +175,66 @@ public class Controller implements Initializable {
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
     }
 
-    public void keyPressed(KeyEvent keyEvent) {
-        KeyCode keyCode = keyEvent.getCode();
-        switch (keyCode){
-            case Q:
-                deplacement.ajoutDirection(directionHashMap.get(KeyCode.Q));
+
+    public void keyPressed(KeyEvent keyEvent)
+    {
+        ActionJoueur actionJoueur = null;
+
+        switch (keyEvent.getCode())
+        {
+            case A :
+                actionJoueur = new ActionUtiliserSort1();
                 break;
-            case D:
-                deplacement.ajoutDirection(directionHashMap.get(KeyCode.D));
+            case F :
+                actionJoueur = new ActionUtiliserSort2();
                 break;
-            case Z:
-                deplacement.ajoutDirection(directionHashMap.get(KeyCode.Z));
+            case R :
+                actionJoueur = new ActionUtiliserSort3();
                 break;
-            case S:
-                deplacement.ajoutDirection(directionHashMap.get(KeyCode.S));
+            case Z :
+                deplacement.ajoutDirection(Direction.HAUT);
+
                 break;
-            case E:
-                joueur.ramasserObjet();
+            case D :
+                deplacement.ajoutDirection(Direction.DROITE);
                 break;
-            case F:
-                deplacement.entrainDeCourir(true);
+
+            case Q :
+                deplacement.ajoutDirection(Direction.GAUCHE);
+                break;
+            case S :
+                deplacement.ajoutDirection(Direction.BAS);
+
                 break;
         }
 
+        if (actionJoueur != null)
+            joueur.action(actionJoueur);
+
+
+
     }
-    public void onKeyReleased(KeyEvent keyEvent) {
 
-        Direction direction = directionHashMap.get(keyEvent.getCode());
 
-        if (direction != null)
-            deplacement.enleveDirection(direction);
 
-        if (keyEvent.getCode() == KeyCode.F)
-            deplacement.entrainDeCourir(false);
 
+    public void onKeyReleased(KeyEvent keyEvent)
+    {
+        switch (keyEvent.getCode())
+        {
+            case Z :
+                deplacement.enleveDirection(Direction.HAUT);
+                break;
+            case D :
+                deplacement.enleveDirection(Direction.DROITE);
+                break;
+            case Q :
+                deplacement.enleveDirection(Direction.GAUCHE);
+                break;
+            case S :
+                deplacement.enleveDirection(Direction.BAS);
+                break;
+        }
     }
 
     public void mouseClick(MouseEvent mouseEvent)
@@ -205,7 +242,7 @@ public class Controller implements Initializable {
         this.paneEntite.requestFocus();
 
         if (mouseEvent.getButton() == MouseButton.PRIMARY)
-            this.joueur.actionMainDroite();
+            this.joueur.action(new ActionUtiliserMainDroite());
     }
 
 }

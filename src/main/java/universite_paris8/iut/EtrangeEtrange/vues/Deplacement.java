@@ -5,6 +5,11 @@ import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.util.Duration;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementBas;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementDroite;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementGauche;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementHaut;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
@@ -12,21 +17,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-/**
- * La classe deplacement permet de controller les déplacements du joueur :
- *      -> Elle stock les touches qui sont appuyées au clavier (touches de déplacements : Z, Q, S, D) et
- *      effectue les appels de méthode de déplacement nécessaire.
- */
-public class Deplacement {
+public class Deplacement
+{
     private Timeline timeline;
     private Joueur joueur;
     private Set<Direction> directions;
+
     private BooleanProperty estEntrainDeCourir;
 
     private double delai;
 
-    public Deplacement(Joueur joueur) {
 
+
+    public Deplacement(Joueur joueur)
+    {
         this.joueur = joueur;
         this.directions = new HashSet<>();
         this.delai = 0.020;
@@ -44,12 +48,8 @@ public class Deplacement {
             this.timeline.play();
         });
 
-
         this.timeline.setCycleCount(Timeline.INDEFINITE);
         this.timeline.play();
-
-
-
     }
 
     private void initAnimationTimer() {
@@ -61,15 +61,41 @@ public class Deplacement {
 
     private void seDeplace()
     {
-       this.joueur.setDirection(Direction.calculeDirection(directions));
-       this.joueur.seDeplace();
+        ActionJoueur actionJoueur;
+
+        if(directions.isEmpty())
+            joueur.setSeDeplace(false);
+        else
+            joueur.setSeDeplace(true);
+
+
+        if (directions.contains(Direction.GAUCHE))
+        {
+            actionJoueur = new ActionDeplacementGauche();
+            joueur.action(actionJoueur);
+        }
+
+        if (directions.contains(Direction.DROITE))
+        {
+            actionJoueur = new ActionDeplacementDroite();
+            joueur.action(actionJoueur);
+        }
+
+        if (directions.contains(Direction.HAUT))
+        {
+            actionJoueur = new ActionDeplacementHaut();
+            joueur.action(actionJoueur);
+        }
+
+        if (directions.contains(Direction.BAS))
+        {
+            actionJoueur = new ActionDeplacementBas();
+            joueur.action(actionJoueur);
+        }
 
     }
 
-    /**
-     * Récupère la touche appuyée et l'ajoute à la liste
-     * @param direction
-     */
+
     public void ajoutDirection(Direction direction) {
         this.directions.add(direction);
     }
@@ -82,8 +108,9 @@ public class Deplacement {
         this.directions.remove(direction);
     }
 
-    public void entrainDeCourir(boolean estEntrainDeCourir)
-    {
+    public void entrainDeCourir(boolean estEntrainDeCourir) {
         this.estEntrainDeCourir.set(estEntrainDeCourir);
     }
+
+
 }

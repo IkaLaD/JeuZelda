@@ -60,9 +60,8 @@ public class Lambda extends Humanoide implements Controlable{
     }
 
 
-    public void attaque()
+    public void attaque(Arme arme)
     {
-        Arme arme = (Arme) objetMainDroite;
         ParametreActionAttaque actionAttaquer = null;
 
         if (arme instanceof Epee)
@@ -78,8 +77,5 @@ public class Lambda extends Humanoide implements Controlable{
 
     }
 
-    @Override
-    public void consommer() {
 
-    }
 }

@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.vues.Menus.Inventaire.gestionAffichageInventaire;
 
@@ -17,6 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ControlleurInventaire implements Initializable {
+    public VBox VBox;
     /**
      * Texte "Inventaire" dans le menu inventaire
      */
@@ -74,14 +76,16 @@ public class ControlleurInventaire implements Initializable {
     /**
      * Entier qui permet de savoir quelle case de l'inventaire est sélectionné pour échanger l'objet avec la main droite ou gauche
      */
-    private IntegerProperty caseSelectionné;
+    private IntegerProperty caseSurvole;
+    private int caseVerouille;
     private Joueur joueur;
     private gestionAffichageInventaire gestionAffichageInventaire;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        caseSelectionné = new SimpleIntegerProperty(0);
+        caseSurvole = new SimpleIntegerProperty(0);
+        caseVerouille = -1; // Rien de sélectionné
         switchScene = SwitchScene.getSwitchScene();
         joueur = switchScene.getJoueur();
 
@@ -90,30 +94,54 @@ public class ControlleurInventaire implements Initializable {
 
         gestionAffichageInventaire = new gestionAffichageInventaire(switchScene.getJoueur(), objetsInventaire, caseStockageInventaire, quantitéObjetInventaire,
                 conteneurObjetMainDroite, objetMainDroite, conteneurObjetMainGauche, objetMainGauche, titreInventaire, titreMainDroite, titreMainGauche);
-        gestionAffichageInventaire.listenerCaseSurvolé(caseSelectionné);
+        gestionAffichageInventaire.listenerCaseSurvole(caseSurvole);
 
 
     }
 
     public void keyBoardInventaire(KeyEvent keyEvent) {
-        System.out.println("test");
         KeyCode keyCode = keyEvent.getCode();
-        switch (keyCode) {
-            case LEFT -> {
-                if (caseSelectionné.get() == 0)
-                    caseSelectionné.set(joueur.getSac().getTailleMax());
-                else
-                    caseSelectionné.set(caseSelectionné.get() - 1);
-            }
-            case RIGHT -> {
-                if (caseSelectionné.get() == joueur.getSac().getTailleMax())
-                    caseSelectionné.set(0);
-                else
-                    caseSelectionné.set(caseSelectionné.get() + 1);
-            }
-            case ENTER -> {
+        int tailleInventaire = joueur.getSac().getTailleMax();
 
-            }
+        if(keyCode==ConstantesClavier.menuDeplacementGauche)
+            if (caseSurvole.get() == 0)
+                caseSurvole.set(tailleInventaire - 1);
+            else
+                caseSurvole.set(caseSurvole.get() - 1);
+
+        else if(keyCode==ConstantesClavier.menuDeplacementDroite)
+            if (caseSurvole.get() == tailleInventaire - 1)
+                caseSurvole.set(0);
+            else
+                caseSurvole.set(caseSurvole.get() + 1);
+
+        else if(keyCode==ConstantesClavier.menuDeplacementBas)
+            if(caseSurvole.get() < tailleInventaire)
+                caseSurvole.set(tailleInventaire);
+            else
+                caseSurvole.set(tailleInventaire+1);
+
+        else if(keyCode==ConstantesClavier.menuDeplacementHaut)
+            if(caseSurvole.get() == tailleInventaire+1)
+                caseSurvole.set(tailleInventaire);
+            else
+                caseSurvole.set(0);
+
+        else if(keyCode==ConstantesClavier.menuSelectionner) {
+            if(caseVerouille!=-1)
+                joueur.getSac().echangerEmplacement(joueur, caseVerouille, caseSurvole.get());
+
+            if(caseVerouille!=caseSurvole.get())
+                gestionAffichageInventaire.affichageInventaire(joueur.getSac());
+
+            caseVerouille=caseSurvole.get();
+            gestionAffichageInventaire.caseVerouille(caseSurvole.get());
         }
+
+
+    }
+
+    public void mouseClicked(MouseEvent mouseEvent) {
+        this.VBox.requestFocus();
     }
 }

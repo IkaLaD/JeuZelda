@@ -22,6 +22,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 
+import universite_paris8.iut.EtrangeEtrange.controller.ConstantesClavier;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
@@ -29,6 +30,7 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import java.net.URL;
+import java.security.Key;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -158,25 +160,20 @@ public class Controller implements Initializable {
 
     public void keyPressed(KeyEvent keyEvent) {
         KeyCode keyCode = keyEvent.getCode();
-        switch (keyCode){
-            case Q:
-                deplacement.addKeyCode(KeyCode.Q);
-                break;
-            case D:
-                deplacement.addKeyCode(KeyCode.D);
-                break;
-            case Z:
-                deplacement.addKeyCode(KeyCode.Z);
-                break;
-            case S:
-                deplacement.addKeyCode(KeyCode.S);
-                break;
-            case E:
-                joueur.ramasserObjet();
-                break;
-            case M:
-                joueur.enlevePv(60);
-                break;
+        if(keyCode==ConstantesClavier.deplacementGauche){
+            deplacement.addKeyCode(KeyCode.Q);
+        }
+        else if(keyCode==ConstantesClavier.deplacementDroite) {
+            deplacement.addKeyCode(KeyCode.D);
+        }
+        else if(keyCode==ConstantesClavier.deplacementHaut) {
+            deplacement.addKeyCode(KeyCode.Z);
+        }
+        else if(keyCode==ConstantesClavier.deplacementBas) {
+            deplacement.addKeyCode(KeyCode.S);
+        }
+        else if(keyCode==ConstantesClavier.recupererObjetSol){
+            joueur.ramasserObjet();
         }
 
     }

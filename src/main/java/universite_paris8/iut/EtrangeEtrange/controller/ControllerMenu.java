@@ -113,7 +113,6 @@ public class ControllerMenu implements Initializable {
 
     public void recupererDonnees() {
         switchScene.recupererPane(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
-        System.out.println(switchScene.getStage().getScene()+" MENU");
     }
 
     public void onSroll(ScrollEvent scrollEvent) {

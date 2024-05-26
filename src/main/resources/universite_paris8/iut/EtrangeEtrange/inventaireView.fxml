@@ -8,7 +8,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.geometry.Insets?>
-<VBox onKeyPressed="#keyBoardInventaire"
+<VBox fx:id="VBox" onKeyPressed="#keyBoardInventaire" onMouseClicked="#mouseClicked"
       fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControlleurInventaire" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ImageView fx:id="titreInventaire" pickOnBounds="true" preserveRatio="true">

@@ -49,15 +49,31 @@ public abstract class Humanoide extends EntiteOffensif
     {
         return this.sac;
     }
-    public Objet getObjetMainDroite()
+    public Objet retournerObjetMainDroite()
     {
-        return this.objetMainDroite;
+        Objet objet = this.objetMainDroite;
+        this.objetMainDroite = null;
+        return objet;
+    }
+    public void setObjetMainGauche(Objet objet){
+        this.objetMainGauche = objet;
     }
 
+    public Objet retournerObjetMainGauche(){
+        Objet objet = this.objetMainGauche;
+        this.objetMainGauche=null;
+        return objet;
+    }
+    public Objet getObjetMainDroite(){
+        return this.objetMainDroite;
+    }
     public Objet getObjetMainGauche(){
         return this.objetMainGauche;
     }
 
+    public void setObjetMainDroite(Objet objet){
+        this.objetMainDroite = objet;
+    }
     public void ramasserObjet() {
         ArrayList<DropAuSol> dropAuSols = getMonde().getDropAuSol();
 

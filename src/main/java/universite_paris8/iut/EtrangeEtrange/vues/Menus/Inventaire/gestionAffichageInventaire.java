@@ -74,8 +74,9 @@ public class gestionAffichageInventaire {
         this.titreMainDroite = titreMainDroite;
         this.titreMainGauche = titreMainGauche;
         this.caseVerouilleInventaire = -1; // Négatif = pas de case sélectionné dans l'inventaire
+        listenerTailleSac();
         initialisationInventaire();
-        gestionInventaire();
+        affichageInventaire(joueur.getSac());
     }
 
     public void initialisationInventaire(){
@@ -111,18 +112,14 @@ public class gestionAffichageInventaire {
             imageView.setTranslateY(16);
         }
     }
-    public void gestionInventaire(){
-        // recupère l'image de l'objet présent dans la main droite
-        if(joueur.getObjetMainDroite()!=null)
-            objetMainDroite.setImage(getImageObjet(joueur.getObjetMainDroite().getClass()));
-        // recupère l'image de l'objet présent dans la main gauche
-        if(joueur.getObjetMainGauche()!=null)
-            objetMainGauche.setImage(getImageObjet(joueur.getObjetMainGauche().getClass()));
 
+    /**
+     * Actualise l'affichage de l'inventaire dès que celui-ci change de taille
+     */
+    public void listenerTailleSac(){
         joueur.getSac().getTailleMaxProperty().addListener((obs, old ,nouv)->{
             affichageInventaire(joueur.getSac());
         });
-        affichageInventaire(joueur.getSac());
     }
 
     /**
@@ -134,60 +131,105 @@ public class gestionAffichageInventaire {
         // On efface le précédent affichage
         objetsInventaire.getChildren().clear();
         caseStockageInventaire.getChildren().clear();
+        quantiteObjetInventaire.getChildren().clear();
+        objetMainGauche.setImage(null);
+        objetMainDroite.setImage(null);
 
         // On affiche pour chaque case de l'inventaire la case de stockage, l'objet à l'intérieur et sa quantité
         Image image = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/caseStockage.png");
-        for(int i = 0 ; i < sac.getTailleMax() ; i++){
+        for(int i = 0 ; i < sac.getTailleMax() ; i++) {
             caseStockageInventaire.getChildren().add(new ImageView(image));
             ImageView imageView = null;
             // Si l'emplacement de l'inventaire n'est pas vide, on ajoute l'objet qui y est présent à l'écran
-            if(joueur.getSac().objetALemplacement(i)!=null) {
+            if (joueur.getSac().objetALemplacement(i) != null) {
                 imageView = new ImageView(getImageObjet(joueur.getSac().objetALemplacement(i).getClass()));
                 // Aggrandisement de l'icône de l'objet
                 setParamatresImageViewObjetMain(imageView, false);
             }
 
             // S'il y a un objet, on ajoute son image sinon une case vide
-            if(imageView!=null) {
-                TextField textField = new TextField();
-                textField.setAlignment(Pos.BOTTOM_RIGHT);
-                textField.setBackground(Background.EMPTY);
-                textField.setMaxSize(64, 64);
-                textField.setMinSize(64, 64);
-                textField.setText(joueur.getSac().getInv().getEmplacement(i).quantiteObjet()+"");
-                textField.setStyle("-fx-text-fill: white;");
+            if (imageView != null) {
+                TextField textField = ajouterQuantite(joueur.getSac().getInv().getEmplacement(i).quantiteObjet());
                 // Ajout de l'image de l'objet et de sa quantité dans la case
                 objetsInventaire.getChildren().add(imageView);
                 quantiteObjetInventaire.getChildren().add(textField);
-            }
-            else {
+            } else {
                 // Si pas d'objet, ont rempli la case avec du vide
                 objetsInventaire.getChildren().add(new ImageView());
                 quantiteObjetInventaire.getChildren().add(new ImageView());
             }
         }
+        if(joueur.getObjetMainDroite()!=null)
+            objetMainDroite.setImage(getImageObjet(joueur.getObjetMainDroite().getClass()));
+        if(joueur.getObjetMainGauche()!=null)
+            objetMainGauche.setImage(getImageObjet(joueur.getObjetMainGauche().getClass()));
+
+    }
+
+    public TextField ajouterQuantite(int quantite){
+        TextField textField = new TextField();
+        textField.setAlignment(Pos.BOTTOM_RIGHT);
+        textField.setBackground(Background.EMPTY);
+        textField.setEditable(false);
+        textField.setMaxSize(64, 64);
+        textField.setMinSize(64, 64);
+        textField.setText(quantite+"");
+        textField.setStyle("-fx-text-fill: white;");
+        return textField;
     }
 
     public void caseVerouille(int emplacement){
-        if (caseVerouilleInventaire >= 0) {
-            ColorAdjust colorReset = new ColorAdjust();
+        int tailleInventaire = caseStockageInventaire.getChildren().size();
+        ColorAdjust colorReset = new ColorAdjust();
+
+        if (caseVerouilleInventaire<tailleInventaire && caseVerouilleInventaire>=0) {
             caseStockageInventaire.getChildren().get(caseVerouilleInventaire).setEffect(colorReset);
         }
+        conteneurObjetMainDroite.getChildren().get(0).setEffect(colorReset);
+        conteneurObjetMainGauche.getChildren().get(0).setEffect(colorReset);
 
+
+        caseVerouilleInventaire = emplacement;
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(0.8);
-        caseStockageInventaire.getChildren().get(emplacement).setEffect(colorAdjust);
+
+        if(caseVerouilleInventaire<tailleInventaire)
+            caseStockageInventaire.getChildren().get(emplacement).setEffect(colorAdjust);
+        else
+            if(caseVerouilleInventaire==tailleInventaire)
+                conteneurObjetMainDroite.getChildren().get(0).setEffect(colorAdjust);
+            else
+                conteneurObjetMainGauche.getChildren().get(0).setEffect(colorAdjust);
     }
 
-    public void listenerCaseSurvolé(IntegerProperty integerProperty){
-        integerProperty.addListener((obs, old, nouv)->{
-            for(Node imageView : caseStockageInventaire.getChildren())
-                imageView.setEffect(new ColorAdjust());
+    public void listenerCaseSurvole(IntegerProperty integerProperty){
+        integerProperty.addListener((obs, old, nouv)-> {
+            int survole = integerProperty.get();
+            System.out.println(survole);
+            int tailleInventaire = caseStockageInventaire.getChildren().size();
+            ColorAdjust reset = new ColorAdjust();
+            for (int i = 0; i < tailleInventaire; i++)
+                if (i != caseVerouilleInventaire)
+                    caseStockageInventaire.getChildren().get(i).setEffect(reset);
+
+            if(tailleInventaire!=caseVerouilleInventaire)
+                conteneurObjetMainDroite.getChildren().get(0).setEffect(reset);
+            if(tailleInventaire+1!=caseVerouilleInventaire)
+                conteneurObjetMainGauche.getChildren().get(0).setEffect(reset);
+
 
             ColorAdjust colorAdjust = new ColorAdjust();
             colorAdjust.setBrightness(0.8);
-            caseStockageInventaire.getChildren().get(integerProperty.get()).setEffect(colorAdjust);
-
+            if (survole>=tailleInventaire){
+                if(survole==tailleInventaire+1)
+                    conteneurObjetMainGauche.getChildren().get(0).setEffect(colorAdjust);
+                else
+                    conteneurObjetMainDroite.getChildren().get(0).setEffect(colorAdjust);
+            }
+            else {
+                if (survole >= 0)
+                    caseStockageInventaire.getChildren().get(integerProperty.get()).setEffect(colorAdjust);
+            }
         });
     }
 

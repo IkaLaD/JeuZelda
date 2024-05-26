@@ -5,8 +5,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Attaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.AttaqueSpecial;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 
 public abstract class EntiteOffensif extends Entite {
     private Attaque attaque;
@@ -19,8 +17,6 @@ public abstract class EntiteOffensif extends Entite {
     }
 
     public abstract void attaque();
-
-    public abstract void seDeplacerVersJoueur();
 
     public void setAttaque(double attaque) { this.attaque.setAttaque(attaque); }
     public void setAttaqueActuelle(double attaque) { this.attaque.setAttaqueActuelle(attaque); }

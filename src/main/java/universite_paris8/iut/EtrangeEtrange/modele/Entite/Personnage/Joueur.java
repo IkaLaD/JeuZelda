@@ -18,8 +18,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
-public abstract class Joueur extends Humanoide
-{
+public abstract class Joueur extends Humanoide {
     protected Carquois carquois;
     private Familie familier;
 
@@ -27,12 +26,9 @@ public abstract class Joueur extends Humanoide
         super(pv, attaque, defense, attaqueSpecial, defenseSpecial,vitesse, sac, objetMainGauche, objetMainDroite, monde, x, y, direction, hitbox);
     }
 
-
-    public boolean recupereObjet(Objet objet)
-    {
+    public boolean recupereObjet(Objet objet) {
         return getSac().ajoutItem(objet);
     }
-
 
     public void setFamilier(Familie familier) {
         this.familier = familier;
@@ -42,55 +38,38 @@ public abstract class Joueur extends Humanoide
         return this.isSeDeplace();
     }
 
-
     @Override
-    public void actionMainDroite()
-    {
+    public void actionMainDroite() {
         Objet objet = getObjetMainDroite();
 
-        if (objet != null)
-        {
-            if (objet instanceof Utilisable)
-            {
-                if (objet instanceof Arme)
-                {
+        if (objet != null) {
+            if (objet instanceof Utilisable) {
+                if (objet instanceof Arme) {
                     attaque();
                 }
 
-                if (objet instanceof Consommable)
-                {
+                if (objet instanceof Consommable) {
                     consommer();
                 }
             }
         }
     }
 
-
     @Override
-    public void attaque()
-    {
+    public void attaque() {
         Arme arme = (Arme) objetMainDroite;
         ParametreActionAttaque actionAttaquer = null;
 
-        if (arme instanceof Epee)
-        {
+        if (arme instanceof Epee) {
             actionAttaquer = new ParametreActionAttaqueEpee(this);
-        }
-        else if (arme instanceof Arc)
-        {
-            actionAttaquer = new ParametreActionAttaqueArc(this,new FlecheSimple());
+        } else if (arme instanceof Arc) {
+            actionAttaquer = new ParametreActionAttaqueArc(this, new FlecheSimple());
         }
 
         arme.attaque(actionAttaquer);
-
-
     }
 
     @Override
-    public void consommer()
-    {
-
+    public void consommer() {
     }
-
-
 }

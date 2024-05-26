@@ -179,6 +179,18 @@ public class Monde {
         }
     }
 
+    public ArrayList<Entite> getEntitesA()
+    {
+        ArrayList<Entite> entitesDansRayon = new ArrayList<>();
+
+        for (Entite entite : this.entites)
+        {   entitesDansRayon.add(entite);
+
+        }
+
+        return entitesDansRayon;
+    }
+
 
     public ArrayList<Entite> getEntites(Position pos, double rayon)
     {

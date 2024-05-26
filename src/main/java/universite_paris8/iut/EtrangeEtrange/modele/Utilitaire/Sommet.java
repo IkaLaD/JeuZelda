@@ -22,15 +22,20 @@ public class Sommet {
         return traversable;
     }
 
-    public void addVoisin(Sommet voisin) {
-        this.voisins.add(voisin);
+    public void setTraversable(boolean traversable) {
+        this.traversable = traversable;
     }
 
     public List<Sommet> getVoisins() {
         return voisins;
     }
 
+    public void addVoisin(Sommet voisin) {
+        this.voisins.add(voisin);
+    }
+
     public double distance(Sommet autre) {
-        return this.position.distance(autre.getPosition());
+        return Math.sqrt(Math.pow(position.getX() - autre.getPosition().getX(), 2) +
+                Math.pow(position.getY() - autre.getPosition().getY(), 2));
     }
 }

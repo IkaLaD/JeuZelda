@@ -10,12 +10,14 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Familie;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
+//import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
@@ -80,7 +82,9 @@ public class Controller implements Initializable {
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
 
-        initLoups(aetoile);
+
+        initBoss(monde, joueur, aetoile);
+      //  initSquelette(aetoile);
         monde.setJoueur(joueur);
 
         deplacement = new Deplacement(joueur);
@@ -89,12 +93,26 @@ public class Controller implements Initializable {
 
     }
 
+    private void initSquelette(Aetoile aetoile) {
+        Squelette squelette = new Squelette(100, 10, 10, 10, 10, 0.1, monde, 16, 16, Direction.BAS, new Hitbox(0.5, 0.5), joueur, aetoile);
+        monde.ajoutEntite(squelette);
+    }
+
+
     private void initLoups(Aetoile aetoile) {
+
         Loup loup1 = new Loup(joueur, monde, 10, 10, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
-        Loup loup2 = new Loup(joueur, monde, 15, 15, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
+        Loup loup2 = new Loup(joueur, monde, 16, 16, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
         monde.ajoutEntite(loup1);
         monde.ajoutEntite(loup2);
     }
+
+    private void initBoss(Monde monde, Joueur joueur, Aetoile aetoile) {
+        RoiSquelette roiSquelette = new RoiSquelette(100, 20, 10, 15, 5, 0.1, monde, 6, 28, Direction.BAS, new Hitbox(0.5, 0.5));
+        monde.ajoutEntite(roiSquelette);
+    }
+
+
 
     private void initGameLoop() {
         gameLoop = new Timeline();
@@ -104,7 +122,7 @@ public class Controller implements Initializable {
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.1),
                 (ev -> {
-                    for (Entite entite : monde.getEntities()) {
+                    for (Entite entite : monde.getEntitesA()) {
                         if (entite instanceof Controlable) {
                             ((Controlable) entite).action();
                         }

@@ -6,6 +6,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public class Archer extends Joueur
 {
@@ -13,8 +14,4 @@ public class Archer extends Joueur
         super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, sac, objetMainGauche, objetMainDroite, monde, x, y, direction, hitbox);
     }
 
-    @Override
-    public void seDeplacerVersJoueur() {
-
-    }
 }

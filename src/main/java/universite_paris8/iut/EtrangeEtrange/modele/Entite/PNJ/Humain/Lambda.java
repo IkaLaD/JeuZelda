@@ -1,7 +1,6 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
+/*package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
 
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
@@ -17,9 +16,10 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.E
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public class Lambda extends Humanoide implements Controlable{
-    public Lambda(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
+    public Lambda(Monde monde, double x, double y, Direction direction, Hitbox hitbox, Aetoile aetoile) {
         super(100, 5, 50, 1, 20, 0.1,null,null,null, monde, x, y, direction, hitbox);
     }
 
@@ -81,7 +81,7 @@ public class Lambda extends Humanoide implements Controlable{
     }
 
     @Override
-    public void seDeplacerVersJoueur() {
+    public void seDeplacerVersJoueur(Position position) {
 
     }
 
@@ -90,3 +90,4 @@ public class Lambda extends Humanoide implements Controlable{
 
     }
 }
+*/

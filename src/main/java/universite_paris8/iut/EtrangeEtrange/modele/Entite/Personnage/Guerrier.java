@@ -4,9 +4,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.PetitSac;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesPersonnages;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public class Guerrier extends Joueur
 {
@@ -14,8 +14,4 @@ public class Guerrier extends Joueur
         super(ConstantesPersonnages.GUERRIER_PV, ConstantesPersonnages.GUERRIER_ATTAQUE, ConstantesPersonnages.GUERRIER_DEFENSE, ConstantesPersonnages.GUERRIER_ATTAQUE_SPECIAL, ConstantesPersonnages.GUERRIER_DEFENSE_SEPCIAL, ConstantesPersonnages.GUERRIER_VITESSE ,new PetitSac(), null, null,monde, x, y, direction ,new Hitbox(0.50,0.50));
     }
 
-    @Override
-    public void seDeplacerVersJoueur() {
-
-    }
 }

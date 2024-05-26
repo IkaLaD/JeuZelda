@@ -1,15 +1,18 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 
 import java.util.*;
 
 public class Aetoile {
     private Monde monde;
     private Sommet[][] graphe;
+    private List<Position> chemin;
 
     public Aetoile(Monde monde) {
         this.monde = monde;
+        this.chemin = new ArrayList<>();
         construireGraphe();
     }
 
@@ -47,7 +50,28 @@ public class Aetoile {
         }
     }
 
+    public void mettreAJourGraphe() {
+        // Réinitialiser les sommets
+        for (int y = 0; y < graphe.length; y++) {
+            for (int x = 0; x < graphe[0].length; x++) {
+                graphe[y][x].setTraversable(monde.getNontraversable()[y][x] == -1);
+            }
+        }
+
+        // Marquer les positions des entités comme non traversables
+        for (Entite entite : monde.getEntitesA()) {
+            Position pos = entite.getPosition();
+            int x = (int) pos.getX();
+            int y = (int) pos.getY();
+            if (x >= 0 && y >= 0 && x < graphe[0].length && y < graphe.length) {
+                graphe[y][x].setTraversable(false);
+            }
+        }
+    }
+
     public List<Position> trouverChemin(Position depart, Position arrivee) {
+        mettreAJourGraphe();  // Mettre à jour le graphe avant de trouver le chemin
+
         Sommet sommetDepart = positionToSommet(depart);
         Sommet sommetArrivee = positionToSommet(arrivee);
 
@@ -99,6 +123,7 @@ public class Aetoile {
             noeud = noeud.getParent();
         }
         Collections.reverse(chemin);
+        this.chemin = chemin; // Mettre à jour le chemin
         return chemin;
     }
 
@@ -115,6 +140,10 @@ public class Aetoile {
         int x = (int) sommet.getPosition().getX();
         int y = (int) sommet.getPosition().getY();
         return new Position(x + 0.5, y + 0.5);
+    }
+
+    public List<Position> getChemin() {
+        return chemin;
     }
 
     private static class Noeud {

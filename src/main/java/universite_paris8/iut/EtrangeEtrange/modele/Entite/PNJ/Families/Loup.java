@@ -9,7 +9,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 public class Loup extends Familie {
 
     public Loup(Joueur joueur, Monde monde, double x, double y, Direction direction, Hitbox hitbox, Aetoile aetoile) {
-        super(joueur, 100, 15, 10, 10, 10, 0.3, monde, x, y, direction, hitbox, 1, aetoile); // Rayon de détection de 1
+        super(joueur, 100, 15, 10, 10, 10, 0.1, monde, x, y, direction, hitbox, 3, aetoile); // Rayon de détection de 1
     }
 
     @Override

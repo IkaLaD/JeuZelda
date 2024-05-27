@@ -17,7 +17,7 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.ComparePositionSprite;
 
 import java.util.ArrayList;
 
-public class gestionAffichageSpriteEntite implements ListChangeListener<Entite> {
+public class  gestionAffichageSpriteEntite implements ListChangeListener<Entite> {
     private Pane paneEntite;
     private ArrayList<SpriteEntite> animationSprites;
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.075), event -> {
@@ -92,8 +92,8 @@ public class gestionAffichageSpriteEntite implements ListChangeListener<Entite> 
      */
     public void ajouterJoueur(Joueur joueur){
         creeSprite(joueur);
-        joueur.getPv().getPvActuelleProperty().addListener((obs, old, nouv)->{
-            if(joueur.getPv().getPvActuelle()<=0)
+        joueur.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv)->{
+            if(joueur.getStatsPv().getPv()<=0)
                 suprimmerSprite(joueur);
         });
         listenerPosition(joueur);

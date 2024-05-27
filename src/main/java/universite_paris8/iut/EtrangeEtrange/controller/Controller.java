@@ -2,15 +2,18 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.EtrangeEtrange.Runner;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort1;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort2;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort3;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
@@ -21,22 +24,20 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+
+
 
 public class Controller implements Initializable {
     @FXML
@@ -53,9 +54,23 @@ public class Controller implements Initializable {
     private int temps = 0;
     private Deplacement deplacement;
 
+    private HashMap<KeyCode, Direction> directionHashMap = new HashMap<>();
+
+
+
+
+
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        directionHashMap.put(KeyCode.Q,Direction.GAUCHE);
+        directionHashMap.put(KeyCode.D,Direction.DROITE);
+        directionHashMap.put(KeyCode.Z,Direction.HAUT);
+        directionHashMap.put(KeyCode.S,Direction.BAS);
+
+
+
         initMonde();
         initJoueur();
         initPane();
@@ -160,32 +175,66 @@ public class Controller implements Initializable {
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
     }
 
-    public void keyPressed(KeyEvent keyEvent) {
-        KeyCode keyCode = keyEvent.getCode();
-        switch (keyCode){
-            case Q:
-                deplacement.addKeyCode(KeyCode.Q);
+
+    public void keyPressed(KeyEvent keyEvent)
+    {
+        ActionJoueur actionJoueur = null;
+
+        switch (keyEvent.getCode())
+        {
+            case A :
+                actionJoueur = new ActionUtiliserSort1();
                 break;
-            case D:
-                deplacement.addKeyCode(KeyCode.D);
+            case F :
+                actionJoueur = new ActionUtiliserSort2();
                 break;
-            case Z:
-                deplacement.addKeyCode(KeyCode.Z);
+            case R :
+                actionJoueur = new ActionUtiliserSort3();
                 break;
-            case S:
-                deplacement.addKeyCode(KeyCode.S);
+            case Z :
+                deplacement.ajoutDirection(Direction.HAUT);
+
                 break;
-            case E:
-                joueur.ramasserObjet();
+            case D :
+                deplacement.ajoutDirection(Direction.DROITE);
                 break;
-            case M:
-                joueur.enlevePv(60);
+
+            case Q :
+                deplacement.ajoutDirection(Direction.GAUCHE);
+                break;
+            case S :
+                deplacement.ajoutDirection(Direction.BAS);
+
                 break;
         }
 
+        if (actionJoueur != null)
+            joueur.action(actionJoueur);
+
+
+
     }
-    public void onKeyReleased(KeyEvent keyEvent) {
-        deplacement.removeKeyCode(keyEvent.getCode());
+
+
+
+
+    public void onKeyReleased(KeyEvent keyEvent)
+    {
+        switch (keyEvent.getCode())
+        {
+            case Z :
+                deplacement.enleveDirection(Direction.HAUT);
+                break;
+            case D :
+                deplacement.enleveDirection(Direction.DROITE);
+                break;
+            case Q :
+                deplacement.enleveDirection(Direction.GAUCHE);
+                break;
+            case S :
+                deplacement.enleveDirection(Direction.BAS);
+                break;
+        }
     }
 
     public void mouseClick(MouseEvent mouseEvent)
@@ -193,7 +242,7 @@ public class Controller implements Initializable {
         this.paneEntite.requestFocus();
 
         if (mouseEvent.getButton() == MouseButton.PRIMARY)
-            this.joueur.actionMainDroite();
+            this.joueur.action(new ActionUtiliserMainDroite());
     }
 
 }

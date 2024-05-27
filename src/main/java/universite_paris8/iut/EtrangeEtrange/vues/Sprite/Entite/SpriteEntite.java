@@ -1,6 +1,5 @@
 package universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite;
 
-import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,6 +8,9 @@ import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+
+import static universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction.*;
 
 public class SpriteEntite {
     private Entite entite;
@@ -49,7 +51,7 @@ public class SpriteEntite {
         effetCouleur = new ColorAdjust();
         SpriteEntite.setEffect(effetCouleur);
         // Listener pour savoir si on doit appliquer un effet suite à un dégat ou un heal
-        entite.getPv().getPvActuelleProperty().addListener((obs, old, nouv) -> {
+        entite.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv) -> {
             demarrerEffet();
         });
 
@@ -70,11 +72,11 @@ public class SpriteEntite {
 
     public Rectangle ajoutBarrePv(){
         // Listener pour que la couleur et la taille de la barre change
-        entite.getPv().getPvActuelleProperty().addListener((obs, old, nouv) -> {
-            SpriteVie.setWidth(Constantes.tailleTile * (entite.getPv().getPvActuelle() / entite.getPv().getPv()));
-            if(entite.getPv().getPvActuelle() / entite.getPv().getPv() > 2.0/3.0)
+        entite.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv) -> {
+            SpriteVie.setWidth(Constantes.tailleTile * (entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum()));
+            if(entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum() > 2.0/3.0)
                 SpriteVie.setFill(Color.GREEN);
-            else if(entite.getPv().getPvActuelle() / entite.getPv().getPv() >1.0/3.0)
+            else if(entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum() >1.0/3.0)
                 SpriteVie.setFill(Color.YELLOW);
             else
                 SpriteVie.setFill(Color.RED);
@@ -93,11 +95,11 @@ public class SpriteEntite {
         SpriteVie.setTranslateX(entite.getPosition().getX()* Constantes.tailleTile-32);
         SpriteVie.setTranslateY(entite.getPosition().getY()*Constantes.tailleTile-48);
         SpriteVie.setHeight(5);
-        SpriteVie.setWidth(Constantes.tailleTile * (entite.getPv().getPvActuelle() / entite.getPv().getPv()));
+        SpriteVie.setWidth(Constantes.tailleTile * (entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum()));
 
-        if(entite.getPv().getPvActuelle() / entite.getPv().getPv() > 2.0/3.0)
+        if(entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum() > 2.0/3.0)
             SpriteVie.setFill(Color.GREEN);
-        else if(entite.getPv().getPvActuelle() / entite.getPv().getPv() > 1.0/3.0)
+        else if(entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum() > 1.0/3.0)
             SpriteVie.setFill(Color.YELLOW);
         else
             SpriteVie.setFill(Color.RED);
@@ -106,12 +108,17 @@ public class SpriteEntite {
     }
 
     public void miseAJourAnimation(){
-        String face = switch (entite.getDirection()){
-            case BAS -> "bas";
-            case HAUT -> "haut";
-            case DROITE -> "droite";
-            case GAUCHE -> "gauche";
-        };
+        String face = null;
+        if (entite.getDirection() == Direction.BAS) {
+            face = "bas";
+        } else if (entite.getDirection() == Direction.HAUT) {
+            face = "haut";
+        } else if (entite.getDirection() == Direction.DROITE) {
+            face = "droite";
+        } else if (entite.getDirection() == Direction.GAUCHE) {
+            face = "gauche";
+        }
+
         SpriteEntite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+ skin +"/"+face+image+".png"));
         if(image==6)
             image=1;
@@ -121,12 +128,16 @@ public class SpriteEntite {
 
     public void finAnimationMarche(){
         image=1;
-        String face = switch (entite.getDirection()){
-            case BAS -> "bas";
-            case HAUT -> "haut";
-            case DROITE -> "droite";
-            case GAUCHE -> "gauche";
-        };
+        String face = null;
+        if (entite.getDirection() == Direction.BAS) {
+            face = "bas";
+        } else if (entite.getDirection() == Direction.HAUT) {
+            face = "haut";
+        } else if (entite.getDirection() == Direction.DROITE) {
+            face = "droite";
+        } else if (entite.getDirection() == Direction.GAUCHE) {
+            face = "gauche";
+        }
         this.SpriteEntite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+ skin +"/"+face+1+".png"));
     }
 

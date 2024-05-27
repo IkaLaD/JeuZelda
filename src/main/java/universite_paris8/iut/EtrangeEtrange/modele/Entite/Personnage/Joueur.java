@@ -1,11 +1,16 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Familie;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.GestionCompetence;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionLivreMagique.ParametreActionLivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
@@ -16,60 +21,103 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.A
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
-public abstract class Joueur extends Humanoide {
+public abstract class Joueur extends Humanoide
+{
+
     protected Carquois carquois;
-    private Familie familier;
 
-    public Joueur(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse,Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
+    protected boolean peuCourir;
+    public Joueur(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(pv, attaque, defense, attaqueSpecial, defenseSpecial,vitesse, sac, objetMainGauche, objetMainDroite, monde, x, y, direction, hitbox);
+        peuCourir = false;
     }
 
-    public boolean recupereObjet(Objet objet) {
+
+    public boolean recupereObjet(Objet objet)
+    {
         return getSac().ajoutItem(objet);
     }
 
-    public void setFamilier(Familie familier) {
-        this.familier = familier;
-    }
 
-    public boolean ifSeDeplace() {
-        return this.isSeDeplace();
-    }
 
     @Override
-    public void actionMainDroite() {
+    public void actionMainDroite()
+    {
         Objet objet = getObjetMainDroite();
 
-        if (objet != null) {
-            if (objet instanceof Utilisable) {
-                if (objet instanceof Arme) {
-                    attaque();
+        if (objet != null)
+        {
+            if (objet instanceof Utilisable)
+            {
+                if (objet instanceof Arme arme)
+                {
+                    attaque(arme);
                 }
 
-                if (objet instanceof Consommable) {
-                    consommer();
+                if (objet instanceof Consommable consommable)
+                {
+                    consommer(consommable);
                 }
+
+
             }
         }
     }
 
     @Override
-    public void attaque() {
-        Arme arme = (Arme) objetMainDroite;
-        ParametreActionAttaque actionAttaquer = null;
-
-        if (arme instanceof Epee) {
-            actionAttaquer = new ParametreActionAttaqueEpee(this);
-        } else if (arme instanceof Arc) {
-            actionAttaquer = new ParametreActionAttaqueArc(this, new FlecheSimple());
+    public void lanceUnSort(ParametreActionLivreMagique param)
+    {
+        if (objetMainDroite instanceof LivreMagique)
+        {
+            LivreMagique livreMagique = (LivreMagique) objetMainDroite;
+            livreMagique.utilise(param);
         }
-
-        arme.attaque(actionAttaquer);
     }
+
+
+    public void action(ActionJoueur action)
+    {
+        action.executer(this);
+    }
+
 
     @Override
-    public void consommer() {
+    public void attaque(Arme arme)
+    {
+
+        ParametreActionAttaque actionAttaquer = null;
+
+        if (arme instanceof Epee)
+        {
+            actionAttaquer = new ParametreActionAttaqueEpee(this);
+            arme.attaque(actionAttaquer);
+        }
+        else if (arme instanceof Arc)
+        {
+            Fleche flecheSimple = carquois.retourneUneFleche();
+
+            if (flecheSimple != null)
+            {
+                flecheSimple.setPositionOrigine(position);
+                flecheSimple.setDirection(direction);
+                actionAttaquer = new ParametreActionAttaqueArc(this,flecheSimple);
+                arme.attaque(actionAttaquer);
+            }
+
+        }
+
+
+
+
     }
+
+
+    public void peuCourir(boolean peuCourir)
+    {
+        this.peuCourir = peuCourir;
+    }
+
+
+
 }

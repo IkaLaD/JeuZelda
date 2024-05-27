@@ -1,7 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
@@ -18,7 +17,7 @@ public abstract class Humanoide extends EntiteOffensif
     protected Sac sac;
 
 
-    public Humanoide(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche,Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
+    public Humanoide(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
         this.sac = sac;
         this.objetMainGauche = objetMainGauche;
@@ -29,20 +28,17 @@ public abstract class Humanoide extends EntiteOffensif
     public abstract void actionMainDroite();
 
 
-    public void consommer()
-    {
 
-    }
 
 
     @Override
     protected double subitDegatPhysique(double attaque,double forceEntite) {
-        return attaque - getDefense().getDefenseActuelle();
+        return (attaque * forceEntite) / (getDefense() - (attaque/6));
     }
 
     @Override
     protected double subitDegatSpecial(double attaqueSpecial,double forceEntite) {
-        return attaqueSpecial - getDefenseSpecial().getDefenseSpecialActuelle();
+        return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
     }
 
     public Sac getSac()

@@ -3,8 +3,6 @@ package universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Para
 
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParProjectile;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 
 public class ParametreActionAttaqueArc extends ParametreActionAttaque

@@ -40,4 +40,19 @@ public class Hitbox {
     public double getHauteur() {
         return this.hauteur;
     }
+
+
+    public boolean estDansCercle(Position centre, double rayon, Position position) {
+        double deltaX = position.getX() - centre.getX();
+        double deltaY = position.getY() - centre.getY();
+        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        return distance <= rayon;
+    }
+
+    // Méthode pour vérifier si les bords de la hitbox sont dans le cercle
+    public boolean estDansCercle(Position centre, double rayon) {
+        Position centreHitbox = new Position(centre.getX(), centre.getY());
+        double rayonEffectif = rayon + Math.max(largeur, hauteur) / 2.0;
+        return estDansCercle(centre, rayonEffectif, centreHitbox);
+    }
 }

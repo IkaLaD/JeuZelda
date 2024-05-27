@@ -2,10 +2,14 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+import universite_paris8.iut.EtrangeEtrange.Runner;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementGauche;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort1;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort2;
@@ -13,7 +17,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
@@ -24,20 +28,24 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.ResourceBundle;
-
-
 
 public class Controller implements Initializable {
     @FXML
@@ -53,26 +61,16 @@ public class Controller implements Initializable {
     private Timeline gameLoop;
     private int temps = 0;
     private Deplacement deplacement;
-
-    private HashMap<KeyCode, Direction> directionHashMap = new HashMap<>();
-
-
-
-
+    private SwitchScene switchDonnees;
 
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
-        directionHashMap.put(KeyCode.Q,Direction.GAUCHE);
-        directionHashMap.put(KeyCode.D,Direction.DROITE);
-        directionHashMap.put(KeyCode.Z,Direction.HAUT);
-        directionHashMap.put(KeyCode.S,Direction.BAS);
-
-
-
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        switchDonnees = switchDonnees.getSwitchScene();
         initMonde();
         initJoueur();
+
+        switchDonnees.setJoueur(joueur);
         initPane();
 
 
@@ -89,17 +87,11 @@ public class Controller implements Initializable {
         gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol = new gestionAffichageSpriteDropAuSol(paneEntite);
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
-
-
-        for(int i = -1 ; i <= 1 ; i++) {
-            for(int j = -1 ; j <= 1 ; j++) {
-                Lambda lambda = new Lambda(monde, 16 + j, 16 + i, Direction.GAUCHE, new Hitbox(0.50, 0.50));
-                monde.ajoutEntite(lambda);
-
-            }
-        }
         
         monde.setJoueur(joueur);
+        Aetoile aetoile = new Aetoile(monde);
+        initLoups(aetoile);
+        initBoss(monde, joueur, aetoile);
 
 
         deplacement = new Deplacement(joueur);
@@ -174,45 +166,42 @@ public class Controller implements Initializable {
         // Initialisation Coordonnées centre monde et des listeners
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
     }
+    private void initLoups(Aetoile aetoile) {
+
+        Loup loup1 = new Loup(joueur, monde, 10, 10, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
+        monde.ajoutEntite(loup1);
+    }
+
+    private void initBoss(Monde monde, Joueur joueur, Aetoile aetoile) {
+        RoiSquelette roiSquelette = new RoiSquelette(1000, 20, 100, 15, 5, 0.1, monde, 6, 28, Direction.BAS, new Hitbox(0.5, 0.5));
+        monde.ajoutEntite(roiSquelette);
+    }
 
 
     public void keyPressed(KeyEvent keyEvent)
     {
         ActionJoueur actionJoueur = null;
+        KeyCode keyCode = keyEvent.getCode();
+        if(keyCode==KeyCode.A)
+            actionJoueur = new ActionUtiliserSort1();
+        else if(keyCode==KeyCode.F)
+            actionJoueur = new ActionUtiliserSort2();
+        else if (keyCode==keyCode.R)
+            actionJoueur = new ActionUtiliserSort3();
+        else if(keyCode==ConstantesClavier.deplacementHaut)
+            deplacement.ajoutDirection(Direction.HAUT);
+        else if(keyCode==ConstantesClavier.deplacementDroite)
+            deplacement.ajoutDirection(Direction.DROITE);
+        else if(keyCode==ConstantesClavier.deplacementGauche)
+            deplacement.ajoutDirection(Direction.GAUCHE);
+        else if(keyCode==ConstantesClavier.deplacementBas)
+            deplacement.ajoutDirection(Direction.BAS);
+        else if(keyCode==ConstantesClavier.recupererObjetSol)
+            joueur.ramasserObjet();
 
-        switch (keyEvent.getCode())
-        {
-            case A :
-                actionJoueur = new ActionUtiliserSort1();
-                break;
-            case F :
-                actionJoueur = new ActionUtiliserSort2();
-                break;
-            case R :
-                actionJoueur = new ActionUtiliserSort3();
-                break;
-            case Z :
-                deplacement.ajoutDirection(Direction.HAUT);
-
-                break;
-            case D :
-                deplacement.ajoutDirection(Direction.DROITE);
-                break;
-
-            case Q :
-                deplacement.ajoutDirection(Direction.GAUCHE);
-                break;
-            case S :
-                deplacement.ajoutDirection(Direction.BAS);
-
-                break;
-        }
 
         if (actionJoueur != null)
             joueur.action(actionJoueur);
-
-
-
     }
 
 
@@ -243,6 +232,21 @@ public class Controller implements Initializable {
 
         if (mouseEvent.getButton() == MouseButton.PRIMARY)
             this.joueur.action(new ActionUtiliserMainDroite());
+    }
+
+    public void onScroll(ScrollEvent scrollEvent) {
+        if(scrollEvent.getDeltaY()<0) {
+            switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+            switchDonnees.getControllerMenu().recupererDonnees();
+            switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());
+            switchDonnees.getStage().show();
+            System.out.println("Changement de scène vers Menu");
+        }
+    }
+
+    public void recupererDonnees() {
+        switchDonnees.recupererPane(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+        System.out.println(switchDonnees.getStage().getScene()+" JEU");
     }
 
 }

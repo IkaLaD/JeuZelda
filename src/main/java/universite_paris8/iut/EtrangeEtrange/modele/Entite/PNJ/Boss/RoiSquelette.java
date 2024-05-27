@@ -2,8 +2,9 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Squelette;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -28,6 +29,11 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
         this.positionMilieu = new Position(5.5, 27.5);
         this.position5_2 = new Position(2, 27.5);
         setPosition(x, y); // Positionnement initial du Roi Squelette
+    }
+
+    @Override
+    public void attaque(Arme arme) {
+
     }
 
     @Override
@@ -133,21 +139,12 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
 
     @Override
     protected double subitDegatPhysique(double degat, double forceEntite) {
-        return degat - getDefense().getDefenseActuelle();
+        return (degat * forceEntite) / (getDefense() - (degat/6));
     }
 
     @Override
     protected double subitDegatSpecial(double attaqueSpecial, double forceEntite) {
-        return attaqueSpecial - getDefenseSpecial().getDefenseSpecialActuelle();
+        return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
     }
 
-    @Override
-    public void consommer() {
-        // Implémenter la consommation (à définir)
-    }
-
-    @Override
-    public void attaque() {
-        // Implémenter l'attaque (à définir)
-    }
 }

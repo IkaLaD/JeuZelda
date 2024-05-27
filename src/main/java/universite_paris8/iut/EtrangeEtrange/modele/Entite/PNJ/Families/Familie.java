@@ -5,6 +5,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -106,10 +107,6 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
         return distance <= rayonDetection;
     }
 
-    @Override
-    public void attaque() {
-
-    }
 
     private void seDeplaceAleatoire() {
         if (Math.random() > 0.95) {
@@ -151,7 +148,7 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
     }
 
     @Override
-    public void consommer() {
-        // Implémenter la logique de consommation si nécessaire
+    public void attaque(Arme arme) {
+
     }
 }

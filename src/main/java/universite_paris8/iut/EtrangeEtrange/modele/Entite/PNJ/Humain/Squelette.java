@@ -1,8 +1,10 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ;
+package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
@@ -29,22 +31,12 @@ public class Squelette extends EntiteOffensif implements Controlable, SeDeplacer
 
     @Override
     protected double subitDegatPhysique(double degat, double forceEntite) {
-        return degat - getDefense().getDefenseActuelle();
+        return (degat * forceEntite) / (getDefense() - (degat/6));
     }
 
     @Override
     protected double subitDegatSpecial(double attaqueSpecial, double forceEntite) {
-        return attaqueSpecial - getDefenseSpecial().getDefenseSpecialActuelle();
-    }
-
-    @Override
-    public void consommer() {
-        // Not applicable for this entity
-    }
-
-    @Override
-    public void attaque() {
-        // Implement attack logic for skeleton
+        return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
     }
 
 
@@ -98,5 +90,10 @@ public class Squelette extends EntiteOffensif implements Controlable, SeDeplacer
 
     private boolean positionAtteinte(Position position) {
         return Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1;
+    }
+
+    @Override
+    public void attaque(Arme arme) {
+
     }
 }

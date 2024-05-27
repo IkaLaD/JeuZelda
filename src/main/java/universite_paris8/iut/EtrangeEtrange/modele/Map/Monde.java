@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
@@ -13,7 +14,6 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAfficha
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
-
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -46,7 +46,7 @@ public class Monde {
 
     private ObservableList<DropAuSol> dropsAuSol;
 
-    private ObservableList<CauseDegat> causeDegats =  FXCollections.observableArrayList();
+    private ObservableList<ActionDegat> causeDegats =  FXCollections.observableArrayList();
 
 
 
@@ -289,7 +289,7 @@ public class Monde {
         this.causeDegats.addListener(gestionCauseDegats);
     }
 
-    public void ajoutCauseDegat(CauseDegat causeDegat)
+    public void ajoutCauseDegat(ActionDegat causeDegat)
     {
         this.causeDegats.add(causeDegat);
     }
@@ -333,6 +333,18 @@ public class Monde {
                     entite.subitDegat(causeDegat);
             }
         }
+    }
+
+    public ArrayList<Entite> getEntitesA() {
+        ArrayList<Entite> entitesDansRayon = new ArrayList<>();
+
+        for (Entite entite : this.entites)
+        {
+            entitesDansRayon.add(entite);
+
+        }
+
+        return entitesDansRayon;
     }
 }
 

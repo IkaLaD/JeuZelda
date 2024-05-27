@@ -2,7 +2,6 @@ package universite_paris8.iut.EtrangeEtrange.vues.Menus.Inventaire;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -79,6 +78,9 @@ public class gestionAffichageInventaire {
         affichageInventaire(joueur.getSac());
     }
 
+    /**
+     * Première initialisation de l'inventaire (fond, cases de stockages, titres)
+     */
     public void initialisationInventaire(){
         // Ajout des textes de la page inventaire : "Inventaire", "Main droite", "Main Gauche"
         titreInventaire.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Inventaire/InventaireTitre.png"));
@@ -96,15 +98,20 @@ public class gestionAffichageInventaire {
         objetMainDroite = new ImageView();
         objetMainGauche = new ImageView();
         // Quelques propriétés pour agrandir l'image et pour la placer correctement dans la case
-        setParamatresImageViewObjetMain(objetMainDroite, true);
-        setParamatresImageViewObjetMain(objetMainGauche, true);
+        setParamatresImageViewObjetInventaire(objetMainDroite, true);
+        setParamatresImageViewObjetInventaire(objetMainGauche, true);
 
         // Ajout du futur emplacement des images pour les mains droite et gauche
         conteneurObjetMainGauche.getChildren().add(objetMainGauche);
         conteneurObjetMainDroite.getChildren().add(objetMainDroite);
     }
 
-    public void setParamatresImageViewObjetMain(ImageView imageView, boolean objetMain){
+    /**
+     * Permet de remettre à la taille et la position necéssaire les images des objets dans l'inventaire et dans les mains
+     * @param imageView
+     * @param objetMain
+     */
+    public void setParamatresImageViewObjetInventaire(ImageView imageView, boolean objetMain){
         imageView.setScaleX(1.3);
         imageView.setScaleY(1.3);
         if(objetMain) {
@@ -144,7 +151,7 @@ public class gestionAffichageInventaire {
             if (joueur.getSac().objetALemplacement(i) != null) {
                 imageView = new ImageView(getImageObjet(joueur.getSac().objetALemplacement(i).getClass()));
                 // Aggrandisement de l'icône de l'objet
-                setParamatresImageViewObjetMain(imageView, false);
+                setParamatresImageViewObjetInventaire(imageView, false);
             }
 
             // S'il y a un objet, on ajoute son image sinon une case vide
@@ -178,6 +185,10 @@ public class gestionAffichageInventaire {
         return textField;
     }
 
+    /**
+     * Permet de laisser en surbrillance la case qui à été sélectionné par le joueur dans l'inventaire
+     * @param emplacement
+     */
     public void caseVerouille(int emplacement){
         int tailleInventaire = caseStockageInventaire.getChildren().size();
         ColorAdjust colorReset = new ColorAdjust();
@@ -202,6 +213,10 @@ public class gestionAffichageInventaire {
                 conteneurObjetMainGauche.getChildren().get(0).setEffect(colorAdjust);
     }
 
+    /**
+     * Permet d'afficher la case de l'inventaire que le joueur survole en surbrillance, et de réinitialiser la précédente qui l'était
+     * @param integerProperty
+     */
     public void listenerCaseSurvole(IntegerProperty integerProperty){
         integerProperty.addListener((obs, old, nouv)-> {
             int survole = integerProperty.get();

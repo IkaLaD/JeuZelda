@@ -1,6 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.TestJunit;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;

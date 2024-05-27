@@ -12,10 +12,6 @@ public class Loup extends Familie {
         super(joueur, 100, 15, 10, 10, 10, 0.1, monde, x, y, direction, hitbox, 3, aetoile); // Rayon de détection de 1
     }
 
-    @Override
-    public void attaque() {
-        // Implémenter l'attaque spécifique du loup
-    }
 
 
     @Override
@@ -28,8 +24,4 @@ public class Loup extends Familie {
         return 0;
     }
 
-    @Override
-    public void consommer() {
-        // Implémenter la logique de consommation si nécessaire
-    }
 }

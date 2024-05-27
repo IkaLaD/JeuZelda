@@ -84,9 +84,6 @@ public class Aetoile {
             return Collections.emptyList();
         }
 
-        System.out.println(STR."Départ : \{sommetDepart.getPosition().getX()}, \{sommetDepart.getPosition().getY()}");
-        System.out.println(STR."Arrivée : \{sommetArrivee.getPosition().getX()}, \{sommetArrivee.getPosition().getY()}");
-
         PriorityQueue<Noeud> openList = new PriorityQueue<>(Comparator.comparingDouble(Noeud::getF));
         Map<Sommet, Noeud> allNodes = new HashMap<>();
 

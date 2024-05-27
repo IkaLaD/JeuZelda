@@ -18,7 +18,7 @@ public class Sommet {
         return position;
     }
 
-    public boolean isTraversable() {
+    public boolean estTraversable() {
         return traversable;
     }
 
@@ -30,7 +30,7 @@ public class Sommet {
         return voisins;
     }
 
-    public void addVoisin(Sommet voisin) {
+    public void ajouterVoisin(Sommet voisin) {
         this.voisins.add(voisin);
     }
 

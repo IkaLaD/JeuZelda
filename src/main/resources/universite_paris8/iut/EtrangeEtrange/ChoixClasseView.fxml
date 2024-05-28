@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -8,16 +9,23 @@
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="400.0" prefWidth="335.0" />
-      <VBox>
+      <VBox prefHeight="400.0" prefWidth="268.0">
          <children>
             <Label fx:id="nomClasse" prefHeight="82.0" prefWidth="284.0" wrapText="true" />
             <Pane prefHeight="200.0" prefWidth="299.0">
                <children>
                   <Label layoutX="14.0" layoutY="14.0" text="Description :" />
-                  <Label fx:id="descriptionClasse" layoutX="14.0" layoutY="38.0" prefHeight="111.0" prefWidth="263.0" />
+                  <Label fx:id="descriptionClasse" layoutX="2.0" layoutY="43.0" prefHeight="111.0" prefWidth="263.0" />
                </children>
             </Pane>
-            <Label prefHeight="74.0" prefWidth="283.0" text="                        Statistiques" />
+            <Label prefHeight="74.0" prefWidth="283.0" text="Statistiques">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="110.0" />
+               </padding>
+            </Label>
             <HBox style="-fx-background-color: ;">
                <children>
                   <VBox prefHeight="200.0" prefWidth="131.0" spacing="10.0">
@@ -30,13 +38,13 @@
                         <Label prefHeight="20.0" prefWidth="52.0" text="Vitesse " />
                      </children>
                   </VBox>
-                  <VBox fx:id="statDefenseSpecial" prefHeight="181.0" prefWidth="170.0" spacing="14.0">
+                  <VBox  prefHeight="181.0" prefWidth="170.0" spacing="14.0">
                      <children>
                         <ProgressBar fx:id="statPv" maxHeight="20.0" minHeight="13.0" prefHeight="13.0" prefWidth="113.0" progress="0.0" />
                         <ProgressBar fx:id="statAttaque" maxHeight="20.0" minHeight="13.0" prefHeight="13.0" prefWidth="113.0" progress="0.0" />
                         <ProgressBar fx:id="statDefense" maxHeight="13.0" minHeight="13.0" prefHeight="13.0" prefWidth="113.0" progress="0.0" />
                         <ProgressBar fx:id="statAttaqueSpecial" maxHeight="20.0" minHeight="13.0" prefHeight="13.0" prefWidth="113.0" progress="0.0" />
-                        <ProgressBar maxHeight="20.0" minHeight="13.0" prefHeight="13.0" prefWidth="113.0" progress="0.0" />
+                        <ProgressBar fx:id="statDefenseSpecial" maxHeight="20.0" minHeight="13.0" prefHeight="13.0" prefWidth="113.0" progress="0.0" />
                         <ProgressBar fx:id="statVitesse" maxHeight="20.0" minHeight="13.0" prefHeight="13.0" prefWidth="113.0" progress="0.0" />
                      </children>
                   </VBox>

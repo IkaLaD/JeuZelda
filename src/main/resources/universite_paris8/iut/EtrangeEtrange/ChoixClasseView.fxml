@@ -2,11 +2,9 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="hbox" onMouseClicked="#mouseClick"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#changeClasse" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControllerChoixClasse">
    <children>
       <Pane prefHeight="400.0" prefWidth="335.0" />
       <VBox prefHeight="400.0" prefWidth="268.0">
@@ -26,11 +24,11 @@
                   <Insets left="110.0" />
                </padding>
             </Label>
-            <HBox style="-fx-background-color: ;">
+            <HBox >
                <children>
                   <VBox prefHeight="200.0" prefWidth="131.0" spacing="10.0">
                      <children>
-                        <Label prefHeight="16.0" prefWidth="60.0" text="Pv         " />
+                        <Label prefHeight="16.0" prefWidth="60.0" text="Pv" />
                         <Label text="Attaque" />
                         <Label text="Defense" />
                         <Label text="Attaque Special" />
@@ -38,7 +36,7 @@
                         <Label prefHeight="20.0" prefWidth="52.0" text="Vitesse " />
                      </children>
                   </VBox>
-                  <VBox  prefHeight="181.0" prefWidth="170.0" spacing="14.0">
+                  <VBox prefHeight="181.0" prefWidth="170.0" spacing="14.0">
                      <children>
                         <ProgressBar fx:id="statPv" maxHeight="20.0" minHeight="13.0" prefHeight="13.0" prefWidth="113.0" progress="0.0" />
                         <ProgressBar fx:id="statAttaque" maxHeight="20.0" minHeight="13.0" prefHeight="13.0" prefWidth="113.0" progress="0.0" />

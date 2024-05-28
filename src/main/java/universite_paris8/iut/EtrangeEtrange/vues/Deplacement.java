@@ -2,86 +2,115 @@ package universite_paris8.iut.EtrangeEtrange.vues;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.input.KeyCode;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.util.Duration;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementBas;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementDroite;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementGauche;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementHaut;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static javafx.scene.input.KeyCode.*;
 
-
-/**
- * La classe deplacement permet de controller les déplacements du joueur :
- *      -> Elle stock les touches qui sont appuyées au clavier (touches de déplacements : Z, Q, S, D) et
- *      effectue les appels de méthode de déplacement nécessaire.
- */
-public class Deplacement {
+public class Deplacement
+{
     private Timeline timeline;
     private Joueur joueur;
-    private Set<KeyCode> keyCode;
+    private Set<Direction> directions;
 
-    public Deplacement(Joueur joueur) {
+    private BooleanProperty estEntrainDeCourir;
+
+    private double delai;
+
+
+
+    public Deplacement(Joueur joueur)
+    {
         this.joueur = joueur;
-        this.keyCode = new HashSet<>();
-
+        this.directions = new HashSet<>();
+        this.delai = 0.020;
+        this.estEntrainDeCourir = new SimpleBooleanProperty(false);
         initAnimationTimer();
+        this.estEntrainDeCourir.addListener((observable, oldValue, newValue) ->
+        {
+            if (newValue)
+                delai = 0.010;
+            else
+                delai = 0.020;
+
+            this.timeline.stop();
+            this.timeline.getKeyFrames().set(0, new KeyFrame(Duration.seconds(delai), event -> seDeplace()));
+            this.timeline.play();
+        });
+
         this.timeline.setCycleCount(Timeline.INDEFINITE);
         this.timeline.play();
     }
 
     private void initAnimationTimer() {
-        this.timeline = new Timeline(new KeyFrame(Duration.seconds(0.020), event -> {
+        this.timeline = new Timeline(new KeyFrame(Duration.seconds(delai), event -> {
             seDeplace();
+
         }));
     }
 
     private void seDeplace()
     {
-        // Modifie l'état de déplacement du joueur en fonction des touches appuyées
-        if(keyCode.isEmpty())
+        ActionJoueur actionJoueur;
+
+        if(directions.isEmpty())
             joueur.setSeDeplace(false);
         else
             joueur.setSeDeplace(true);
 
-        // Effectue les déplacements
-        if (keyCode.contains(Q))
+
+        if (directions.contains(Direction.GAUCHE))
         {
-            joueur.setDirection(Direction.GAUCHE);
-            joueur.seDeplace();
+            actionJoueur = new ActionDeplacementGauche();
+            joueur.action(actionJoueur);
         }
-        if (keyCode.contains(D))
+
+        if (directions.contains(Direction.DROITE))
         {
-            joueur.setDirection(Direction.DROITE);
-            joueur.seDeplace();
+            actionJoueur = new ActionDeplacementDroite();
+            joueur.action(actionJoueur);
         }
-        if (keyCode.contains(Z))
+
+        if (directions.contains(Direction.HAUT))
         {
-            joueur.setDirection(Direction.HAUT);
-            joueur.seDeplace();
+            actionJoueur = new ActionDeplacementHaut();
+            joueur.action(actionJoueur);
         }
-        if (keyCode.contains(S))
+
+        if (directions.contains(Direction.BAS))
         {
-            joueur.setDirection(Direction.BAS);
-            joueur.seDeplace();
+            actionJoueur = new ActionDeplacementBas();
+            joueur.action(actionJoueur);
         }
+
     }
 
-    /**
-     * Récupère la touche appuyée et l'ajoute à la liste
-     * @param kc
-     */
-    public void addKeyCode(KeyCode kc) {
-        this.keyCode.add(kc);
+
+    public void ajoutDirection(Direction direction) {
+        this.directions.add(direction);
     }
 
     /**
      * Récupère la touche relachée et l'enlève de la liste
-     * @param kc
+     * @param direction
      */
-    public void removeKeyCode(KeyCode kc) {
-        this.keyCode.remove(kc);
+    public void enleveDirection(Direction direction) {
+        this.directions.remove(direction);
     }
+
+    public void entrainDeCourir(boolean estEntrainDeCourir) {
+        this.estEntrainDeCourir.set(estEntrainDeCourir);
+    }
+
+
 }

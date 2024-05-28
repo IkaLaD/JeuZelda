@@ -7,14 +7,15 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.ComparePositionSprite;
 
 import java.util.ArrayList;
 
-public class gestionAffichageSpriteEntite implements ListChangeListener<Entite> {
+public class  gestionAffichageSpriteEntite implements ListChangeListener<Entite> {
     private Pane paneEntite;
     private ArrayList<SpriteEntite> animationSprites;
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.075), event -> {
@@ -52,8 +53,10 @@ public class gestionAffichageSpriteEntite implements ListChangeListener<Entite> 
         String skin;
         if (entite.getClass().equals(Guerrier.class)) {
             skin = "chevalier";
-        } else if (entite.getClass().equals(Lambda.class)) {
+        } else if (entite.getClass().equals(Squelette.class)) {
             skin = "squelette";
+        } else if (entite.getClass().equals(RoiSquelette.class)) {
+            skin = "roiSquelette";
         } else {
             skin = "pnjtest";
         }
@@ -87,8 +90,8 @@ public class gestionAffichageSpriteEntite implements ListChangeListener<Entite> 
      */
     public void ajouterJoueur(Joueur joueur){
         creeSprite(joueur);
-        joueur.getPv().getPvActuelleProperty().addListener((obs, old, nouv)->{
-            if(joueur.getPv().getPvActuelle()<=0)
+        joueur.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv)->{
+            if(joueur.getStatsPv().getPv()<=0)
                 suprimmerSprite(joueur);
         });
         listenerPosition(joueur);

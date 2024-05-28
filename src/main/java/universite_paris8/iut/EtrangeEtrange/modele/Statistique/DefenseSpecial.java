@@ -5,28 +5,28 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 public class DefenseSpecial
 {
+    private DoubleProperty defenseSpecialMaximum;
     private DoubleProperty defenseSpecial;
-    private DoubleProperty defenseSpecialActuelle;
 
     public DefenseSpecial(double defenseSpecial)
     {
+        this.defenseSpecialMaximum = new SimpleDoubleProperty(defenseSpecial);
         this.defenseSpecial = new SimpleDoubleProperty(defenseSpecial);
-        this.defenseSpecialActuelle = new SimpleDoubleProperty(defenseSpecial);
     }
 
-    public void setDefenseSpecialActuelle(double defenseActuelle) {
-        this.defenseSpecialActuelle.set(defenseActuelle);
+    public void setDefenseSpecial(double defenseActuelle) {
+        this.defenseSpecial.set(defenseActuelle);
     }
 
-    public void setDefenseSpecial(double defense) {
-        this.defenseSpecial.set(defense);
-    }
-
-    public double getDefenseSpecialActuelle() {
-        return this.defenseSpecialActuelle.get();
+    public void setDefenseSpecialMaximum(double defense) {
+        this.defenseSpecialMaximum.set(defense);
     }
 
     public double getDefenseSpecial() {
         return this.defenseSpecial.get();
+    }
+
+    public double getDefenseSpecialMaximum() {
+        return this.defenseSpecialMaximum.get();
     }
 }

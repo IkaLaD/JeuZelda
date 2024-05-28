@@ -1,6 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée;
 
-import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParEpee;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionObjet;
@@ -35,7 +35,7 @@ public abstract class Epee extends Arme implements Dommageable
     {
         ParametreActionAttaqueEpee paramEpee = (ParametreActionAttaqueEpee) param;
 
-        paramEpee.getOrigineAction().getMonde().ajoutCauseDegat(new DegatParEpee(paramEpee.getOrigineAction(),this));
+        paramEpee.getOrigineAction().getMonde().ajoutCauseDegat(new ActionDegatParEpee(paramEpee.getOrigineAction(),this));
     }
 
     @Override

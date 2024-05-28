@@ -4,13 +4,14 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
-import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.CauseDegat;
-import universite_paris8.iut.EtrangeEtrange.modele.GestionDegat.DegatParProjectile;
 
-public class GestionCauseDegat implements ListChangeListener<CauseDegat>
+
+public class GestionCauseDegat implements ListChangeListener<ActionDegat>
 {
 
     private Pane pane;
@@ -21,12 +22,12 @@ public class GestionCauseDegat implements ListChangeListener<CauseDegat>
     }
 
     @Override
-    public void onChanged(Change<? extends CauseDegat> change)
+    public void onChanged(Change<? extends ActionDegat> change)
     {
         while(change.next())
         {
-            for (CauseDegat causeDegat : change.getAddedSubList()) {
-                if (causeDegat instanceof DegatParProjectile)
+            for (ActionDegat causeDegat : change.getAddedSubList()) {
+                if (causeDegat instanceof ActionDegatParProjectile)
                     initSpriteProjectile((Projectile) causeDegat.getOrgineAttaque());
             }
 

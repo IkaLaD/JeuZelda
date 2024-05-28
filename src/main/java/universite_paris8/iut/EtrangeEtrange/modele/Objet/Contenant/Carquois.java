@@ -20,7 +20,7 @@ public class Carquois extends ObjetConteneur<Fleche>
     }
 
 
-    public Fleche enleverUneFleche()
+    public Fleche retourneUneFleche()
     {
         return retourneObjet(0);
     }

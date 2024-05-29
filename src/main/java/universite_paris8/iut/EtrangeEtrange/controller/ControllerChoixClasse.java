@@ -67,16 +67,18 @@ public class ControllerChoixClasse implements Initializable
         hbox.requestFocus();
 
 
-        this.nomGuerrier = new String[2];
+        this.nomGuerrier = new String[4];
         this.nomGuerrier[0] = "Guerrier";
         this.nomGuerrier[1] = "Archer";
+        this.nomGuerrier[2] = "Mage";
+        this.nomGuerrier[3] = "Necromancier";
         this.classActuelle = 0;
 
         this.pvPlusElevee = ConstantesPersonnages.pvPlusHaut();
         this.atkPlusElevee = ConstantesPersonnages.attaquePlusHaute();
         this.defPlusElevee = ConstantesPersonnages.defensePlusHaute();
         this.atkSpePlusElevee = ConstantesPersonnages.attaqueSpecialPlusHaute();
-        this.defSpePlusElevee = ConstantesPersonnages.attaqueSpecialPlusHaute();
+        this.defSpePlusElevee = ConstantesPersonnages.defenseSpecialPlusHaute();
         this.vitPlusElevee = ConstantesPersonnages.vitessePlusHaute();
 
 
@@ -94,19 +96,60 @@ public class ControllerChoixClasse implements Initializable
 
             if (guerrier.equals("Guerrier"))
             {
+                this.nomClasse.setText("Guerrier");
                 changeValueProgressBar(ConstantesPersonnages.GUERRIER_PV,ConstantesPersonnages.GUERRIER_ATTAQUE,ConstantesPersonnages.GUERRIER_DEFENSE,ConstantesPersonnages.GUERRIER_ATTAQUE_SPECIAL,ConstantesPersonnages.GUERRIER_DEFENSE_SEPCIAL,ConstantesPersonnages.GUERRIER_VITESSE);
 
             }
             else if (guerrier.equals("Archer"))
             {
+                this.nomClasse.setText("Archer");
                 changeValueProgressBar(ConstantesPersonnages.ARCHER_PV,ConstantesPersonnages.ARCHER_ATTAQUE,ConstantesPersonnages.ARCHER_DEFENSE,ConstantesPersonnages.ARCHER_ATTAQUE_SPECIAL,ConstantesPersonnages.ARCHER_DEFENSE_SEPCIAL,ConstantesPersonnages.ARCHER_VITESSE);
             }
+            else if (guerrier.equals("Mage"))
+            {
+                this.nomClasse.setText("Mage");
+                changeValueProgressBar(ConstantesPersonnages.MAGE_PV,ConstantesPersonnages.MAGE_ATTAQUE,ConstantesPersonnages.MAGE_DEFENSE,ConstantesPersonnages.MAGE_ATTAQUE_SPECIAL,ConstantesPersonnages.MAGE_DEFENSE_SEPCIAL,ConstantesPersonnages.MAGE_VITESSE);
+            }
+            else if (guerrier.equals("Necromancier"))
+            {
+                this.nomClasse.setText("Necromancier");
+                changeValueProgressBar(ConstantesPersonnages.NECROMANCIER_PV,ConstantesPersonnages.NECROMANCIER_ATTAQUE,ConstantesPersonnages.NECROMANCIER_DEFENSE,ConstantesPersonnages.NECROMANCIER_ATTAQUE_SPECIAL,ConstantesPersonnages.NECROMANCIER_DEFENSE_SEPCIAL,ConstantesPersonnages.NECROMANCIER_VITESSE);
+            }
+
+            miseAjourProgressBar(statPv,statAttaque,statDefense,statAttaqueSpecial,statDefenseSpecial,statVitesse);
         });
     }
 
+    private void miseAjourProgressBar(ProgressBar... progressBars)
+    {
+        for (ProgressBar bar : progressBars)
+            bar.setStyle(couleurProgressBar(bar.getProgress()));
+    }
 
+
+    private String couleurProgressBar(double progression)
+    {
+        StringBuilder fxCouleur = new StringBuilder("-fx-accent: ");
+        String couleur;
+
+        if (progression < 0.2)
+            couleur = " red;";
+        else if (progression < 0.4)
+            couleur = "  #CCCC00;";
+        else if (progression < 0.6)
+            couleur = " orange;";
+        else if (progression < 0.85)
+            couleur = " green;";
+        else
+            couleur = " blue;";
+
+        fxCouleur.append(couleur);
+
+        return fxCouleur.toString();
+    }
     private void changeValueProgressBar(double pv,double atk,double def,double atkSpe,double defSpe,double vit)
     {
+        System.out.println(pv/pvPlusElevee);
         this.statPv.setProgress(pv/pvPlusElevee);
         this.statAttaque.setProgress(atk/atkPlusElevee);
         this.statDefense.setProgress(def/defPlusElevee);

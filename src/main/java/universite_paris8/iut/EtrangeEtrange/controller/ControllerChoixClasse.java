@@ -82,9 +82,11 @@ public class ControllerChoixClasse implements Initializable
         this.vitPlusElevee = ConstantesPersonnages.vitessePlusHaute();
 
 
-        this.nomActuelle = new SimpleStringProperty(nomGuerrier[classActuelle]);
+        this.nomActuelle = new SimpleStringProperty();
 
         initListenerClasse();
+        this.nomActuelle.set("Guerrier");
+        this.classActuelle = 0;
     }
 
 
@@ -98,22 +100,25 @@ public class ControllerChoixClasse implements Initializable
             {
                 this.nomClasse.setText("Guerrier");
                 changeValueProgressBar(ConstantesPersonnages.GUERRIER_PV,ConstantesPersonnages.GUERRIER_ATTAQUE,ConstantesPersonnages.GUERRIER_DEFENSE,ConstantesPersonnages.GUERRIER_ATTAQUE_SPECIAL,ConstantesPersonnages.GUERRIER_DEFENSE_SEPCIAL,ConstantesPersonnages.GUERRIER_VITESSE);
-
+                this.descriptionClasse.setText(ConstantesPersonnages.descriptionGuerrier().toString());
             }
             else if (guerrier.equals("Archer"))
             {
                 this.nomClasse.setText("Archer");
                 changeValueProgressBar(ConstantesPersonnages.ARCHER_PV,ConstantesPersonnages.ARCHER_ATTAQUE,ConstantesPersonnages.ARCHER_DEFENSE,ConstantesPersonnages.ARCHER_ATTAQUE_SPECIAL,ConstantesPersonnages.ARCHER_DEFENSE_SEPCIAL,ConstantesPersonnages.ARCHER_VITESSE);
+                this.descriptionClasse.setText(ConstantesPersonnages.descriptionArcher().toString());
             }
             else if (guerrier.equals("Mage"))
             {
                 this.nomClasse.setText("Mage");
                 changeValueProgressBar(ConstantesPersonnages.MAGE_PV,ConstantesPersonnages.MAGE_ATTAQUE,ConstantesPersonnages.MAGE_DEFENSE,ConstantesPersonnages.MAGE_ATTAQUE_SPECIAL,ConstantesPersonnages.MAGE_DEFENSE_SEPCIAL,ConstantesPersonnages.MAGE_VITESSE);
+                this.descriptionClasse.setText(ConstantesPersonnages.descriptionMage().toString());
             }
             else if (guerrier.equals("Necromancier"))
             {
                 this.nomClasse.setText("Necromancier");
                 changeValueProgressBar(ConstantesPersonnages.NECROMANCIER_PV,ConstantesPersonnages.NECROMANCIER_ATTAQUE,ConstantesPersonnages.NECROMANCIER_DEFENSE,ConstantesPersonnages.NECROMANCIER_ATTAQUE_SPECIAL,ConstantesPersonnages.NECROMANCIER_DEFENSE_SEPCIAL,ConstantesPersonnages.NECROMANCIER_VITESSE);
+                this.descriptionClasse.setText(ConstantesPersonnages.descriptionNecromancier().toString());
             }
 
             miseAjourProgressBar(statPv,statAttaque,statDefense,statAttaqueSpecial,statDefenseSpecial,statVitesse);
@@ -149,7 +154,6 @@ public class ControllerChoixClasse implements Initializable
     }
     private void changeValueProgressBar(double pv,double atk,double def,double atkSpe,double defSpe,double vit)
     {
-        System.out.println(pv/pvPlusElevee);
         this.statPv.setProgress(pv/pvPlusElevee);
         this.statAttaque.setProgress(atk/atkPlusElevee);
         this.statDefense.setProgress(def/defPlusElevee);
@@ -162,7 +166,7 @@ public class ControllerChoixClasse implements Initializable
     @FXML
     public void changeClasse(KeyEvent keyEvent)
     {
-        System.out.println("f");
+
 
         if(keyEvent.getCode() == KeyCode.Q)
         {

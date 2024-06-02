@@ -3,15 +3,25 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import universite_paris8.iut.EtrangeEtrange.Runner;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesPersonnages;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -60,10 +70,13 @@ public class ControllerChoixClasse implements Initializable
     private StringProperty nomActuelle;
 
     private int classActuelle;
+
+
+    private SwitchScene switchScene;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-
+        switchScene = SwitchScene.getSwitchScene();
         hbox.requestFocus();
 
 
@@ -164,8 +177,7 @@ public class ControllerChoixClasse implements Initializable
 
 
     @FXML
-    public void changeClasse(KeyEvent keyEvent)
-    {
+    public void changeClasse(KeyEvent keyEvent) throws IOException {
 
 
         if(keyEvent.getCode() == KeyCode.Q)
@@ -178,6 +190,16 @@ public class ControllerChoixClasse implements Initializable
             this.classActuelle = (this.classActuelle + 1) % this.nomGuerrier.length;
             this.nomActuelle.set(nomGuerrier[classActuelle]);
         }
+        else if (keyEvent.getCode() == KeyCode.ENTER)
+        {
+            switchScene.setClasseJoueur(nomActuelle.get());
+
+            FXMLLoader fxmlLoader2 = new FXMLLoader(Runner.class.getResource("viewMap.fxml"));
+            Scene sceneJeu = new Scene(fxmlLoader2.load(), Constantes.largeurEcran,Constantes.hauteurEcran);
+
+            switchScene.getStage().setScene(sceneJeu);
+        }
+
     }
 
     @FXML
@@ -185,4 +207,7 @@ public class ControllerChoixClasse implements Initializable
     {
         this.hbox.requestFocus();
     }
+
+
+
 }

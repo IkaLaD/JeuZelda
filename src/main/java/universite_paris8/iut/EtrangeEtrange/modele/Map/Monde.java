@@ -5,15 +5,13 @@ import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -46,7 +44,7 @@ public class Monde {
 
     private ObservableList<DropAuSol> dropsAuSol;
 
-    private ObservableList<ActionDegat> causeDegats =  FXCollections.observableArrayList();
+    private ObservableList<ActionDegat> actionDegats =  FXCollections.observableArrayList();
 
 
 
@@ -284,34 +282,28 @@ public class Monde {
         entites.addListener(gestionAffichageSprite);
     }
 
-    public void setListenerProjectile(GestionCauseDegat gestionCauseDegats)
+    public void setListenerProjectile(GestionActionDegat gestionCauseDegats)
     {
-        this.causeDegats.addListener(gestionCauseDegats);
+        this.actionDegats.addListener(gestionCauseDegats);
     }
 
-    public void ajoutCauseDegat(ActionDegat causeDegat)
+    public void ajoutActionDegat(ActionDegat causeDegat)
     {
-        this.causeDegats.add(causeDegat);
+        this.actionDegats.add(causeDegat);
     }
 
 
 
     public void miseAjourCauseDegats()
     {
-        for (int i = causeDegats.size()-1; i>=0; i--)
-            causeDegats.get(i).miseAjour();
+        for (int i = actionDegats.size()-1; i>=0; i--)
+            actionDegats.get(i).miseAjour();
     }
 
    public void enleveCauseDegat(ActionDegat causeDegat)
    {
-       this.causeDegats.remove(causeDegat);
+       this.actionDegats.remove(causeDegat);
    }
-
-
-    public Sommet[][] getSommet()
-    {
-         return  null;
-    }
 
 
     public void setListenerListeDropsAuSol(gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol) {
@@ -325,12 +317,12 @@ public class Monde {
         {
             Entite entite = entites.get(i);
 
-            for (int j = causeDegats.size()-1;j>=0;j--)
+            for (int j = actionDegats.size()-1; j>=0; j--)
             {
-                ActionDegat causeDegat = causeDegats.get(j);
+                ActionDegat causeDegat = actionDegats.get(j);
 
                 if (entite.getSurface().collision(causeDegat.surfaceDegat()))
-                    entite.subitDegat(causeDegat);
+                    causeDegat.executeAction(entite);
             }
         }
     }

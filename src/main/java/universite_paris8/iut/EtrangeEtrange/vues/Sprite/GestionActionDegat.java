@@ -11,12 +11,12 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 
-public class GestionCauseDegat implements ListChangeListener<ActionDegat>
+public class GestionActionDegat implements ListChangeListener<ActionDegat>
 {
 
     private Pane pane;
 
-    public GestionCauseDegat(Pane pane)
+    public GestionActionDegat(Pane pane)
     {
         this.pane = pane;
     }
@@ -30,8 +30,6 @@ public class GestionCauseDegat implements ListChangeListener<ActionDegat>
                 if (causeDegat instanceof ActionDegatParProjectile)
                     initSpriteProjectile((Projectile) causeDegat.getOrgineAttaque());
             }
-
-
         }
     }
 

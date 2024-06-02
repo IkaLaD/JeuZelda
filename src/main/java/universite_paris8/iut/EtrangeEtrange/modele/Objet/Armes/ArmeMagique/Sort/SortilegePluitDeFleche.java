@@ -32,7 +32,7 @@ public class SortilegePluitDeFleche extends Sortilege
                         FlecheSimple flecheSimple = new FlecheSimple();
                         flecheSimple.setDirection(direction);
                         flecheSimple.setPositionOrigine(positionAleaAutourDe(x,y, direction));
-                        utilisateur.getMonde().ajoutCauseDegat(new ActionDegatParProjectile(utilisateur, flecheSimple));
+                        utilisateur.getMonde().ajoutActionDegat(new ActionDegatParProjectile(utilisateur, flecheSimple));
                     });
                 }
             }, i * 100);

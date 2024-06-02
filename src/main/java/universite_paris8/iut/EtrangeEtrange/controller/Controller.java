@@ -2,14 +2,10 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.EtrangeEtrange.Runner;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementGauche;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort1;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort2;
@@ -17,10 +13,10 @@ import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
@@ -35,16 +31,13 @@ import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
+
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -66,10 +59,10 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        switchDonnees = switchDonnees.getSwitchScene();
+        switchDonnees = SwitchScene.getSwitchScene();
         initMonde();
         initJoueur();
-
+        switchDonnees.setControllerJeu(this);
         switchDonnees.setJoueur(joueur);
         initPane();
 
@@ -78,7 +71,7 @@ public class Controller implements Initializable {
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
 
-        GestionCauseDegat gestionCauseDegat = new GestionCauseDegat(paneEntite);
+        GestionActionDegat gestionCauseDegat = new GestionActionDegat(paneEntite);
         monde.setListenerProjectile(gestionCauseDegat);
 
 
@@ -162,9 +155,26 @@ public class Controller implements Initializable {
         monde = new Monde("src/main/resources/universite_paris8/iut/EtrangeEtrange/TiledMap/", "maptest", Monde.getSizeMondeHauteur(), Monde.getSizeMondeLargeur());
     }
 
-    public void initJoueur(){
-        // Initialisation Coordonnées centre monde et des listeners
-        joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
+    public void initJoueur()
+    {
+        String guerrier = switchDonnees.getClasseJoueur();
+
+        if (guerrier.equals("Guerrier"))
+        {
+            joueur = new Guerrier(monde,Monde.getxPointDeDepart(),Monde.getyPointDeDepart(), Direction.BAS);
+        }
+        else if (guerrier.equals("Archer"))
+        {
+            joueur = new Archer(monde,Monde.getxPointDeDepart(),Monde.getyPointDeDepart(), Direction.BAS);
+        }
+        else if (guerrier.equals("Mage"))
+        {
+            // pas encore implementer
+        }
+        else if (guerrier.equals("Necromancier"))
+        {
+            // pas encore implementer
+        }
     }
     private void initLoups(Aetoile aetoile) {
 

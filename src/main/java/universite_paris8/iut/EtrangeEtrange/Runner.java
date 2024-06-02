@@ -12,13 +12,14 @@ import java.io.IOException;
 public class Runner extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        SwitchScene switchScene = SwitchScene.getSwitchScene();
+        switchScene.setStage(stage);
         FXMLLoader fxmlLoaderJeu = new FXMLLoader(Runner.class.getResource("ChoixClasseView.fxml"));
-        Scene sceneJeu = new Scene(fxmlLoaderJeu.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
-        stage.setScene(sceneJeu);
+        Scene sceneChoixClasse = new Scene(fxmlLoaderJeu.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
+
+
+        stage.setScene(sceneChoixClasse);
         stage.show();
-
-
-
     }
 
 

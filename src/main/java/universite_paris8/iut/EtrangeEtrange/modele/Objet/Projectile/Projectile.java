@@ -12,7 +12,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public  abstract class Projectile extends Objet implements Dommageable
 {
-    private Monde monde;
     private Hitbox hitbox;
     private Position positionOrigine;
     private Position position;
@@ -37,11 +36,6 @@ public  abstract class Projectile extends Objet implements Dommageable
          this.positionOrigine = position;
          this.position = new Position(positionOrigine.getX(),positionOrigine.getY());
      }
-
-    public void setVitesse(double vitesse)
-    {
-        this.vitesse.setVitesseMaximum(vitesse);
-    }
 
     public void setDirection(Direction direction)
     {

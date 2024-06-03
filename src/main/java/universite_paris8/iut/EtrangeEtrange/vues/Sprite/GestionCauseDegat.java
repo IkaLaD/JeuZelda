@@ -1,6 +1,8 @@
 package universite_paris8.iut.EtrangeEtrange.vues.Sprite;
 
 import javafx.collections.ListChangeListener;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -30,41 +32,41 @@ public class GestionCauseDegat implements ListChangeListener<ActionDegat>
                 if (causeDegat instanceof ActionDegatParProjectile)
                     initSpriteProjectile((Projectile) causeDegat.getOrgineAttaque());
             }
-
-
         }
     }
 
     private void initSpriteProjectile(Projectile projectile)
     {
-        Rectangle rectangle;
+        ImageView image = new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/Projectile/fleche.png"));
+        image.setTranslateX(projectile.getX()*Constantes.tailleTile-32);
+        image.setTranslateY(projectile.getY()*Constantes.tailleTile-64);
 
         Direction direction = projectile.getDirection();
 
-        if (direction == Direction.BAS || direction == Direction.HAUT)
-            rectangle = new Rectangle(projectile.getX(),projectile.getY(),projectile.getLargeur()* Constantes.tailleTile,projectile.getHauteur()*Constantes.tailleTile);
+        int rotation;
+        if(direction==Direction.HAUT)
+            rotation = 0;
+        else if (direction==Direction.BAS)
+            rotation = 2;
+        else if(direction==Direction.DROITE)
+            rotation = 1;
         else
-            rectangle = new Rectangle(projectile.getX(),projectile.getY(),projectile.getHauteur()* Constantes.tailleTile,projectile.getLargeur()*Constantes.tailleTile);
+            rotation = 3;
 
-
-        rectangle.setFill(Color.RED);
-
-        rectangle.setTranslateX(projectile.getPosition().getX()*Constantes.tailleTile-32);
-        rectangle.setTranslateY(projectile.getPosition().getY()*Constantes.tailleTile-64);
-
-        this.pane.getChildren().add(rectangle);
+        image.setRotate(rotation*90);
+        this.pane.getChildren().add(image);
 
         projectile.getPropertyAtoucherUneCible().addListener((obs, old, nouv)->{
-            pane.getChildren().remove(rectangle);
+            pane.getChildren().remove(image);
         });
 
 
         projectile.getPosition().getXProperty().addListener((obs, old, nouv)->{
-            rectangle.setTranslateX(projectile.getPosition().getX()* Constantes.tailleTile-32);
+            image.setTranslateX(projectile.getPosition().getX()* Constantes.tailleTile-32);
         });
 
         projectile.getPosition().getYProperty().addListener((obs, old, nouv)->{
-            rectangle.setTranslateY(projectile.getPosition().getY()* Constantes.tailleTile-64);
+            image.setTranslateY(projectile.getPosition().getY()* Constantes.tailleTile-64);
         });
 
     }

@@ -23,6 +23,7 @@ public class Competences
     public Competences()
     {
         this.mapParent = new HashMap<>();
+        this.mapEnfant = new HashMap<>();
     }
 
 
@@ -39,7 +40,10 @@ public class Competences
     public void ajoutCompetence(Competence competence,ArrayList<Competence> parents,ArrayList<Competence> enfants)
     {
         if (!mapParent.containsKey(competence)) // verifier si competence not in parents
-            mapParent.put(competence,parents);
+        {
+            mapParent.put(competence, parents);
+            mapEnfant.put(competence,enfants);
+        }
     }
 
 
@@ -66,6 +70,10 @@ public class Competences
         return parentDebloquer;
     }
 
+    public void setRoot(Competence competence)
+    {
+        this.root = competence;
+    }
 
     public Competence getRoot()
     {

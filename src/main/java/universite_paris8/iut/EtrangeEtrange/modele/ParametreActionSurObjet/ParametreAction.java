@@ -2,12 +2,12 @@ package universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 
-public abstract class ParametreActionObjet
+public abstract class ParametreAction
 {
     protected Entite origineAction;
 
 
-    public ParametreActionObjet(Entite origineAction)
+    public ParametreAction(Entite origineAction)
     {
         this.origineAction = origineAction;
     }

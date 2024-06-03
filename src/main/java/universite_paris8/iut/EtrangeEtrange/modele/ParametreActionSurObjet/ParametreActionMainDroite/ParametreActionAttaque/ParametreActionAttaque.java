@@ -1,11 +1,11 @@
 package universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque;
 
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionObjet;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 
 
-public abstract class ParametreActionAttaque extends ParametreActionObjet
+
+public abstract class ParametreActionAttaque extends ParametreAction
 {
     public ParametreActionAttaque(EntiteOffensif origineAction)
     {

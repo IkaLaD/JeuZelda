@@ -13,7 +13,6 @@ public class CompetenceCourir extends Competence
 
     @Override
     public void monterDeNiveau(Joueur joueur) {
-        if (niveauCompetence == 0)
-            joueur.peuCourir(true);
+
     }
 }

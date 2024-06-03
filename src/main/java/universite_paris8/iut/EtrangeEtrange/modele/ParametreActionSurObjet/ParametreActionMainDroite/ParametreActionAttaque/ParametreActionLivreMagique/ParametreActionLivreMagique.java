@@ -2,9 +2,10 @@ package universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Para
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionObjet;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
 
-public class ParametreActionLivreMagique extends ParametreActionObjet
+
+public class ParametreActionLivreMagique extends ParametreAction
 {
     private int numSort;
     public ParametreActionLivreMagique(EntiteOffensif origineAction,int numSort) {

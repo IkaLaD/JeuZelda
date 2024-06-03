@@ -7,14 +7,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class GestionCompetence
+public class Competences
 {
 
     private Competence root;
     private HashMap<Competence,ArrayList<Competence>> mapParent;
     private HashMap<Competence,ArrayList<Competence>> mapEnfant;
 
-    public GestionCompetence()
+
+
+
+
+
+
+    public Competences()
     {
         this.mapParent = new HashMap<>();
     }

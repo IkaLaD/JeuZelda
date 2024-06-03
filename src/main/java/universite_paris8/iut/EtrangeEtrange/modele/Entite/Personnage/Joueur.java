@@ -1,7 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.GestionCompetence;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
@@ -27,10 +27,10 @@ public abstract class Joueur extends Humanoide
 
     protected Carquois carquois;
 
-    protected boolean peuCourir;
+
     public Joueur(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(pv, attaque, defense, attaqueSpecial, defenseSpecial,vitesse, sac, objetMainGauche, objetMainDroite, monde, x, y, direction, hitbox);
-        peuCourir = false;
+
     }
 
 
@@ -113,10 +113,6 @@ public abstract class Joueur extends Humanoide
     }
 
 
-    public void peuCourir(boolean peuCourir)
-    {
-        this.peuCourir = peuCourir;
-    }
 
 
 

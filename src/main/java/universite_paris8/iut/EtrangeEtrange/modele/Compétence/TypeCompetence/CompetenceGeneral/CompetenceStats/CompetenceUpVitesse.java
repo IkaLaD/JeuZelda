@@ -1,6 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.CompetenceGeneral.CompetenceStats;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.Competence;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.Competence.Competence;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 
 public class CompetenceUpVitesse extends Competence {

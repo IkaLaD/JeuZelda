@@ -4,7 +4,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.Competence;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 
-public class CompetenceUpDefenceSpecial extends Competence {
+public class CompetenceUpDefenseSpecial extends Competence {
     @Override
     public int niveauMax() {
         return 0;

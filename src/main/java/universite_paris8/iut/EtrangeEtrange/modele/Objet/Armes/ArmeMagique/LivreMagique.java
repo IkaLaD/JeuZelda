@@ -1,6 +1,8 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.SortilegePluitDeFleche;
@@ -36,7 +38,15 @@ public  class LivreMagique extends Objet implements Utilisable
             int numSort = ((ParametreActionLivreMagique) param).getNumSort();
 
             if (numSort <= sortileges.size())
+            {
+                if (this.sortileges instanceof Sortilege)
+                {
+                    Joueur j = (Joueur) param.getOrigineAction();
+
+                    if (j.getCompetences().contientCompetence(TypeCompetence.INVOQUER))
+                }
                 this.sortileges.get(numSort).action((EntiteOffensif) param.getOrigineAction());
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
+package universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 

@@ -13,6 +13,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionLivreMagique.ParametreActionLivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
@@ -123,7 +124,7 @@ public class Controller implements Initializable {
 
                         for (Entite entite : monde.getEntities())
                         {
-                            Controlable lambda1 = (Controlable) entite;
+                            PNJ lambda1 = (PNJ) entite;
                             lambda1.action();
                         }
 
@@ -178,22 +179,19 @@ public class Controller implements Initializable {
 
     public void keyPressed(KeyEvent keyEvent)
     {
-        ActionJoueur actionJoueur = null;
-
         switch (keyEvent.getCode())
         {
             case A :
-                actionJoueur = new ActionUtiliserSort1();
+                joueur.lanceUnSort(new ParametreActionLivreMagique(joueur,0));
                 break;
             case F :
-                actionJoueur = new ActionUtiliserSort2();
+                joueur.lanceUnSort(new ParametreActionLivreMagique(joueur,1));
                 break;
             case R :
-                actionJoueur = new ActionUtiliserSort3();
+                joueur.lanceUnSort(new ParametreActionLivreMagique(joueur,2));
                 break;
             case Z :
                 deplacement.ajoutDirection(Direction.HAUT);
-
                 break;
             case D :
                 deplacement.ajoutDirection(Direction.DROITE);
@@ -204,14 +202,11 @@ public class Controller implements Initializable {
                 break;
             case S :
                 deplacement.ajoutDirection(Direction.BAS);
-
+                break;
+            case SHIFT:
+                joueur.estEntrainDeCourir(true);
                 break;
         }
-
-        if (actionJoueur != null)
-            joueur.action(actionJoueur);
-
-
 
     }
 
@@ -233,6 +228,9 @@ public class Controller implements Initializable {
                 break;
             case S :
                 deplacement.enleveDirection(Direction.BAS);
+                break;
+            case SHIFT:
+                joueur.estEntrainDeCourir(false);
                 break;
         }
     }

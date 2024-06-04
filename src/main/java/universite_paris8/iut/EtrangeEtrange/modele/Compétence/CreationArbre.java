@@ -1,7 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Compétence;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.Competence;
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.CompetenceGeneral.CompetenceStats.CompetenceUpPV;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.Competence;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.CompetenceGeneral.CompetenceStats.CompetenceUpPV;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,23 +1,18 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Compétence;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.Competence;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.Competence;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.CompetenceActif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 public class Competences
 {
 
     private Competence root;
-    private HashMap<Competence,ArrayList<Competence>> mapParent;
-    private HashMap<Competence,ArrayList<Competence>> mapEnfant;
-
-
-
-
-
+    private HashMap<TypeCompetence,ArrayList<TypeCompetence>> mapParent;
+    private HashMap<TypeCompetence,ArrayList<TypeCompetence>> mapEnfant;
 
 
     public Competences()
@@ -27,17 +22,33 @@ public class Competences
     }
 
 
-
-    public void debloquerCompetence(Competence competence,Joueur joueur)
+    public boolean contientCompetence(TypeCompetence typeCompetence)
     {
-        if (!competence.estDebloquer() && parentDebloquer(competence)) {
-            competence.debloquer();
-            competence.monterDeNiveau(joueur);
+        return mapEnfant.containsKey(typeCompetence) || mapParent.containsKey(typeCompetence);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void debloquerCompetence(TypeCompetence competence,Joueur joueur)
+    {
+        if (!competence.getCompetence().estDebloquer() && parentDebloquer(competence)) {
+            competence.getCompetence().debloquer();
+            competence.getCompetence().monterDeNiveau(joueur);
         }
     }
 
 
-    public void ajoutCompetence(Competence competence,ArrayList<Competence> parents,ArrayList<Competence> enfants)
+    public void ajoutCompetence(TypeCompetence competence,ArrayList<TypeCompetence> parents,ArrayList<TypeCompetence> enfants)
     {
         if (!mapParent.containsKey(competence)) // verifier si competence not in parents
         {
@@ -49,16 +60,16 @@ public class Competences
 
 
 
-    private boolean parentDebloquer(Competence competence)
+    private boolean parentDebloquer(TypeCompetence competence)
     {
-        ArrayList<Competence> parentsCompetence = this.mapParent.get(competence);
+        ArrayList<TypeCompetence> parentsCompetence = this.mapParent.get(competence);
         boolean parentDebloquer = false;
 
         if (parentsCompetence != null && !parentsCompetence.isEmpty() )
         {
             for (int i = 0;i<parentsCompetence.size() && !parentDebloquer;i++)
             {
-                if (parentsCompetence.get(i).estDebloquer())
+                if (parentsCompetence.get(i).getCompetence().estDebloquer())
                     parentDebloquer = true;
             }
         }
@@ -80,12 +91,12 @@ public class Competences
         return this.root;
     }
 
-    public ArrayList<Competence> getEnfants(Competence competence)
+    public ArrayList<TypeCompetence> getEnfants(TypeCompetence competence)
     {
         return this.mapEnfant.get(competence);
     }
 
-    public ArrayList<Competence> getParents(Competence competence)
+    public ArrayList<TypeCompetence> getParents(TypeCompetence competence)
     {
         return this.mapParent.get(competence);
     }

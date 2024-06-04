@@ -119,15 +119,20 @@ public abstract class Entite {
         this.seDeplace = seDeplace;
     }
 
-    public void seDeplace()
+    public void seDeplace(double coef)
     {
         int x = direction.getX();
         int y = direction.getY();
 
         if(peutSeDeplacer()) {
-            position.setX(position.getX() + x * statsVitesse.getVitesseMaximum());
-            position.setY(position.getY() + y * statsVitesse.getVitesseMaximum());
+            position.setX(position.getX() + x * statsVitesse.getVitesse() * coef);
+            position.setY(position.getY() + y * statsVitesse.getVitesse() * coef);
         }
+    }
+
+    public void seDeplace()
+    {
+        seDeplace(1);
     }
 
 

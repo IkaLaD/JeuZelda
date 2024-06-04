@@ -5,8 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.Competences;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.CreationArbre;
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.Competence;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.Competence;
 
 import java.util.ArrayList;
 

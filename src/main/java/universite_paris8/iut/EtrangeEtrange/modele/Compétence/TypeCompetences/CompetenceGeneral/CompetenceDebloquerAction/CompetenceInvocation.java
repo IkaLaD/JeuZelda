@@ -1,8 +1,7 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.CompetenceGeneral.CompetenceDebloquerAction;
+package universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.CompetenceGeneral.CompetenceDebloquerAction;
 
 
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.Competence;
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.CompetenceActif;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.CompetenceActif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;

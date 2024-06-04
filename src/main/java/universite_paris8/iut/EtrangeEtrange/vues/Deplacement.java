@@ -5,12 +5,10 @@ import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.util.Duration;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementBas;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementDroite;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementGauche;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementHaut;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.CompetenceActif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreCompetence.ParametreCourrir;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 import java.util.HashSet;
@@ -32,22 +30,11 @@ public class Deplacement
     public Deplacement(Joueur joueur)
     {
         this.joueur = joueur;
+        this.estEntrainDeCourir = new SimpleBooleanProperty();
+        this.joueur.estEntrainDeCourirProperty().bind(estEntrainDeCourir);
         this.directions = new HashSet<>();
         this.delai = 0.020;
-        this.estEntrainDeCourir = new SimpleBooleanProperty(false);
         initAnimationTimer();
-        this.estEntrainDeCourir.addListener((observable, oldValue, newValue) ->
-        {
-            if (newValue)
-                delai = 0.010;
-            else
-                delai = 0.020;
-
-            this.timeline.stop();
-            this.timeline.getKeyFrames().set(0, new KeyFrame(Duration.seconds(delai), event -> seDeplace()));
-            this.timeline.play();
-        });
-
         this.timeline.setCycleCount(Timeline.INDEFINITE);
         this.timeline.play();
     }
@@ -61,36 +48,24 @@ public class Deplacement
 
     private void seDeplace()
     {
-        ActionJoueur actionJoueur;
-
         if(directions.isEmpty())
             joueur.setSeDeplace(false);
         else
             joueur.setSeDeplace(true);
 
 
-        if (directions.contains(Direction.GAUCHE))
+        for (Direction direction : directions)
         {
-            actionJoueur = new ActionDeplacementGauche();
-            joueur.action(actionJoueur);
-        }
-
-        if (directions.contains(Direction.DROITE))
-        {
-            actionJoueur = new ActionDeplacementDroite();
-            joueur.action(actionJoueur);
-        }
-
-        if (directions.contains(Direction.HAUT))
-        {
-            actionJoueur = new ActionDeplacementHaut();
-            joueur.action(actionJoueur);
-        }
-
-        if (directions.contains(Direction.BAS))
-        {
-            actionJoueur = new ActionDeplacementBas();
-            joueur.action(actionJoueur);
+            if (estEntrainDeCourir.get() && joueur.getCompetences().contientCompetence(TypeCompetence.COURIR))
+            {
+                CompetenceActif competence = (CompetenceActif) TypeCompetence.COURIR.getCompetence();
+                competence.utilise(new ParametreCourrir(joueur,direction));
+            }
+            else
+            {
+                joueur.setDirection(direction);
+                joueur.seDeplace();
+            }
         }
 
     }
@@ -106,10 +81,6 @@ public class Deplacement
      */
     public void enleveDirection(Direction direction) {
         this.directions.remove(direction);
-    }
-
-    public void entrainDeCourir(boolean estEntrainDeCourir) {
-        this.estEntrainDeCourir.set(estEntrainDeCourir);
     }
 
 

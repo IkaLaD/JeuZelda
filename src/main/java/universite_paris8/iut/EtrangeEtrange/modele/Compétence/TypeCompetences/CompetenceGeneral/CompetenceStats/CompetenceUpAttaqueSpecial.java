@@ -1,7 +1,7 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.CompetenceGeneral.CompetenceStats;
+package universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.CompetenceGeneral.CompetenceStats;
 
 
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence.Competence;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.Competence;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 
 public class CompetenceUpAttaqueSpecial extends Competence {

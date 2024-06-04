@@ -1,7 +1,9 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
+import javafx.beans.property.BooleanProperty;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.Competences;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
@@ -20,13 +22,13 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.E
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
+
 
 public abstract class Joueur extends Humanoide
 {
-
+    private Competences competences;
     protected Carquois carquois;
-
+    private BooleanProperty estEntrainDeCourir;
 
     public Joueur(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(pv, attaque, defense, attaqueSpecial, defenseSpecial,vitesse, sac, objetMainGauche, objetMainDroite, monde, x, y, direction, hitbox);
@@ -106,14 +108,22 @@ public abstract class Joueur extends Humanoide
             }
 
         }
-
-
-
-
     }
 
+    public void estEntrainDeCourir(boolean bool)
+    {
+        this.estEntrainDeCourir.set(bool);
+    }
 
+    public Competences getCompetences()
+    {
+        return this.competences;
+    }
 
+    public final BooleanProperty estEntrainDeCourirProperty()
+    {
+        return this.estEntrainDeCourir;
+    }
 
 
 }

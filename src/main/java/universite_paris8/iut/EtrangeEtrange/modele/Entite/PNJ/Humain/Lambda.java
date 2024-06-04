@@ -73,7 +73,7 @@ public class Lambda extends Humanoide implements PNJ {
             actionAttaquer = new ParametreActionAttaqueArc(this,new FlecheSimple());
         }
 
-        arme.attaque(actionAttaquer);
+        arme.utilise(actionAttaquer);
 
     }
 

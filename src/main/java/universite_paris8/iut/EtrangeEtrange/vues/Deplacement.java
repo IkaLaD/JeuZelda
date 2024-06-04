@@ -48,6 +48,8 @@ public class Deplacement
 
     private void seDeplace()
     {
+        double coeffVitesse = 1;
+
         if(directions.isEmpty())
             joueur.setSeDeplace(false);
         else
@@ -57,15 +59,10 @@ public class Deplacement
         for (Direction direction : directions)
         {
             if (estEntrainDeCourir.get() && joueur.getCompetences().contientCompetence(TypeCompetence.COURIR))
-            {
-                CompetenceActif competence = (CompetenceActif) TypeCompetence.COURIR.getCompetence();
-                competence.utilise(new ParametreCourrir(joueur,direction));
-            }
-            else
-            {
-                joueur.setDirection(direction);
-                joueur.seDeplace();
-            }
+                coeffVitesse = 2;
+
+            joueur.setDirection(direction);
+            joueur.seDeplace(coeffVitesse);
         }
 
     }

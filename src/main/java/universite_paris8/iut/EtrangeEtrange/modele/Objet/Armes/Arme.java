@@ -5,17 +5,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 
-public abstract class Arme  extends Objet implements Dommageable, Utilisable
+public abstract class Arme  extends Objet implements Utilisable
 {
-    protected boolean peuxTaper;
-
-    public Arme()
-    {
-        this.peuxTaper = true;
-    }
-
-
-    public abstract void attaque(ParametreActionAttaque action);
 
 
 }

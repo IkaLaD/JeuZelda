@@ -240,7 +240,7 @@ public class Controller implements Initializable {
         this.paneEntite.requestFocus();
 
         if (mouseEvent.getButton() == MouseButton.PRIMARY)
-            this.joueur.action(new ActionUtiliserMainDroite());
+            this.joueur.actionMainDroite();
     }
 
 }

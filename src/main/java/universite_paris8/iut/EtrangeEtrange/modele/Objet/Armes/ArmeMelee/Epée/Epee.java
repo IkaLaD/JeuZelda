@@ -26,16 +26,9 @@ public abstract class Epee extends Arme implements Dommageable
     @Override
     public void utilise(ParametreAction param)
     {
-        if (param instanceof ParametreActionAttaqueEpee)
-            attaque((ParametreActionAttaque) param);
-    }
-
-    @Override
-    public void attaque(ParametreActionAttaque param)
-    {
-        ParametreActionAttaqueEpee paramEpee = (ParametreActionAttaqueEpee) param;
-
-        paramEpee.getOrigineAction().getMonde().ajoutCauseDegat(new ActionDegatParEpee(paramEpee.getOrigineAction(),this));
+        if (param instanceof ParametreActionAttaqueEpee paramEpee) {
+            paramEpee.getOrigineAction().getMonde().ajoutCauseDegat(new ActionDegatParEpee(paramEpee.getOrigineAction(),this));
+        }
     }
 
     @Override

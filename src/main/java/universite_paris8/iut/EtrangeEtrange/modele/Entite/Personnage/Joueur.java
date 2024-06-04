@@ -70,30 +70,24 @@ public abstract class Joueur extends Humanoide
     @Override
     public void lanceUnSort(ParametreActionLivreMagique param)
     {
-        if (objetMainDroite instanceof LivreMagique)
-        {
-            LivreMagique livreMagique = (LivreMagique) objetMainDroite;
+        if (objetMainDroite instanceof LivreMagique livreMagique)
             livreMagique.utilise(param);
-        }
+
     }
 
 
-    public void action(ActionJoueur action)
-    {
-        action.executer(this);
-    }
 
 
     @Override
     public void attaque(Arme arme)
     {
 
-        ParametreActionAttaque actionAttaquer = null;
+        ParametreActionAttaque parametreActionAttaque;
 
         if (arme instanceof Epee)
         {
-            actionAttaquer = new ParametreActionAttaqueEpee(this);
-            arme.attaque(actionAttaquer);
+            parametreActionAttaque = new ParametreActionAttaqueEpee(this);
+            arme.utilise(parametreActionAttaque);
         }
         else if (arme instanceof Arc)
         {
@@ -103,8 +97,8 @@ public abstract class Joueur extends Humanoide
             {
                 flecheSimple.setPositionOrigine(position);
                 flecheSimple.setDirection(direction);
-                actionAttaquer = new ParametreActionAttaqueArc(this,flecheSimple);
-                arme.attaque(actionAttaquer);
+                parametreActionAttaque = new ParametreActionAttaqueArc(this,flecheSimple);
+                arme.utilise(parametreActionAttaque);
             }
 
         }

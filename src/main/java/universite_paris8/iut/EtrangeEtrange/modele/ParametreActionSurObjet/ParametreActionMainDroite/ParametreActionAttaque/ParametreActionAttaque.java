@@ -7,6 +7,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 
 public abstract class ParametreActionAttaque extends ParametreAction
 {
+
     public ParametreActionAttaque(EntiteOffensif origineAction)
     {
         super(origineAction);

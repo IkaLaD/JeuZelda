@@ -2,16 +2,25 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc;
 
 
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.DommageableMultiCoup;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionObjet;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
 
 import java.util.TimerTask;
 
-public class Arc extends Arme
+public class Arc extends Arme implements DommageableMultiCoup
 {
+
+    private boolean peuTirer;
+
+    public Arc()
+    {
+        this.peuTirer = false;
+    }
     @Override
     public double degatPhysique() {
         return 0;
@@ -40,7 +49,7 @@ public class Arc extends Arme
         TimerAction.addAction(new TimerTask() {
             @Override
             public void run() {
-                peuxTaper = true;
+                peuTirer = true;
             }
         },delaieEntreCoup());
     }
@@ -55,20 +64,18 @@ public class Arc extends Arme
     }
 
     @Override
-    public void utilise(ParametreActionObjet param)
+    public void utilise(ParametreAction param)
     {
         if (param instanceof ParametreActionAttaqueArc)
-            attaque((ParametreActionAttaque) param);
-    }
-    @Override
-    public void attaque(ParametreActionAttaque param)
-    {
-        if (peuxTaper)
         {
-            ParametreActionAttaqueArc paramArc = (ParametreActionAttaqueArc) param;
-            paramArc.getOrigineAction().getMonde().ajoutActionDegat(new ActionDegatParProjectile(paramArc.getOrigineAction(), paramArc.getProjectile()));
-            peuxTaper = false;
-            cooldown();
+            if (peuTirer)
+            {
+                ParametreActionAttaqueArc paramArc = (ParametreActionAttaqueArc) param;
+                paramArc.getOrigineAction().getMonde().ajoutActionDegat(new ActionDegatParProjectile(paramArc.getOrigineAction(), paramArc.getProjectile()));
+                this.peuTirer = false;
+                cooldown();
+            }
         }
     }
+
 }

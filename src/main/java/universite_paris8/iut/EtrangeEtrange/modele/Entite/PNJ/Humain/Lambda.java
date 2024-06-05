@@ -9,14 +9,14 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
 
-public class Lambda extends Humanoide implements Controlable{
+public class Lambda extends Humanoide implements PNJ {
     public Lambda(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(100, 5, 50, 1, 20, 0.1,null,null,null, monde, x, y, direction, hitbox);
     }
@@ -74,7 +74,7 @@ public class Lambda extends Humanoide implements Controlable{
             actionAttaquer = new ParametreActionAttaqueArc(this,new FlecheSimple());
         }
 
-        arme.attaque(actionAttaquer);
+        arme.utilise(actionAttaquer);
 
     }
 

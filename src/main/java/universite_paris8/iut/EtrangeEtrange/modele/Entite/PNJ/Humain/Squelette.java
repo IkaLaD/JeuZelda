@@ -1,7 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
@@ -11,7 +11,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 
-public class Squelette extends EntiteOffensif implements Controlable, SeDeplacerVersJoueur {
+public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur {
 
     private Joueur joueur;
     private Aetoile aetoile;

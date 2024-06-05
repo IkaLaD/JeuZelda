@@ -1,7 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
@@ -11,7 +11,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVersJoueur {
+public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur {
 
     protected Joueur joueur;
     protected boolean estFamilier;

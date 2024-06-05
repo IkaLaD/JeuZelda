@@ -1,7 +1,11 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.GestionCompetence;
+
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.Competences;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.CreationArbre;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
@@ -9,8 +13,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueMelee.ParametreActionAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionLivreMagique.ParametreActionLivreMagique;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
@@ -20,17 +25,18 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.E
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
+
 
 public abstract class Joueur extends Humanoide
 {
-
+    private Competences competences;
     protected Carquois carquois;
+    private BooleanProperty estEntrainDeCourir;
 
-    protected boolean peuCourir;
     public Joueur(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(pv, attaque, defense, attaqueSpecial, defenseSpecial,vitesse, sac, objetMainGauche, objetMainDroite, monde, x, y, direction, hitbox);
-        peuCourir = false;
+        this.competences = CreationArbre.arbres();
+        this.estEntrainDeCourir = new SimpleBooleanProperty();
     }
 
 
@@ -68,30 +74,24 @@ public abstract class Joueur extends Humanoide
     @Override
     public void lanceUnSort(ParametreActionLivreMagique param)
     {
-        if (objetMainDroite instanceof LivreMagique)
-        {
-            LivreMagique livreMagique = (LivreMagique) objetMainDroite;
+        if (objetMainDroite instanceof LivreMagique livreMagique)
             livreMagique.utilise(param);
-        }
+
     }
 
 
-    public void action(ActionJoueur action)
-    {
-        action.executer(this);
-    }
 
 
     @Override
     public void attaque(Arme arme)
     {
 
-        ParametreActionAttaque actionAttaquer = null;
+        ParametreActionAttaque parametreActionAttaque;
 
         if (arme instanceof Epee)
         {
-            actionAttaquer = new ParametreActionAttaqueEpee(this);
-            arme.attaque(actionAttaquer);
+            parametreActionAttaque = new ParametreActionAttaqueEpee(this);
+            arme.utilise(parametreActionAttaque);
         }
         else if (arme instanceof Arc)
         {
@@ -101,23 +101,27 @@ public abstract class Joueur extends Humanoide
             {
                 flecheSimple.setPositionOrigine(position);
                 flecheSimple.setDirection(direction);
-                actionAttaquer = new ParametreActionAttaqueArc(this,flecheSimple);
-                arme.attaque(actionAttaquer);
+                parametreActionAttaque = new ParametreActionAttaqueArc(this,flecheSimple);
+                arme.utilise(parametreActionAttaque);
             }
 
         }
-
-
-
-
     }
 
-
-    public void peuCourir(boolean peuCourir)
+    public void estEntrainDeCourir(boolean bool)
     {
-        this.peuCourir = peuCourir;
+        this.estEntrainDeCourir.set(bool);
     }
 
+    public Competences getCompetences()
+    {
+        return this.competences;
+    }
+
+    public final BooleanProperty estEntrainDeCourirProperty()
+    {
+        return this.estEntrainDeCourir;
+    }
 
 
 }

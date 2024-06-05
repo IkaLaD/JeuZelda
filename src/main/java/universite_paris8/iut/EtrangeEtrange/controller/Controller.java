@@ -2,20 +2,24 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort1;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort2;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort3;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
+
+import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
+
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionLivreMagique.ParametreActionLivreMagique;
+
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
@@ -24,7 +28,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.A
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 
@@ -37,6 +41,7 @@ import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -108,7 +113,7 @@ public class Controller implements Initializable {
 
                         for (Entite entite : monde.getEntities())
                         {
-                            Controlable lambda1 = (Controlable) entite;
+                            PNJ lambda1 = (PNJ) entite;
                             lambda1.action();
                         }
 
@@ -188,10 +193,9 @@ public class Controller implements Initializable {
     }
 
 
-    public void keyPressed(KeyEvent keyEvent)
-    {
-        ActionJoueur actionJoueur = null;
-        KeyCode keyCode = keyEvent.getCode();
+    public void keyPressed(KeyEvent keyEvent) throws IOException {
+
+        /*KeyCode keyCode = keyEvent.getCode();
         if(keyCode==KeyCode.A)
             actionJoueur = new ActionUtiliserSort1();
         else if(keyCode==KeyCode.F)
@@ -207,11 +211,43 @@ public class Controller implements Initializable {
         else if(keyCode==ConstantesClavier.deplacementBas)
             deplacement.ajoutDirection(Direction.BAS);
         else if(keyCode==ConstantesClavier.recupererObjetSol)
-            joueur.ramasserObjet();
+            joueur.ramasserObjet();*/
 
 
-        if (actionJoueur != null)
-            joueur.action(actionJoueur);
+        switch (keyEvent.getCode())
+        {
+            case A :
+                joueur.lanceUnSort(new ParametreActionLivreMagique(joueur,0));
+                break;
+            case F :
+                joueur.lanceUnSort(new ParametreActionLivreMagique(joueur,1));
+                break;
+            case R :
+                joueur.lanceUnSort(new ParametreActionLivreMagique(joueur,2));
+                break;
+            case Z :
+                deplacement.ajoutDirection(Direction.HAUT);
+                break;
+            case D :
+                deplacement.ajoutDirection(Direction.DROITE);
+                break;
+
+            case Q :
+                deplacement.ajoutDirection(Direction.GAUCHE);
+                break;
+            case S :
+                deplacement.ajoutDirection(Direction.BAS);
+                break;
+            case SHIFT:
+                joueur.estEntrainDeCourir(true);
+                break;
+            case I :
+                FXMLLoader fxmlLoaderJeu = new FXMLLoader(Runner.class.getResource("CompetenceView.fxml"));
+                switchDonnees.getStage().setScene(new Scene(fxmlLoaderJeu.load(), Constantes.largeurEcran, Constantes.hauteurEcran));
+
+                break;
+        }
+
     }
 
 
@@ -233,6 +269,9 @@ public class Controller implements Initializable {
             case S :
                 deplacement.enleveDirection(Direction.BAS);
                 break;
+            case SHIFT:
+                joueur.estEntrainDeCourir(false);
+                break;
         }
     }
 
@@ -241,7 +280,7 @@ public class Controller implements Initializable {
         this.paneEntite.requestFocus();
 
         if (mouseEvent.getButton() == MouseButton.PRIMARY)
-            this.joueur.action(new ActionUtiliserMainDroite());
+            this.joueur.actionMainDroite();
     }
 
     public void onScroll(ScrollEvent scrollEvent) {

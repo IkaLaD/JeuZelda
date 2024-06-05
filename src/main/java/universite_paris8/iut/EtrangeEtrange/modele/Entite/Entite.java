@@ -7,7 +7,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParPro
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ActionConsomable.ParametreActionConsomable;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreConsomable.ParametreActionConsomable;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Defense;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.DefenseSpecial;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
@@ -119,15 +119,20 @@ public abstract class Entite {
         this.seDeplace = seDeplace;
     }
 
-    public void seDeplace()
+    public void seDeplace(double coef)
     {
         int x = direction.getX();
         int y = direction.getY();
 
         if(peutSeDeplacer()) {
-            position.setX(position.getX() + x * statsVitesse.getVitesseMaximum());
-            position.setY(position.getY() + y * statsVitesse.getVitesseMaximum());
+            position.setX(position.getX() + x * statsVitesse.getVitesse() * coef);
+            position.setY(position.getY() + y * statsVitesse.getVitesse() * coef);
         }
+    }
+
+    public void seDeplace()
+    {
+        seDeplace(1);
     }
 
 

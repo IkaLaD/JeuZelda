@@ -1,6 +1,5 @@
 package universite_paris8.iut.EtrangeEtrange.modele.ActionDegat;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
@@ -8,7 +7,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public class ActionDegatParProjectile extends ActionDegatParEntite
 {
-    Projectile projectile;
+    private Projectile projectile;
     public ActionDegatParProjectile(EntiteOffensif origineAttaque, Projectile projectile)
     {
         super(origineAttaque, projectile);
@@ -23,7 +22,6 @@ public class ActionDegatParProjectile extends ActionDegatParEntite
     @Override
     public Hitbox getHitbox() {
         Projectile projectile = (Projectile) getOrgineAttaque();
-
         return projectile.getHitbox();
     }
 
@@ -33,7 +31,7 @@ public class ActionDegatParProjectile extends ActionDegatParEntite
         projectile.seDeplace();
 
         if (projectile.aToucherUneCible())
-            getOrigineDegat().getMonde().enleveCauseDegat(this);
+            getOrigineDegat().getMonde().enleveActionDegat(this);
     }
 
 

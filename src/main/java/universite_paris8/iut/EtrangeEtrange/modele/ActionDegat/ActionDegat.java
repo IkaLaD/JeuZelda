@@ -34,5 +34,6 @@ public abstract class ActionDegat
 
     public void executeAction(Entite entite) {
         entite.subitDegat(this);
+
     }
 }

@@ -1,6 +1,5 @@
 package universite_paris8.iut.EtrangeEtrange.modele.ActionDegat;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
@@ -28,7 +27,7 @@ public class ActionDegatParEpee extends ActionDegatParEntite
 
     @Override
     public void miseAjour() {
-        getOrigineDegat().getMonde().enleveCauseDegat(this);
+        getOrigineDegat().getMonde().enleveActionDegat(this);
     }
 
 

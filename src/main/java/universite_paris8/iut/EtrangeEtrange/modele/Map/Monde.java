@@ -287,22 +287,22 @@ public class Monde {
         this.actionDegats.addListener(gestionCauseDegats);
     }
 
-    public void ajoutActionDegat(ActionDegat causeDegat)
+    public void ajoutActionDegat(ActionDegat actionDegat)
     {
-        this.actionDegats.add(causeDegat);
+        this.actionDegats.add(actionDegat);
     }
 
 
 
-    public void miseAjourCauseDegats()
+    public void miseAjourActionDegats()
     {
         for (int i = actionDegats.size()-1; i>=0; i--)
             actionDegats.get(i).miseAjour();
     }
 
-   public void enleveCauseDegat(ActionDegat causeDegat)
+   public void enleveActionDegat(ActionDegat actionDegat)
    {
-       this.actionDegats.remove(causeDegat);
+       this.actionDegats.remove(actionDegat);
    }
 
 

@@ -209,7 +209,6 @@ public class Controller implements Initializable {
         else if(keyCode==ConstantesClavier.recupererObjetSol)
             joueur.ramasserObjet();*/
 
-
         switch (keyEvent.getCode())
         {
             case A :

@@ -1,12 +1,24 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.ProjectileIntelligent;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
-public class BouleChercheuse extends Projectile {
-    public BouleChercheuse() {
+public class Orbe extends Projectile
+{
+    private Aetoile aetoile;
+    public Orbe() {
         super(new Hitbox(0.2,0.2));
+
     }
+
+    public void suitJoueur(Entite entite)
+    {
+
+    }
+
+
 
     @Override
     public double degatPhysique() {

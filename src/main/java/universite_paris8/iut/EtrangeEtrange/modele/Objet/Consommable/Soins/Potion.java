@@ -5,7 +5,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Guerrisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreConsomable.ParametreActionConsomable;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreConsomable.ParametreActionConsomable;
 
 public class Potion extends Consommable implements Guerrisable, Utilisable {
 

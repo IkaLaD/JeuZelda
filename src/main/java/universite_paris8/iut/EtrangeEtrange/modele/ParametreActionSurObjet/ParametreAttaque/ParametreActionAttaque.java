@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque;
+package universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque;
 
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;

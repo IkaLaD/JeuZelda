@@ -27,11 +27,6 @@ public abstract class Humanoide extends EntiteOffensif
     }
 
 
-    public abstract void actionMainDroite();
-
-
-
-
 
     @Override
     protected double subitDegatPhysique(double attaque,double forceEntite) {

@@ -10,7 +10,6 @@ public abstract class ActionDegat
 {
     private Dommageable orgineDegat;
 
-
     public ActionDegat(Dommageable origineDegat)
     {
         this.orgineDegat = origineDegat;
@@ -31,9 +30,5 @@ public abstract class ActionDegat
 
     public abstract void miseAjour();
 
-
-    public void executeAction(Entite entite) {
-        entite.subitDegat(this);
-
-    }
+    public void executeAction(Entite entite) {entite.subitDegat(this);}
 }

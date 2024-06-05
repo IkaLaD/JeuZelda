@@ -17,7 +17,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionLivreMagique.ParametreActionLivreMagique;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -212,13 +211,13 @@ public class Controller implements Initializable {
         switch (keyEvent.getCode())
         {
             case A :
-                joueur.lanceUnSort(new ParametreActionLivreMagique(joueur,0));
+                joueur.lanceUnSort(1);
                 break;
             case F :
-                joueur.lanceUnSort(new ParametreActionLivreMagique(joueur,1));
+                joueur.lanceUnSort(2);
                 break;
             case R :
-                joueur.lanceUnSort(new ParametreActionLivreMagique(joueur,2));
+                joueur.lanceUnSort(3);
                 break;
             case Z :
                 deplacement.ajoutDirection(Direction.HAUT);

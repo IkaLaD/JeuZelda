@@ -6,6 +6,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ParametreLivreMagique.ParametreLivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -53,6 +54,8 @@ public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur
         }
 
         long currentTime = System.currentTimeMillis();
+
+
         if (currentTime - lastPathCalculationTime >= 3000 || aetoile.getChemin().isEmpty()) {
             aetoile.trouverChemin(getPosition(), joueurPosition);
             lastPathCalculationTime = currentTime;
@@ -149,6 +152,11 @@ public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur
 
     @Override
     public void attaque(Arme arme) {
+
+    }
+
+    @Override
+    public void lanceUnSort(int numSort) {
 
     }
 }

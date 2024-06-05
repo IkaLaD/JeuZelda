@@ -18,16 +18,11 @@ public class ActionDegatParProjectile extends ActionDegatParEntite
     public Position getPosition() {
         return this.projectile.getPosition();
     }
-
     @Override
-    public Hitbox getHitbox() {
-        Projectile projectile = (Projectile) getOrgineAttaque();
-        return projectile.getHitbox();
-    }
-
+    public Hitbox getHitbox() {return projectile.getHitbox();}
     @Override
-    public void miseAjour() {
-        Projectile projectile = (Projectile) getOrgineAttaque();
+    public void miseAjour()
+    {
         projectile.seDeplace();
 
         if (projectile.aToucherUneCible())

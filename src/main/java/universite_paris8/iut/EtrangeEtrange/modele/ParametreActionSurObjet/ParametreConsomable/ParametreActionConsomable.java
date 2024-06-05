@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreConsomable;
+package universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreConsomable;
 
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;

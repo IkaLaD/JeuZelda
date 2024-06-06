@@ -13,6 +13,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -164,7 +165,6 @@ public class Controller implements Initializable {
         joueur.getSac().ajoutItem(new EpeeDeSoldat());
     }
     private void initLoups(Aetoile aetoile) {
-
         for(int i = 16 ; i < Monde.getSizeMondeHauteur()-10 ; i++){
             for(int j = 16 ; j < Monde.getSizeMondeLargeur()-10 ; j++){
                 if(monde.getNontraversable()[i][j]==-1){

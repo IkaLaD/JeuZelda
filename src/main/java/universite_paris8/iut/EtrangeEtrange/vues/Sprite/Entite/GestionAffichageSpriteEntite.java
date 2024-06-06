@@ -84,10 +84,10 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Entite> 
             skin = 0;
             vitesse = 1;
         } else if (entite.getClass().equals(Squelette.class)) {
-            skin = 3;
+            skin = 4;
             vitesse = 1;
         } else if (entite.getClass().equals(RoiSquelette.class)) {
-            skin = 4;
+            skin = 2;
             vitesse = 1;
         } else if (entite.getClass().equals(Loup.class)){
             skin = 3;

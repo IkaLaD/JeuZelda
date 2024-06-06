@@ -1,12 +1,4 @@
 { "columns":0,
- "editorsettings":
-    {
-     "export":
-        {
-         "format":"json",
-         "target":"traversable.tsj"
-        }
-    },
  "grid":
     {
      "height":1,
@@ -16,7 +8,7 @@
  "margin":0,
  "name":"traversable",
  "spacing":0,
- "tilecount":4,
+ "tilecount":11,
  "tiledversion":"1.10.2",
  "tileheight":64,
  "tiles":[
@@ -41,6 +33,48 @@
         {
          "id":3,
          "image":"4.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":4,
+         "image":"7.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":5,
+         "image":"8.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":6,
+         "image":"9.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":7,
+         "image":"10.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":8,
+         "image":"11.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":9,
+         "image":"12.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":10,
+         "image":"13.png",
          "imageheight":64,
          "imagewidth":64
         }],

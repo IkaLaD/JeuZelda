@@ -2,7 +2,6 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.scene.input.KeyCode;
 
-import java.security.Key;
 
 public class ConstantesClavier {
 

@@ -50,4 +50,10 @@ public class Orbe extends Projectile {
     public int stackMax() {
         return 0;
     }
+
+    @Override
+    public void unTour()
+    {
+
+    }
 }

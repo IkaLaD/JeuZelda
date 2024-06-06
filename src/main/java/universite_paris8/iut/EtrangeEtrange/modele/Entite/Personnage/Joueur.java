@@ -70,6 +70,7 @@ public abstract class Joueur extends Humanoide
         if (arme instanceof Epee)
         {
             parametreAttaque = new ParametreAttaqueEpee(this);
+
         }
         else if (arme instanceof LivreMagique)
         {

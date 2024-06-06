@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche;
 
+import universite_paris8.iut.EtrangeEtrange.modele.EventC.EventCollision;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 
@@ -24,4 +25,15 @@ public abstract class Fleche extends Projectile
     public int stackMax() {
         return 128;
     }
+
+
+
+    @Override
+    public void subitCollisions(EventCollision e) {
+        monde.enleveActeur(this);
+    }
+
+
+
+
 }

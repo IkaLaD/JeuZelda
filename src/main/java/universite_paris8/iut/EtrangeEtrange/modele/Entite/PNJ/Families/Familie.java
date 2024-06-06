@@ -33,7 +33,6 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
         if (!estFamilier) {
             if (detecteJoueur(joueur)) {
                 estFamilier = true;
-                System.out.println("Familier a détecté le joueur et devient familier");
             }
         }
 
@@ -48,7 +47,6 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
     @Override
     public void seDeplacerVersJoueur(Position joueurPosition) {
         if (aetoile == null) {
-            System.out.println("Aetoile non configuré.");
             return;
         }
 
@@ -57,7 +55,6 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
             aetoile.trouverChemin(getPosition(), joueurPosition);
             lastPathCalculationTime = currentTime;
             if (aetoile.getChemin().isEmpty()) {
-                System.out.println("Aucun chemin trouvé pour atteindre le joueur.");
                 return;
             }
         }
@@ -78,8 +75,6 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
         // Déplacer l'entité si elle peut se déplacer
         if (peutSeDeplacer()) {
             seDeplace();
-        } else {
-            System.out.println("Collision détectée, déplacement annulé.");
         }
 
         // Vérifier si l'entité a atteint la prochaine position
@@ -89,7 +84,6 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
             setPosition(roundToTenth(getPosition().getX()), roundToTenth(getPosition().getY()));
         }
 
-        System.out.println("Familier se déplace vers : " + getPosition().getX() + ", " + getPosition().getY());
     }
 
     private double roundToTenth(double value) {

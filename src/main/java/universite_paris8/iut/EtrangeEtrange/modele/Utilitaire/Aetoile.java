@@ -80,7 +80,6 @@ public class Aetoile {
         Sommet sommetArrivee = positionToSommet(arrivee);
 
         if (sommetDepart == null || sommetArrivee == null) {
-            System.out.println("Positions invalides.");
             return Collections.emptyList();
         }
 
@@ -115,7 +114,6 @@ public class Aetoile {
                 }
             }
         }
-        System.out.println("Aucun chemin trouvé.");
         return Collections.emptyList();
     }
 

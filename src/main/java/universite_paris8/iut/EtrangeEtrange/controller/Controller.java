@@ -13,6 +13,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.
 import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
@@ -28,11 +29,11 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
@@ -69,7 +70,7 @@ public class Controller implements Initializable {
         initPane();
 
 
-        gestionAffichageSpriteEntite gestionAffichageSprite = new gestionAffichageSpriteEntite(paneEntite);
+        GestionAffichageSpriteEntite gestionAffichageSprite = new GestionAffichageSpriteEntite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
 
@@ -160,11 +161,18 @@ public class Controller implements Initializable {
     public void initJoueur(){
         // Initialisation Coordonnées centre monde et des listeners
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
+        joueur.getSac().ajoutItem(new EpeeDeSoldat());
     }
     private void initLoups(Aetoile aetoile) {
 
-        Loup loup1 = new Loup(joueur, monde, 10, 10, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
-        monde.ajoutEntite(loup1);
+        for(int i = 16 ; i < Monde.getSizeMondeHauteur()-10 ; i++){
+            for(int j = 16 ; j < Monde.getSizeMondeLargeur()-10 ; j++){
+                if(monde.getNontraversable()[i][j]==-1){
+                    Loup loup1 = new Loup(joueur, monde, j+0.5, i+0.5, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
+                    monde.ajoutEntite(loup1);
+                }
+            }
+        }
     }
 
     private void initBoss(Monde monde, Joueur joueur, Aetoile aetoile) {

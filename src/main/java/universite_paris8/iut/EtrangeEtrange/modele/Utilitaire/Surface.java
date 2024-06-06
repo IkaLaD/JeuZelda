@@ -27,7 +27,6 @@ public class Surface
         if (cetteSurfaceDroite < autreSurfaceGauche || cetteSurfaceGauche > autreSurfaceDroite || cetteSurfaceBas < autreSurfaceHaut || cetteSurfaceHaut > autreSurfaceBas) {
             return false;
         }
-        System.out.println("toucher");
         return true;
     }
 }

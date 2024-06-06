@@ -12,6 +12,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
@@ -180,11 +181,16 @@ public class Controller implements Initializable {
         {
             // pas encore implementer
         }
+
     }
     private void initLoups(Aetoile aetoile) {
 
-        Loup loup1 = new Loup(joueur, monde, 10, 10, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
+        Loup loup1 = new Loup(joueur, monde, 0, 10, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
         monde.ajoutEntite(loup1);
+
+        Lambda lambda = new Lambda(monde,10,10, Direction.BAS);
+        monde.ajoutEntite(lambda);
+
     }
 
     private void initBoss(Monde monde, Joueur joueur, Aetoile aetoile) {

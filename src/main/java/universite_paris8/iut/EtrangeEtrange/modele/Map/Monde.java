@@ -6,6 +6,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
@@ -337,6 +338,13 @@ public class Monde {
         }
 
         return entitesDansRayon;
+    }
+
+
+
+    public boolean cheminLibre(Position position1, Direction direction1, Position position2,Direction direction2)
+    {
+        return true;
     }
 }
 

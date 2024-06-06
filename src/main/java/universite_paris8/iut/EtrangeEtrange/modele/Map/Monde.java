@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
@@ -47,6 +48,7 @@ public class Monde {
 
     private ObservableList<ActionDegat> actionDegats =  FXCollections.observableArrayList();
 
+    private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
 
 
 
@@ -288,23 +290,19 @@ public class Monde {
         this.actionDegats.addListener(gestionCauseDegats);
     }
 
-    public void ajoutActionDegat(ActionDegat actionDegat)
+    public void ajoutActeur(Acteur actionDegat)
     {
-        this.actionDegats.add(actionDegat);
+        this.acteurs.add(actionDegat);
     }
 
 
 
-    public void miseAjourActionDegats()
+    public void unTour()
     {
-        for (int i = actionDegats.size()-1; i>=0; i--)
-            actionDegats.get(i).miseAjour();
+        for (int i = acteurs.size()-1; i>=0; i--)
+            acteurs.get(i).unTour();
     }
 
-   public void enleveActionDegat(ActionDegat actionDegat)
-   {
-       this.actionDegats.remove(actionDegat);
-   }
 
 
     public void setListenerListeDropsAuSol(gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol) {
@@ -312,21 +310,7 @@ public class Monde {
     }
 
 
-    public void verificationCollisionAvecArme()
-    {
-        for (int i = entites.size()-1;i>=0;i--)
-        {
-            Entite entite = entites.get(i);
 
-            for (int j = actionDegats.size()-1; j>=0; j--)
-            {
-                ActionDegat causeDegat = actionDegats.get(j);
-
-                if (entite.getSurface().collision(causeDegat.surfaceDegat()))
-                    causeDegat.executeAction(entite);
-            }
-        }
-    }
 
     public ArrayList<Entite> getEntitesA() {
         ArrayList<Entite> entitesDansRayon = new ArrayList<>();

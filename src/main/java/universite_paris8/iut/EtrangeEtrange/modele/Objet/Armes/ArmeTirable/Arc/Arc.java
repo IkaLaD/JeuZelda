@@ -1,7 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc;
 
 
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;

@@ -2,6 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
@@ -10,7 +11,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Vitesse;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public  abstract class Projectile extends Objet implements Dommageable
+public  abstract class Projectile extends Objet implements Dommageable, Acteur
 {
     private Hitbox hitbox;
     private Position positionOrigine;
@@ -30,6 +31,8 @@ public  abstract class Projectile extends Objet implements Dommageable
         this.vitesse = new Vitesse(1);
         this.direction = null;
     }
+
+
 
      public void setPositionOrigine(Position position)
      {

@@ -1,12 +1,9 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEntite;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEpee;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreConsomable.ParametreActionConsomable;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Defense;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.DefenseSpecial;
@@ -22,7 +19,7 @@ import java.util.ArrayList;
 
 import static universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction.*;
 
-public abstract class Entite {
+public abstract class Entite implements Acteur {
     private static int staticIdEntité = 0;
     protected Pv statsPv;
     protected Defense statsDefense;
@@ -50,30 +47,8 @@ public abstract class Entite {
         this.hitbox = hitbox;
     }
 
-    public void subitDegat(ActionDegat causeDegat)
+    public void subitDegat(Dommageable causeDegat)
     {
-
-        if (causeDegat instanceof ActionDegatParEntite)
-        {
-            EntiteOffensif entiteOffensif = ((ActionDegatParEntite) causeDegat).getOrigineDegat();
-
-            if (causeDegat instanceof ActionDegatParEpee)
-            {
-                enlevePv(subitDegatPhysique(causeDegat.getOrgineAttaque().degatPhysique(),((ActionDegatParEpee) causeDegat).getOrigineDegat().getAttaque()));
-                enlevePv(subitDegatSpecial(causeDegat.getOrgineAttaque().degatSpecial(),((ActionDegatParEpee) causeDegat).getOrigineDegat().getAttaqueSpecial()));
-            }
-            else if (causeDegat instanceof ActionDegatParProjectile)
-            {
-                if (((ActionDegatParProjectile) causeDegat).getOrigineDegat() != this)
-                {
-                    enlevePv(subitDegatPhysique(causeDegat.getOrgineAttaque().degatPhysique(),((ActionDegatParProjectile) causeDegat).getOrigineDegat().getAttaque()));
-                    enlevePv(subitDegatSpecial(causeDegat.getOrgineAttaque().degatSpecial(),((ActionDegatParProjectile) causeDegat).getOrigineDegat().getAttaqueSpecial()));
-                    Projectile projectile = (Projectile) causeDegat.getOrgineAttaque();
-                    projectile.toucher();
-                }
-            }
-
-        }
 
 
     }

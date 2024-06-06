@@ -92,7 +92,7 @@ public class Controller implements Initializable {
         monde.setJoueur(joueur);
         Aetoile aetoile = new Aetoile(monde);
         initLoups(aetoile);
-        initBoss(monde, joueur, aetoile);
+        initBoss(monde);
 
 
         deplacement = new Deplacement(joueur);
@@ -173,8 +173,8 @@ public class Controller implements Initializable {
         monde.ajoutEntite(loup1);
     }
 
-    private void initBoss(Monde monde, Joueur joueur, Aetoile aetoile) {
-        RoiSquelette roiSquelette = new RoiSquelette(1000, 20, 100, 15, 5, 0.1, monde, 6, 28, Direction.BAS, new Hitbox(0.5, 0.5));
+    private void initBoss(Monde monde) {
+        RoiSquelette roiSquelette = new RoiSquelette(monde, 6,28, Direction.BAS);
         monde.ajoutEntite(roiSquelette);
     }
 

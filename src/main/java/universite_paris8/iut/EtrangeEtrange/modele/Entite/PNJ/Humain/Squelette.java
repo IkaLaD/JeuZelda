@@ -18,7 +18,7 @@ public class Squelette extends EntiteOffensif implements Controlable, SeDeplacer
     private long lastPathCalculationTime;
 
     public Squelette(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox, Joueur joueur, Aetoile aetoile) {
-        super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
+        super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, monde, x, y, direction, new Hitbox(0.5, 0.5));
         this.joueur = joueur;
         this.aetoile = aetoile;
         this.lastPathCalculationTime = System.currentTimeMillis();
@@ -43,7 +43,6 @@ public class Squelette extends EntiteOffensif implements Controlable, SeDeplacer
     @Override
     public void seDeplacerVersJoueur(Position joueurPosition) {
         if (aetoile == null) {
-            System.out.println("Aetoile non configuré.");
             return;
         }
 
@@ -52,7 +51,6 @@ public class Squelette extends EntiteOffensif implements Controlable, SeDeplacer
             aetoile.trouverChemin(getPosition(), joueurPosition);
             lastPathCalculationTime = currentTime;
             if (aetoile.getChemin().isEmpty()) {
-                System.out.println("Aucun chemin trouvé pour atteindre le joueur.");
                 return;
             }
         }

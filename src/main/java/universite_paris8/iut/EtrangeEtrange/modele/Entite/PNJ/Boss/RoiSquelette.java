@@ -21,8 +21,8 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
     private boolean joueurDetecte = false;
     private double distanceDetection = 5.0;
 
-    public RoiSquelette(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
+    public RoiSquelette(Monde monde, double x, double y, Direction direction) {
+        super(1000, 20, 100, 15, 30, 0.2, monde, x, y, direction, new Hitbox(0,0));
         this.dernierTempsAttaque = System.currentTimeMillis();
         this.positionInitiale = new Position(x, y);
         this.etapeAttaque = 0;
@@ -41,7 +41,6 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
         // Vérifie si le joueur a été détecté
         if (!joueurDetecte) {
             if (detecteJoueurDansRayon(distanceDetection)) {
-                System.out.println("Le joueur a été détecté à proximité du boss.");
                 joueurDetecte = true;
             } else {
                 return; // Ne rien faire si le joueur n'est pas détecté
@@ -53,7 +52,7 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
         if (tempsActuel - dernierTempsAttaque >= delaiAttaque) {
             switch (etapeAttaque) {
                 case 0:
-                    System.out.println("Déplacement vers le milieu pour une attaque circulaire.");
+
                     seDeplacerVers(positionMilieu);
                     if (positionAtteinte(positionMilieu)) {
                         grandeAttaqueCirculaire();
@@ -61,7 +60,6 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
                     }
                     break;
                 case 1:
-                    System.out.println("Déplacement vers la position (5,2) pour la deuxième attaque.");
                     seDeplacerVers(position5_2);
                     if (positionAtteinte(position5_2)) {
                         // Implémenter ici la deuxième attaque
@@ -69,7 +67,6 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
                     }
                     break;
                 case 2:
-                    System.out.println("Retour au milieu pour invoquer des squelettes.");
                     seDeplacerVers(positionMilieu);
                     if (positionAtteinte(positionMilieu)) {
                         invoquerSquelettes();
@@ -77,7 +74,6 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
                     }
                     break;
                 case 3:
-                    System.out.println("Retour au milieu pour une attaque circulaire.");
                     seDeplacerVers(positionInitiale);
                     if (positionAtteinte(positionInitiale)) {
                         grandeAttaqueCirculaire();
@@ -99,18 +95,15 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
 
     // Effectue une grande attaque circulaire
     private void grandeAttaqueCirculaire() {
-        System.out.println("Roi Squelette effectue une grande attaque circulaire.");
         Position centre = getPosition();
         double rayon = 1.5; // Rayon d'exemple pour l'attaque circulaire
         // Vérifie si la hitbox du joueur est dans le rayon de l'attaque
         if (getMonde().getJoueur().getHitbox().estDansCercle(centre, rayon)) {
-            System.out.println("Dégâts infligés au joueur.");
         }
     }
 
     // Invoque des squelettes pour aider le Roi Squelette
     private void invoquerSquelettes() {
-        System.out.println("Roi Squelette invoque des squelettes.");
         Position positionGauche = new Position(getPosition().getX() - 2, getPosition().getY());
         Position positionDroite = new Position(getPosition().getX() + 2, getPosition().getY());
         Squelette squeletteGauche = new Squelette(30, 10, 5, 10, 10, 0.1, getMonde(), positionGauche.getX(), positionGauche.getY(), Direction.DROITE, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));

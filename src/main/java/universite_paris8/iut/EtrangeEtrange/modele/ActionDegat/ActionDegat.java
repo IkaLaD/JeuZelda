@@ -9,7 +9,6 @@ public abstract class ActionDegat
 {
     private Dommageable orgineDegat;
 
-
     public ActionDegat(Dommageable origineDegat)
     {
         this.orgineDegat = origineDegat;

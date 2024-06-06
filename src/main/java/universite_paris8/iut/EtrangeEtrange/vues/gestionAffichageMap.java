@@ -38,7 +38,6 @@ public class gestionAffichageMap {
     public void afficherMonde(){
         // Récupération de la première couche de la map.
         ArrayList<int[][]> couchesMap = monde.getToutesLesCouches();
-
         // Génération de l'image
         for(int i = 0 ; i < 3 ; i++) { // Nombre de couches de la map
             for (int hauteur = 0; hauteur < Monde.getSizeMondeHauteur(); hauteur++) {

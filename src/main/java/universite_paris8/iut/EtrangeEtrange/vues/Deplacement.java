@@ -8,7 +8,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.CompetenceActif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreCompetence.ParametreCourrir;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 import java.util.HashSet;

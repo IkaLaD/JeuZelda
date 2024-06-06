@@ -37,6 +37,11 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
     }
 
     @Override
+    public void lanceUnSort(int numSort) {
+
+    }
+
+    @Override
     public void action() {
         // Vérifie si le joueur a été détecté
         if (!joueurDetecte) {

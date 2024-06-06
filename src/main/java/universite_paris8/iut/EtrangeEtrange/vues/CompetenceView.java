@@ -67,7 +67,8 @@ public class CompetenceView {
         Rectangle rectangle = new Rectangle(tailleIcon,tailleIcon);
         rectangle.setOnMouseClicked(e ->{
             competence.getCompetence().monterDeNiveau(joueur);
-            competence.getCompetence().debloquer();            System.out.println(competence.toString());
+            competence.getCompetence().debloquer();
+            System.out.println(competence.toString());
         });
         return rectangle;
     }

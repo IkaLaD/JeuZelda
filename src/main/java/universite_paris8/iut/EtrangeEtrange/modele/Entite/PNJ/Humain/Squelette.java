@@ -96,4 +96,9 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
     public void attaque(Arme arme) {
 
     }
+
+    @Override
+    public void lanceUnSort(int numSort) {
+
+    }
 }

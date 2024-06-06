@@ -109,12 +109,17 @@ public class Controller implements Initializable {
 
                     (ev ->
                     {
+
+
+
                         for (Entite entite : monde.getEntities())
                         {
                             PNJ lambda1 = (PNJ) entite;
                             lambda1.action();
                         }
+                        monde.miseAjourActionDegats();
                         monde.verificationCollisionAvecArme();
+
                     })
         );
         gameLoop.getKeyFrames().add(kf);

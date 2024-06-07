@@ -6,129 +6,93 @@
      "width":1
     },
  "margin":0,
- "name":"nontraversable",
+ "name":"sol",
  "spacing":0,
- "tilecount":20,
+ "tilecount":14,
  "tiledversion":"1.10.2",
  "tileheight":64,
  "tiles":[
         {
          "id":0,
-         "image":"1.png",
+         "image":"..\/texture\/sol\/1.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":1,
-         "image":"barriere1.png",
+         "image":"..\/texture\/sol\/4.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":2,
-         "image":"barriere2.png",
+         "image":"..\/texture\/sol\/2.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":3,
-         "image":"barriere3.png",
+         "image":"..\/texture\/sol\/3.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":4,
-         "image":"barriere4.png",
+         "image":"..\/texture\/sol\/6.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":5,
-         "image":"barriere5.png",
+         "image":"..\/texture\/sol\/5.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":6,
-         "image":"barriere6.png",
+         "image":"..\/texture\/nontraversable\/7.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":7,
-         "image":"barriere7.png",
+         "image":"..\/texture\/sol\/14.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":8,
-         "image":"barriere8.png",
+         "image":"..\/texture\/sol\/15.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":9,
-         "image":"barriere9.png",
+         "image":"..\/texture\/sol\/16.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":10,
-         "image":"barriere10.png",
+         "image":"..\/texture\/sol\/17.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":11,
-         "image":"2.png",
+         "image":"..\/texture\/sol\/18.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":12,
-         "image":"3.png",
+         "image":"..\/texture\/sol\/19.png",
          "imageheight":64,
          "imagewidth":64
         }, 
         {
          "id":13,
-         "image":"4.png",
-         "imageheight":64,
-         "imagewidth":64
-        }, 
-        {
-         "id":14,
-         "image":"7.png",
-         "imageheight":64,
-         "imagewidth":64
-        }, 
-        {
-         "id":15,
-         "image":"8.png",
-         "imageheight":64,
-         "imagewidth":64
-        }, 
-        {
-         "id":16,
-         "image":"9.png",
-         "imageheight":64,
-         "imagewidth":64
-        }, 
-        {
-         "id":17,
-         "image":"10.png",
-         "imageheight":64,
-         "imagewidth":64
-        }, 
-        {
-         "id":18,
-         "image":"5.png",
-         "imageheight":64,
-         "imagewidth":64
-        }, 
-        {
-         "id":19,
-         "image":"6.png",
+         "image":"..\/texture\/sol\/20.png",
          "imageheight":64,
          "imagewidth":64
         }],

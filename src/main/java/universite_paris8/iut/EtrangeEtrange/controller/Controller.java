@@ -2,6 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -66,10 +67,7 @@ public class Controller implements Initializable {
         switchDonnees = switchDonnees.getSwitchScene();
         initMonde();
         initJoueur();
-
-        switchDonnees.setJoueur(joueur);
         initPane();
-
 
         GestionAffichageSpriteEntite gestionAffichageSprite = new GestionAffichageSpriteEntite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSprite);
@@ -78,20 +76,22 @@ public class Controller implements Initializable {
         GestionCauseDegat gestionCauseDegat = new GestionCauseDegat(paneEntite);
         monde.setListenerProjectile(gestionCauseDegat);
 
-
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMondeJSON();
+
         gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol = new gestionAffichageSpriteDropAuSol(paneEntite);
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
         
-        monde.setJoueur(joueur);
+
+        // Création des entités avec l'algo A* qui leur permet de rejoindre le joueur
         Aetoile aetoile = new Aetoile(monde);
         initLoups(aetoile);
         initBoss(monde, joueur, aetoile);
 
 
         deplacement = new Deplacement(joueur);
+
         initGameLoop();
         gameLoop.play();
 
@@ -141,18 +141,26 @@ public class Controller implements Initializable {
 
         // Listener pour que la TilePane et la Pane suivent le joueur
         joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
-            if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 < 0)
-                if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 > -Monde.getSizeMondeLargeur()*Constantes.tailleTile+Constantes.largeurEcran )
-                    paneEntite.setTranslateX(-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0);
+            paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
         });
         joueur.getPosition().getYProperty().addListener((obs, old, nouv)-> {
-            if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0 < 0)
-                if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0  > -Monde.getSizeMondeHauteur()*Constantes.tailleTile+Constantes.hauteurEcran)
-                    paneEntite.setTranslateY(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0);
+            paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
         });
 
-        paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0);
-        paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0);
+        paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
+        paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
+    }
+
+    /**
+     * Permet de déplacer l'affichage lorsque le joueur se déplace :
+     * @param position : Position du joueur
+     * @param longueurAxe : Hauteur ou largeur de l'écran
+     */
+    public double scrollMap(double position, int longueurAxe, double positionInitiale){
+        if (-position * Constantes.tailleTile + longueurAxe / 2.0 < 0)
+            if (-position * Constantes.tailleTile + longueurAxe / 2.0 > -Monde.getSizeMondeLargeur()*Constantes.tailleTile+longueurAxe )
+                return -position * Constantes.tailleTile + longueurAxe / 2.0;
+        return positionInitiale;
     }
     public void initMonde()
     {
@@ -163,6 +171,8 @@ public class Controller implements Initializable {
         // Initialisation Coordonnées centre monde et des listeners
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
         joueur.getSac().ajoutItem(new EpeeDeSoldat());
+        monde.setJoueur(joueur);
+        switchDonnees.setJoueur(joueur);
     }
     private void initLoups(Aetoile aetoile) {
         for(int i = 16 ; i < Monde.getSizeMondeHauteur()-10 ; i++){

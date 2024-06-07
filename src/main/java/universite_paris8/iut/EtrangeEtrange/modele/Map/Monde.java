@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
@@ -29,24 +28,13 @@ public class Monde {
     private static final int sizeMondeLargeur = 33;
     private static final double xPointDeDepart = 17;
     private static final double yPointDeDepart = 17;
-    /**
-     * Ici sont stocké les informations des sols du monde (ex : sol)
-     */
     private int[][] sol;
     private int[][] traversable;
     private int[][] nontraversable;
-    /**
-     * Ici sont stocké les informations des éléments du monde traversables (ex : buissons, fleurs, hautes herbes, etc.)
-     */
-
     private ObservableList<Entite> entites;
-
-
     private Joueur joueur;
-
     private ObservableList<DropAuSol> dropsAuSol;
-
-    private ObservableList<ActionDegat> causeDegats =  FXCollections.observableArrayList();
+    private ObservableList<ActionDegat> causeDegats;
 
 
 
@@ -58,7 +46,7 @@ public class Monde {
     public Monde(){
         this.sol = new int[sizeMondeHauteur][sizeMondeLargeur];
         this.entites = FXCollections.observableArrayList();
-
+        causeDegats =  FXCollections.observableArrayList();
         this.joueur = null;
 
         this.dropsAuSol = FXCollections.observableArrayList();
@@ -71,7 +59,7 @@ public class Monde {
      */
     public Monde(String chemin, String nommap, int hauteur, int largeur)
     {
-
+        causeDegats =  FXCollections.observableArrayList();
         this.entites = FXCollections.observableArrayList();
         this.sol = new int[hauteur][largeur];
         this.traversable = new int[hauteur][largeur];
@@ -115,7 +103,7 @@ public class Monde {
      */
     public Monde(String nom)
     {
-
+        causeDegats =  FXCollections.observableArrayList();
         this.entites = FXCollections.observableArrayList();
         this.dropsAuSol = FXCollections.observableArrayList();
         try

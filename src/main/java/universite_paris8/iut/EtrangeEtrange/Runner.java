@@ -6,28 +6,21 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import universite_paris8.iut.EtrangeEtrange.controller.SwitchScene;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
-
 import java.io.IOException;
 
 public class Runner extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoaderJeu = new FXMLLoader(Runner.class.getResource("viewMap.fxml"));
+    public void start(Stage stage) throws IOException
+    {
+        FXMLLoader fxmlLoaderJeu = new FXMLLoader(Runner.class.getResource("ChoixClasseView.fxml"));
         Scene sceneJeu = new Scene(fxmlLoaderJeu.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
         stage.setScene(sceneJeu);
         stage.show();
-
 
         SwitchScene switchScene = SwitchScene.getSwitchScene();
         switchScene.setStage(stage);
         switchScene.setSceneJeu(sceneJeu);
 
-        FXMLLoader fxmlLoaderMenu = new FXMLLoader(Runner.class.getResource("menuView.fxml"));
-        Scene sceneMenu = new Scene(fxmlLoaderMenu.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
-        switchScene.setSceneMenu(sceneMenu);
-
-        switchScene.setControllerJeu(fxmlLoaderJeu.getController());
-        switchScene.setControllerMenu(fxmlLoaderMenu.getController());
     }
 
 
@@ -35,3 +28,7 @@ public class Runner extends Application {
         launch();
     }
 }
+
+
+
+

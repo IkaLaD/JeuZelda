@@ -11,6 +11,7 @@ public class SwitchScene {
     private static SwitchScene switchScene = new SwitchScene();
     private Stage stage;
     private Scene sceneJeu;
+
     private Controller controllerJeu;
     private ControllerMenu controllerMenu;
     private Scene sceneMenu;
@@ -19,6 +20,7 @@ public class SwitchScene {
     private TilePane TilePaneTraversable;
     private TilePane TilePaneNontraversable;
     private Joueur joueur;
+    private String classeJoueur;
 
     public SwitchScene(){
         paneEntite = new Pane();
@@ -106,4 +108,17 @@ public class SwitchScene {
     public Controller getControllerJeu() {
         return controllerJeu;
     }
+
+
+    public void setClasseJoueur(String nom)
+    {
+        this.classeJoueur = nom;
+    }
+
+    public String getClasseJoueur()
+    {
+        return this.classeJoueur;
+    }
+
+
 }

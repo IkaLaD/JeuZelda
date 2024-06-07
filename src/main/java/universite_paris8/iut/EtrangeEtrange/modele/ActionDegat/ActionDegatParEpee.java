@@ -7,27 +7,24 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public class ActionDegatParEpee extends ActionDegatParEntite
 {
+    private int cycle;
+    private Epee epee;
     public ActionDegatParEpee(EntiteOffensif origineDegat, Epee arme)
     {
         super(origineDegat,arme);
+        this.epee = arme;
+        this.cycle = 0;
     }
-
 
     @Override
     public Position getPosition() {
         return getOrigineDegat().getPosition();
     }
-
     @Override
     public Hitbox getHitbox() {
-        Epee orgineAttaque = (Epee) getOrgineAttaque();
-        return orgineAttaque.getHitbox();
+        return this.epee.getHitbox();
     }
-
     @Override
-    public void miseAjour() {
-        getOrigineDegat().getMonde().enleveCauseDegat(this);
-    }
-
+    public void miseAjour(){ if (cycle++ >= 3) getOrigineDegat().getMonde().enleveActionDegat(this);}
 
 }

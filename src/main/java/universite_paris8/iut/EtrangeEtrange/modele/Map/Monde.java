@@ -5,12 +5,13 @@ import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
 
@@ -26,8 +27,11 @@ public class Monde {
      */
     private static final int sizeMondeHauteur = 33;
     private static final int sizeMondeLargeur = 33;
-    private static final double xPointDeDepart = 17;
-    private static final double yPointDeDepart = 17;
+    private static final double xPointDeDepart = 23;
+    private static final double yPointDeDepart = 23;
+    /**
+     * Ici sont stocké les informations des sols du monde (ex : sol)
+     */
     private int[][] sol;
     private int[][] traversable;
     private int[][] nontraversable;

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox fx:id="hbox" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" onKeyPressed="#changeClasse" onMouseClicked="#mouseClick" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControllerChoixClasse">
+   <children>
+      <Pane prefHeight="1080.0" prefWidth="2070.0" />
+      <VBox prefHeight="1080.0" prefWidth="1186.0">
+         <children>
+            <Label fx:id="nomClasse" layoutX="25.0" layoutY="25.0" prefHeight="82.0" prefWidth="284.0" wrapText="true">
+               <font>
+                  <Font size="30.0" />
+               </font></Label>
+            <Pane prefHeight="587.0" prefWidth="518.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Description :">
+                     <font>
+                        <Font size="30.0" />
+                     </font></Label>
+                  <Label fx:id="descriptionClasse" alignment="TOP_LEFT" layoutX="15.0" layoutY="59.0" prefHeight="268.0" prefWidth="489.0" wrapText="true" />
+               </children>
+            </Pane>
+            <Label prefHeight="74.0" prefWidth="520.0" text="Statistiques">
+               <VBox.margin>
+                  <Insets bottom="60.0" top="20.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="170.0" />
+               </padding>
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <HBox>
+               <children>
+                  <VBox prefHeight="819.0" prefWidth="293.0" spacing="29.0">
+                     <children>
+                        <Label prefHeight="36.0" prefWidth="271.0" text="Pv">
+                           <font>
+                              <Font size="30.0" />
+                           </font></Label>
+                        <Label prefHeight="36.0" prefWidth="261.0" text="Attaque">
+                           <font>
+                              <Font size="30.0" />
+                           </font></Label>
+                        <Label prefHeight="36.0" prefWidth="262.0" text="Defense">
+                           <font>
+                              <Font size="30.0" />
+                           </font></Label>
+                        <Label prefHeight="36.0" prefWidth="264.0" text="Attaque Special">
+                           <font>
+                              <Font size="30.0" />
+                           </font></Label>
+                        <Label prefHeight="36.0" prefWidth="264.0" text="Defense Special">
+                           <font>
+                              <Font size="30.0" />
+                           </font></Label>
+                        <Label prefHeight="36.0" prefWidth="263.0" text="Vitesse ">
+                           <font>
+                              <Font size="30.0" />
+                           </font></Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="796.0" prefWidth="280.0" spacing="45.0">
+                     <children>
+                        <ProgressBar fx:id="statPv" maxHeight="32.0" maxWidth="200.0" minHeight="13.0" prefHeight="32.0" prefWidth="200.0" progress="0.0" />
+                        <ProgressBar fx:id="statAttaque" maxHeight="32.0" maxWidth="200.0" minWidth="200.0" prefHeight="32.0" prefWidth="200.0" progress="0.0" />
+                        <ProgressBar fx:id="statDefense" maxHeight="32.0" maxWidth="200.0" minHeight="32.0" minWidth="200.0" prefHeight="32.0" prefWidth="200.0" progress="0.0" />
+                        <ProgressBar fx:id="statAttaqueSpecial" maxHeight="32.0" maxWidth="200.0" minHeight="32.0" minWidth="200.0" prefHeight="32.0" prefWidth="200.0" progress="0.0" />
+                        <ProgressBar fx:id="statDefenseSpecial" maxHeight="32.0" maxWidth="200.0" minHeight="32.0" minWidth="200.0" prefHeight="32.0" prefWidth="180.0" progress="0.0" />
+                        <ProgressBar fx:id="statVitesse" maxHeight="32.0" maxWidth="200.0" minHeight="32.0" minWidth="200.0" prefHeight="32.0" prefWidth="200.0" progress="0.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

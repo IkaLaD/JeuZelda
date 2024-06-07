@@ -4,6 +4,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
+
+
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
@@ -23,11 +25,6 @@ public abstract class Humanoide extends EntiteOffensif
         this.objetMainGauche = objetMainGauche;
         this.objetMainDroite = objetMainDroite;
     }
-
-
-    public abstract void actionMainDroite();
-
-
 
 
 

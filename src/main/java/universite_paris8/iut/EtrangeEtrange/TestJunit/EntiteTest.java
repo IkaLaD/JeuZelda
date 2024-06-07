@@ -57,7 +57,7 @@ public class EntiteTest
     @Test
     public void testPerteDePv()
     {
-        Entite entite = new Lambda(monde,10,10,Direction.BAS,new Hitbox(1,1));
+        Entite entite = new Lambda(monde,10,10,Direction.BAS);
 
         double pv = entite.getStatsPv().getPv();
         entite.enlevePv(20);
@@ -68,7 +68,7 @@ public class EntiteTest
     @Test
     public void testRegainPv()
     {
-        Entite entite = new Lambda(monde,10,10,Direction.BAS,new Hitbox(1,1));
+        Entite entite = new Lambda(monde,10,10,Direction.BAS);
         double pv = entite.getStatsPv().getPv();
         entite.enlevePv(30);
         entite.soigner(20);

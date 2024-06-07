@@ -62,4 +62,14 @@ public class Pv
     }
 
     public DoubleProperty getPvActuelleProperty(){return this.pv;}
+
+    public int nbCoeurs() {
+        return (int) Math.ceil(getPv() / 20);
+    }
+
+    public int nbCoeursMax() {
+        return (int) Math.ceil(getPvMaximum() / 20);
+    }
+
+
 }

@@ -1,9 +1,12 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.DommageableMultiCoup;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
+import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueMelee.ParametreAttaqueEpee;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
@@ -11,7 +14,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
 
 import java.util.TimerTask;
 
-public abstract class Epee extends Arme implements DommageableMultiCoup, Acteur
+public abstract class Epee extends Acteur implements Dommageable, Rechargeable ,Arme
 {
     private boolean peuTaper;
 
@@ -19,12 +22,10 @@ public abstract class Epee extends Arme implements DommageableMultiCoup, Acteur
 
     private Position position;
 
-    public Epee(Hitbox hitbox)
-    {
-        this.hitbox = hitbox;
-        this.peuTaper = true;
-        position = null;
+    public Epee(Monde monde, double x, double y, Direction direction, double pv, double vitesse, Hitbox hitbox) {
+        super(monde, x, y, direction, pv, vitesse, hitbox);
     }
+
 
     public Hitbox getHitbox()
     {
@@ -39,7 +40,7 @@ public abstract class Epee extends Arme implements DommageableMultiCoup, Acteur
         {
             if (peuTaper)
             {
-                parametre.getOrigineAction().getMonde().ajoutActeur(this);
+
                 this.position = new Position(parametre.getOrigineAction().getPosition().getX(),parametre.getOrigineAction().getPosition().getY());
 
                 peuTaper = false;
@@ -59,17 +60,6 @@ public abstract class Epee extends Arme implements DommageableMultiCoup, Acteur
         },delaie());
     }
 
-    @Override
-    public void unTour()
-    {
-
-    }
-
-    @Override
-    public void seDeplace(double coeff)
-    {
-
-    }
 
     @Override
     public int stackMax() {

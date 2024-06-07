@@ -31,8 +31,9 @@ public class SortilegePluitDeFleche extends Sortilege
                     Platform.runLater(() -> {
                         FlecheSimple flecheSimple = new FlecheSimple();
                         flecheSimple.setDirection(direction);
-                        flecheSimple.setPositionOrigine(positionAleaAutourDe(x,y, direction));
-                        utilisateur.getMonde().ajoutActionDegat(new ActionDegatParProjectile(utilisateur, flecheSimple));
+                        flecheSimple.setPosition(positionAleaAutourDe(x,y, direction));
+                        flecheSimple.setMonde(utilisateur.getMonde());
+                        utilisateur.getMonde().ajoutActeur(flecheSimple);
                     });
                 }
             }, i * 100);

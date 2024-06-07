@@ -9,7 +9,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
 
 import java.util.TimerTask;
 
-public class Arc extends Arme implements Rechargeable
+public class Arc implements Arme,Rechargeable
 {
 
     private boolean peuTirer;
@@ -48,7 +48,6 @@ public class Arc extends Arme implements Rechargeable
         {
             if (peuTirer)
             {
-                parametre.getOrigineAction().getMonde().ajoutActionDegat(new ActionDegatParProjectile(parametre.getOrigineAction(), parametre.getProjectile()));
                 this.peuTirer = false;
                 cooldown();
             }

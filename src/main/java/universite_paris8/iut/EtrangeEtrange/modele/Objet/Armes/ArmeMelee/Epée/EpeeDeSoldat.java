@@ -1,11 +1,15 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
 public class EpeeDeSoldat extends Epee
 {
-    public EpeeDeSoldat() {
-        super(new Hitbox(1,1));
+
+    public EpeeDeSoldat(Monde monde, double x, double y, Direction direction, double pv, double vitesse, Hitbox hitbox) {
+        super(monde, x, y, direction, pv, vitesse, hitbox);
     }
 
     @Override
@@ -46,5 +50,13 @@ public class EpeeDeSoldat extends Epee
     }
 
 
+    @Override
+    public void unTour() {
 
+    }
+
+    @Override
+    public void subitCollision(Acteur acteur) {
+
+    }
 }

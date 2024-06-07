@@ -1,7 +1,9 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
@@ -17,16 +19,19 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
     private Aetoile aetoile;
     private long lastPathCalculationTime;
 
-    public Squelette(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox, Joueur joueur, Aetoile aetoile) {
-        super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
-        this.joueur = joueur;
-        this.aetoile = aetoile;
-        this.lastPathCalculationTime = System.currentTimeMillis();
+    public Squelette(Monde monde, double x, double y, Direction direction, double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Hitbox hitbox) {
+        super(monde, x, y, direction, pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, hitbox);
     }
+
 
     @Override
     public void action() {
         seDeplacerVersJoueur(joueur.getPosition());
+    }
+
+    @Override
+    public void subitDegat(Dommageable causeDegat) {
+
     }
 
     @Override
@@ -99,6 +104,16 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
 
     @Override
     public void lanceUnSort(int numSort) {
+
+    }
+
+    @Override
+    public void unTour() {
+
+    }
+
+    @Override
+    public void subitCollision(Acteur acteur) {
 
     }
 }

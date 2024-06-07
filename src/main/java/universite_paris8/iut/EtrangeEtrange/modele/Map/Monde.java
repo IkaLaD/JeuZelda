@@ -2,10 +2,9 @@ package universite_paris8.iut.EtrangeEtrange.modele.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
@@ -46,7 +45,6 @@ public class Monde {
 
     private ObservableList<DropAuSol> dropsAuSol;
 
-    private ObservableList<ActionDegat> actionDegats =  FXCollections.observableArrayList();
 
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
 
@@ -285,16 +283,13 @@ public class Monde {
         entites.addListener(gestionAffichageSprite);
     }
 
-    public void setListenerProjectile(GestionActionDegat gestionCauseDegats)
-    {
-        this.actionDegats.addListener(gestionCauseDegats);
-    }
 
-    public void ajoutActeur(Acteur actionDegat)
-    {
-        this.acteurs.add(actionDegat);
-    }
 
+    public void ajoutActeur(Acteur acteur)
+    {
+        this.acteurs.add(acteur);
+    }
+    public void enleveActeur(Acteur acteur) { this.acteurs.remove(acteur); }
 
 
     public void unTour()

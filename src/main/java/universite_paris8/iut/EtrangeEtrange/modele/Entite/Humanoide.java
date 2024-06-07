@@ -19,8 +19,8 @@ public abstract class Humanoide extends EntiteOffensif
     protected Sac sac;
 
 
-    public Humanoide(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
+    public Humanoide(Monde monde, double x, double y, Direction direction,double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse,Hitbox hitbox,Sac sac, Objet objetMainGauche, Objet objetMainDroite) {
+        super(monde, x, y, direction, pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, hitbox);
         this.sac = sac;
         this.objetMainGauche = objetMainGauche;
         this.objetMainDroite = objetMainDroite;

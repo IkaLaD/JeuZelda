@@ -1,11 +1,22 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.ProjectileIntelligent;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
-public class BouleChercheuse extends Projectile {
-    public BouleChercheuse() {
+public class Orbe extends Projectile {
+    public Orbe() {
         super(new Hitbox(0.2,0.2));
+    }
+
+    @Override
+    public void unTour() {
+
+    }
+
+    @Override
+    public void subitCollision(Acteur acteur) {
+
     }
 
     @Override

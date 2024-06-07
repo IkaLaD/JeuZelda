@@ -34,7 +34,7 @@ public abstract class Joueur extends Humanoide
     private BooleanProperty estEntrainDeCourir;
 
     public Joueur(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(pv, attaque, defense, attaqueSpecial, defenseSpecial,vitesse, sac, objetMainGauche, objetMainDroite, monde, x, y, direction, hitbox);
+        super(monde, x, y, direction, pv,attaque,defense,attaqueSpecial,defenseSpecial,vitesse,hitbox,sac,objetMainGauche,objetMainDroite);
         this.competences = CreationArbre.arbres();
         this.estEntrainDeCourir = new SimpleBooleanProperty();
     }
@@ -81,7 +81,8 @@ public abstract class Joueur extends Humanoide
 
             if (flecheSimple != null)
             {
-                flecheSimple.setPositionOrigine(position);
+                flecheSimple.setMonde(monde);
+                flecheSimple.setPosition(position);
                 flecheSimple.setDirection(direction);
                 parametreAttaque = new ParametreAttaqueArc(this,flecheSimple);
             }

@@ -4,13 +4,15 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 
-public class GestionActionDegat implements ListChangeListener<ActionDegat>
+public class GestionActionDegat implements ListChangeListener<Acteur>
 {
 
     private Pane pane;
@@ -21,14 +23,11 @@ public class GestionActionDegat implements ListChangeListener<ActionDegat>
     }
 
     @Override
-    public void onChanged(Change<? extends ActionDegat> change)
+    public void onChanged(Change<? extends Acteur> change)
     {
         while(change.next())
         {
-            for (ActionDegat causeDegat : change.getAddedSubList()) {
-                if (causeDegat instanceof ActionDegatParProjectile)
-                    initSpriteProjectile((Projectile) causeDegat.getOrgineAttaque());
-            }
+
         }
     }
 
@@ -37,11 +36,13 @@ public class GestionActionDegat implements ListChangeListener<ActionDegat>
         Rectangle rectangle;
 
         Direction direction = projectile.getDirection();
+        Position pos = projectile.getPosition();
+        Hitbox hitbox = projectile.getHitbox();
 
         if (direction == Direction.BAS || direction == Direction.HAUT)
-            rectangle = new Rectangle(projectile.getX(),projectile.getY(),projectile.getLargeur()* Constantes.tailleTile,projectile.getHauteur()*Constantes.tailleTile);
+            rectangle = new Rectangle(pos.getX(),pos.getY(),hitbox.getLargeur()* Constantes.tailleTile,hitbox.getHauteur()*Constantes.tailleTile);
         else
-            rectangle = new Rectangle(projectile.getX(),projectile.getY(),projectile.getHauteur()* Constantes.tailleTile,projectile.getLargeur()*Constantes.tailleTile);
+            rectangle = new Rectangle(pos.getX(),pos.getY(),hitbox.getHauteur()* Constantes.tailleTile,hitbox.getLargeur()*Constantes.tailleTile);
 
 
         rectangle.setFill(Color.RED);

@@ -65,6 +65,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         switchDonnees = switchDonnees.getSwitchScene();
+        switchDonnees.setControllerJeu(this);
         initMonde();
         initJoueur();
         initPane();

@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
@@ -11,11 +12,11 @@ public class SwitchScene {
     private static SwitchScene switchScene = new SwitchScene();
     private Stage stage;
     private Scene sceneJeu;
-
     private Controller controllerJeu;
     private ControllerMenu controllerMenu;
     private Scene sceneMenu;
     private Pane paneEntite;
+    private TabPane tabPane;
     private TilePane TilePaneSol;
     private TilePane TilePaneTraversable;
     private TilePane TilePaneNontraversable;
@@ -60,6 +61,14 @@ public class SwitchScene {
         this.TilePaneNontraversable.getChildren().clear();
         this.TilePaneSol.getChildren().clear();
         this.TilePaneTraversable.getChildren().clear();
+    }
+
+    public TabPane getTabPane() {
+        return tabPane;
+    }
+
+    public void setTabPane(TabPane tabPane) {
+        this.tabPane = tabPane;
     }
 
     public void setJoueur(Joueur joueur){

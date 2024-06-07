@@ -3,19 +3,18 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort1;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort2;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort3;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
+import universite_paris8.iut.EtrangeEtrange.Runner;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
@@ -115,7 +114,7 @@ public class Controller implements Initializable {
 
                         for (Entite entite : monde.getEntities())
                         {
-                            Controlable lambda1 = (Controlable) entite;
+                            PNJ lambda1 = (PNJ) entite;
                             lambda1.action();
                         }
 
@@ -129,8 +128,8 @@ public class Controller implements Initializable {
 
     public void initPane(){
         // Initialisation taille en fonction de la taille de la map
-        int largeur = Monde.getSizeMondeLargeur()*Constantes.tailleTile;
-        int hauteur = Monde.getSizeMondeHauteur()*Constantes.tailleTile;
+        int largeur = Monde.getSizeMondeLargeur()* Constantes.tailleTile;
+        int hauteur = Monde.getSizeMondeHauteur()* Constantes.tailleTile;
 
         TilePaneSol.setMaxSize(largeur, hauteur);
         TilePaneSol.setMinSize(largeur, hauteur);
@@ -194,30 +193,37 @@ public class Controller implements Initializable {
     }
 
 
-    public void keyPressed(KeyEvent keyEvent)
-    {
-        ActionJoueur actionJoueur = null;
-        KeyCode keyCode = keyEvent.getCode();
-        if(keyCode==KeyCode.A)
-            actionJoueur = new ActionUtiliserSort1();
-        else if(keyCode==KeyCode.F)
-            actionJoueur = new ActionUtiliserSort2();
-        else if (keyCode==keyCode.R)
-            actionJoueur = new ActionUtiliserSort3();
-        else if(keyCode==ConstantesClavier.deplacementHaut)
-            deplacement.ajoutDirection(Direction.HAUT);
-        else if(keyCode==ConstantesClavier.deplacementDroite)
-            deplacement.ajoutDirection(Direction.DROITE);
-        else if(keyCode==ConstantesClavier.deplacementGauche)
-            deplacement.ajoutDirection(Direction.GAUCHE);
-        else if(keyCode==ConstantesClavier.deplacementBas)
-            deplacement.ajoutDirection(Direction.BAS);
-        else if(keyCode==ConstantesClavier.recupererObjetSol)
-            joueur.ramasserObjet();
-
-
-        if (actionJoueur != null)
-            joueur.action(actionJoueur);
+    public void keyPressed(KeyEvent keyEvent) throws IOException {
+        switch (keyEvent.getCode())
+        {
+            case A :
+                joueur.lanceUnSort(1);
+                break;
+            case F :
+                joueur.lanceUnSort(2);
+                break;
+            case R :
+                joueur.lanceUnSort(3);
+                break;
+            case Z :
+                deplacement.ajoutDirection(Direction.HAUT);
+                break;
+            case D :
+                deplacement.ajoutDirection(Direction.DROITE);
+                break;
+            case E:
+                joueur.ramasserObjet();
+                break;
+            case Q :
+                deplacement.ajoutDirection(Direction.GAUCHE);
+                break;
+            case S :
+                deplacement.ajoutDirection(Direction.BAS);
+                break;
+            case SHIFT:
+                joueur.estEntrainDeCourir(true);
+                break;
+        }
     }
 
 

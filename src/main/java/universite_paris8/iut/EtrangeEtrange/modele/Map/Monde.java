@@ -3,17 +3,17 @@ package universite_paris8.iut.EtrangeEtrange.modele.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEpee;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
-
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -276,7 +276,7 @@ public class Monde {
         entites.addListener(gestionAffichageSprite);
     }
 
-    public void setListenerProjectile(GestionCauseDegat gestionCauseDegats)
+    public void setListenerProjectile(GestionActionDegat gestionCauseDegats)
     {
         this.causeDegats.addListener(gestionCauseDegats);
     }
@@ -337,6 +337,14 @@ public class Monde {
         }
 
         return entitesDansRayon;
+    }
+
+    public void enleveActionDegat(ActionDegat actionDegat) {
+        causeDegats.remove(actionDegat);
+    }
+
+    public void ajoutActionDegat(ActionDegat actionDegat) {
+        causeDegats.add(actionDegat);
     }
 }
 

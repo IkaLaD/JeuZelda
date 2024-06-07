@@ -24,7 +24,7 @@
             </Tab>
             <Tab fx:id="Competence" text="Compétences" >
                 <content>
-                    <fx:include source="competenceView.fxml"/>
+                    <fx:include source="CompetenceView.fxml"/>
                 </content>
             </Tab>
             <Tab fx:id="ToucheClavier" text="Touches clavier" >

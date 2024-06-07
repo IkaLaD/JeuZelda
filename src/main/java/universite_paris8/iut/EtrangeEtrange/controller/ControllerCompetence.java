@@ -4,10 +4,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.Competences;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.CreationArbre;
@@ -24,8 +28,6 @@ public class ControllerCompetence implements Initializable
     private SwitchScene switchScene;
     private Joueur joueur;
     private Competences competences;
-
-
     @FXML
     private Pane pane;
     @Override
@@ -34,13 +36,13 @@ public class ControllerCompetence implements Initializable
         this.switchScene = SwitchScene.getSwitchScene();
         this.joueur = this.switchScene.getJoueur();
         this.competences = this.joueur.getCompetences();
-        CompetenceView cv = new CompetenceView(pane,joueur);
+
+        new CompetenceView(pane,joueur);
     }
 
 
-    public void onKeyPressed(KeyEvent keyEvent) throws IOException
+    public void onKeyPressed(KeyEvent keyEvent)
     {
-
         if (keyEvent.getCode() == KeyCode.ESCAPE)
         {
             switchScene.getStage().setScene(switchScene.getSceneJeu());
@@ -50,5 +52,6 @@ public class ControllerCompetence implements Initializable
     public void onMouseClicked(MouseEvent mouseEvent)
     {
         this.pane.requestFocus();
+        System.out.println("test");
     }
 }

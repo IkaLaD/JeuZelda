@@ -178,15 +178,19 @@ public abstract class Acteur {
     public int getId(){
         return this.id;
     }
-    public void seDeplace()
+    public void seDeplace(int i)
     {
         int x = direction.getX();
         int y = direction.getY();
 
         if(peutSeDeplacer()) {
-            position.setX(position.getX() + x * statsVitesse.getVitesseMaximum());
-            position.setY(position.getY() + y * statsVitesse.getVitesseMaximum());
+            position.setX(position.getX() + x * statsVitesse.getVitesseMaximum()*i);
+            position.setY(position.getY() + y * statsVitesse.getVitesseMaximum()*i);
         }
+    }
+
+    public void seDeplace(){
+        seDeplace(1);
     }
 
 

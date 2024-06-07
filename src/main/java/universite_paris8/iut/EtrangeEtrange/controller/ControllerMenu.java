@@ -73,6 +73,7 @@ public class ControllerMenu implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         switchScene = SwitchScene.getSwitchScene();
+        switchScene.setTabPane(TabPane);
 
         TabPane.getSelectionModel().selectedItemProperty().addListener((old, obs, nouv)->
                 TabPane.getSelectionModel().getSelectedItem().getContent().requestFocus()

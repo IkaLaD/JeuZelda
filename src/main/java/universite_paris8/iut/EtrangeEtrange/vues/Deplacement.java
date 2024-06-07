@@ -22,7 +22,7 @@ public class Deplacement
     private Set<Direction> directions;
 
     private BooleanProperty estEntrainDeCourir;
-
+    private int coefficientCourse;
     private double delai;
 
 
@@ -31,7 +31,7 @@ public class Deplacement
     {
         this.joueur = joueur;
         this.estEntrainDeCourir = new SimpleBooleanProperty();
-
+        this.coefficientCourse = 1;
         estEntrainDeCourir.bind(this.joueur.estEntrainDeCourirProperty());
         this.directions = new HashSet<>();
         this.delai = 0.020;
@@ -49,7 +49,7 @@ public class Deplacement
 
     private void seDeplace()
     {
-        double coeffVitesse = 1;
+        coefficientCourse = 1;
 
         if(directions.isEmpty())
             joueur.setSeDeplace(false);
@@ -60,10 +60,10 @@ public class Deplacement
         for (Direction direction : directions)
         {
             if (estEntrainDeCourir.get() && TypeCompetence.COURIR.getCompetence().estDebloquer())
-                coeffVitesse = 2;
+                coefficientCourse = 2;
 
             joueur.setDirection(direction);
-            joueur.seDeplace(coeffVitesse);
+            joueur.seDeplace(coefficientCourse);
         }
 
     }

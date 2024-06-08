@@ -13,6 +13,11 @@ public class EpeeDeSoldat extends Epee
     }
 
     @Override
+    public boolean peutSeDeplacer() {
+        return true;
+    }
+
+    @Override
     public double degatPhysique() {
         return 2;
     }

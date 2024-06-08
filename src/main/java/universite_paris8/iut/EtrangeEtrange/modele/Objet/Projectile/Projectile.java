@@ -16,9 +16,9 @@ public abstract class Projectile extends Acteur implements Dommageable,Objet
 
     private BooleanProperty aToucherUneCible;
 
-    public Projectile(Hitbox hitbox)
+    public Projectile(double vitesse,Hitbox hitbox)
     {
-        super(hitbox);
+        super(1,vitesse,hitbox);
     }
 
 

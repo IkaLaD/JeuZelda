@@ -1,7 +1,5 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
-
 public class FlecheSimple extends Fleche
 {
     public FlecheSimple()
@@ -20,22 +18,17 @@ public class FlecheSimple extends Fleche
     }
 
 
-
-
-
-
     @Override
     public String getNom() {
         return "Fleche";
     }
 
     @Override
-    public void unTour() {
-
+    public boolean peutSeDeplacer() {
+        return true;
     }
 
-    @Override
-    public void subitCollision(Acteur acteur) {
 
-    }
+
+
 }

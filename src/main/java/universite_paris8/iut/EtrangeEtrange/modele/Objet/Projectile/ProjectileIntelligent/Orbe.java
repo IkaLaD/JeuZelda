@@ -6,13 +6,10 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
 public class Orbe extends Projectile {
     public Orbe() {
-        super(new Hitbox(0.2,0.2));
+        super(1,new Hitbox(0.2,0.2));
     }
 
-    @Override
-    public void unTour() {
 
-    }
 
     @Override
     public void subitCollision(Acteur acteur) {
@@ -49,6 +46,11 @@ public class Orbe extends Projectile {
     @Override
     public int stackMax() {
         return 0;
+    }
+
+    @Override
+    public boolean peutSeDeplacer() {
+        return false;
     }
 
     @Override

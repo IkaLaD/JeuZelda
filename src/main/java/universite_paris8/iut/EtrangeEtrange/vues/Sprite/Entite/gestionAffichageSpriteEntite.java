@@ -20,9 +20,9 @@ public class  gestionAffichageSpriteEntite implements ListChangeListener<Entite>
     private ArrayList<SpriteEntite> animationSprites;
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.075), event -> {
         for(SpriteEntite animationSprite : animationSprites){
-            if(animationSprite.getEntite().isSeDeplace())
+           // if(animationSprite.getEntite().isSeDeplace())
                 animationSprite.miseAJourAnimation();
-            else
+            //else
                 animationSprite.finAnimationMarche();
             if(animationSprite.getAppliquerEffet())
                 animationSprite.arreterEffet();
@@ -104,14 +104,14 @@ public class  gestionAffichageSpriteEntite implements ListChangeListener<Entite>
     public void suprimmerSprite(Entite entite){
         SpriteEntite animationSprite = null;
         for(int i = 0 ; i < animationSprites.size() ; i++){
-            if(animationSprites.get(i).getId() == entite.getId()){
+        //    if(animationSprites.get(i).getId() == entite.getID()){
                 animationSprite = animationSprites.get(i);
-            }
+         //   }
         }
-        if(animationSprite!=null) {
-            paneEntite.getChildren().remove(animationSprite.getSpriteVie());
-            paneEntite.getChildren().remove(animationSprite.getSpriteEntite());
-            animationSprites.remove(animationSprite);
-        }
+       // if(animationSprite!=null) {
+       //     paneEntite.getChildren().remove(animationSprite.getSpriteVie());
+        //    paneEntite.getChildren().remove(animationSprite.getSpriteEntite());
+      //      animationSprites.remove(animationSprite);
+       // }
     }
 }

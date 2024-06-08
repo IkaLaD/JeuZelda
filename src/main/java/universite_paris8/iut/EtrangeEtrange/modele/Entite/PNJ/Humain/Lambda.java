@@ -82,7 +82,7 @@ public class Lambda extends Humanoide implements PNJ
                 setDirection(deltaY > 0 ? Direction.BAS : Direction.HAUT);
 
             if (peutSeDeplacer()) {
-                seDeplace();
+                seDeplace(1);
 
                 if (Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1) {
                     aetoile.getChemin().remove(0);

@@ -78,7 +78,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
         // Déplacer l'entité si elle peut se déplacer
         if (peutSeDeplacer()) {
             setSeDeplace(true);
-            seDeplace();
+            seDeplace(1);
         } else {
             System.out.println("Collision détectée, déplacement annulé.");
         }

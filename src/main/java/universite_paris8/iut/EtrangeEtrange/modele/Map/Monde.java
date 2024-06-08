@@ -7,6 +7,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
@@ -18,6 +19,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction.*;
 
 public class Monde {
     /**
@@ -296,8 +299,163 @@ public class Monde {
     {
         for (int i = acteurs.size()-1; i>=0; i--)
             acteurs.get(i).unTour();
+
+
+        for (int i = acteurs.size()-1; i>=0; i--)
+        {
+            Acteur acteur1 = acteurs.get(i);
+
+            for (int j = acteurs.size()-1; j>=0; j--)
+            {
+                Acteur acteur2 = acteurs.get(j);
+
+
+                if (collisionAvecActeur(acteur1,acteur2) && acteur1 != acteur2)
+                {
+                    acteur1.subitCollision(acteur2);
+                    acteur2.subitCollision(acteur1);
+                }
+            }
+        }
+
+
+        for (int i = acteurs.size()-1; i>=0; i--)
+        {
+            Acteur acteur = acteurs.get(i);
+
+            if (acteur.plusDePv())
+                acteurs.remove(i);
+        }
+
     }
 
+    public boolean estHorsMap(Acteur acteur)
+    {
+        boolean collision;
+
+        Position position = acteur.getPosition();
+        Direction direction = acteur.getDirection();
+        Hitbox hitbox = acteur.getHitbox();
+        double vitesse = acteur.getVitesse();
+
+
+
+        if (direction == BAS) {
+            collision = hitbox.getPointLePlusEnBas(position.getY()) + vitesse >= Monde.getSizeMondeHauteur();
+        } else if (direction == HAUT) {
+            collision = hitbox.getPointLePlusEnHaut(position.getY()) - vitesse < 0;
+        } else if (direction == Direction.DROITE) {
+            collision = hitbox.getPointLePlusADroite(position.getX()) + vitesse >= Monde.getSizeMondeLargeur();
+        } else if (direction == GAUCHE) {
+            collision = hitbox.getPointLePlusAGauche(position.getX()) - vitesse < 0;
+        }
+        else
+        {
+            collision = false;
+        }
+
+        return collision;
+    }
+
+
+
+    public boolean collisionMap(Acteur acteur)
+    {
+
+        Position position = acteur.getPosition();
+        Direction direction = acteur.getDirection();
+        Hitbox hitbox = acteur.getHitbox();
+        double vitesse = acteur.getVitesse();
+
+        double x = position.getX()+ vitesse*direction.getX();
+        double y = position.getY()+ vitesse*direction.getY();
+
+        // Extremité de la hitbox, calculer dans le if en dessous en fonction de la direction (on prend extremite gauche et droite si on va vers le haut ou le bas)
+        double extremite1;
+        double extremite2;
+
+        if (direction == BAS  || direction == HAUT)
+        {
+            extremite1 = hitbox.getPointLePlusAGauche(x);
+            extremite2 = hitbox.getPointLePlusADroite(x);
+        }
+        else
+        {
+            extremite1 = hitbox.getPointLePlusEnHaut(y);
+            extremite2 = hitbox.getPointLePlusEnBas(y);
+        }
+
+        boolean colision = false;
+        int cpt = (int) extremite1;
+
+
+        while (cpt <= extremite2 && !colision)
+        {
+            if (direction == BAS) {
+                colision = nontraversable[(int) (hitbox.getPointLePlusEnBas(y))][cpt] != -1;
+            } else if (direction == HAUT) {
+                colision = nontraversable[(int) (hitbox.getPointLePlusEnHaut(y))][cpt] != -1;
+            } else if (direction == DROITE) {
+                colision = nontraversable[cpt][(int) (hitbox.getPointLePlusADroite(x))] != -1;
+            } else if (direction == GAUCHE) {
+                colision = nontraversable[cpt][(int) (hitbox.getPointLePlusAGauche(x))] != -1;
+            }
+            cpt++;
+        }
+
+
+        return colision;
+    }
+
+    public boolean collisionAvecActeur(Acteur acteur1,Acteur acteur2)
+    {
+        Position pos1 = acteur1.getPosition();
+        Hitbox hitbox1 = acteur1.getHitbox();
+
+        Position pos2 = acteur2.getPosition();
+        Hitbox hitbox2 = acteur2.getHitbox();
+
+        double x1Min = hitbox1.getPointLePlusAGauche(pos1.getX());
+        double y1Min = hitbox1.getPointLePlusEnHaut(pos1.getY());
+        double x1Max = hitbox1.getPointLePlusADroite(pos1.getX());
+        double y1Max = hitbox1.getPointLePlusEnBas(pos1.getY());
+
+        double x2Min = hitbox2.getPointLePlusAGauche(pos2.getX());
+        double y2Min = hitbox2.getPointLePlusEnHaut(pos2.getY());
+        double x2Max = hitbox2.getPointLePlusADroite(pos2.getX());
+        double y2Max = hitbox2.getPointLePlusEnBas(pos2.getY());
+
+        boolean collisionX = x1Min < x2Max && x1Max > x2Min;
+        boolean collisionY = y1Min < y2Max && y1Max > y2Min;
+
+        return collisionX && collisionY;
+    }
+
+
+    public boolean collision(Acteur acteur)
+    {
+        return !(collisionMap(acteur) && !collisionAvecActeurs(acteur));
+    }
+
+    private boolean collisionAvecActeurs(Acteur acteur1)
+    {
+        boolean aCollision = false;
+
+        for (int i = 0;i<acteurs.size() && !aCollision;i++)
+        {
+            Acteur acteur2 = acteurs.get(i);
+
+            if (collisionAvecActeur(acteur1,acteur2) && acteur2 != acteur1)
+                aCollision = true;
+        }
+
+        return aCollision;
+    }
+
+    public void setListenerActeur(GestionActionDegat listenerActeur)
+    {
+        this.acteurs.addListener(listenerActeur);
+    }
 
 
     public void setListenerListeDropsAuSol(gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol) {

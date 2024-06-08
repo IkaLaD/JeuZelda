@@ -1,8 +1,10 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc;
 
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueDistance.ParametreAttaqueArc;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
@@ -16,7 +18,7 @@ public class Arc implements Arme,Rechargeable
 
     public Arc()
     {
-        this.peuTirer = false;
+        this.peuTirer = true;
     }
 
     @Override
@@ -48,6 +50,16 @@ public class Arc implements Arme,Rechargeable
         {
             if (peuTirer)
             {
+                EntiteOffensif e = parametre.getOrigineAction();
+
+                Projectile projectile = parametre.getProjectile();
+                projectile.setMonde(e.getMonde());
+                projectile.setPosition(e.getPosition().getX(),e.getPosition().getY());
+                projectile.setDirection(e.getDirection());
+
+
+
+                e.getMonde().ajoutActeur(projectile);
                 this.peuTirer = false;
                 cooldown();
             }

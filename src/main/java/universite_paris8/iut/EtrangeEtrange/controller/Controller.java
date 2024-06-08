@@ -10,6 +10,7 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import universite_paris8.iut.EtrangeEtrange.Runner;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
@@ -75,7 +76,7 @@ public class Controller implements Initializable {
         gestionAffichageSprite.ajouterJoueur(joueur);
 
         GestionActionDegat gestionCauseDegat = new GestionActionDegat(paneEntite);
-
+        monde.setListenerActeur(gestionCauseDegat);
 
 
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
@@ -101,18 +102,11 @@ public class Controller implements Initializable {
 
         KeyFrame kf = new KeyFrame
                 (
-                    Duration.seconds(0.1),
+                    Duration.seconds(0.0001),
 
                     (ev ->
                     {
-
-
-
-                        for (Entite entite : monde.getEntities())
-                        {
-                            PNJ lambda1 = (PNJ) entite;
-                            lambda1.action();
-                        }
+                        monde.unTour();
 
                     })
         );

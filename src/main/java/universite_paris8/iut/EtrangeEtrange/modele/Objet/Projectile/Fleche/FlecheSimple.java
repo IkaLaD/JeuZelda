@@ -18,12 +18,17 @@ public class FlecheSimple extends Fleche
     }
 
 
-
-
-
-
     @Override
     public String getNom() {
         return "Fleche";
     }
+
+    @Override
+    public boolean peutSeDeplacer() {
+        return true;
+    }
+
+
+
+
 }

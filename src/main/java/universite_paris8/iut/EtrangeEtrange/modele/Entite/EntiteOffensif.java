@@ -12,9 +12,9 @@ public abstract class EntiteOffensif extends Entite
 {
     protected Attaque statsAttaque;
     protected AttaqueSpecial statsAttaqueSpecial;
-    public EntiteOffensif(double pv, double attaque, double defense, double attaqueSpecial , double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox)
+    public EntiteOffensif(Monde monde, double x, double y, Direction direction, double pv, double attaque, double defense, double attaqueSpecial , double defenseSpecial, double vitesse,Hitbox hitbox)
     {
-        super(pv, defense, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
+        super(monde,x,y,direction,pv,defense,defenseSpecial,vitesse,hitbox);
         this.statsAttaque = new Attaque(attaque);
         this.statsAttaqueSpecial = new AttaqueSpecial(attaqueSpecial);
     }

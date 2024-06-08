@@ -1,5 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesPersonnages;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -15,4 +17,18 @@ public class Archer extends Joueur
         this.carquois = new Carquois();
     }
 
+    @Override
+    public void unTour() {
+
+    }
+
+    @Override
+    public void subitCollision(Acteur acteur) {
+
+    }
+
+    @Override
+    public void subitDegat(Dommageable causeDegat) {
+
+    }
 }

@@ -10,6 +10,7 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import universite_paris8.iut.EtrangeEtrange.Runner;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
@@ -38,8 +39,6 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageS
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
 
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 
 import java.io.IOException;
 import java.net.URL;
@@ -77,7 +76,7 @@ public class Controller implements Initializable {
         gestionAffichageSprite.ajouterJoueur(joueur);
 
         GestionActionDegat gestionCauseDegat = new GestionActionDegat(paneEntite);
-        monde.setListenerProjectile(gestionCauseDegat);
+        monde.setListenerActeur(gestionCauseDegat);
 
 
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
@@ -87,9 +86,6 @@ public class Controller implements Initializable {
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
         
         monde.setJoueur(joueur);
-        Aetoile aetoile = new Aetoile(monde);
-        initLoups(aetoile);
-        initBoss(monde, joueur, aetoile);
 
 
         deplacement = new Deplacement(joueur);
@@ -106,20 +102,11 @@ public class Controller implements Initializable {
 
         KeyFrame kf = new KeyFrame
                 (
-                    Duration.seconds(0.1),
+                    Duration.seconds(0.0001),
 
                     (ev ->
                     {
-
-
-
-                        for (Entite entite : monde.getEntities())
-                        {
-                            PNJ lambda1 = (PNJ) entite;
-                            lambda1.action();
-                        }
-                        monde.miseAjourActionDegats();
-                        monde.verificationCollisionAvecArme();
+                        monde.unTour();
 
                     })
         );
@@ -183,20 +170,7 @@ public class Controller implements Initializable {
         }
 
     }
-    private void initLoups(Aetoile aetoile) {
 
-        Loup loup1 = new Loup(joueur, monde, 0, 10, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
-        monde.ajoutEntite(loup1);
-
-        Lambda lambda = new Lambda(monde,10,10, Direction.BAS);
-        monde.ajoutEntite(lambda);
-
-    }
-
-    private void initBoss(Monde monde, Joueur joueur, Aetoile aetoile) {
-        RoiSquelette roiSquelette = new RoiSquelette(1000, 20, 100, 15, 5, 0.1, monde, 6, 28, Direction.BAS, new Hitbox(0.5, 0.5));
-        monde.ajoutEntite(roiSquelette);
-    }
 
 
     public void keyPressed(KeyEvent keyEvent) throws IOException {

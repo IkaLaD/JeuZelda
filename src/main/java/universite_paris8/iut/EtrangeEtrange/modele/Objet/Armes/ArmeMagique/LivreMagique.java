@@ -10,10 +10,13 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 
 import java.util.ArrayList;
 
-public  class LivreMagique extends Arme implements Utilisable
+public  class LivreMagique implements Arme
 {
     private ArrayList<Sortilege> sortileges;
     private final int sortMaximum = 3;
+
+
+
 
     public LivreMagique()
     {

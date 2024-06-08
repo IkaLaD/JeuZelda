@@ -9,7 +9,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Inventaire;
 
 import java.util.ArrayList;
 
-public abstract class ObjetConteneur<T extends Objet> extends Objet implements Conteneur<T>
+public abstract class ObjetConteneur<T extends Objet> implements Objet, Conteneur<T>
 {
     private Inventaire<T> inv;
 

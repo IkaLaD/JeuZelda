@@ -44,6 +44,10 @@ public class Pv
             this.pv.set(this.pv.get()+pv);
     }
 
+    public void enleveToutPv()
+    {
+        this.pv.set(0);
+    }
 
     public boolean pvAzero()
     {

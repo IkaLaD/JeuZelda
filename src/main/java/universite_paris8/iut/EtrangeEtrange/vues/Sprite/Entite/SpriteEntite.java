@@ -10,8 +10,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
-import static universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction.*;
-
 public class SpriteEntite {
     private Entite entite;
     private String skin;
@@ -31,14 +29,14 @@ public class SpriteEntite {
         this.SpriteEntite = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+skin+"/bas1.png");
         this.entite = entite;
         this.skin = skin;
-        this.id = entite.getId();
+       // this.id = entite.getID();
 
 
         if(!(entite instanceof Joueur))
             this.SpriteVie = new Rectangle();
 
         // On lie le sprite et l'entité par un même identifiant
-        this.SpriteEntite.setId(entite.getId()+"");
+        this.SpriteEntite.setId(entite.getID()+"");
 
         // Listener pour lié position de l'entité et de son sprite
         entite.getPosition().getXProperty().addListener((obs, old, nouv)->

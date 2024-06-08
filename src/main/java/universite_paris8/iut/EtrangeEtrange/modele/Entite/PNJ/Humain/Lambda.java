@@ -1,7 +1,9 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
@@ -30,8 +32,9 @@ public class Lambda extends Humanoide implements PNJ
     private long tourBoucle;
     private long derniereApelleAetoile;
     private Aetoile aetoile;
-    public Lambda(Monde monde, double x, double y, Direction direction) {
-        super(100, 5, 50, 1, 20, 0.1,null,new Arc(),null, monde, x, y, direction, new Hitbox(0.50,0.50));
+    public Lambda(Monde monde, double x, double y, Direction direction)
+    {
+        super(monde, x, y, direction,100,100,100,100,100,0.2,new Hitbox(0.1,0.1),null,null,null);
         this.aetoile = new Aetoile(monde);
         this.tourBoucle = 0;
         this.derniereApelleAetoile = 0;
@@ -79,7 +82,7 @@ public class Lambda extends Humanoide implements PNJ
                 setDirection(deltaY > 0 ? Direction.BAS : Direction.HAUT);
 
             if (peutSeDeplacer()) {
-                seDeplace();
+                seDeplace(1);
 
                 if (Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1) {
                     aetoile.getChemin().remove(0);
@@ -93,22 +96,6 @@ public class Lambda extends Humanoide implements PNJ
 
 
 
-            if (tourBoucle%100 == 0)
-            {
-                if (getPv() <= getStatsPv().getPvMaximum()/2)
-                {
-                    if (!potions.isEmpty())
-                        consommer(potions.remove(0));
-
-
-                }
-            }
-
-
-            if (getPv() <= getStatsPv().getPvMaximum()/2 && tourBoucle%100 == 0)
-            {
-                FabriquePnj.fabriquePnj(Squelette.class,2,monde,position);
-            }
 
 
 
@@ -173,5 +160,18 @@ public class Lambda extends Humanoide implements PNJ
     }
 
 
+    @Override
+    public void unTour() {
 
+    }
+
+    @Override
+    public void subitCollision(Acteur acteur) {
+
+    }
+
+    @Override
+    public void subitDegat(Dommageable causeDegat) {
+
+    }
 }

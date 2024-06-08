@@ -7,10 +7,8 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.ComparePositionSprite;
@@ -22,9 +20,9 @@ public class  gestionAffichageSpriteEntite implements ListChangeListener<Entite>
     private ArrayList<SpriteEntite> animationSprites;
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.075), event -> {
         for(SpriteEntite animationSprite : animationSprites){
-            if(animationSprite.getEntite().isSeDeplace())
+           // if(animationSprite.getEntite().isSeDeplace())
                 animationSprite.miseAJourAnimation();
-            else
+            //else
                 animationSprite.finAnimationMarche();
             if(animationSprite.getAppliquerEffet())
                 animationSprite.arreterEffet();
@@ -57,7 +55,7 @@ public class  gestionAffichageSpriteEntite implements ListChangeListener<Entite>
             skin = "chevalier";
         } else if (entite.getClass().equals(Squelette.class)) {
             skin = "squelette";
-        } else if (entite.getClass().equals(RoiSquelette.class)) {
+        } else if (entite.getClass().equals(int.class)) {
             skin = "roiSquelette";
         } else {
             skin = "pnjtest";
@@ -106,14 +104,14 @@ public class  gestionAffichageSpriteEntite implements ListChangeListener<Entite>
     public void suprimmerSprite(Entite entite){
         SpriteEntite animationSprite = null;
         for(int i = 0 ; i < animationSprites.size() ; i++){
-            if(animationSprites.get(i).getId() == entite.getId()){
+        //    if(animationSprites.get(i).getId() == entite.getID()){
                 animationSprite = animationSprites.get(i);
-            }
+         //   }
         }
-        if(animationSprite!=null) {
-            paneEntite.getChildren().remove(animationSprite.getSpriteVie());
-            paneEntite.getChildren().remove(animationSprite.getSpriteEntite());
-            animationSprites.remove(animationSprite);
-        }
+       // if(animationSprite!=null) {
+       //     paneEntite.getChildren().remove(animationSprite.getSpriteVie());
+        //    paneEntite.getChildren().remove(animationSprite.getSpriteEntite());
+      //      animationSprites.remove(animationSprite);
+       // }
     }
 }

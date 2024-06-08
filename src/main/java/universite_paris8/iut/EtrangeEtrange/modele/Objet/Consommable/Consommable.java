@@ -4,7 +4,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreConsomable.ParametreActionConsomable;
 
-public abstract class Consommable extends Objet implements Utilisable
+public interface Consommable extends Objet, Utilisable
 {
     public abstract void consommer(ParametreActionConsomable param);
 

@@ -15,16 +15,21 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
 
 import java.util.TimerTask;
 
-public abstract class Epee extends Acteur implements Dommageable,Rechargeable,Arme
+public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 {
     private boolean peuTaper;
     private short cycle;
 
 
-    public Epee(Monde monde, double x, double y, Direction direction, double pv, double vitesse, Hitbox hitbox) {
-        super(monde, x, y, direction, pv, vitesse, hitbox);
+    public Epee() {
+        super(25, 1, new Hitbox(0.2,0.1));
         this.peuTaper = true;
         this.cycle = 0;
+    }
+
+    @Override
+    public boolean peutSeDeplacer() {
+        return false;
     }
 
     @Override
@@ -100,6 +105,11 @@ public abstract class Epee extends Acteur implements Dommageable,Rechargeable,Ar
 
 
     @Override
+    public long delaie() {
+        return 0;
+    }
+
+    @Override
     public void cooldown()
     {
         TimerAction.addAction(new TimerTask() {
@@ -110,6 +120,11 @@ public abstract class Epee extends Acteur implements Dommageable,Rechargeable,Ar
         },delaie());
     }
 
+
+    @Override
+    public String getNom() {
+        return null;
+    }
 
     @Override
     public int stackMax() {
@@ -143,5 +158,25 @@ public abstract class Epee extends Acteur implements Dommageable,Rechargeable,Ar
         }
 
         this.position = new Position(x,y);
+    }
+
+    @Override
+    public double degatPhysique() {
+        return 0;
+    }
+
+    @Override
+    public double degatSpecial() {
+        return 0;
+    }
+
+    @Override
+    public double portee() {
+        return 0;
+    }
+
+    @Override
+    public double angle() {
+        return 0;
     }
 }

@@ -80,7 +80,7 @@ public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur
 
         // Déplacer l'entité si elle peut se déplacer
         if (peutSeDeplacer()) {
-            seDeplace();
+            seDeplace(1);
         } else {
             System.out.println("Collision détectée, déplacement annulé.");
         }

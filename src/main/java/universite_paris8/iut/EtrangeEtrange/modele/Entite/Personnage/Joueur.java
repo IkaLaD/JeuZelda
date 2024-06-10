@@ -39,7 +39,9 @@ public abstract class Joueur extends Humanoide
         return getSac().ajoutItem(objet);
     }
 
-
+    public void setCarquois(Carquois carquois) {
+        this.carquois = carquois;
+    }
 
     @Override
     public void actionMainDroite()
@@ -118,6 +120,13 @@ public abstract class Joueur extends Humanoide
         this.peuCourir = peuCourir;
     }
 
-
-
+    public Carquois getCarquois() {
+        return carquois;
+    }
+    public boolean isPeuCourir(){
+        return this.peuCourir;
+    }
+    public void setPeuCourir(boolean bool){
+        this.peuCourir = bool;
+    }
 }

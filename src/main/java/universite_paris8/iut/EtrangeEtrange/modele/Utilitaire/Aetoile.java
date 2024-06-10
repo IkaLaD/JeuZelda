@@ -146,6 +146,10 @@ public class Aetoile {
         return new Position(x + 0.5, y + 0.5);
     }
 
+    public Sommet[][] getGraphe() {
+        return graphe;
+    }
+
     // Obtenir le chemin trouvé
     public List<Position> getChemin() {
         return chemin;
@@ -201,5 +205,6 @@ public class Aetoile {
         public double getF() {
             return g + h; // f = g + h, utilisé pour la priorité dans la file
         }
+
     }
 }

@@ -13,19 +13,22 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 public class RoiSquelette extends EntiteOffensif implements Controlable {
 
     private long dernierTempsAttaque;
-    private long delaiAttaque = 200;
+    private long delaiAttaque;
     private Position positionInitiale;
     private int etapeAttaque;
     private Position positionMilieu;
     private Position position5_2;
-    private boolean joueurDetecte = false;
-    private double distanceDetection = 5.0;
+    private boolean joueurDetecte;
+    private double distanceDetection;
 
     public RoiSquelette(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
         this.dernierTempsAttaque = System.currentTimeMillis();
         this.positionInitiale = new Position(x, y);
         this.etapeAttaque = 0;
+        this.joueurDetecte = false;
+        this.distanceDetection = 5.0;
+        this.delaiAttaque = 200;
         this.positionMilieu = new Position(5.5, 27.5);
         this.position5_2 = new Position(2, 27.5);
         setPosition(x, y); // Positionnement initial du Roi Squelette
@@ -132,6 +135,39 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
             seDeplace();
     }
 
+    public void setDelaiAttaque(long delaiAttaque) {
+        this.delaiAttaque = delaiAttaque;
+    }
+
+    public void setDistanceDetection(double distanceDetection) {
+        this.distanceDetection = distanceDetection;
+    }
+
+    public void setEtapeAttaque(int etapeAttaque) {
+        this.etapeAttaque = etapeAttaque;
+    }
+
+    public void setJoueurDetecte(boolean joueurDetecte) {
+        this.joueurDetecte = joueurDetecte;
+    }
+
+    public void setPosition5_2(Position position5_2) {
+        this.position5_2 = position5_2;
+    }
+
+    public void setPositionInitiale(Position positionInitiale) {
+        this.positionInitiale = positionInitiale;
+    }
+
+    public void setPositionMilieu(Position positionMilieu) {
+        this.positionMilieu = positionMilieu;
+    }
+
+    public void setDernierTempsAttaque(long dernierTempsAttaque) {
+        this.dernierTempsAttaque = dernierTempsAttaque;
+    }
+
+
     // Vérifie si le Roi Squelette a atteint une certaine position
     private boolean positionAtteinte(Position position) {
         return Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1;
@@ -147,4 +183,35 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
         return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
     }
 
+    public Position getPositionMilieu() {
+        return positionMilieu;
+    }
+
+    public Position getPosition5_2() {
+        return position5_2;
+    }
+
+    public long getDernierTempsAttaque() {
+        return dernierTempsAttaque;
+    }
+
+    public Position getPositionInitiale() {
+        return positionInitiale;
+    }
+
+    public int getEtapeAttaque() {
+        return etapeAttaque;
+    }
+
+    public double getDistanceDetection(){
+        return distanceDetection;
+    }
+
+    public long getDelaiAttaque() {
+        return delaiAttaque;
+    }
+
+    public boolean isJoueurDetecte() {
+        return joueurDetecte;
+    }
 }

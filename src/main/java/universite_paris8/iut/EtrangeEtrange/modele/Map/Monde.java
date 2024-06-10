@@ -48,7 +48,6 @@ public class Monde {
         this.entites = FXCollections.observableArrayList();
         causeDegats =  FXCollections.observableArrayList();
         this.joueur = null;
-
         this.dropsAuSol = FXCollections.observableArrayList();
     }
 
@@ -333,6 +332,10 @@ public class Monde {
         }
 
         return entitesDansRayon;
+    }
+
+    public ObservableList<ActionDegat> getCauseDegats() {
+        return causeDegats;
     }
 }
 

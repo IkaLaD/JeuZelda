@@ -66,6 +66,14 @@ public abstract class Acteur {
     public void setDirection(Direction direction){
         this.direction = direction;
     }
+    public void setHitbox(Hitbox hitbox){this.hitbox=hitbox;}
+
+    public void setStatsVitesse(Vitesse statsVitesse) {
+        this.statsVitesse = statsVitesse;
+    }
+    public void setStatsPv(Pv pv){
+        this.statsPv = pv;
+    }
 
     /**
      * Méthode qui vérifie si la prochaine position ou souhaite aller l'entité ne soit pas hors map ou un mur

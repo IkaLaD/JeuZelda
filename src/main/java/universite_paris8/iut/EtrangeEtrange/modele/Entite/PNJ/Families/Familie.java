@@ -28,6 +28,26 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
         this.lastPathCalculationTime = System.currentTimeMillis();
     }
 
+    public void setLastPathCalculationTime(long lastPathCalculationTime) {
+        this.lastPathCalculationTime = lastPathCalculationTime;
+    }
+
+    public void setAetoile(Aetoile aetoile) {
+        this.aetoile = aetoile;
+    }
+
+    public void setJoueur(Joueur joueur) {
+        this.joueur = joueur;
+    }
+
+    public void setEstFamilier(boolean estFamilier) {
+        this.estFamilier = estFamilier;
+    }
+
+    public void setRayonDetection(double rayonDetection) {
+        this.rayonDetection = rayonDetection;
+    }
+
     @Override
     public void action() {
         if (!estFamilier) {
@@ -144,5 +164,25 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
     @Override
     public void attaque(Arme arme) {
 
+    }
+
+    public long getLastPathCalculationTime() {
+        return lastPathCalculationTime;
+    }
+
+    public Aetoile getAetoile() {
+        return aetoile;
+    }
+
+    public Joueur getJoueur() {
+        return joueur;
+    }
+
+    public double getRayonDetection() {
+        return rayonDetection;
+    }
+
+    public boolean isEstFamilier() {
+        return estFamilier;
     }
 }

@@ -42,4 +42,5 @@ public abstract class Epee extends Arme implements Dommageable
     public int stackMax() {
         return 1;
     }
+
 }

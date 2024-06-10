@@ -100,4 +100,12 @@ public  abstract class Projectile extends Objet implements Dommageable
     public final Position getPosition() {
         return this.position;
     }
+
+    public Vitesse getVitesse() {
+        return vitesse;
+    }
+
+    public boolean isaToucherUneCible() {
+        return aToucherUneCible.get();
+    }
 }

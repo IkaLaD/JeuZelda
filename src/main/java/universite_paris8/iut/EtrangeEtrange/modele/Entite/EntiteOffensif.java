@@ -43,7 +43,11 @@ public abstract class EntiteOffensif extends Entite
     public double getAttaque(){ return this.statsAttaque.getAttaque();}
     public double getAttaqueSpecial(){ return this.statsAttaqueSpecial.getAttaqueSpecial();}
 
+    public void setStatsAttaque(Attaque statsAttaque) {
+        this.statsAttaque = statsAttaque;
+    }
 
-
-
+    public void setStatsAttaqueSpecial(AttaqueSpecial statsAttaqueSpecial) {
+        this.statsAttaqueSpecial = statsAttaqueSpecial;
+    }
 }

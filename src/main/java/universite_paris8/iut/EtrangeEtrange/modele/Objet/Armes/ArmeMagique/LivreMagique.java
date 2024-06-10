@@ -49,4 +49,8 @@ public  class LivreMagique extends Objet implements Utilisable
     public int stackMax() {
         return 1;
     }
+
+    public ArrayList<Sortilege> getSortileges() {
+        return sortileges;
+    }
 }

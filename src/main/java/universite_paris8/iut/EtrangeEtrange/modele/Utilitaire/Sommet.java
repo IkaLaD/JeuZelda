@@ -6,7 +6,7 @@ import java.util.List;
 public class Sommet {
     private Position position;
     private boolean traversable;
-    private List<Sommet> voisins;
+    private ArrayList<Sommet> voisins;
 
     public Sommet(Position position, boolean traversable) {
         this.position = position;
@@ -26,7 +26,7 @@ public class Sommet {
         this.traversable = traversable;
     }
 
-    public List<Sommet> getVoisins() {
+    public ArrayList<Sommet> getVoisins() {
         return voisins;
     }
 
@@ -38,4 +38,5 @@ public class Sommet {
         return Math.sqrt(Math.pow(position.getX() - autre.getPosition().getX(), 2) +
                 Math.pow(position.getY() - autre.getPosition().getY(), 2));
     }
+
 }

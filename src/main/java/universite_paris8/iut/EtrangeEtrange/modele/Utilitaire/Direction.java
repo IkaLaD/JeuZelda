@@ -12,7 +12,7 @@ public class Direction
 
 
     private int x,y;
-    private Direction(int x,int y)
+    public Direction(int x,int y)
     {
         this.x = x;
         this.y = y;
@@ -27,6 +27,13 @@ public class Direction
         return this.y;
     }
 
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
 
     public final static Direction calculeDirection(Set<Direction> directions)
     {
@@ -54,6 +61,5 @@ public class Direction
 
         return directions;
     }
-
 
 }

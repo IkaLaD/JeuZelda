@@ -16,6 +16,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
+import universite_paris8.iut.EtrangeEtrange.modele.SystemeSauvegarde.LecteurSauvegarde;
+import universite_paris8.iut.EtrangeEtrange.modele.SystemeSauvegarde.Sauvegarde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
@@ -66,8 +68,19 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         switchDonnees = switchDonnees.getSwitchScene();
         switchDonnees.setControllerJeu(this);
-        initMonde();
-        initJoueur();
+        LecteurSauvegarde lecteurSauvegarde = null;
+        boolean sauv = true;
+        if(!sauv){
+            initMonde();
+            initJoueur();
+        }
+        else{
+            this.monde = new Monde();
+            lecteurSauvegarde = new LecteurSauvegarde("src/main/resources/universite_paris8/iut/EtrangeEtrange/Sauvegardes/sauvegardetest.txt",monde);
+            lecteurSauvegarde.initialisationMap();
+        }
+
+
         initPane();
 
         GestionAffichageSpriteEntite gestionAffichageSprite = new GestionAffichageSpriteEntite(paneEntite);
@@ -83,12 +96,17 @@ public class Controller implements Initializable {
         gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol = new gestionAffichageSpriteDropAuSol(paneEntite);
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
-        
 
-        // Création des entités avec l'algo A* qui leur permet de rejoindre le joueur
-        Aetoile aetoile = new Aetoile(monde);
-        initLoups(aetoile);
-        initBoss(monde, joueur, aetoile);
+
+        if(!sauv) {
+            // Création des entités avec l'algo A* qui leur permet de rejoindre le joueur
+            Aetoile aetoile = new Aetoile(monde);
+            initLoups(aetoile);
+            initBoss(monde, joueur, aetoile);
+        }
+        else{
+            lecteurSauvegarde.initialisationActeursMonde();
+        }
 
 
         deplacement = new Deplacement(joueur);
@@ -192,8 +210,7 @@ public class Controller implements Initializable {
     }
 
 
-    public void keyPressed(KeyEvent keyEvent)
-    {
+    public void keyPressed(KeyEvent keyEvent) throws IOException {
         ActionJoueur actionJoueur = null;
         KeyCode keyCode = keyEvent.getCode();
         if(keyCode==KeyCode.A)
@@ -212,6 +229,8 @@ public class Controller implements Initializable {
             deplacement.ajoutDirection(Direction.BAS);
         else if(keyCode==ConstantesClavier.recupererObjetSol)
             joueur.ramasserObjet();
+        else if(keyCode==KeyCode.J)
+            new Sauvegarde("sauvegardetest", monde);
 
 
         if (actionJoueur != null)

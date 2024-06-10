@@ -24,6 +24,19 @@ public class Squelette extends EntiteOffensif implements Controlable, SeDeplacer
         this.lastPathCalculationTime = System.currentTimeMillis();
     }
 
+    public void setAetoile(Aetoile aetoile) {
+        this.aetoile = aetoile;
+    }
+
+    public void setJoueur(Joueur joueur) {
+        this.joueur = joueur;
+    }
+
+    public void setLastPathCalculationTime(long lastPathCalculationTime) {
+        this.lastPathCalculationTime = lastPathCalculationTime;
+    }
+
+
     @Override
     public void action() {
         seDeplacerVersJoueur(joueur.getPosition());
@@ -95,5 +108,17 @@ public class Squelette extends EntiteOffensif implements Controlable, SeDeplacer
     @Override
     public void attaque(Arme arme) {
 
+    }
+
+    public Aetoile getAetoile() {
+        return aetoile;
+    }
+
+    public Joueur getJoueur() {
+        return joueur;
+    }
+
+    public long getLastPathCalculationTime() {
+        return lastPathCalculationTime;
     }
 }

@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
@@ -54,8 +55,8 @@ public class SortilegePluitDeFleche extends Sortilege
         final double dispersionSurLesCotes = 3 ;
         final double dispersionFace = 3 ;
 
-        double newX = x ;
-        double newY = y ;
+        double newX = x;
+        double newY = y;
 
         if (direction == Direction.DROITE || direction == Direction.GAUCHE)
         {

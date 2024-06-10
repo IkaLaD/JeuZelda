@@ -26,13 +26,33 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.A
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 
-
+/**
+ * Représente le joueur dans le jeu.
+ */
 public abstract class Joueur extends Humanoide
 {
     private Competences competences;
     protected Carquois carquois;
     private BooleanProperty estEntrainDeCourir;
 
+    /**
+     * Crée un nouveau joueur.
+     *
+     * @param pv             Les points de vie du joueur.
+     * @param attaque        La valeur de l'attaque du joueur.
+     * @param defense        La valeur de la défense du joueur.
+     * @param attaqueSpecial La valeur de l'attaque spéciale du joueur.
+     * @param defenseSpecial La valeur de la défense spéciale du joueur.
+     * @param vitesse        La vitesse de déplacement du joueur.
+     * @param sac            Le sac à dos du joueur.
+     * @param objetMainGauche   L'objet tenu dans la main gauche du joueur.
+     * @param objetMainDroite L'objet tenu dans la main droite du joueur.
+     * @param monde          Le monde dans lequel évolue le joueur.
+     * @param x              La position horizontale du joueur dans le monde.
+     * @param y              La position verticale du joueur dans le monde.
+     * @param direction      La direction vers laquelle le joueur est orienté.
+     * @param hitbox         La hitbox du joueur.
+     */
     public Joueur(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(monde, x, y, direction, pv,attaque,defense,attaqueSpecial,defenseSpecial,vitesse,hitbox,sac,objetMainGauche,objetMainDroite);
         this.competences = CreationArbre.arbres();

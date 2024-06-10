@@ -2,11 +2,11 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort
 
 import javafx.application.Platform;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
 
 import java.util.TimerTask;
 
@@ -21,22 +21,31 @@ public class SortilegePluitDeFleche extends Sortilege
         double y = utilisateur.getPosition().getY();
 
         Direction direction = utilisateur.getDirection();
+
         for (int i = 0;i<NOMBRE_FLECHE;i++)
         {
-            TimerAction.addAction(new TimerTask()
+
+            int delaie = i+1;
+            Rechargeable rechargeable = new Rechargeable()
             {
                 @Override
-                public void run()
-                {
-                    Platform.runLater(() -> {
-                        FlecheSimple flecheSimple = new FlecheSimple();
-                        flecheSimple.setDirection(direction);
-                        flecheSimple.setPosition(positionAleaAutourDe(x,y, direction));
-                        flecheSimple.setMonde(utilisateur.getMonde());
-                        utilisateur.getMonde().ajoutActeur(flecheSimple);
-                    });
+                public long delaie() {
+                    return delaie * 2 ;
                 }
-            }, i * 100);
+
+                @Override
+                public void cooldown()
+                {
+                    FlecheSimple flecheSimple = new FlecheSimple();
+                    flecheSimple.setDirection(direction);
+                    flecheSimple.setPosition(positionAleaAutourDe(x,y, direction));
+                    flecheSimple.setMonde(utilisateur.getMonde());
+                    utilisateur.getMonde().ajoutActeur(flecheSimple);
+                }
+            };
+
+            utilisateur.getMonde().ajoutRechargeable(rechargeable);
+
         }
     }
 
@@ -61,4 +70,5 @@ public class SortilegePluitDeFleche extends Sortilege
 
         return new Position(newX,newY);
     }
+
 }

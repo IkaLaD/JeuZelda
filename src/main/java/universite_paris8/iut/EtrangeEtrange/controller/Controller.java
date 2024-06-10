@@ -10,18 +10,11 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import universite_paris8.iut.EtrangeEtrange.Runner;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
-
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
@@ -56,7 +49,7 @@ public class Controller implements Initializable {
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
-    private int temps = 0;
+    private long tour = 0;
     private Deplacement deplacement;
     private SwitchScene switchDonnees;
 
@@ -72,7 +65,6 @@ public class Controller implements Initializable {
 
 
         gestionAffichageSpriteEntite gestionAffichageSprite = new gestionAffichageSpriteEntite(paneEntite);
-        monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
 
         GestionActionDegat gestionCauseDegat = new GestionActionDegat(paneEntite);
@@ -97,16 +89,19 @@ public class Controller implements Initializable {
 
     private void initGameLoop() {
         gameLoop = new Timeline();
-        temps=0;
+
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame
                 (
-                    Duration.seconds(0.0001),
+                    Duration.seconds(0.1),
 
                     (ev ->
                     {
-                        monde.unTour();
+                        tour++;
+                        monde.unTour(tour);
+
+
 
                     })
         );

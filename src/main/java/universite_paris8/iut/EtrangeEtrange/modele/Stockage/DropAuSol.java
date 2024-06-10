@@ -1,12 +1,8 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Stockage;
 
-import javafx.geometry.Pos;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
-
-import java.util.ArrayList;
 
 public class DropAuSol {
 

@@ -10,7 +10,7 @@ import javafx.scene.layout.*;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 
 public class gestionAffichageInventaire {
 

@@ -3,13 +3,10 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueDistance.ParametreAttaqueArc;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
-
-import java.util.TimerTask;
 
 public class Arc implements Arme,Rechargeable
 {
@@ -23,16 +20,11 @@ public class Arc implements Arme,Rechargeable
 
     @Override
     public long delaie() {
-        return 1000;
+        return 10;
     }
 
     @Override
-    public void cooldown() { TimerAction.addAction(new TimerTask() {
-            @Override
-            public void run() {
-                peuTirer = true;
-            }
-        }, delaie()); }
+    public void cooldown() { peuTirer = true;}
 
     @Override
     public String getNom() {
@@ -53,6 +45,7 @@ public class Arc implements Arme,Rechargeable
                 EntiteOffensif e = parametre.getOrigineAction();
 
                 Projectile projectile = parametre.getProjectile();
+
                 projectile.setMonde(e.getMonde());
                 projectile.setPosition(e.getPosition().getX(),e.getPosition().getY());
                 projectile.setDirection(e.getDirection());
@@ -61,7 +54,7 @@ public class Arc implements Arme,Rechargeable
 
                 e.getMonde().ajoutActeur(projectile);
                 this.peuTirer = false;
-                cooldown();
+                e.getMonde().ajoutRechargeable(this);
             }
         }
     }

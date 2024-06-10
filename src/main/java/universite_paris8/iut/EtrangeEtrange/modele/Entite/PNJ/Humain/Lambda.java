@@ -13,13 +13,11 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ParametreLivreMagique.ParametreLivreMagique;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesPersonnages;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.*;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
@@ -154,9 +152,8 @@ public class Lambda extends Humanoide implements PNJ
     public void lanceUnSort(int numSort)
     {
         if (objetMainDroite instanceof LivreMagique livreMagique)
-        {
             livreMagique.utilise(new ParametreLivreMagique(this,numSort));
-        }
+
     }
 
 

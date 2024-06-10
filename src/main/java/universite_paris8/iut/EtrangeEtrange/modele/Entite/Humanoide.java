@@ -2,7 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 
 
@@ -25,8 +25,6 @@ public abstract class Humanoide extends EntiteOffensif
         this.objetMainGauche = objetMainGauche;
         this.objetMainDroite = objetMainDroite;
     }
-
-
 
     @Override
     protected double subitDegatPhysique(double attaque,double forceEntite) {

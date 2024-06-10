@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -41,7 +42,7 @@ public class Monde {
      * Ici sont stocké les informations des éléments du monde traversables (ex : buissons, fleurs, hautes herbes, etc.)
      */
 
-    private ObservableList<Entite> entites;
+    private ArrayList<Rechargeable> rechargeables = new ArrayList<>();
 
 
     private Joueur joueur;
@@ -53,13 +54,13 @@ public class Monde {
 
 
 
+
     /**
      * Liste des identifiants des éléments du structureMonde :
      */
 
     public Monde(){
         this.sol = new int[sizeMondeHauteur][sizeMondeLargeur];
-        this.entites = FXCollections.observableArrayList();
 
         this.joueur = null;
 
@@ -73,8 +74,6 @@ public class Monde {
      */
     public Monde(String chemin, String nommap, int hauteur, int largeur)
     {
-
-        this.entites = FXCollections.observableArrayList();
         this.sol = new int[hauteur][largeur];
         this.traversable = new int[hauteur][largeur];
         this.nontraversable = new int[hauteur][largeur];
@@ -117,8 +116,6 @@ public class Monde {
      */
     public Monde(String nom)
     {
-
-        this.entites = FXCollections.observableArrayList();
         this.dropsAuSol = FXCollections.observableArrayList();
         try
         {
@@ -182,23 +179,8 @@ public class Monde {
     }
 
 
-    public ArrayList<Entite> getEntites(Position pos, double rayon)
-    {
-        ArrayList<Entite> entitesDansRayon = new ArrayList<>();
 
-        for (Entite entite : this.entites)
-        {
-            if (calculerDistance(entite.getPosition(), pos) <= rayon) {
-                entitesDansRayon.add(entite);
-            }
-        }
 
-        return entitesDansRayon;
-    }
-
-    public ObservableList<Entite> getObservableListEntites(){
-        return this.entites;
-    }
     public void ajouterDropAuSol(DropAuSol dropAuSol){
         this.dropsAuSol.add(dropAuSol);
     }
@@ -215,10 +197,6 @@ public class Monde {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    public void enleveEntite(Entite entite)
-    {
-        this.entites.remove(entite);
-    }
 
     public static double getxPointDeDepart(){
         return xPointDeDepart;
@@ -240,14 +218,7 @@ public class Monde {
         dropAuSols.addAll(this.dropsAuSol);
         return dropAuSols;
     }
-    public void ajoutEntite(Entite entite)
-    {
-        this.entites.add(entite);
-        entite.getStatsPv().getPvActuelleProperty().addListener((old, obs, nouv)-> {
-            if (entite.getStatsPv().getPv() <= 0)
-                entites.remove(entite);
-        });
-    }
+
 
     public void enleverDropAuSol(DropAuSol dropAuSol){
         this.dropsAuSol.remove(dropAuSol);
@@ -260,10 +231,6 @@ public class Monde {
         return this.joueur;
     }
 
-    public ArrayList<Entite> getEntities()
-    {
-        return new ArrayList<>(entites);
-    }
 
     public ArrayList<int[][]> getToutesLesCouches(){
         ArrayList<int[][] > couches = new ArrayList<>();
@@ -282,9 +249,6 @@ public class Monde {
         
     }
 
-    public void setListenerListeEntites(gestionAffichageSpriteEntite gestionAffichageSprite){
-        entites.addListener(gestionAffichageSprite);
-    }
 
 
 
@@ -295,7 +259,7 @@ public class Monde {
     public void enleveActeur(Acteur acteur) { this.acteurs.remove(acteur); }
 
 
-    public void unTour()
+    public void unTour(long tour)
     {
         for (int i = acteurs.size()-1; i>=0; i--)
             acteurs.get(i).unTour();
@@ -327,7 +291,24 @@ public class Monde {
                 acteurs.remove(i);
         }
 
+
+        for (int i = rechargeables.size()-1; i>=0; i--)
+        {
+            Rechargeable rechargeable = rechargeables.get(i);
+            if (tour % rechargeable.delaie() == 0)
+            {
+                rechargeable.cooldown();
+                this.rechargeables.remove(rechargeable);
+            }
+        }
     }
+
+    public void ajoutRechargeable(Rechargeable rechargeable)
+    {
+        this.rechargeables.add(rechargeable);
+    }
+
+    private ArrayList<Rechargeable> getRechargeables(){ return this.rechargeables;}
 
     public boolean estHorsMap(Acteur acteur)
     {
@@ -465,17 +446,6 @@ public class Monde {
 
 
 
-    public ArrayList<Entite> getEntitesA() {
-        ArrayList<Entite> entitesDansRayon = new ArrayList<>();
-
-        for (Entite entite : this.entites)
-        {
-            entitesDansRayon.add(entite);
-
-        }
-
-        return entitesDansRayon;
-    }
 
 
 

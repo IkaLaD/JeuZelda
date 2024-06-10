@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Emplacement;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Inventaire;

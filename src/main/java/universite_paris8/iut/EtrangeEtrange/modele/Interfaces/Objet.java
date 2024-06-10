@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Objet;
+package universite_paris8.iut.EtrangeEtrange.modele.Interfaces;
 
 public interface  Objet {
 

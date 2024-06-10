@@ -3,13 +3,12 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreConsomable.ParametreActionConsomable;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Defense;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.DefenseSpecial;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Surface;
 
 public abstract class Entite extends Acteur
 {
@@ -34,9 +33,7 @@ public abstract class Entite extends Acteur
     public double getDefenseSpecial(){ return this.statsDefenseSpecial.getDefenseSpecial();}
     public Defense getStatsDefense(){return this.statsDefense;}
     public DefenseSpecial getStatsDefenseSpecial(){return this.statsDefenseSpecial;}
-
     public boolean peutSeDeplacer(){return monde.collision(this);}
-
     public void consommer(Consommable consommable)
     {
         consommable.consommer(new ParametreActionConsomable(this));

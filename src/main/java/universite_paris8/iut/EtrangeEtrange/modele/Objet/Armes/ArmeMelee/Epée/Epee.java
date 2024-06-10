@@ -9,9 +9,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueMelee.ParametreAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
 
 import java.util.TimerTask;
 
@@ -90,6 +89,8 @@ public abstract class Epee extends Acteur implements Dommageable,Rechargeable,Ar
                 setPositionAttaque();
 
                 param.getOrigineAction().getMonde().ajoutActeur(this);
+                param.getOrigineAction().getMonde().ajoutRechargeable(this);
+
 
                 this.peuTaper = false;
                 cooldown();
@@ -102,12 +103,7 @@ public abstract class Epee extends Acteur implements Dommageable,Rechargeable,Ar
     @Override
     public void cooldown()
     {
-        TimerAction.addAction(new TimerTask() {
-            @Override
-            public void run() {
-                peuTaper = true;
-            }
-        },delaie());
+       peuTaper = true;
     }
 
 

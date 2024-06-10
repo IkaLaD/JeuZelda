@@ -2,9 +2,8 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant;
 
 import javafx.beans.property.IntegerProperty;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
-import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Conteneur;
-import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Emplacement;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Conteneur;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Inventaire;
 
 import java.util.ArrayList;

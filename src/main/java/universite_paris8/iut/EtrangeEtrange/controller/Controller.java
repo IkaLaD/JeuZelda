@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
@@ -40,6 +41,8 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
+import universite_paris8.iut.EtrangeEtrange.vues.BarreDeVie.GestionAffichageVieJoueur;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 
@@ -57,19 +60,27 @@ public class Controller implements Initializable {
     private TilePane TilePaneNontraversable;
     @FXML
     private Pane paneEntite;
+    @FXML
+    private HBox hboxCoeurs;
+
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
     private int temps = 0;
     private Deplacement deplacement;
     private SwitchScene switchDonnees;
+    private GestionAffichageVieJoueur vueVie; // La vue qui gère l'affichage des PV
 
 
+
+    @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         switchDonnees = switchDonnees.getSwitchScene();
         initMonde();
         initJoueur();
+        initVie();
+
 
         switchDonnees.setJoueur(joueur);
         initPane();
@@ -101,6 +112,15 @@ public class Controller implements Initializable {
 
     }
 
+    private void initVie() {
+        vueVie = new GestionAffichageVieJoueur(joueur.getStatsPv());
+        vueVie.setHboxCoeurs(hboxCoeurs); // Passez l'HBox à la gestion de la vue
+        vueVie.initialize(); // Initialiser la vue
+        hboxCoeurs.setPrefWidth(500);
+        hboxCoeurs.setPrefHeight(100);
+
+    }
+
 
     private void initGameLoop() {
         gameLoop = new Timeline();
@@ -122,7 +142,6 @@ public class Controller implements Initializable {
 
                         monde.verificationCollisionAvecArme();
                         monde.miseAjourCauseDegats();
-
                     })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -167,6 +186,7 @@ public class Controller implements Initializable {
         // Initialisation Coordonnées centre monde et des listeners
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
     }
+
     private void initLoups(Aetoile aetoile) {
 
         Loup loup1 = new Loup(joueur, monde, 10, 10, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);

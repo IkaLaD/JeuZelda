@@ -14,9 +14,11 @@ public class SwitchScene {
     private Scene sceneJeu;
     private Controller controllerJeu;
     private ControllerMenu controllerMenu;
+    private ControlleurInventaire controlleurInventaire;
+    private ControllerCompetence controllerCompetence;
     private Scene sceneMenu;
     private Pane paneEntite;
-    private TabPane tabPane;
+    private TabPane tabPaneMenuInGame;
     private TilePane TilePaneSol;
     private TilePane TilePaneTraversable;
     private TilePane TilePaneNontraversable;
@@ -63,12 +65,27 @@ public class SwitchScene {
         this.TilePaneTraversable.getChildren().clear();
     }
 
-    public TabPane getTabPane() {
-        return tabPane;
+    public ControllerCompetence getControllerCompetence() {
+        return controllerCompetence;
     }
 
-    public void setTabPane(TabPane tabPane) {
-        this.tabPane = tabPane;
+    public void setControllerCompetence(ControllerCompetence controllerCompetence) {
+        this.controllerCompetence = controllerCompetence;
+    }
+
+    public ControlleurInventaire getControlleurInventaire() {
+        return controlleurInventaire;
+    }
+
+    public void setControlleurInventaire(ControlleurInventaire controlleurInventaire) {
+        this.controlleurInventaire = controlleurInventaire;
+    }
+
+    public TabPane getTabPaneMenuInGame() {
+        return tabPaneMenuInGame;
+    }
+    public void setTabPaneMenuInGame(TabPane tabPaneMenuInGame) {
+        this.tabPaneMenuInGame = tabPaneMenuInGame;
     }
 
     public void setJoueur(Joueur joueur){

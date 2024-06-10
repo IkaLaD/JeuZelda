@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.vues;
 
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -20,12 +21,14 @@ public class CompetenceView {
     private Joueur joueur;
     private int tailleIcon = 100;
     private Pane pane;
+    private ColorAdjust colorAdjust;
     private ArrayList<ImageView> icons;
 
     public CompetenceView(Pane pane, Joueur joueur) {
         this.joueur = joueur;
         this.pane = pane;
-
+        this.colorAdjust = new ColorAdjust();
+        this.colorAdjust.setBrightness(-0.8);
         this.competences = joueur.getCompetences();
         this.icons = new ArrayList<>();
 
@@ -56,7 +59,6 @@ public class CompetenceView {
             imageView.setTranslateY(y);
             this.pane.getChildren().add(imageView);
             xTmp += ecartEntreIcon;
-
             constructionArbre(competences.getEnfants(competence), x, y +tailleIcon, -ecartEntreIcon);
         }
     }
@@ -77,11 +79,13 @@ public class CompetenceView {
         ImageView imageView = new ImageView();
         imageView.setScaleX(1);
         imageView.setScaleY(1);
+        if(!competence.getCompetence().estDebloquer())
+            imageView.setEffect(colorAdjust);
 
         imageView.setOnMouseClicked(e ->{
-            System.out.println("click");
             competence.getCompetence().monterDeNiveau(joueur);
             competence.getCompetence().debloquer();
+            imageView.setEffect(null);
         });
         imageView.setImage(image);
         return imageView;

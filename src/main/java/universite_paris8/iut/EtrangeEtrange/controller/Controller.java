@@ -2,14 +2,10 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.IntegerProperty;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.EtrangeEtrange.Runner;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 
@@ -57,7 +53,6 @@ public class Controller implements Initializable {
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
-    private int temps = 0;
     private Deplacement deplacement;
     private SwitchScene switchDonnees;
 
@@ -102,7 +97,6 @@ public class Controller implements Initializable {
 
     private void initGameLoop() {
         gameLoop = new Timeline();
-        temps=0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame
@@ -194,36 +188,24 @@ public class Controller implements Initializable {
 
 
     public void keyPressed(KeyEvent keyEvent) throws IOException {
-        switch (keyEvent.getCode())
-        {
-            case A :
-                joueur.lanceUnSort(1);
-                break;
-            case F :
-                joueur.lanceUnSort(2);
-                break;
-            case R :
-                joueur.lanceUnSort(3);
-                break;
-            case Z :
+        KeyCode touche = keyEvent.getCode();;
+
+            if(touche==ConstantesClavier.deplacementHaut)
                 deplacement.ajoutDirection(Direction.HAUT);
-                break;
-            case D :
+            else if (touche==ConstantesClavier.deplacementDroite)
                 deplacement.ajoutDirection(Direction.DROITE);
-                break;
-            case E:
+            else if (touche==ConstantesClavier.recupererObjetSol)
                 joueur.ramasserObjet();
-                break;
-            case Q :
+            else if(touche==ConstantesClavier.deplacementGauche)
                 deplacement.ajoutDirection(Direction.GAUCHE);
-                break;
-            case S :
+            else if(touche==ConstantesClavier.deplacementBas)
                 deplacement.ajoutDirection(Direction.BAS);
-                break;
-            case SHIFT:
+            else if(touche==ConstantesClavier.courrir)
                 joueur.estEntrainDeCourir(true);
-                break;
-        }
+            else if(touche==ConstantesClavier.attaquer)
+                this.joueur.actionMainDroite();
+            else if(touche==ConstantesClavier.inventaire)
+                ouvrirMenu();
     }
 
 
@@ -231,42 +213,33 @@ public class Controller implements Initializable {
 
     public void onKeyReleased(KeyEvent keyEvent)
     {
-        switch (keyEvent.getCode())
-        {
-            case Z :
+            KeyCode touche = keyEvent.getCode();
+
+            if(touche==ConstantesClavier.deplacementHaut)
                 deplacement.enleveDirection(Direction.HAUT);
-                break;
-            case D :
+            else if(touche==ConstantesClavier.deplacementDroite)
                 deplacement.enleveDirection(Direction.DROITE);
-                break;
-            case Q :
+            else if(touche==ConstantesClavier.deplacementGauche)
                 deplacement.enleveDirection(Direction.GAUCHE);
-                break;
-            case S :
+            else if(touche==ConstantesClavier.deplacementBas)
                 deplacement.enleveDirection(Direction.BAS);
-                break;
-            case SHIFT:
+            else if(touche==ConstantesClavier.courrir)
                 joueur.estEntrainDeCourir(false);
-                break;
-        }
+
+
     }
 
     public void mouseClick(MouseEvent mouseEvent)
     {
         this.paneEntite.requestFocus();
-
-        if (mouseEvent.getButton() == MouseButton.PRIMARY)
-            this.joueur.actionMainDroite();
     }
 
-    public void onScroll(ScrollEvent scrollEvent) {
-        if(scrollEvent.getDeltaY()<0) {
-            switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
-            switchDonnees.getControllerMenu().recupererDonnees();
-            switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());
-            switchDonnees.getStage().show();
-            System.out.println("Changement de scène vers Menu");
-        }
+    public void ouvrirMenu() {
+        switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+        switchDonnees.getControllerMenu().recupererDonnees();
+        switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());
+        switchDonnees.getStage().show();
+        System.out.println("Changement de scène vers Menu");
     }
 
     public void recupererDonnees() {

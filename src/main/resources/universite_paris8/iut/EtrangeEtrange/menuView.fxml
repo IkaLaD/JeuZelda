@@ -15,7 +15,7 @@
             <TilePane fx:id="TilePaneNontraversable" />
         </children>
     </Pane>
-    <TabPane fx:id="TabPane" onScroll="#onSroll" tabClosingPolicy="UNAVAILABLE">
+    <TabPane fx:id="TabPane" onKeyPressed="#onKeyPressed" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab fx:id="Inventaire" text="Inventaire" >
                 <content>

@@ -34,6 +34,7 @@ public class ControllerCompetence implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         this.switchScene = SwitchScene.getSwitchScene();
+        this.switchScene.setControllerCompetence(this);
         this.joueur = this.switchScene.getJoueur();
         this.competences = this.joueur.getCompetences();
 
@@ -49,9 +50,15 @@ public class ControllerCompetence implements Initializable
         }
     }
 
+    public void requestFocus(){
+        this.pane.requestFocus();
+    }
+
     public void onMouseClicked(MouseEvent mouseEvent)
     {
         this.pane.requestFocus();
         System.out.println("test");
     }
+
+
 }

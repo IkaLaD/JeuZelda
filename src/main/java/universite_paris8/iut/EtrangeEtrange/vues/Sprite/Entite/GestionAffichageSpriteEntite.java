@@ -76,7 +76,7 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Entite> 
      * Choisi le skin de sprite adéquat en fonction de la class de l'entité, et crée son sprite animé qui est directement ajouté à la vue
      * @param entite
      */
-    public void creeSprite(Entite entite){
+    public void creeSprite(Entite entite) {
         int skin;
         int vitesse;
         double colorAdjust = 0;
@@ -89,25 +89,27 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Entite> 
         } else if (entite.getClass().equals(RoiSquelette.class)) {
             skin = 2;
             vitesse = 1;
-        } else if (entite.getClass().equals(Loup.class)){
+        } else if (entite.getClass().equals(Loup.class)) {
             skin = 3;
             vitesse = 2;
-            colorAdjust = Math.random()*2-1;
-        }
-        else{
+            colorAdjust = Math.random() * 2 - 1;
+        } else {
             skin = 1;
             vitesse = 1;
         }
         SpriteEntite animationSprite = new SpriteEntite(entite, skin, vitesse, colorAdjust);
 
         animationSprites.add(animationSprite);
-        paneEntite.getChildren().add(animationSprite.getSpriteEntite());
 
-        // On ajoute une barre de vie visible uniquement si ce n'est pas le joueur
-        if(!(entite instanceof Joueur))
+        paneEntite.getChildren().add(animationSprite.ajoutOmbre()); // Ajouter l'ombre
+        paneEntite.getChildren().add(animationSprite.getSpriteEntite()); // Ajouter le sprite de l'entité
+
+        if (!(entite instanceof Joueur))
             paneEntite.getChildren().add(animationSprite.ajoutBarrePv());
+
         listenerPosition(entite);
     }
+
 
     /**
      * Ajoute un listenner sur la position de l'entité, permettant de superposer correctement les entités entre elle dans l'affichage

@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite;
 
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -16,6 +17,8 @@ public class SpriteEntite {
     private ImageView SpriteEntite;
     private Rectangle SpriteVie;
     private ColorAdjust effetCouleur;
+
+    private ImageView ombre;
     private boolean appliquerEffet;
     private int id;
     private int skin;
@@ -35,8 +38,8 @@ public class SpriteEntite {
         this.id = entite.getId();
         this.vitesse = vitesse;
         this.cptImageChange = 0;
-        
-        
+
+
 
         if(!(entite instanceof Joueur))
             this.SpriteVie = new Rectangle();
@@ -64,8 +67,8 @@ public class SpriteEntite {
         SpriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32);
         SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64);
     }
-    
-    
+
+
 
     public void demarrerEffet(){
         appliquerEffet=true;
@@ -113,6 +116,25 @@ public class SpriteEntite {
 
         return SpriteVie;
     }
+
+    public ImageView ajoutOmbre() {
+        ombre = new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Ombre/ombre.png"));
+        ombre.setOpacity(0.85); // Réduire l'opacité de l'ombre
+
+        // Déplacer l'ombre selon la position de l'entité
+        entite.getPosition().getXProperty().addListener((obs, old, nouv) ->
+                ombre.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile - 19)
+        );
+        entite.getPosition().getYProperty().addListener((obs, old, nouv) ->
+                ombre.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile - 0)
+        );
+
+        ombre.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile - 19);
+        ombre.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile - 0);
+
+        return ombre;
+    }
+
 
     public void miseAJourAnimation(){
         int face = 0;

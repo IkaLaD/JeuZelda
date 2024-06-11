@@ -20,6 +20,7 @@ public class SwitchScene {
     private TilePane TilePaneNontraversable;
     private Joueur joueur;
 
+
     public SwitchScene(){
         paneEntite = new Pane();
         TilePaneSol = new TilePane();

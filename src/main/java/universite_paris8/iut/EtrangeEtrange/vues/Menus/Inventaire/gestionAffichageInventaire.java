@@ -8,7 +8,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
 
@@ -256,7 +259,12 @@ public class gestionAffichageInventaire {
     public Image getImageObjet(Class<? extends Objet> objet){
         if (objet.equals(Arc.class))
             return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/arc.png");
-
+        if(objet.equals(LivreMagique.class))
+            return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/livremagique.png");
+        if(objet.equals(Potion.class))
+            return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/potion.png");
+        if(objet.equals(EpeeDeSoldat.class))
+            return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/epee.png");
         System.out.println("Pas d'objet");
         return null;
     }

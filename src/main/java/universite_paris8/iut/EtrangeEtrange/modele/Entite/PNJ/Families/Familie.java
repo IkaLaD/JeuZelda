@@ -1,17 +1,18 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ParametreLivreMagique.ParametreLivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVersJoueur {
+public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur {
 
     protected Joueur joueur;
     protected boolean estFamilier;
@@ -33,7 +34,6 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
         if (!estFamilier) {
             if (detecteJoueur(joueur)) {
                 estFamilier = true;
-                System.out.println("Familier a détecté le joueur et devient familier");
             }
         }
 
@@ -48,16 +48,16 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
     @Override
     public void seDeplacerVersJoueur(Position joueurPosition) {
         if (aetoile == null) {
-            System.out.println("Aetoile non configuré.");
             return;
         }
 
         long currentTime = System.currentTimeMillis();
+
+
         if (currentTime - lastPathCalculationTime >= 3000 || aetoile.getChemin().isEmpty()) {
             aetoile.trouverChemin(getPosition(), joueurPosition);
             lastPathCalculationTime = currentTime;
             if (aetoile.getChemin().isEmpty()) {
-                System.out.println("Aucun chemin trouvé pour atteindre le joueur.");
                 return;
             }
         }
@@ -78,8 +78,6 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
         // Déplacer l'entité si elle peut se déplacer
         if (peutSeDeplacer()) {
             seDeplace();
-        } else {
-            System.out.println("Collision détectée, déplacement annulé.");
         }
 
         // Vérifier si l'entité a atteint la prochaine position
@@ -89,7 +87,6 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
             setPosition(roundToTenth(getPosition().getX()), roundToTenth(getPosition().getY()));
         }
 
-        System.out.println("Familier se déplace vers : " + getPosition().getX() + ", " + getPosition().getY());
     }
 
     private double roundToTenth(double value) {
@@ -149,6 +146,11 @@ public class Familie extends EntiteOffensif implements Controlable, SeDeplacerVe
 
     @Override
     public void attaque(Arme arme) {
+
+    }
+
+    @Override
+    public void lanceUnSort(int numSort) {
 
     }
 }

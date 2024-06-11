@@ -17,17 +17,10 @@ public class FlecheSimple extends Fleche
         return 0;
     }
 
-    @Override
-    public long delaieEntreCoup() {
-        return 0;
-    }
 
 
 
-    @Override
-    public void cooldown() {
 
-    }
 
     @Override
     public String getNom() {

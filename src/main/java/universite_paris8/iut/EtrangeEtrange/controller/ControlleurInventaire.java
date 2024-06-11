@@ -87,6 +87,7 @@ public class ControlleurInventaire implements Initializable {
         caseSurvole = new SimpleIntegerProperty(0);
         caseVerouille = -1; // Rien de sélectionné
         switchScene = SwitchScene.getSwitchScene();
+        switchScene.setControlleurInventaire(this);
         joueur = switchScene.getJoueur();
 
         // Récupération Pane + Joueur
@@ -108,37 +109,32 @@ public class ControlleurInventaire implements Initializable {
                 caseSurvole.set(tailleInventaire - 1);
             else
                 caseSurvole.set(caseSurvole.get() - 1);
-
         else if(keyCode==ConstantesClavier.menuDeplacementDroite)
             if (caseSurvole.get() == tailleInventaire - 1)
                 caseSurvole.set(0);
             else
                 caseSurvole.set(caseSurvole.get() + 1);
-
         else if(keyCode==ConstantesClavier.menuDeplacementBas)
             if(caseSurvole.get() < tailleInventaire)
                 caseSurvole.set(tailleInventaire);
             else
                 caseSurvole.set(tailleInventaire+1);
-
         else if(keyCode==ConstantesClavier.menuDeplacementHaut)
             if(caseSurvole.get() == tailleInventaire+1)
                 caseSurvole.set(tailleInventaire);
             else
                 caseSurvole.set(0);
-
         else if(keyCode==ConstantesClavier.menuSelectionner) {
             if(caseVerouille!=-1)
                 joueur.getSac().echangerEmplacement(joueur, caseVerouille, caseSurvole.get());
-
             if(caseVerouille!=caseSurvole.get())
                 gestionAffichageInventaire.affichageInventaire(joueur.getSac());
-
             caseVerouille=caseSurvole.get();
             gestionAffichageInventaire.caseVerouille(caseSurvole.get());
         }
-
-
+    }
+    public void requestFocus(){
+        VBox.requestFocus();
     }
 
     public void mouseClicked(MouseEvent mouseEvent) {

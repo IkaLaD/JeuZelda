@@ -1,12 +1,4 @@
 { "columns":0,
- "editorsettings":
-    {
-     "export":
-        {
-         "format":"json",
-         "target":"sol.tsj"
-        }
-    },
  "grid":
     {
      "height":1,
@@ -16,7 +8,7 @@
  "margin":0,
  "name":"sol",
  "spacing":0,
- "tilecount":6,
+ "tilecount":14,
  "tiledversion":"1.10.2",
  "tileheight":64,
  "tiles":[
@@ -53,6 +45,54 @@
         {
          "id":5,
          "image":"5.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":6,
+         "image":"..\/nontraversable\/7.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":7,
+         "image":"14.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":8,
+         "image":"15.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":9,
+         "image":"16.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":10,
+         "image":"17.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":11,
+         "image":"18.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":12,
+         "image":"19.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":13,
+         "image":"20.png",
          "imageheight":64,
          "imagewidth":64
         }],

@@ -2,50 +2,36 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc;
 
 
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ActionAttaqueDistance.ParametreActionAttaqueArc;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionObjet;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueDistance.ParametreAttaqueArc;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
 
 import java.util.TimerTask;
 
-public class Arc extends Arme
+public class Arc extends Arme implements Rechargeable
 {
-    @Override
-    public double degatPhysique() {
-        return 0;
+
+    private boolean peuTirer;
+
+    public Arc()
+    {
+        this.peuTirer = false;
     }
+
     @Override
-    public double degatSpecial() {
-        return 0;
-    }
-    @Override
-    public double portee() {
-        return 0;
-    }
-    @Override
-    public double angle() {
-        return 0;
-    }
-    @Override
-    public long delaieEntreCoup() {
+    public long delaie() {
         return 1000;
     }
 
-
-
     @Override
-    public void cooldown() {
-        TimerAction.addAction(new TimerTask() {
+    public void cooldown() { TimerAction.addAction(new TimerTask() {
             @Override
             public void run() {
-                peuxTaper = true;
+                peuTirer = true;
             }
-        },delaieEntreCoup());
-    }
+        }, delaie()); }
 
     @Override
     public String getNom() {
@@ -57,20 +43,17 @@ public class Arc extends Arme
     }
 
     @Override
-    public void utilise(ParametreActionObjet param)
+    public void utilise(ParametreAction param)
     {
-        if (param instanceof ParametreActionAttaqueArc)
-            attaque((ParametreActionAttaque) param);
-    }
-    @Override
-    public void attaque(ParametreActionAttaque param)
-    {
-        if (peuxTaper)
+        if (param instanceof ParametreAttaqueArc parametre)
         {
-            ParametreActionAttaqueArc paramArc = (ParametreActionAttaqueArc) param;
-            paramArc.getOrigineAction().getMonde().ajoutCauseDegat(new ActionDegatParProjectile(paramArc.getOrigineAction(), paramArc.getProjectile()));
-            peuxTaper = false;
-            cooldown();
+            if (peuTirer)
+            {
+                parametre.getOrigineAction().getMonde().ajoutActionDegat(new ActionDegatParProjectile(parametre.getOrigineAction(), parametre.getProjectile()));
+                this.peuTirer = false;
+                cooldown();
+            }
         }
     }
+
 }

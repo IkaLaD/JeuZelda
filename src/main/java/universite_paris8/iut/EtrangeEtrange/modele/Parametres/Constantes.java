@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Parametres;
 
+
 public class Constantes {
 
     public static final int hauteurEcran = 1080;

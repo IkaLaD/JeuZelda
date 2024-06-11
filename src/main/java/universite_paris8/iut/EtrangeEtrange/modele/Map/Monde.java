@@ -3,17 +3,17 @@ package universite_paris8.iut.EtrangeEtrange.modele.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEpee;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreActionMainDroite.ParametreActionAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Sommet;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
-
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -35,18 +35,10 @@ public class Monde {
     private int[][] sol;
     private int[][] traversable;
     private int[][] nontraversable;
-    /**
-     * Ici sont stocké les informations des éléments du monde traversables (ex : buissons, fleurs, hautes herbes, etc.)
-     */
-
     private ObservableList<Entite> entites;
-
-
     private Joueur joueur;
-
     private ObservableList<DropAuSol> dropsAuSol;
-
-    private ObservableList<ActionDegat> causeDegats =  FXCollections.observableArrayList();
+    private ObservableList<ActionDegat> causeDegats;
 
 
 
@@ -58,7 +50,7 @@ public class Monde {
     public Monde(){
         this.sol = new int[sizeMondeHauteur][sizeMondeLargeur];
         this.entites = FXCollections.observableArrayList();
-
+        causeDegats =  FXCollections.observableArrayList();
         this.joueur = null;
 
         this.dropsAuSol = FXCollections.observableArrayList();
@@ -71,7 +63,7 @@ public class Monde {
      */
     public Monde(String chemin, String nommap, int hauteur, int largeur)
     {
-
+        causeDegats =  FXCollections.observableArrayList();
         this.entites = FXCollections.observableArrayList();
         this.sol = new int[hauteur][largeur];
         this.traversable = new int[hauteur][largeur];
@@ -115,7 +107,7 @@ public class Monde {
      */
     public Monde(String nom)
     {
-
+        causeDegats =  FXCollections.observableArrayList();
         this.entites = FXCollections.observableArrayList();
         this.dropsAuSol = FXCollections.observableArrayList();
         try
@@ -280,11 +272,11 @@ public class Monde {
         
     }
 
-    public void setListenerListeEntites(gestionAffichageSpriteEntite gestionAffichageSprite){
+    public void setListenerListeEntites(GestionAffichageSpriteEntite gestionAffichageSprite){
         entites.addListener(gestionAffichageSprite);
     }
 
-    public void setListenerProjectile(GestionCauseDegat gestionCauseDegats)
+    public void setListenerProjectile(GestionActionDegat gestionCauseDegats)
     {
         this.causeDegats.addListener(gestionCauseDegats);
     }
@@ -345,6 +337,14 @@ public class Monde {
         }
 
         return entitesDansRayon;
+    }
+
+    public void enleveActionDegat(ActionDegat actionDegat) {
+        causeDegats.remove(actionDegat);
+    }
+
+    public void ajoutActionDegat(ActionDegat actionDegat) {
+        causeDegats.add(actionDegat);
     }
 }
 

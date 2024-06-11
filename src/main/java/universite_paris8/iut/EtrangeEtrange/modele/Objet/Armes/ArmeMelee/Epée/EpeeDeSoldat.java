@@ -29,7 +29,7 @@ public class EpeeDeSoldat extends Epee
     }
 
     @Override
-    public long delaieEntreCoup() {
+    public long delaie() {
         return 1;
     }
 

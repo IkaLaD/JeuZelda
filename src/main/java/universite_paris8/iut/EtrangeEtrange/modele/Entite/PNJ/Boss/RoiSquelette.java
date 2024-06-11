@@ -1,7 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
@@ -10,7 +10,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public class RoiSquelette extends EntiteOffensif implements Controlable {
+public class RoiSquelette extends EntiteOffensif implements PNJ {
 
     private long dernierTempsAttaque;
     private long delaiAttaque = 200;
@@ -33,6 +33,11 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
 
     @Override
     public void attaque(Arme arme) {
+
+    }
+
+    @Override
+    public void lanceUnSort(int numSort) {
 
     }
 

@@ -7,31 +7,27 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public class ActionDegatParProjectile extends ActionDegatParEntite
 {
-
+    private Projectile projectile;
     public ActionDegatParProjectile(EntiteOffensif origineAttaque, Projectile projectile)
     {
         super(origineAttaque, projectile);
+        this.projectile = projectile;
     }
 
     @Override
     public Position getPosition() {
-        Projectile projectile = (Projectile) getOrgineAttaque();
-        return projectile.getPosition();
+        return this.projectile.getPosition();
     }
-
     @Override
-    public Hitbox getHitbox() {
-        Projectile projectile = (Projectile) getOrgineAttaque();
-
-        return projectile.getHitbox();
-    }
-
+    public Hitbox getHitbox() {return projectile.getHitbox();}
     @Override
-    public void miseAjour() {
-        Projectile projectile = (Projectile) getOrgineAttaque();
+    public void miseAjour()
+    {
         projectile.seDeplace();
 
         if (projectile.aToucherUneCible())
-            getOrigineDegat().getMonde().enleveCauseDegat(this);
+            getOrigineDegat().getMonde().enleveActionDegat(this);
     }
+
+
 }

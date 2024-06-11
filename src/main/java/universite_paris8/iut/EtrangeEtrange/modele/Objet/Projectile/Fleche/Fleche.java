@@ -6,7 +6,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 public abstract class Fleche extends Projectile
 {
 
-
     public Fleche() {
         super(new Hitbox(0.5,0.2));
     }

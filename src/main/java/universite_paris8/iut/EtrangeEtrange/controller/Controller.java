@@ -5,7 +5,6 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
@@ -41,8 +40,6 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
-import universite_paris8.iut.EtrangeEtrange.vues.BarreDeVie.GestionAffichageVieJoueur;
-
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 
@@ -72,11 +69,10 @@ public class Controller implements Initializable {
     private GestionAffichageVieJoueur vueVie; // La vue qui gère l'affichage des PV
 
 
-
-    @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         switchDonnees = switchDonnees.getSwitchScene();
+        switchDonnees.setControllerJeu(this);
         initMonde();
         initJoueur();
         initVie();
@@ -85,12 +81,11 @@ public class Controller implements Initializable {
         switchDonnees.setJoueur(joueur);
         initPane();
 
-
-        gestionAffichageSpriteEntite gestionAffichageSprite = new gestionAffichageSpriteEntite(paneEntite);
+        GestionAffichageSpriteEntite gestionAffichageSprite = new GestionAffichageSpriteEntite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
 
-        GestionCauseDegat gestionCauseDegat = new GestionCauseDegat(paneEntite);
+        GestionActionDegat gestionCauseDegat = new GestionActionDegat(paneEntite);
         monde.setListenerProjectile(gestionCauseDegat);
 
 
@@ -103,7 +98,7 @@ public class Controller implements Initializable {
         monde.setJoueur(joueur);
         Aetoile aetoile = new Aetoile(monde);
         initLoups(aetoile);
-        initBoss(monde);
+        initBoss(monde, joueur, aetoile);
 
 
         deplacement = new Deplacement(joueur);
@@ -134,12 +129,13 @@ public class Controller implements Initializable {
 
                         for (Entite entite : monde.getEntities())
                         {
-                            Controlable lambda1 = (Controlable) entite;
+                            PNJ lambda1 = (PNJ) entite;
                             lambda1.action();
                         }
 
                         monde.verificationCollisionAvecArme();
                         monde.miseAjourCauseDegats();
+
                     })
         );
         gameLoop.getKeyFrames().add(kf);
@@ -162,18 +158,26 @@ public class Controller implements Initializable {
 
         // Listener pour que la TilePane et la Pane suivent le joueur
         joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
-            if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 < 0)
-                if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 > -Monde.getSizeMondeLargeur()*Constantes.tailleTile+Constantes.largeurEcran )
-                    paneEntite.setTranslateX(-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0);
+            paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
         });
         joueur.getPosition().getYProperty().addListener((obs, old, nouv)-> {
-            if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0 < 0)
-                if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0  > -Monde.getSizeMondeHauteur()*Constantes.tailleTile+Constantes.hauteurEcran)
-                    paneEntite.setTranslateY(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0);
+            paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
         });
 
-        paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0);
-        paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0);
+        paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
+        paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
+    }
+
+    /**
+     * Permet de déplacer l'affichage lorsque le joueur se déplace :
+     * @param position : Position du joueur
+     * @param longueurAxe : Hauteur ou largeur de l'écran
+     */
+    public double scrollMap(double position, int longueurAxe, double positionInitiale){
+        if (-position * Constantes.tailleTile + longueurAxe / 2.0 < 0)
+            if (-position * Constantes.tailleTile + longueurAxe / 2.0 > -Monde.getSizeMondeLargeur()*Constantes.tailleTile+longueurAxe )
+                return -position * Constantes.tailleTile + longueurAxe / 2.0;
+        return positionInitiale;
     }
     public void initMonde()
     {
@@ -183,16 +187,18 @@ public class Controller implements Initializable {
     public void initJoueur(){
         // Initialisation Coordonnées centre monde et des listeners
         joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
+        joueur.getSac().ajoutItem(new EpeeDeSoldat());
+        monde.setJoueur(joueur);
+        switchDonnees.setJoueur(joueur);
     }
-
     private void initLoups(Aetoile aetoile) {
 
         Loup loup1 = new Loup(joueur, monde, 10, 10, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
         monde.ajoutEntite(loup1);
     }
 
-    private void initBoss(Monde monde) {
-        RoiSquelette roiSquelette = new RoiSquelette(monde, 6,28, Direction.BAS);
+    private void initBoss(Monde monde, Joueur joueur, Aetoile aetoile) {
+        RoiSquelette roiSquelette = new RoiSquelette(1000, 20, 100, 15, 5, 0.1, monde, 6, 28, Direction.BAS, new Hitbox(0.5, 0.5));
         monde.ajoutEntite(roiSquelette);
     }
 
@@ -221,8 +227,6 @@ public class Controller implements Initializable {
             joueur.enlevePv(10);
 
 
-
-
         if (actionJoueur != null)
             joueur.action(actionJoueur);
     }
@@ -232,39 +236,33 @@ public class Controller implements Initializable {
 
     public void onKeyReleased(KeyEvent keyEvent)
     {
-        switch (keyEvent.getCode())
-        {
-            case Z :
+            KeyCode touche = keyEvent.getCode();
+
+            if(touche==ConstantesClavier.deplacementHaut)
                 deplacement.enleveDirection(Direction.HAUT);
-                break;
-            case D :
+            else if(touche==ConstantesClavier.deplacementDroite)
                 deplacement.enleveDirection(Direction.DROITE);
-                break;
-            case Q :
+            else if(touche==ConstantesClavier.deplacementGauche)
                 deplacement.enleveDirection(Direction.GAUCHE);
-                break;
-            case S :
+            else if(touche==ConstantesClavier.deplacementBas)
                 deplacement.enleveDirection(Direction.BAS);
-                break;
-        }
+            else if(touche==ConstantesClavier.courrir)
+                joueur.estEntrainDeCourir(false);
+
+
     }
 
     public void mouseClick(MouseEvent mouseEvent)
     {
         this.paneEntite.requestFocus();
-
-        if (mouseEvent.getButton() == MouseButton.PRIMARY)
-            this.joueur.action(new ActionUtiliserMainDroite());
     }
 
-    public void onScroll(ScrollEvent scrollEvent) {
-        if(scrollEvent.getDeltaY()<0) {
-            switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
-            switchDonnees.getControllerMenu().recupererDonnees();
-            switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());
-            switchDonnees.getStage().show();
-            System.out.println("Changement de scène vers Menu");
-        }
+    public void ouvrirMenu() {
+        switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+        switchDonnees.getControllerMenu().recupererDonnees();
+        switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());
+        switchDonnees.getStage().show();
+        System.out.println("Changement de scène vers Menu");
     }
 
     public void recupererDonnees() {

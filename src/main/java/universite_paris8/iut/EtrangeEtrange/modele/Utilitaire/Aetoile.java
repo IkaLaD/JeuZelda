@@ -16,13 +16,11 @@ public class Aetoile {
         construireGraphe(); // Construire le graphe lors de l'initialisation
     }
 
-    // Construire le graphe en initialisant les sommets et leurs voisins
     private void construireGraphe() {
         int hauteur = Monde.getSizeMondeHauteur();
         int largeur = Monde.getSizeMondeLargeur();
         graphe = new Sommet[hauteur][largeur];
 
-        // Initialiser les sommets
         for (int y = 0; y < hauteur; y++) {
             for (int x = 0; x < largeur; x++) {
                 boolean traversable = monde.getNontraversable()[y][x] == -1;
@@ -30,7 +28,6 @@ public class Aetoile {
             }
         }
 
-        // Ajouter les voisins pour chaque sommet traversable
         for (int y = 0; y < hauteur; y++) {
             for (int x = 0; x < largeur; x++) {
                 if (graphe[y][x].isTraversable()) {
@@ -40,99 +37,91 @@ public class Aetoile {
         }
     }
 
-    // Ajouter les voisins pour un sommet donné
     private void ajouterVoisins(Sommet sommet, int x, int y) {
         int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-        for (int[] dir : directions) {
-            int nx = x + dir[0];
-            int ny = y + dir[1];
+        for (int[] direction : directions) {
+            int nx = x + direction[0];
+            int ny = y + direction[1];
             if (nx >= 0 && ny >= 0 && nx < graphe[0].length && ny < graphe.length && graphe[ny][nx].isTraversable()) {
                 sommet.addVoisin(graphe[ny][nx]);
             }
         }
     }
 
-    // Mettre à jour le graphe pour refléter les changements dans le monde
     public void mettreAJourGraphe() {
-        // Réinitialiser les sommets
         for (int y = 0; y < graphe.length; y++) {
             for (int x = 0; x < graphe[0].length; x++) {
                 graphe[y][x].setTraversable(monde.getNontraversable()[y][x] == -1);
             }
         }
 
-        // Marquer les positions des entités comme non traversables
         for (Entite entite : monde.getEntitesA()) {
-            Position pos = entite.getPosition();
-            int x = (int) pos.getX();
-            int y = (int) pos.getY();
+            Position position = entite.getPosition();
+            int x = (int) position.getX();
+            int y = (int) position.getY();
             if (x >= 0 && y >= 0 && x < graphe[0].length && y < graphe.length) {
                 graphe[y][x].setTraversable(false);
             }
         }
     }
 
-    // Trouver le chemin entre deux positions en utilisant l'algorithme A*
     public List<Position> trouverChemin(Position depart, Position arrivee) {
-        mettreAJourGraphe();  // Mettre à jour le graphe avant de trouver le chemin
+        mettreAJourGraphe();
 
-        Sommet sommetDepart = positionToSommet(depart);
-        Sommet sommetArrivee = positionToSommet(arrivee);
+        Sommet sommetDepart = positionVersSommet(depart);
+        Sommet sommetArrivee = positionVersSommet(arrivee);
 
         if (sommetDepart == null || sommetArrivee == null) {
             System.out.println("Positions invalides.");
             return Collections.emptyList();
         }
 
-        PriorityQueue<Noeud> openList = new PriorityQueue<>(Comparator.comparingDouble(Noeud::getF));
-        Map<Sommet, Noeud> allNodes = new HashMap<>();
+        PriorityQueue<Noeud> listeOuverte = new PriorityQueue<>(Comparator.comparingDouble(Noeud::getF));
+        Map<Sommet, Noeud> tousLesNoeuds = new HashMap<>();
 
-        Noeud startNode = new Noeud(sommetDepart, null, 0, sommetDepart.distance(sommetArrivee));
-        openList.add(startNode);
-        allNodes.put(sommetDepart, startNode);
+        Noeud noeudDepart = new Noeud(sommetDepart, null, 0, sommetDepart.distance(sommetArrivee));
+        listeOuverte.add(noeudDepart);
+        tousLesNoeuds.put(sommetDepart, noeudDepart);
 
-        while (!openList.isEmpty()) {
-            Noeud currentNode = openList.poll();
+        while (!listeOuverte.isEmpty()) {
+            Noeud noeudActuel = listeOuverte.poll();
 
-            // Si le sommet actuel est le sommet de destination, reconstruire le chemin
-            if (currentNode.getSommet().equals(sommetArrivee)) {
-                return reconstruireChemin(currentNode);
+            if (noeudActuel.getSommet().equals(sommetArrivee)) {
+                return reconstruireChemin(noeudActuel);
             }
 
-            // Explorer les voisins du sommet actuel
-            for (Sommet voisin : currentNode.getSommet().getVoisins()) {
-                double tentativeG = currentNode.getG() + currentNode.getSommet().distance(voisin);
+            for (Sommet voisin : noeudActuel.getSommet().getVoisins()) {
+                double gTentative = noeudActuel.getG() + noeudActuel.getSommet().distance(voisin);
 
-                Noeud voisinNode = allNodes.getOrDefault(voisin, new Noeud(voisin));
-                if (tentativeG < voisinNode.getG()) {
-                    voisinNode.setParent(currentNode);
-                    voisinNode.setG(tentativeG);
-                    voisinNode.setH(voisin.distance(sommetArrivee));
-                    allNodes.put(voisin, voisinNode);
-                    if (!openList.contains(voisinNode)) {
-                        openList.add(voisinNode);
+                Noeud noeudVoisin = tousLesNoeuds.getOrDefault(voisin, new Noeud(voisin));
+                if (gTentative < noeudVoisin.getG()) {
+                    noeudVoisin.setParent(noeudActuel);
+                    noeudVoisin.setG(gTentative);
+                    noeudVoisin.setH(voisin.distance(sommetArrivee));
+                    tousLesNoeuds.put(voisin, noeudVoisin);
+                    if (!listeOuverte.contains(noeudVoisin)) {
+                        listeOuverte.add(noeudVoisin);
                     }
                 }
             }
         }
+
         System.out.println("Aucun chemin trouvé.");
         return Collections.emptyList();
     }
 
-    // Reconstruire le chemin en partant du nœud de destination
     private ArrayList<Position> reconstruireChemin(Noeud noeud) {
         ArrayList<Position> chemin = new ArrayList<>();
         while (noeud != null) {
-            chemin.add(getCentreSommet(noeud.getSommet()));
+            chemin.add(obtenirCentreSommet(noeud.getSommet()));
             noeud = noeud.getParent();
         }
         Collections.reverse(chemin);
-        this.chemin = chemin; // Mettre à jour le chemin
+        this.chemin = chemin;
         return chemin;
     }
 
-    // Convertir une position en sommet
-    public Sommet positionToSommet(Position position) {
+    public Sommet positionVersSommet(Position position) {
         int x = (int) Math.floor(position.getX());
         int y = (int) Math.floor(position.getY());
         if (x >= 0 && y >= 0 && x < graphe[0].length && y < graphe.length) {
@@ -141,19 +130,16 @@ public class Aetoile {
         return null;
     }
 
-    // Obtenir le centre d'un sommet pour le chemin final
-    public Position getCentreSommet(Sommet sommet) {
+    public Position obtenirCentreSommet(Sommet sommet) {
         int x = (int) sommet.getPosition().getX();
         int y = (int) sommet.getPosition().getY();
         return new Position(x + 0.5, y + 0.5);
     }
 
-    // Obtenir le chemin trouvé
     public List<Position> getChemin() {
         return chemin;
     }
 
-    // Classe interne représentant un nœud dans l'algorithme A*
     private static class Noeud {
         private Sommet sommet;
         private Noeud parent;
@@ -201,7 +187,7 @@ public class Aetoile {
         }
 
         public double getF() {
-            return g + h; // f = g + h, utilisé pour la priorité dans la file
+            return g + h;
         }
     }
 }

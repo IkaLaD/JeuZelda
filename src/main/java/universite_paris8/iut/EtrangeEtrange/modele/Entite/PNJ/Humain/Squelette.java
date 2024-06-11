@@ -76,7 +76,7 @@ public class Squelette extends EntiteOffensif implements Controlable, SeDeplacer
             System.out.println("Collision détectée, déplacement annulé.");
         }
 
-        // Vérifier si l'entité a atteint la prochaine positionq
+        // Vérifier si l'entité a atteint la prochaine positions
         if (positionAtteinte(prochainePosition)) {
             aetoile.getChemin().remove(0); // Supprimer la position atteinte du chemin
             // Ajuster la position à des coordonnées arrondies au dixième

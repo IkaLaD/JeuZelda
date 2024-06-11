@@ -42,6 +42,7 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
         if (!joueurDetecte) {
             if (detecteJoueurDansRayon(distanceDetection)) {
                 joueurDetecte = true;
+                setSeDeplace(true);
             } else {
                 return; // Ne rien faire si le joueur n'est pas détecté
             }
@@ -74,8 +75,8 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
                     }
                     break;
                 case 3:
-                    seDeplacerVers(positionInitiale);
-                    if (positionAtteinte(positionInitiale)) {
+                    seDeplacerVers(position5_2);
+                    if (positionAtteinte(position5_2)) {
                         grandeAttaqueCirculaire();
                         etapeAttaque = 0; // Recommencer le cycle
                     }
@@ -104,10 +105,10 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
 
     // Invoque des squelettes pour aider le Roi Squelette
     private void invoquerSquelettes() {
-        Position positionGauche = new Position(getPosition().getX() - 2, getPosition().getY());
-        Position positionDroite = new Position(getPosition().getX() + 2, getPosition().getY());
-        Squelette squeletteGauche = new Squelette(30, 10, 5, 10, 10, 0.1, getMonde(), positionGauche.getX(), positionGauche.getY(), Direction.DROITE, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
-        Squelette squeletteDroite = new Squelette(30, 10, 5, 10, 10, 0.1, getMonde(), positionDroite.getX(), positionDroite.getY(), Direction.GAUCHE, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
+        Position positionHaut = new Position(getPosition().getX(), getPosition().getY()-2);
+        Position positionBas = new Position(getPosition().getX(), getPosition().getY()+2);
+        Squelette squeletteGauche = new Squelette(30, 10, 5, 10, 10, 0.1, getMonde(), positionHaut.getX(), positionHaut.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
+        Squelette squeletteDroite = new Squelette(30, 10, 5, 10, 10, 0.1, getMonde(), positionBas.getX(), positionBas.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
         getMonde().ajoutEntite(squeletteGauche);
         getMonde().ajoutEntite(squeletteDroite);
     }
@@ -138,6 +139,11 @@ public class RoiSquelette extends EntiteOffensif implements Controlable {
     @Override
     protected double subitDegatSpecial(double attaqueSpecial, double forceEntite) {
         return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
+    }
+
+    @Override
+    public void seDeplacerVersJoueur(Position position) {
+
     }
 
 }

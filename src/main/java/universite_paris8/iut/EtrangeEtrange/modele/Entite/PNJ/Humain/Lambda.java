@@ -15,6 +15,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public class Lambda extends Humanoide implements Controlable{
     public Lambda(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
@@ -81,6 +82,11 @@ public class Lambda extends Humanoide implements Controlable{
 
     @Override
     public void attaque(Arme arme) {
+
+    }
+
+    @Override
+    public void seDeplacerVersJoueur(Position position) {
 
     }
 }

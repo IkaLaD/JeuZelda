@@ -115,6 +115,8 @@ public class Monde {
             {
                 if (nontraversable[i][j] == -1)
                     this.ajoutActeur(new Slime(this,i,j,Direction.HAUT,new Hitbox(0.1,0.1)));
+
+
             }
         }
     }

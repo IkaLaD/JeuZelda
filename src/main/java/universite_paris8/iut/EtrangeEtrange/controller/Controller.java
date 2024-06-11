@@ -213,6 +213,8 @@ public class Controller implements Initializable {
             joueur.ramasserObjet();
         else if(keyCode==ConstantesClavier.degattest)
             joueur.enlevePv(10);
+        else if(keyCode==ConstantesClavier.inventaire)
+            ouvrirMenu();
 
 
     }

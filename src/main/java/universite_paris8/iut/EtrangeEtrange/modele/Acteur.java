@@ -74,7 +74,8 @@ public abstract class Acteur
      * Méthode abstraite pour vérifier si l'acteur peut se déplacer dans le monde.
      * @return true si l'acteur peut se déplacer, false sinon.
      */
-    public abstract boolean peutSeDeplacer();
+    public boolean peutSeDeplacer(){return monde.collision(this);}
+
 
     /**
      * Déplace l'acteur dans le monde en fonction de sa direction et de sa vitesse.

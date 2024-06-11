@@ -8,6 +8,10 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Slime extends EntiteOffensif
 {
     /**
@@ -26,6 +30,21 @@ public class Slime extends EntiteOffensif
     @Override
     public void unTour()
     {
+        Random rdm = new Random();
+        boolean directionPossible = false;
+        Direction[] directions = Direction.values();
+        int directionCount = directions.length;
+
+        // Essayer toutes les directions aléatoirement
+        for (int attempt = 0; attempt < directionCount && !directionPossible; attempt++) {
+            Direction d = directions[rdm.nextInt(directionCount)];
+            setDirection(d);
+
+            if (peutSeDeplacer()) {
+                seDeplace(1);
+                directionPossible = true;
+            }
+        }
 
     }
 

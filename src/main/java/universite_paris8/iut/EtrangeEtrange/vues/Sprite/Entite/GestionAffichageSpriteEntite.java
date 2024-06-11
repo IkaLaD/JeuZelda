@@ -17,39 +17,49 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.ComparePositionSprite;
 
 import java.util.ArrayList;
 
-public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur> {
+public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
+{
     /**
      * On stock toutes les images des sprites :
      * dans chaque tableau d'image 2D, la première ligne correspond au haut, la 2eme haut bas, 3eme gauche, 4eme droite
      *
      * Dans la liste, le premier est le chevalier, pnjtest, roiSquelette, slime, squelette
      */
+
     private static ArrayList<Image[][]> imagesSprite;
     private Pane paneEntite;
     private ArrayList<SpriteEntite> animationSprites;
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.075), event -> {
-        for(SpriteEntite animationSprite : animationSprites){
+    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.075), event ->
+    {
+        for(SpriteEntite animationSprite : animationSprites)
+        {
             if(animationSprite.getEntite().isSeDeplace())
                 animationSprite.miseAJourAnimation();
             else
                 animationSprite.finAnimationMarche();
+
             if(animationSprite.getAppliquerEffet())
                 animationSprite.arreterEffet();
         }
     }));
-    public GestionAffichageSpriteEntite(Pane paneEntite){
+
+    public GestionAffichageSpriteEntite(Pane paneEntite)
+    {
         this.paneEntite = paneEntite;
         this.animationSprites = new ArrayList<>();
         initialisationSprites();
         SpriteEntite.setGestionAffichageSpriteEntite(this);
+
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
 
-    public void initialisationSprites(){
+    public void initialisationSprites()
+    {
         imagesSprite = new ArrayList<>();
         String[] directions = {"haut","bas","gauche","droite"};
         String[] skins = {"chevalier","pnjtest","roiSquelette","slime","squelette"};
+
         for(int s = 0 ; s < skins.length ; s++){
             String skin = skins[s];
             imagesSprite.add(new Image[directions.length][6]);
@@ -62,23 +72,24 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur> 
         }
     }
     @Override
-    public void onChanged(Change<? extends Acteur> change) {
+    public void onChanged(Change<? extends Acteur> change)
+    {
         while(change.next()){
-            for (Acteur entite : change.getAddedSubList()) {
-                if(entite instanceof Entite)
+            for (Acteur entite : change.getAddedSubList())
                     creeSprite(entite);
-            }
-            for(Acteur entite : change.getRemoved()) {
-                if(entite instanceof Entite)
+
+
+            for(Acteur entite : change.getRemoved())
                     suprimmerSprite(entite);
-            }
+
         }
     }
     /**
      * Choisi le skin de sprite adéquat en fonction de la class de l'entité, et crée son sprite animé qui est directement ajouté à la vue
      * @param entite
      */
-    public void creeSprite(Acteur entite){
+    public void creeSprite(Acteur entite)
+    {
         int skin;
         int vitesse;
         double colorAdjust = 0;
@@ -95,6 +106,7 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur> 
             skin = 3;
             vitesse = 1;
         }
+
         SpriteEntite animationSprite = new SpriteEntite(entite, skin, vitesse, colorAdjust);
 
         animationSprites.add(animationSprite);
@@ -103,6 +115,7 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur> 
         // On ajoute une barre de vie visible uniquement si ce n'est pas le joueur
         if(!(entite instanceof Joueur))
             paneEntite.getChildren().add(animationSprite.ajoutBarrePv());
+
         listenerPosition(entite);
     }
 
@@ -110,7 +123,8 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur> 
      * Ajoute un listenner sur la position de l'entité, permettant de superposer correctement les entités entre elle dans l'affichage
      * @param entite
      */
-    public void listenerPosition(Acteur entite){
+    public void listenerPosition(Acteur entite)
+    {
         entite.getPosition().getYProperty().addListener((old, obs, nouv)->
                 animationSprites.sort(new ComparePositionSprite())
         );
@@ -137,14 +151,20 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur> 
      * Suprimme le sprite de la vue dès qu'une entité est retiré de la liste des entités du monde
      * @param entite
      */
-    public void suprimmerSprite(Acteur entite){
+    public void suprimmerSprite(Acteur entite)
+    {
         SpriteEntite animationSprite = null;
-        for(int i = 0 ; i < animationSprites.size() ; i++){
-            if(animationSprites.get(i).getId() == entite.getID()){
+
+        for(int i = 0 ; i < animationSprites.size() ; i++)
+        {
+            if(animationSprites.get(i).getId() == entite.getID())
+            {
                 animationSprite = animationSprites.get(i);
             }
         }
-        if(animationSprite!=null) {
+
+        if(animationSprite!=null)
+        {
             paneEntite.getChildren().remove(animationSprite.getSpriteVie());
             paneEntite.getChildren().remove(animationSprite.getSpriteEntite());
             animationSprites.remove(animationSprite);

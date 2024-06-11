@@ -13,7 +13,7 @@ public class SpriteEntite {
     private static GestionAffichageSpriteEntite gestionAffichageSpriteEntite;
 
     private Acteur entite;
-    private ImageView SpriteEntite;
+    private ImageView spriteEntite;
     private Rectangle SpriteVie;
     private ColorAdjust effetCouleur;
     private boolean appliquerEffet;
@@ -29,7 +29,7 @@ public class SpriteEntite {
     public SpriteEntite(Acteur entite, int skin, int vitesse, double colorAdjust)
     {
         this.image = 0;
-        this.SpriteEntite = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+skin+"/bas1.png");
+        this.spriteEntite = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+skin+"/bas1.png");
         this.entite = entite;
         this.skin = skin;
         this.id = entite.getID();
@@ -42,27 +42,27 @@ public class SpriteEntite {
             this.SpriteVie = new Rectangle();
 
         // On lie le sprite et l'entité par un même identifiant
-        this.SpriteEntite.setId(entite.getID()+"");
+        this.spriteEntite.setId(entite.getID()+"");
 
         // Listener pour lié position de l'entité et de son sprite
         entite.getPosition().getXProperty().addListener((obs, old, nouv)->
-                SpriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32)
+                spriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32)
         );
         entite.getPosition().getYProperty().addListener((obs, old, nouv)->
-                SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64)
+                spriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64)
         );
 
         effetCouleur = new ColorAdjust();
         effetCouleur.setHue(colorAdjust);
-        SpriteEntite.setEffect(effetCouleur);
+        spriteEntite.setEffect(effetCouleur);
         // Listener pour savoir si on doit appliquer un effet suite à un dégat ou un heal
         entite.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv) -> {
             demarrerEffet();
         });
 
         //
-        SpriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32);
-        SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64);
+        spriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32);
+        spriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64);
     }
     
     
@@ -114,9 +114,11 @@ public class SpriteEntite {
         return SpriteVie;
     }
 
-    public void miseAJourAnimation(){
+    public void miseAJourAnimation()
+    {
         int face = 0;
-        if(cptImageChange%vitesse==0) {
+        if(cptImageChange%vitesse==0)
+        {
             if (entite.getDirection() == Direction.BAS) {
                 face = 1;
             } else if (entite.getDirection() == Direction.HAUT) {
@@ -126,7 +128,9 @@ public class SpriteEntite {
             } else if (entite.getDirection() == Direction.GAUCHE) {
                 face = 2;
             }
-            SpriteEntite.setImage(gestionAffichageSpriteEntite.getImagesSprite().get(this.skin)[face][image]);
+
+            spriteEntite.setImage(gestionAffichageSpriteEntite.getImagesSprite().get(this.skin)[face][image]);
+
             if(image==5)
                 image=0;
             else
@@ -150,11 +154,11 @@ public class SpriteEntite {
         } else if (entite.getDirection() == Direction.GAUCHE) {
             face = 2;
         }
-        this.SpriteEntite.setImage(gestionAffichageSpriteEntite.getImagesSprite().get(this.skin)[face][image]);
+        this.spriteEntite.setImage(gestionAffichageSpriteEntite.getImagesSprite().get(this.skin)[face][image]);
     }
 
     public ImageView getSpriteEntite(){
-        return SpriteEntite;
+        return spriteEntite;
     }
 
     public Rectangle getSpriteVie(){

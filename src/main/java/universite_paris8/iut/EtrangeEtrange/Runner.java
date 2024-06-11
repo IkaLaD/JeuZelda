@@ -32,7 +32,7 @@ public class Runner extends Application {
 
         switchScene.setControllerJeu(fxmlLoaderJeu.getController());
         switchScene.setControllerMenu(fxmlLoaderMenu.getController());
-
+        stage.setFullScreen(true);
     }
 
 

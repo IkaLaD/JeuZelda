@@ -146,9 +146,5 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
         return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
     }
 
-    @Override
-    public void seDeplacerVersJoueur(Position position) {
-
-    }
 
 }

@@ -2,6 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
@@ -24,7 +25,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Flech
 
 import java.util.ArrayList;
 
-public class Lambda extends Humanoide implements PNJ
+public class Lambda extends Humanoide implements PNJ, SeDeplacerVersJoueur
 {
     private ArrayList<Potion> potions;
     private long tourBoucle;
@@ -173,5 +174,8 @@ public class Lambda extends Humanoide implements PNJ
     }
 
 
+    @Override
+    public void seDeplacerVersJoueur(Position position) {
 
+    }
 }

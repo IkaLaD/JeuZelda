@@ -5,19 +5,16 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-import universite_paris8.iut.EtrangeEtrange.Runner;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionDeplacement.ActionDeplacementGauche;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort1;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort2;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort3;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
@@ -31,14 +28,16 @@ import javafx.fxml.Initializable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
+import universite_paris8.iut.EtrangeEtrange.vues.BarreDeVie.GestionAffichageVieJoueur;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
+
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
+
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
@@ -96,15 +95,18 @@ public class Controller implements Initializable {
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
         
         monde.setJoueur(joueur);
-        Aetoile aetoile = new Aetoile(monde);
-        initLoups(aetoile);
-        initBoss(monde, joueur, aetoile);
+        initBoss();
 
 
         deplacement = new Deplacement(joueur);
         initGameLoop();
         gameLoop.play();
 
+    }
+
+    private void initBoss() {
+        RoiSquelette RoiSquelette;
+        monde.ajoutEntite(RoiSquelette = new RoiSquelette(monde,5.5,27.5,Direction.DROITE));
     }
 
     private void initVie() {
@@ -191,29 +193,15 @@ public class Controller implements Initializable {
         monde.setJoueur(joueur);
         switchDonnees.setJoueur(joueur);
     }
-    private void initLoups(Aetoile aetoile) {
 
-        Loup loup1 = new Loup(joueur, monde, 10, 10, Direction.BAS, new Hitbox(0.5, 0.5), aetoile);
-        monde.ajoutEntite(loup1);
-    }
-
-    private void initBoss(Monde monde, Joueur joueur, Aetoile aetoile) {
-        RoiSquelette roiSquelette = new RoiSquelette(1000, 20, 100, 15, 5, 0.1, monde, 6, 28, Direction.BAS, new Hitbox(0.5, 0.5));
-        monde.ajoutEntite(roiSquelette);
-    }
 
 
     public void keyPressed(KeyEvent keyEvent)
     {
-        ActionJoueur actionJoueur = null;
+
         KeyCode keyCode = keyEvent.getCode();
-        if(keyCode==KeyCode.A)
-            actionJoueur = new ActionUtiliserSort1();
-        else if(keyCode==KeyCode.F)
-            actionJoueur = new ActionUtiliserSort2();
-        else if (keyCode==keyCode.R)
-            actionJoueur = new ActionUtiliserSort3();
-        else if(keyCode==ConstantesClavier.deplacementHaut)
+
+         if(keyCode==ConstantesClavier.deplacementHaut)
             deplacement.ajoutDirection(Direction.HAUT);
         else if(keyCode==ConstantesClavier.deplacementDroite)
             deplacement.ajoutDirection(Direction.DROITE);
@@ -227,8 +215,6 @@ public class Controller implements Initializable {
             joueur.enlevePv(10);
 
 
-        if (actionJoueur != null)
-            joueur.action(actionJoueur);
     }
 
 

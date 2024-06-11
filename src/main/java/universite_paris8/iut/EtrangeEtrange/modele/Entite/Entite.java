@@ -60,6 +60,5 @@ public abstract class Entite extends Acteur{
         consommable.consommer(new ParametreActionConsomable(this));
     }
 
-    public abstract void seDeplacerVersJoueur(Position position);
 
 }

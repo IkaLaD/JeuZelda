@@ -24,8 +24,4 @@ public class Guerrier extends Joueur
 
     }
 
-    @Override
-    public void seDeplacerVersJoueur(Position position) {
-
-    }
 }

@@ -38,7 +38,7 @@ public class SpriteEntite {
         
         
 
-        if(!entite.getClass().equals(Joueur.class))
+        if(!(entite instanceof Joueur))
             this.SpriteVie = new Rectangle();
 
         // On lie le sprite et l'entité par un même identifiant

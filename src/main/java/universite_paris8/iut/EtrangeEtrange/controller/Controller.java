@@ -3,32 +3,20 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
-<<<<<<<<< Temporary merge branch 1
+
 
 import universite_paris8.iut.EtrangeEtrange.Runner;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
-=========
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort1;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort2;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort3;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
->>>>>>>>> Temporary merge branch 2
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -46,17 +34,8 @@ import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
 
-<<<<<<<<< Temporary merge branch 1
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
-
-=========
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
->>>>>>>>> Temporary merge branch 2
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 
 import java.io.IOException;
 import java.net.URL;
@@ -74,7 +53,7 @@ public class Controller implements Initializable {
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
-    private int temps = 0;
+    private long tour = 0;
     private Deplacement deplacement;
     private SwitchScene switchDonnees;
 
@@ -102,11 +81,6 @@ public class Controller implements Initializable {
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
         
-
-        // Création des entités avec l'algo A* qui leur permet de rejoindre le joueur
-        Aetoile aetoile = new Aetoile(monde);
-        initLoups(aetoile);
-        initBoss(monde, joueur, aetoile);
 
 
         deplacement = new Deplacement(joueur);
@@ -199,6 +173,7 @@ public class Controller implements Initializable {
         {
             // pas encore implementer
         }
+        switchDonnees.setJoueur(joueur);
 
     }
 
@@ -255,7 +230,13 @@ public class Controller implements Initializable {
             this.joueur.actionMainDroite();
     }
 
-    public void ouvrirMenu() {
+    public void ouvrirMenu() throws IOException {
+        if(switchDonnees.getSceneMenu()==null){
+            FXMLLoader fxmlLoaderMenu = new FXMLLoader(Runner.class.getResource("menuView.fxml"));
+            Scene sceneMenu = new Scene(fxmlLoaderMenu.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
+            switchDonnees.setSceneMenu(sceneMenu);
+            switchDonnees.setControllerMenu(fxmlLoaderMenu.getController());
+        }
         switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         switchDonnees.getControllerMenu().recupererDonnees();
         switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());

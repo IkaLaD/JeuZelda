@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
@@ -65,10 +66,12 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur> 
     public void onChanged(Change<? extends Acteur> change) {
         while(change.next()){
             for (Acteur entite : change.getAddedSubList()) {
-                creeSprite(entite);
+                if(entite instanceof Entite)
+                    creeSprite(entite);
             }
             for(Acteur entite : change.getRemoved()) {
-                suprimmerSprite(entite);
+                if(entite instanceof Entite)
+                    suprimmerSprite(entite);
             }
         }
     }
@@ -83,17 +86,10 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur> 
         if (entite.getClass().equals(Guerrier.class)) {
             skin = 0;
             vitesse = 1;
->>>>>>>>> Temporary merge branch 2:src/main/java/universite_paris8/iut/EtrangeEtrange/vues/Sprite/Entite/GestionAffichageSpriteEntite.java
+
         } else if (entite.getClass().equals(Squelette.class)) {
             skin = 4;
             vitesse = 1;
-        } else if (entite.getClass().equals(RoiSquelette.class)) {
-            skin = 2;
-            vitesse = 1;
-        } else if (entite.getClass().equals(Loup.class)){
-            skin = 3;
-            vitesse = 2;
-            colorAdjust = Math.random()*2-1;
         }
         else{
             skin = 1;
@@ -105,7 +101,7 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur> 
         paneEntite.getChildren().add(animationSprite.getSpriteEntite());
 
         // On ajoute une barre de vie visible uniquement si ce n'est pas le joueur
-        if(!entite.getClass().equals(Joueur.class))
+        if(!(entite instanceof Joueur))
             paneEntite.getChildren().add(animationSprite.ajoutBarrePv());
         listenerPosition(entite);
     }

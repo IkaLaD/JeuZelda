@@ -193,8 +193,13 @@ public class ControllerChoixClasse implements Initializable
         else if (keyEvent.getCode() == KeyCode.ENTER)
         {
             switchScene.setClasseJoueur(nomActuelle.get());
+            FXMLLoader fxmlLoaderJeu = new FXMLLoader(Runner.class.getResource("viewMap.fxml"));
+            Scene sceneJeu = new Scene(fxmlLoaderJeu.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
+            switchScene.getStage().setScene(sceneJeu);
 
-            switchScene.getStage().setScene(switchScene.getSceneJeu());
+
+            switchScene.setSceneJeu(sceneJeu);
+            switchScene.setControllerJeu(fxmlLoaderJeu.getController());
         }
 
     }

@@ -2,6 +2,8 @@ package universite_paris8.iut.EtrangeEtrange.vues.Sprite;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -51,34 +53,37 @@ public class GestionActeur implements ListChangeListener<Acteur>
 
     private void initSpriteProjectile(Projectile projectile)
     {
-        Rectangle rectangle;
+        ImageView imageView = new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/Projectile/fleche.png"));
+        imageView.setTranslateX(projectile.getPosition().getX()*Constantes.tailleTile-32);
+        imageView.setTranslateY(projectile.getPosition().getY()*Constantes.tailleTile-64);
 
+        imageView.setId(projectile.getID()+"");
         Direction direction = projectile.getDirection();
-        Position pos = projectile.getPosition();
-        Hitbox hitbox = projectile.getHitbox();
 
-        if (direction == Direction.BAS || direction == Direction.HAUT)
-            rectangle = new Rectangle(pos.getX(),pos.getY(),hitbox.getLargeur()* Constantes.tailleTile,hitbox.getHauteur()*Constantes.tailleTile);
+        int rotation;
+        if(direction==Direction.HAUT)
+            rotation=0;
+        else if(direction==Direction.BAS)
+            rotation=2;
+        else if(direction==Direction.DROITE)
+            rotation=1;
         else
-            rectangle = new Rectangle(pos.getX(),pos.getY(),hitbox.getHauteur()* Constantes.tailleTile,hitbox.getLargeur()*Constantes.tailleTile);
+            rotation=3;
 
+        imageView.setRotate(rotation*90);
+        this.pane.getChildren().add(imageView);
 
-        rectangle.setFill(Color.RED);
-
-        rectangle.setTranslateX(projectile.getPosition().getX()*Constantes.tailleTile-32);
-        rectangle.setTranslateY(projectile.getPosition().getY()*Constantes.tailleTile-64);
-
-        rectangle.setId(""+projectile.getID());
-        this.pane.getChildren().add(rectangle);
-
-
-
-        projectile.getPosition().getXProperty().addListener((obs, old, nouv)->{
-            rectangle.setTranslateX(projectile.getPosition().getX()* Constantes.tailleTile-32);
+        projectile.getPropertyAtoucherUneCible().addListener((obs, old, nouv)->{
+            pane.getChildren().remove(imageView);
         });
 
-        projectile.getPosition().getYProperty().addListener((obs, old, nouv)->{
-            rectangle.setTranslateY(projectile.getPosition().getY()* Constantes.tailleTile-64);
+        projectile.getPosition().getXProperty().addListener((obs, old, nouv)->
+        {
+            imageView.setTranslateX(projectile.getPosition().getX()*Constantes.tailleTile-32);
+        });
+        projectile.getPosition().getYProperty().addListener((obs, old, nouv)->
+        {
+            imageView.setTranslateY(projectile.getPosition().getY()*Constantes.tailleTile-64);
         });
 
     }

@@ -2,27 +2,22 @@ package universite_paris8.iut.EtrangeEtrange.modele.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
-
-
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
+
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction.*;
 
 public class Monde {
     /**
@@ -31,11 +26,8 @@ public class Monde {
      */
     private static final int sizeMondeHauteur = 33;
     private static final int sizeMondeLargeur = 33;
-    private static final double xPointDeDepart = 23;
-    private static final double yPointDeDepart = 23;
-    /**
-     * Ici sont stocké les informations des sols du monde (ex : sol)
-     */
+    private static final double xPointDeDepart = 17;
+    private static final double yPointDeDepart = 17;
     private int[][] sol;
     private int[][] traversable;
     private int[][] nontraversable;
@@ -257,40 +249,6 @@ public class Monde {
     {
         this.acteurs.add(acteur);
     }
-    public void enleveActeur(Acteur acteur) { this.acteurs.remove(acteur); }
-
-
-    public void unTour(long tour)
-    {
-        for (int i = acteurs.size()-1; i>=0; i--)
-            acteurs.get(i).unTour();
-
-
-        for (int i = acteurs.size()-1; i>=0; i--)
-        {
-            Acteur acteur1 = acteurs.get(i);
-
-            for (int j = acteurs.size()-1; j>=0; j--)
-            {
-                Acteur acteur2 = acteurs.get(j);
-
-
-                if (collisionAvecActeur(acteur1,acteur2) && acteur1 != acteur2)
-                {
-                    acteur1.subitCollision(acteur2);
-                    acteur2.subitCollision(acteur1);
-                }
-            }
-        }
-
-
-        for (int i = acteurs.size()-1; i>=0; i--)
-        {
-            Acteur acteur = acteurs.get(i);
-
-            if (acteur.plusDePv())
-                acteurs.remove(i);
-        }
 
 
         for (int i = rechargeables.size()-1; i>=0; i--)
@@ -453,10 +411,6 @@ public class Monde {
     public boolean cheminLibre(Position position1, Direction direction1, Position position2,Direction direction2)
     {
         return true;
-    }
-
-    public void setListenerListeEntites(GestionAffichageSpriteEntite gestionAffichageSprite) {
-        this.acteurs.addListener(gestionAffichageSprite);
     }
 }
 

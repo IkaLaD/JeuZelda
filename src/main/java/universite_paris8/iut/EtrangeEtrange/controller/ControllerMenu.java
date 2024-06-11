@@ -6,6 +6,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
@@ -73,10 +75,12 @@ public class ControllerMenu implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         switchScene = SwitchScene.getSwitchScene();
+        switchScene.setTabPaneMenuInGame(TabPane);
 
         TabPane.getSelectionModel().selectedItemProperty().addListener((old, obs, nouv)->
                 TabPane.getSelectionModel().getSelectedItem().getContent().requestFocus()
         );
+
 
         // Effet sombre sur le jeu en arrière-plan
         ombreArrierePlan = new ColorAdjust();
@@ -105,20 +109,30 @@ public class ControllerMenu implements Initializable {
         TilePaneNontraversable.setEffect(null);
     }
 
-
     public void recupererDonnees() {
         setOmbreArrierePlan();
         switchScene.recupererPane(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
     }
 
-    public void onSroll(ScrollEvent scrollEvent) {
-        if(scrollEvent.getDeltaY()>0) {
-            // Renvoie le contenu de la pane et des tilePane du jeu qui était affiché en arrière-plan, pour pouvoir le re afficher dans le Controller du jeu
-            switchScene.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
-            switchScene.getControllerJeu().recupererDonnees();
-            switchScene.getStage().setScene(switchScene.getSceneJeu());
-            switchScene.getStage().show();
-            delOmbreArrierePlan();
+    public void quitterMenu() {
+        // Renvoie le contenu de la pane et des tilePane du jeu qui était affiché en arrière-plan, pour pouvoir le re afficher dans le Controller du jeu
+        switchScene.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+        switchScene.getControllerJeu().recupererDonnees();
+        switchScene.getStage().setScene(switchScene.getSceneJeu());
+        switchScene.getStage().show();
+        delOmbreArrierePlan();
+
+    }
+
+    public void onKeyPressed(KeyEvent keyEvent){
+        if(keyEvent.getCode()== KeyCode.RIGHT || keyEvent.getCode()== KeyCode.LEFT){
+            System.out.println("Page Changé");
+            if(TabPane.getSelectionModel().getSelectedIndex()==0) // page inventaire
+                switchScene.getControlleurInventaire().requestFocus();
+            else if(TabPane.getSelectionModel().getSelectedIndex()==1)
+                switchScene.getControllerCompetence().requestFocus();
         }
+        else if(keyEvent.getCode()==KeyCode.ESCAPE)
+            quitterMenu();
     }
 }

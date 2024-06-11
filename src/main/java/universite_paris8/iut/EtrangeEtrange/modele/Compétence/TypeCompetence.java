@@ -15,9 +15,6 @@ public enum TypeCompetence
     UP_DEFENSE_SPECIAL(new CompetenceUpDefenseSpecial()),
     UP_VITESSE(new CompetenceUpVitesse()),
 
-
-
-
     COURIR(new CompetenceCourir()),
     INVOQUER(new CompetenceInvocation());
     

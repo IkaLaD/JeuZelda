@@ -7,35 +7,59 @@ import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
+<<<<<<<<< Temporary merge branch 1
 
+import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+=========
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort1;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort2;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionLanceSort.ActionUtiliserSort3;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionJoueur.ActionUtiliserMainDroite;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Controlable;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
+>>>>>>>>> Temporary merge branch 2
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
+
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
+
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
 
+<<<<<<<<< Temporary merge branch 1
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
+=========
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionCauseDegat;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
+>>>>>>>>> Temporary merge branch 2
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
-
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -50,7 +74,7 @@ public class Controller implements Initializable {
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
-    private long tour = 0;
+    private int temps = 0;
     private Deplacement deplacement;
     private SwitchScene switchDonnees;
 
@@ -70,6 +94,7 @@ public class Controller implements Initializable {
         GestionActeur gestionCauseDegat = new GestionActeur(paneEntite);
         monde.setListenerActeur(gestionCauseDegat);
 
+
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMondeJSON();
 
@@ -79,6 +104,9 @@ public class Controller implements Initializable {
         
 
         // Création des entités avec l'algo A* qui leur permet de rejoindre le joueur
+        Aetoile aetoile = new Aetoile(monde);
+        initLoups(aetoile);
+        initBoss(monde, joueur, aetoile);
 
 
         deplacement = new Deplacement(joueur);
@@ -109,8 +137,8 @@ public class Controller implements Initializable {
 
     public void initPane(){
         // Initialisation taille en fonction de la taille de la map
-        int largeur = Monde.getSizeMondeLargeur()*Constantes.tailleTile;
-        int hauteur = Monde.getSizeMondeHauteur()*Constantes.tailleTile;
+        int largeur = Monde.getSizeMondeLargeur()* Constantes.tailleTile;
+        int hauteur = Monde.getSizeMondeHauteur()* Constantes.tailleTile;
 
         TilePaneSol.setMaxSize(largeur, hauteur);
         TilePaneSol.setMinSize(largeur, hauteur);
@@ -150,31 +178,52 @@ public class Controller implements Initializable {
         monde = new Monde("src/main/resources/universite_paris8/iut/EtrangeEtrange/TiledMap/", "maptest", Monde.getSizeMondeHauteur(), Monde.getSizeMondeLargeur());
     }
 
-    public void initJoueur(){
-        // Initialisation Coordonnées centre monde et des listeners
-        joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
-        monde.setJoueur(joueur);
-        switchDonnees.setJoueur(joueur);
+
+    public void initJoueur()
+    {
+        String guerrier = switchDonnees.getClasseJoueur();
+
+        if (guerrier.equals("Guerrier"))
+        {
+            joueur = new Guerrier(monde,Monde.getxPointDeDepart(),Monde.getyPointDeDepart(), Direction.BAS);
+        }
+        else if (guerrier.equals("Archer"))
+        {
+            joueur = new Archer(monde,Monde.getxPointDeDepart(),Monde.getyPointDeDepart(), Direction.BAS);
+        }
+        else if (guerrier.equals("Mage"))
+        {
+            // pas encore implementer
+        }
+        else if (guerrier.equals("Necromancier"))
+        {
+            // pas encore implementer
+        }
+
     }
 
 
 
 
+    public void keyPressed(KeyEvent keyEvent) throws IOException {
+        KeyCode touche = keyEvent.getCode();;
 
-    public void keyPressed(KeyEvent keyEvent)
-    {
-        KeyCode keyCode = keyEvent.getCode();
-
-        if(keyCode==ConstantesClavier.deplacementHaut)
-            deplacement.ajoutDirection(Direction.HAUT);
-        else if(keyCode==ConstantesClavier.deplacementDroite)
-            deplacement.ajoutDirection(Direction.DROITE);
-        else if(keyCode==ConstantesClavier.deplacementGauche)
-            deplacement.ajoutDirection(Direction.GAUCHE);
-        else if(keyCode==ConstantesClavier.deplacementBas)
-            deplacement.ajoutDirection(Direction.BAS);
-        else if(keyCode==ConstantesClavier.recupererObjetSol)
-            joueur.ramasserObjet();
+            if(touche==ConstantesClavier.deplacementHaut)
+                deplacement.ajoutDirection(Direction.HAUT);
+            else if (touche==ConstantesClavier.deplacementDroite)
+                deplacement.ajoutDirection(Direction.DROITE);
+            else if (touche==ConstantesClavier.recupererObjetSol)
+                joueur.ramasserObjet();
+            else if(touche==ConstantesClavier.deplacementGauche)
+                deplacement.ajoutDirection(Direction.GAUCHE);
+            else if(touche==ConstantesClavier.deplacementBas)
+                deplacement.ajoutDirection(Direction.BAS);
+            else if(touche==ConstantesClavier.courrir)
+                joueur.estEntrainDeCourir(true);
+            else if(touche==ConstantesClavier.attaquer)
+                this.joueur.actionMainDroite();
+            else if(touche==ConstantesClavier.inventaire)
+                ouvrirMenu();
     }
 
 
@@ -182,36 +231,36 @@ public class Controller implements Initializable {
 
     public void onKeyReleased(KeyEvent keyEvent)
     {
-        switch (keyEvent.getCode())
-        {
-            case Z :
+            KeyCode touche = keyEvent.getCode();
+
+            if(touche==ConstantesClavier.deplacementHaut)
                 deplacement.enleveDirection(Direction.HAUT);
-                break;
-            case D :
+            else if(touche==ConstantesClavier.deplacementDroite)
                 deplacement.enleveDirection(Direction.DROITE);
-                break;
-            case Q :
+            else if(touche==ConstantesClavier.deplacementGauche)
                 deplacement.enleveDirection(Direction.GAUCHE);
-                break;
-            case S :
+            else if(touche==ConstantesClavier.deplacementBas)
                 deplacement.enleveDirection(Direction.BAS);
-                break;
-        }
+            else if(touche==ConstantesClavier.courrir)
+                joueur.estEntrainDeCourir(false);
+
+
     }
 
     public void mouseClick(MouseEvent mouseEvent)
     {
         this.paneEntite.requestFocus();
+
+        if (mouseEvent.getButton() == MouseButton.PRIMARY)
+            this.joueur.actionMainDroite();
     }
 
-    public void onScroll(ScrollEvent scrollEvent) {
-        if(scrollEvent.getDeltaY()<0) {
-            switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
-            switchDonnees.getControllerMenu().recupererDonnees();
-            switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());
-            switchDonnees.getStage().show();
-            System.out.println("Changement de scène vers Menu");
-        }
+    public void ouvrirMenu() {
+        switchDonnees.envoyerPanes(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
+        switchDonnees.getControllerMenu().recupererDonnees();
+        switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());
+        switchDonnees.getStage().show();
+        System.out.println("Changement de scène vers Menu");
     }
 
     public void recupererDonnees() {

@@ -194,10 +194,7 @@ public class ControllerChoixClasse implements Initializable
         {
             switchScene.setClasseJoueur(nomActuelle.get());
 
-            FXMLLoader fxmlLoader2 = new FXMLLoader(Runner.class.getResource("viewMap.fxml"));
-            Scene sceneJeu = new Scene(fxmlLoader2.load(), Constantes.largeurEcran,Constantes.hauteurEcran);
-            switchScene.setSceneJeu(sceneJeu);
-            switchScene.getStage().setScene(sceneJeu);
+            switchScene.getStage().setScene(switchScene.getSceneJeu());
         }
 
     }

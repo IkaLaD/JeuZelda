@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
@@ -11,11 +12,13 @@ public class SwitchScene {
     private static SwitchScene switchScene = new SwitchScene();
     private Stage stage;
     private Scene sceneJeu;
-
     private Controller controllerJeu;
     private ControllerMenu controllerMenu;
+    private ControlleurInventaire controlleurInventaire;
+    private ControllerCompetence controllerCompetence;
     private Scene sceneMenu;
     private Pane paneEntite;
+    private TabPane tabPaneMenuInGame;
     private TilePane TilePaneSol;
     private TilePane TilePaneTraversable;
     private TilePane TilePaneNontraversable;
@@ -60,6 +63,29 @@ public class SwitchScene {
         this.TilePaneNontraversable.getChildren().clear();
         this.TilePaneSol.getChildren().clear();
         this.TilePaneTraversable.getChildren().clear();
+    }
+
+    public ControllerCompetence getControllerCompetence() {
+        return controllerCompetence;
+    }
+
+    public void setControllerCompetence(ControllerCompetence controllerCompetence) {
+        this.controllerCompetence = controllerCompetence;
+    }
+
+    public ControlleurInventaire getControlleurInventaire() {
+        return controlleurInventaire;
+    }
+
+    public void setControlleurInventaire(ControlleurInventaire controlleurInventaire) {
+        this.controlleurInventaire = controlleurInventaire;
+    }
+
+    public TabPane getTabPaneMenuInGame() {
+        return tabPaneMenuInGame;
+    }
+    public void setTabPaneMenuInGame(TabPane tabPaneMenuInGame) {
+        this.tabPaneMenuInGame = tabPaneMenuInGame;
     }
 
     public void setJoueur(Joueur joueur){

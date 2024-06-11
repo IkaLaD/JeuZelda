@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
@@ -106,6 +107,16 @@ public class Monde {
                 System.err.println("Erreur de format dans le fichier : " + e.getMessage());
             }
         }
+
+
+        for (int i = 0;i<5;i++)
+        {
+            for (int j = 0;j<5;j++)
+            {
+                if (nontraversable[i][j] == -1)
+                    this.ajoutActeur(new Slime(this,i,j,Direction.HAUT,new Hitbox(0.1,0.1)));
+            }
+        }
     }
 
     /**
@@ -114,6 +125,9 @@ public class Monde {
      */
     public Monde(String nom)
     {
+
+
+
         this.dropsAuSol = FXCollections.observableArrayList();
         try
         {
@@ -147,6 +161,17 @@ public class Monde {
         catch (NumberFormatException e)
         {
             System.err.println("Erreur de format dans le fichier : " + e.getMessage());
+        }
+
+
+
+        for (int i = 0;i<5;i++)
+        {
+            for (int j = 0;j<5;j++)
+            {
+                if (nontraversable[i][j] == -1)
+                    this.ajoutActeur(new Slime(this,i,j,Direction.HAUT,new Hitbox(0.1,0.1)));
+            }
         }
     }
 

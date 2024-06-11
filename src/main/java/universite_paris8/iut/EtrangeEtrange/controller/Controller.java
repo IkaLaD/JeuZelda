@@ -2,7 +2,6 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.*;
@@ -12,14 +11,11 @@ import javafx.util.Duration;
 
 
 import universite_paris8.iut.EtrangeEtrange.Runner;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
-
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
@@ -28,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 
@@ -84,7 +81,14 @@ public class Controller implements Initializable {
 
 
         deplacement = new Deplacement(joueur);
-
+        for (int i = 0;i<5;i++)
+        {
+            for (int j = 0;j<5;j++)
+            {
+                if (monde.getNontraversable()[i][j] == -1)
+                    monde.ajoutActeur(new Slime(monde,i,j,Direction.HAUT,new Hitbox(0.1,0.1)));
+            }
+        }
         initGameLoop();
         gameLoop.play();
 

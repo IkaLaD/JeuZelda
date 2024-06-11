@@ -80,11 +80,11 @@ public abstract class Joueur extends Humanoide
     }
 
     @Override
+    public String typeActeur(){ return "Joueur" ;}
+    @Override
     public void attaque(Arme arme)
     {
         ParametreActionAttaque parametreAttaque = null;
-
-
 
         if (arme instanceof Epee)
         {

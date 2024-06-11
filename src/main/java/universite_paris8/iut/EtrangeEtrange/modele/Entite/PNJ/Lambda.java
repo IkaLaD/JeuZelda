@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
+package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ;
 
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
@@ -158,13 +158,19 @@ public class Lambda extends Humanoide implements PNJ
 
 
     @Override
-    public void unTour() {
+    public void unTour()
+    {
 
     }
 
     @Override
     public void subitCollision(Acteur acteur) {
 
+    }
+
+    @Override
+    public String typeActeur() {
+        return "Lambda";
     }
 
     @Override

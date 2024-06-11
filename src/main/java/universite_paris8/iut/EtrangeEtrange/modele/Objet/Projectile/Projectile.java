@@ -9,7 +9,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 
 public abstract class Projectile extends Acteur implements Dommageable,Objet
 {
-
     private BooleanProperty aToucherUneCible;
 
     public Projectile(double vitesse,Hitbox hitbox)
@@ -17,7 +16,6 @@ public abstract class Projectile extends Acteur implements Dommageable,Objet
         super(1,vitesse,hitbox);
         aToucherUneCible = new SimpleBooleanProperty(false);
     }
-
 
     public final BooleanProperty getPropertyAtoucherUneCible()
     {

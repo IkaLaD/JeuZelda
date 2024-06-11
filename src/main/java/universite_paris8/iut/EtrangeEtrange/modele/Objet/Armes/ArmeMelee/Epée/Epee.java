@@ -14,16 +14,22 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 import java.util.TimerTask;
 
-public abstract class Epee extends Acteur implements Dommageable,Rechargeable,Arme
+public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 {
     private boolean peuTaper;
     private short cycle;
 
 
-    public Epee(Monde monde, double x, double y, Direction direction, double pv, double vitesse, Hitbox hitbox) {
-        super(monde, x, y, direction, pv, vitesse, hitbox);
+    public Epee()
+    {
+        super(10, 1.2, new Hitbox(0.3,0.2));
         this.peuTaper = true;
         this.cycle = 0;
+    }
+
+    @Override
+    public boolean peutSeDeplacer() {
+        return true;
     }
 
     @Override
@@ -72,6 +78,10 @@ public abstract class Epee extends Acteur implements Dommageable,Rechargeable,Ar
         this.getMonde().enleveActeur(this);
     }
 
+    @Override
+    public String typeActeur() {
+        return "Epee";
+    }
 
 
     @Override
@@ -101,11 +111,21 @@ public abstract class Epee extends Acteur implements Dommageable,Rechargeable,Ar
 
 
     @Override
+    public long delaie() {
+        return 10;
+    }
+
+    @Override
     public void cooldown()
     {
        peuTaper = true;
     }
 
+
+    @Override
+    public String getNom() {
+        return "Epée";
+    }
 
     @Override
     public int stackMax() {
@@ -139,5 +159,25 @@ public abstract class Epee extends Acteur implements Dommageable,Rechargeable,Ar
         }
 
         this.position = new Position(x,y);
+    }
+
+    @Override
+    public double degatPhysique() {
+        return 0;
+    }
+
+    @Override
+    public double degatSpecial() {
+        return 0;
+    }
+
+    @Override
+    public double portee() {
+        return 0;
+    }
+
+    @Override
+    public double angle() {
+        return 0;
     }
 }

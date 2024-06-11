@@ -8,6 +8,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Soldat;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -31,9 +35,21 @@ public class GestionActeur implements ListChangeListener<Acteur>
             if (change.wasAdded()) {
                 for (Acteur acteur : change.getAddedSubList()) {
 
-                    if (acteur instanceof Projectile) {
+                    if (acteur instanceof Fleche) {
                         initSpriteProjectile((Projectile) acteur);
                     }
+                    else if (acteur instanceof Slime)
+                    {
+
+                    }
+                    else if (acteur instanceof Squelette)
+                    {
+
+                    }
+
+
+
+
                 }
             } else if (change.wasRemoved()) {
                 for (Acteur acteur : change.getRemoved()) {
@@ -51,14 +67,16 @@ public class GestionActeur implements ListChangeListener<Acteur>
             this.pane.getChildren().remove(node);
     }
 
-    private void initSpriteProjectile(Projectile projectile)
+    private void initSpriteProjectile(Acteur acteur)
     {
-        ImageView imageView = new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/Projectile/fleche.png"));
-        imageView.setTranslateX(projectile.getPosition().getX()*Constantes.tailleTile-32);
-        imageView.setTranslateY(projectile.getPosition().getY()*Constantes.tailleTile-64);
+        String typeActeur = acteur.typeActeur();
 
-        imageView.setId(projectile.getID()+"");
-        Direction direction = projectile.getDirection();
+        ImageView imageView = new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/Projectile/"+typeActeur+".png"));
+        imageView.setTranslateX(acteur.getPosition().getX()*Constantes.tailleTile-32);
+        imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-64);
+
+        imageView.setId(acteur.getID()+"");
+        Direction direction = acteur.getDirection();
 
         int rotation;
         if(direction==Direction.HAUT)
@@ -73,17 +91,14 @@ public class GestionActeur implements ListChangeListener<Acteur>
         imageView.setRotate(rotation*90);
         this.pane.getChildren().add(imageView);
 
-        projectile.getPropertyAtoucherUneCible().addListener((obs, old, nouv)->{
-            pane.getChildren().remove(imageView);
+        acteur.getPosition().getXProperty().addListener((obs, old, nouv)->
+        {
+            imageView.setTranslateX(acteur.getPosition().getX()*Constantes.tailleTile-32);
         });
 
-        projectile.getPosition().getXProperty().addListener((obs, old, nouv)->
+        acteur.getPosition().getYProperty().addListener((obs, old, nouv)->
         {
-            imageView.setTranslateX(projectile.getPosition().getX()*Constantes.tailleTile-32);
-        });
-        projectile.getPosition().getYProperty().addListener((obs, old, nouv)->
-        {
-            imageView.setTranslateY(projectile.getPosition().getY()*Constantes.tailleTile-64);
+            imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-64);
         });
 
     }

@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
+package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
@@ -13,8 +13,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 
-public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur {
-
+public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur
+{
     private Joueur joueur;
     private Aetoile aetoile;
     private long lastPathCalculationTime;
@@ -115,5 +115,10 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
     @Override
     public void subitCollision(Acteur acteur) {
 
+    }
+
+    @Override
+    public String typeActeur() {
+        return "Squelette";
     }
 }

@@ -72,4 +72,6 @@ public class SortilegePluitDeFleche extends Sortilege
         return new Position(newX,newY);
     }
 
+
+
 }

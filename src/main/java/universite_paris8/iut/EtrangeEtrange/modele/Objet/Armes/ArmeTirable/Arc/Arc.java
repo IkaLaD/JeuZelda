@@ -10,7 +10,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 
 public class Arc implements Arme,Rechargeable
 {
-
     private boolean peuTirer;
 
     public Arc()
@@ -49,7 +48,6 @@ public class Arc implements Arme,Rechargeable
                 projectile.setMonde(e.getMonde());
                 projectile.setPosition(e.getPosition().getX(),e.getPosition().getY());
                 projectile.setDirection(e.getDirection());
-
 
 
                 e.getMonde().ajoutActeur(projectile);

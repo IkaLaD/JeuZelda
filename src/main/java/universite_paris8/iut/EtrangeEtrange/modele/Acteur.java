@@ -106,6 +106,7 @@ public abstract class Acteur
      */
     public abstract void subitCollision(Acteur acteur);
 
+    public abstract String typeActeur();
 
     public void setSeDeplace(boolean seDeplace){ this.seDeplace = seDeplace;}
     public void setMonde(Monde monde) {this.monde = monde;}

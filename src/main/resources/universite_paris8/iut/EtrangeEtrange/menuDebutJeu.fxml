@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControllerMenuDebut">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+      <VBox alignment="CENTER" layoutX="870.0" layoutY="440.0" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Button maxHeight="25.0" maxWidth="80.0" minHeight="25.0" minWidth="80.0" mnemonicParsing="false" text="Jouer">
+            <Button fx:id="jouer" onMouseClicked="#jouerClick" maxHeight="25.0" maxWidth="80.0" minHeight="50.0" minWidth="160.0" mnemonicParsing="false" style="-fx-background-color: grey; -fx-border-radius: 0;" text="JOUER" textAlignment="CENTER" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font name="FA123ALG" size="22.0" />
+               </font>
             </Button>
-            <Button maxHeight="25.0" maxWidth="80.0" minHeight="25.0" minWidth="80.0" mnemonicParsing="false" text="Quitter">
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
+            <Button fx:id="quitter"  onMouseClicked="#quitterClick" maxHeight="25.0" maxWidth="80.0" minHeight="50.0" minWidth="160.0" mnemonicParsing="false" style="-fx-background-color: grey; -fx-border-radius: 0;" text="QUITTER" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="FA123ALG" size="22.0" />
+               </font>
             </Button>
          </children>
       </VBox>
    </children>
-</VBox>
+</Pane>

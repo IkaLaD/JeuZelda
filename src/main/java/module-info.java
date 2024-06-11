@@ -4,8 +4,9 @@ module com.example.essaie {
     requires org.json;
     requires org.junit.jupiter;
     requires org.junit.jupiter.api;
-    requires org.junit.jupiter.engine;
+    //requires org.junit.jupiter.engine;
     requires org.junit.platform.commons;
+    requires javafx.media;
 
 
     opens universite_paris8.iut.EtrangeEtrange to javafx.fxml;

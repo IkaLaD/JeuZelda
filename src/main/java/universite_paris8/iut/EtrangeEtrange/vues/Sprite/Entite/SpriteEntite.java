@@ -8,10 +8,17 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class SpriteEntite {
     private static GestionAffichageSpriteEntite gestionAffichageSpriteEntite;
-
     private Entite entite;
     private ImageView SpriteEntite;
     private Rectangle SpriteVie;
@@ -64,7 +71,6 @@ public class SpriteEntite {
         SpriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32);
         SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64);
     }
-    
     
 
     public void demarrerEffet(){

@@ -4,13 +4,19 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
+import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+
+import java.io.File;
 
 
 public class GestionActionDegat implements ListChangeListener<ActionDegat>
@@ -29,8 +35,17 @@ public class GestionActionDegat implements ListChangeListener<ActionDegat>
         while(change.next())
         {
             for (ActionDegat causeDegat : change.getAddedSubList()) {
-                if (causeDegat instanceof ActionDegatParProjectile)
+
+                if (causeDegat instanceof ActionDegatParProjectile) {
+                    AudioClip mediaPlayer = new AudioClip(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/fleche.mp3").toURI().toString());
+                    mediaPlayer.play();
                     initSpriteProjectile((Projectile) causeDegat.getOrgineAttaque());
+                }
+                if(causeDegat instanceof ActionDegatParEpee){
+                    AudioClip mediaPlayer = new AudioClip(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/epee.mp3").toURI().toString());
+                    mediaPlayer.play();
+                    System.out.println("test");
+                }
             }
         }
     }

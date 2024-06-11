@@ -16,14 +16,15 @@ public class Runner extends Application {
         Scene sceneJeu = new Scene(fxmlLoaderJeu.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
         stage.setScene(sceneJeu);
         stage.show();
+        SwitchScene switchScene = SwitchScene.getSwitchScene();
+        switchScene.setStage(stage);
 
-        FXMLLoader fxmlLoaderCompetences = new FXMLLoader(Runner.class.getResource("ChoixClasseView.fxml"));
-        Scene sceneCompetences = new Scene(fxmlLoaderCompetences.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
+        FXMLLoader fxmlLoaderMenuDebut = new FXMLLoader(Runner.class.getResource("menuDebutJeu.fxml"));
+        Scene sceneCompetences = new Scene(fxmlLoaderMenuDebut.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
         stage.setScene(sceneCompetences);
         stage.show();
 
-        SwitchScene switchScene = SwitchScene.getSwitchScene();
-        switchScene.setStage(stage);
+
         switchScene.setSceneJeu(sceneJeu);
 
         FXMLLoader fxmlLoaderMenu = new FXMLLoader(Runner.class.getResource("menuView.fxml"));

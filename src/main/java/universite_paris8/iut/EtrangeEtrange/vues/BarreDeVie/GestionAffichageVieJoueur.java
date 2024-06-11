@@ -1,7 +1,5 @@
 package universite_paris8.iut.EtrangeEtrange.vues.BarreDeVie;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,8 +7,14 @@ import javafx.scene.layout.HBox;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
 
 public class GestionAffichageVieJoueur {
+    @FXML
     private HBox hboxCoeurs;
     private Pv pv;
+
+    // Chemins d'accès aux images
+    private final String coeurPleinPath = "/universite_paris8/iut/EtrangeEtrange/texture/BarreDeVie/0.png";
+    private final String coeurMoitiéPath = "/universite_paris8/iut/EtrangeEtrange/texture/BarreDeVie/1.png";
+    private final String coeurVidePath = "/universite_paris8/iut/EtrangeEtrange/texture/BarreDeVie/2.png";
 
     public GestionAffichageVieJoueur(Pv pv) {
         this.pv = pv;
@@ -18,6 +22,7 @@ public class GestionAffichageVieJoueur {
 
     public void setHboxCoeurs(HBox hbox) {
         this.hboxCoeurs = hbox;
+        initialize();
     }
 
     public void initialize() {
@@ -27,15 +32,28 @@ public class GestionAffichageVieJoueur {
     }
 
     private void actualiseCoeurs() {
-        // Assurez-vous que hboxCoeurs est pas null
         if (hboxCoeurs != null) {
             hboxCoeurs.getChildren().clear();
-            int nombreCoeurs = (int) Math.ceil(pv.getPv() / 20.0); // Division par 20 pour déterminer le nombre de cœurs
-            for (int i = 0; i < nombreCoeurs; i++) {
-                System.out.println("tes");
-                ImageView coeur = new ImageView(new Image(getClass().getResourceAsStream("/universite_paris8/iut/EtrangeEtrange/texture/BarreDeVie/0.png")));
-                coeur.setFitWidth(100);  // Définir la largeur de l'image du cœur
-                coeur.setFitHeight(100); // Définir la hauteur de l'image du cœur
+
+            // Déterminer le nombre total de cœurs
+            int nombreCoeursMax = (int) Math.ceil(pv.getPvMaximum() / 20.0);
+            double pointsDeVieActuels = pv.getPv();
+
+            for (int i = 0; i < nombreCoeursMax; i++) {
+                ImageView coeur;
+
+                if (pointsDeVieActuels >= 20) {
+                    coeur = new ImageView(new Image(getClass().getResourceAsStream(coeurPleinPath)));
+                    pointsDeVieActuels -= 20;
+                } else if (pointsDeVieActuels >= 10) {
+                    coeur = new ImageView(new Image(getClass().getResourceAsStream(coeurMoitiéPath)));
+                    pointsDeVieActuels = 0;
+                } else {
+                    coeur = new ImageView(new Image(getClass().getResourceAsStream(coeurVidePath)));
+                }
+
+                coeur.setFitWidth(30);  // Définir la largeur de l'image du cœur
+                coeur.setFitHeight(30); // Définir la hauteur de l'image du cœur
                 hboxCoeurs.getChildren().add(coeur);
             }
         }

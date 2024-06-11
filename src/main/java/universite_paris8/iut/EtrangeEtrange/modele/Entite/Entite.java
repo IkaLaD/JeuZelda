@@ -282,4 +282,6 @@ public abstract class Entite {
         consommable.consommer(new ParametreActionConsomable(this));
     }
 
+    public abstract void seDeplacerVersJoueur(Position position);
+
 }

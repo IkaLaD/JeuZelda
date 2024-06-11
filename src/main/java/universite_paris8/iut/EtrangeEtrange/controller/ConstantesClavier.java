@@ -12,6 +12,8 @@ public class ConstantesClavier {
     public static KeyCode deplacementGauche = KeyCode.Q;
     public static KeyCode recupererObjetSol = KeyCode.E;
 
+    public static KeyCode degattest = KeyCode.Y;
+
     public static KeyCode menuDeplacementGauche = KeyCode.Q;
     public static KeyCode menuDeplacementDroite = KeyCode.D;
     public static KeyCode menuDeplacementHaut = KeyCode.Z;

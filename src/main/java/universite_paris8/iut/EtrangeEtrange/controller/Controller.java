@@ -116,8 +116,6 @@ public class Controller implements Initializable {
         vueVie = new GestionAffichageVieJoueur(joueur.getStatsPv());
         vueVie.setHboxCoeurs(hboxCoeurs); // Passez l'HBox à la gestion de la vue
         vueVie.initialize(); // Initialiser la vue
-        hboxCoeurs.setPrefWidth(500);
-        hboxCoeurs.setPrefHeight(100);
 
     }
 
@@ -219,6 +217,10 @@ public class Controller implements Initializable {
             deplacement.ajoutDirection(Direction.BAS);
         else if(keyCode==ConstantesClavier.recupererObjetSol)
             joueur.ramasserObjet();
+        else if(keyCode==ConstantesClavier.degattest)
+            joueur.enlevePv(10);
+
+
 
 
         if (actionJoueur != null)

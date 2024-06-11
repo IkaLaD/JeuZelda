@@ -34,6 +34,7 @@ public abstract class Joueur extends Humanoide
     }
 
 
+
     public boolean recupereObjet(Objet objet)
     {
         return getSac().ajoutItem(objet);

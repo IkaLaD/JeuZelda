@@ -24,7 +24,7 @@ public abstract class Acteur
     protected boolean seDeplace;
 
 
-    private final String ID;
+    private final int ID;
     private static int iid = 0;
 
 
@@ -49,7 +49,7 @@ public abstract class Acteur
         this.statsPv = new Pv(pv);
         this.statsVitesse = new Vitesse(vitesse);
         this.hitbox = hitbox;
-        this.ID = "acteur:"+iid++;
+        this.ID = iid++;
     }
 
     /**
@@ -67,7 +67,7 @@ public abstract class Acteur
         this.statsPv = new Pv(pv);
         this.statsVitesse = new Vitesse(vitesse);
         this.hitbox = hitbox;
-        this.ID = "acteur"+iid++;
+        this.ID = iid++;
     }
 
     /**
@@ -139,6 +139,9 @@ public abstract class Acteur
     public void enleveToutPv(){ this.statsPv.enleveToutPv();}
     public void enlevePv(double pv){this.statsPv.enleverPv(pv);}
 
-    public String getID(){return this.ID;}
+    public int getID(){return this.ID;}
 
+    public boolean isSeDeplace() {
+        return seDeplace;
+    }
 }

@@ -12,9 +12,10 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
+
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -433,7 +434,7 @@ public class Monde {
         return aCollision;
     }
 
-    public void setListenerActeur(GestionActionDegat listenerActeur)
+    public void setListenerActeur(GestionActeur listenerActeur)
     {
         this.acteurs.addListener(listenerActeur);
     }
@@ -452,6 +453,10 @@ public class Monde {
     public boolean cheminLibre(Position position1, Direction direction1, Position position2,Direction direction2)
     {
         return true;
+    }
+
+    public void setListenerListeEntites(GestionAffichageSpriteEntite gestionAffichageSprite) {
+        this.acteurs.addListener(gestionAffichageSprite);
     }
 }
 

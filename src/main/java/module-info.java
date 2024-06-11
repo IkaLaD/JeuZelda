@@ -4,11 +4,11 @@ module com.example.essaie {
     requires org.json;
     requires org.junit.jupiter;
     requires org.junit.jupiter.api;
-    //requires org.junit.jupiter.engine;
     requires org.junit.platform.commons;
 
 
     opens universite_paris8.iut.EtrangeEtrange to javafx.fxml;
+
     exports universite_paris8.iut.EtrangeEtrange;
     exports universite_paris8.iut.EtrangeEtrange.modele.Entite;
     opens universite_paris8.iut.EtrangeEtrange.modele.Entite to javafx.fxml;

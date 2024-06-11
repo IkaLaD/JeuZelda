@@ -38,7 +38,6 @@ public class gestionAffichageMap {
     public void afficherMonde(){
         // Récupération de la première couche de la map.
         ArrayList<int[][]> couchesMap = monde.getToutesLesCouches();
-
         // Génération de l'image
         for(int i = 0 ; i < 3 ; i++) { // Nombre de couches de la map
             for (int hauteur = 0; hauteur < Monde.getSizeMondeHauteur(); hauteur++) {
@@ -85,6 +84,7 @@ public class gestionAffichageMap {
             for(int h = 0 ; h < Monde.getSizeMondeHauteur() ; h++){
                 for(int l = 0 ; l < Monde.getSizeMondeLargeur() ; l++){
                     if(couchesMap.get(i)[h][l]!=-1) {
+                        System.out.println(i);
                         String chemin = jsonArray.getJSONObject(couchesMap.get(i)[h][l]).getString("image");
                         tilePane.getChildren().add(new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/" + fichiers[i] + "/" + chemin));
                     }

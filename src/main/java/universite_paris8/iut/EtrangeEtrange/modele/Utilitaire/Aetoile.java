@@ -107,7 +107,6 @@ public class Aetoile {
                 }
             }
         }
-        System.out.println("Aucun chemin trouvé.");
         return Collections.emptyList();
     }
 

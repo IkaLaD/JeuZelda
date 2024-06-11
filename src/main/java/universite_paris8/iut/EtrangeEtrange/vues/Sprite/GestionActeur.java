@@ -13,12 +13,12 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 
-public class GestionActionDegat implements ListChangeListener<Acteur>
+public class GestionActeur implements ListChangeListener<Acteur>
 {
 
     private Pane pane;
 
-    public GestionActionDegat(Pane pane)
+    public GestionActeur(Pane pane)
     {
         this.pane = pane;
     }
@@ -68,7 +68,7 @@ public class GestionActionDegat implements ListChangeListener<Acteur>
         rectangle.setTranslateX(projectile.getPosition().getX()*Constantes.tailleTile-32);
         rectangle.setTranslateY(projectile.getPosition().getY()*Constantes.tailleTile-64);
 
-        rectangle.setId(projectile.getID());
+        rectangle.setId(""+projectile.getID());
         this.pane.getChildren().add(rectangle);
 
 

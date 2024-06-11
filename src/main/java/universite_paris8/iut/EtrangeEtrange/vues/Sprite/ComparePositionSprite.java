@@ -13,7 +13,7 @@ public class ComparePositionSprite implements Comparator<SpriteEntite> {
     public int compare(SpriteEntite o1, SpriteEntite o2) {
         if(o1.getEntite().getPosition().getY()>o2.getEntite().getPosition().getY()) {
             o1.getSpriteEntite().toFront();
-            if(!(o1.getEntite() instanceof Joueur))
+            if(!o1.getEntite().equals(Joueur.class))
                 o1.getSpriteVie().toFront();
             return 1;
         }

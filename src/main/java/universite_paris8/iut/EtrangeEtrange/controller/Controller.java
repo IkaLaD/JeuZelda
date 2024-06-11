@@ -2,39 +2,40 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.beans.property.IntegerProperty;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
-import universite_paris8.iut.EtrangeEtrange.Runner;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
-
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
-
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.gestionAffichageSpriteEntite;
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
 
+import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
+
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -56,31 +57,32 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        switchDonnees = SwitchScene.getSwitchScene();
+        switchDonnees = switchDonnees.getSwitchScene();
+        switchDonnees.setControllerJeu(this);
         initMonde();
         initJoueur();
-        switchDonnees.setControllerJeu(this);
-        switchDonnees.setJoueur(joueur);
         initPane();
 
-
-        gestionAffichageSpriteEntite gestionAffichageSprite = new gestionAffichageSpriteEntite(paneEntite);
+        GestionAffichageSpriteEntite gestionAffichageSprite = new GestionAffichageSpriteEntite(paneEntite);
+        monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
 
-        GestionActionDegat gestionCauseDegat = new GestionActionDegat(paneEntite);
+        GestionActeur gestionCauseDegat = new GestionActeur(paneEntite);
         monde.setListenerActeur(gestionCauseDegat);
-
 
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMondeJSON();
+
         gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol = new gestionAffichageSpriteDropAuSol(paneEntite);
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
         
-        monde.setJoueur(joueur);
+
+        // Création des entités avec l'algo A* qui leur permet de rejoindre le joueur
 
 
         deplacement = new Deplacement(joueur);
+
         initGameLoop();
         gameLoop.play();
 
@@ -98,10 +100,7 @@ public class Controller implements Initializable {
 
                     (ev ->
                     {
-                        tour++;
-                        monde.unTour(tour);
-
-
+                        monde.unTour(tour++);
 
                     })
         );
@@ -125,59 +124,48 @@ public class Controller implements Initializable {
 
         // Listener pour que la TilePane et la Pane suivent le joueur
         joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
-            if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 < 0)
-                if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 > -Monde.getSizeMondeLargeur()*Constantes.tailleTile+Constantes.largeurEcran )
-                    paneEntite.setTranslateX(-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0);
+            paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
         });
         joueur.getPosition().getYProperty().addListener((obs, old, nouv)-> {
-            if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0 < 0)
-                if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0  > -Monde.getSizeMondeHauteur()*Constantes.tailleTile+Constantes.hauteurEcran)
-                    paneEntite.setTranslateY(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0);
+            paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
         });
 
-        paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0);
-        paneEntite.setTranslateY(-joueur.getPosition().getY()* Constantes.tailleTile+Constantes.hauteurEcran/2.0);
+        paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
+        paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
+    }
+
+    /**
+     * Permet de déplacer l'affichage lorsque le joueur se déplace :
+     * @param position : Position du joueur
+     * @param longueurAxe : Hauteur ou largeur de l'écran
+     */
+    public double scrollMap(double position, int longueurAxe, double positionInitiale){
+        if (-position * Constantes.tailleTile + longueurAxe / 2.0 < 0)
+            if (-position * Constantes.tailleTile + longueurAxe / 2.0 > -Monde.getSizeMondeLargeur()*Constantes.tailleTile+longueurAxe )
+                return -position * Constantes.tailleTile + longueurAxe / 2.0;
+        return positionInitiale;
     }
     public void initMonde()
     {
         monde = new Monde("src/main/resources/universite_paris8/iut/EtrangeEtrange/TiledMap/", "maptest", Monde.getSizeMondeHauteur(), Monde.getSizeMondeLargeur());
     }
 
-    public void initJoueur()
-    {
-        String guerrier = switchDonnees.getClasseJoueur();
-
-        if (guerrier.equals("Guerrier"))
-        {
-            joueur = new Guerrier(monde,Monde.getxPointDeDepart(),Monde.getyPointDeDepart(), Direction.BAS);
-        }
-        else if (guerrier.equals("Archer"))
-        {
-            joueur = new Archer(monde,Monde.getxPointDeDepart(),Monde.getyPointDeDepart(), Direction.BAS);
-        }
-        else if (guerrier.equals("Mage"))
-        {
-            // pas encore implementer
-        }
-        else if (guerrier.equals("Necromancier"))
-        {
-            // pas encore implementer
-        }
-
+    public void initJoueur(){
+        // Initialisation Coordonnées centre monde et des listeners
+        joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
+        monde.setJoueur(joueur);
+        switchDonnees.setJoueur(joueur);
     }
 
 
 
-    public void keyPressed(KeyEvent keyEvent) throws IOException {
 
-        /*KeyCode keyCode = keyEvent.getCode();
-        if(keyCode==KeyCode.A)
-            actionJoueur = new ActionUtiliserSort1();
-        else if(keyCode==KeyCode.F)
-            actionJoueur = new ActionUtiliserSort2();
-        else if (keyCode==keyCode.R)
-            actionJoueur = new ActionUtiliserSort3();
-        else if(keyCode==ConstantesClavier.deplacementHaut)
+
+    public void keyPressed(KeyEvent keyEvent)
+    {
+        KeyCode keyCode = keyEvent.getCode();
+
+        if(keyCode==ConstantesClavier.deplacementHaut)
             deplacement.ajoutDirection(Direction.HAUT);
         else if(keyCode==ConstantesClavier.deplacementDroite)
             deplacement.ajoutDirection(Direction.DROITE);
@@ -186,42 +174,7 @@ public class Controller implements Initializable {
         else if(keyCode==ConstantesClavier.deplacementBas)
             deplacement.ajoutDirection(Direction.BAS);
         else if(keyCode==ConstantesClavier.recupererObjetSol)
-            joueur.ramasserObjet();*/
-
-        switch (keyEvent.getCode())
-        {
-            case A :
-                joueur.lanceUnSort(1);
-                break;
-            case F :
-                joueur.lanceUnSort(2);
-                break;
-            case R :
-                joueur.lanceUnSort(3);
-                break;
-            case Z :
-                deplacement.ajoutDirection(Direction.HAUT);
-                break;
-            case D :
-                deplacement.ajoutDirection(Direction.DROITE);
-                break;
-
-            case Q :
-                deplacement.ajoutDirection(Direction.GAUCHE);
-                break;
-            case S :
-                deplacement.ajoutDirection(Direction.BAS);
-                break;
-            case SHIFT:
-                joueur.estEntrainDeCourir(true);
-                break;
-            case I :
-                FXMLLoader fxmlLoaderJeu = new FXMLLoader(Runner.class.getResource("CompetenceView.fxml"));
-                switchDonnees.getStage().setScene(new Scene(fxmlLoaderJeu.load(), Constantes.largeurEcran, Constantes.hauteurEcran));
-
-                break;
-        }
-
+            joueur.ramasserObjet();
     }
 
 
@@ -243,18 +196,12 @@ public class Controller implements Initializable {
             case S :
                 deplacement.enleveDirection(Direction.BAS);
                 break;
-            case SHIFT:
-                joueur.estEntrainDeCourir(false);
-                break;
         }
     }
 
     public void mouseClick(MouseEvent mouseEvent)
     {
         this.paneEntite.requestFocus();
-
-        if (mouseEvent.getButton() == MouseButton.PRIMARY)
-            this.joueur.actionMainDroite();
     }
 
     public void onScroll(ScrollEvent scrollEvent) {

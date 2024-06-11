@@ -38,6 +38,7 @@ public class ControllerMenu implements Initializable {
      * Switch donnéees qui permet de récupérer les données nécessaires (voir class SwitchScene)
      */
     private SwitchScene switchScene;
+    private ColorAdjust ombreArrierePlan;
 
     public void initBackgroundJeu(){
         // Initialisation taille en fonction de la taille de la map
@@ -55,24 +56,19 @@ public class ControllerMenu implements Initializable {
 
         Joueur joueur = switchScene.getJoueur();
         // Listener pour que la TilePane et la Pane suivent le joueur
+        // Listener pour que la TilePane et la Pane suivent le joueur
         joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
-            if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 < 0)
-                if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 > -Monde.getSizeMondeLargeur()*Constantes.tailleTile+Constantes.largeurEcran )
-                    paneEntite.setTranslateX(-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0);
+            paneEntite.setTranslateX(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
         });
         joueur.getPosition().getYProperty().addListener((obs, old, nouv)-> {
-            if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0 < 0)
-                if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0  > -Monde.getSizeMondeHauteur()*Constantes.tailleTile+Constantes.hauteurEcran)
-                    paneEntite.setTranslateY(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0);
+            paneEntite.setTranslateY(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
         });
-        if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 < 0)
-            if (-joueur.getPosition().getX() * Constantes.tailleTile + Constantes.largeurEcran / 2.0 > -Monde.getSizeMondeLargeur()*Constantes.tailleTile+Constantes.largeurEcran )
-                paneEntite.setTranslateX(-joueur.getPosition().getX()*Constantes.tailleTile+Constantes.largeurEcran/2.0);
-        if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0 < 0)
-            if(-joueur.getPosition().getY() * Constantes.tailleTile + Constantes.hauteurEcran / 2.0  > -Monde.getSizeMondeHauteur()*Constantes.tailleTile+Constantes.hauteurEcran)
-                paneEntite.setTranslateY(-joueur.getPosition().getY()*Constantes.tailleTile+Constantes.hauteurEcran/2.0);
 
+        paneEntite.setTranslateX(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
+        paneEntite.setTranslateY(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,13 +79,8 @@ public class ControllerMenu implements Initializable {
         );
 
         // Effet sombre sur le jeu en arrière-plan
-        ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(-0.5);
-        paneEntite.setEffect(colorAdjust);
-        TilePaneSol.setEffect(colorAdjust);
-        TilePaneTraversable.setEffect(colorAdjust);
-        TilePaneNontraversable.setEffect(colorAdjust);
-
+        ombreArrierePlan = new ColorAdjust();
+        ombreArrierePlan.setBrightness(-0.5);
         initBackgroundJeu();
 
         // Placement du menu au milieu de l'écran et application de l'image de fond du menu
@@ -101,10 +92,22 @@ public class ControllerMenu implements Initializable {
         TabPane.setBackground(new Background(new BackgroundImage(fondMenu, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
     }
 
-
+    public void setOmbreArrierePlan(){
+        paneEntite.setEffect(ombreArrierePlan);
+        TilePaneSol.setEffect(ombreArrierePlan);
+        TilePaneTraversable.setEffect(ombreArrierePlan);
+        TilePaneNontraversable.setEffect(ombreArrierePlan);
+    }
+    public void delOmbreArrierePlan(){
+        paneEntite.setEffect(null);
+        TilePaneSol.setEffect(null);
+        TilePaneTraversable.setEffect(null);
+        TilePaneNontraversable.setEffect(null);
+    }
 
 
     public void recupererDonnees() {
+        setOmbreArrierePlan();
         switchScene.recupererPane(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
     }
 
@@ -115,6 +118,7 @@ public class ControllerMenu implements Initializable {
             switchScene.getControllerJeu().recupererDonnees();
             switchScene.getStage().setScene(switchScene.getSceneJeu());
             switchScene.getStage().show();
+            delOmbreArrierePlan();
         }
     }
 }

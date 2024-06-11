@@ -1,12 +1,4 @@
 { "columns":0,
- "editorsettings":
-    {
-     "export":
-        {
-         "format":"json",
-         "target":"nontraversable.tsj"
-        }
-    },
  "grid":
     {
      "height":1,
@@ -16,7 +8,7 @@
  "margin":0,
  "name":"nontraversable",
  "spacing":0,
- "tilecount":11,
+ "tilecount":20,
  "tiledversion":"1.10.2",
  "tileheight":64,
  "tiles":[
@@ -25,8 +17,8 @@
          "image":"1.png",
          "imageheight":64,
          "imagewidth":64
-        },
-	{
+        }, 
+        {
          "id":1,
          "image":"barriere1.png",
          "imageheight":64,
@@ -83,6 +75,60 @@
         {
          "id":10,
          "image":"barriere10.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":11,
+         "image":"2.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":12,
+         "image":"3.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":13,
+         "image":"4.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":14,
+         "image":"7.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":15,
+         "image":"8.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":16,
+         "image":"9.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":17,
+         "image":"10.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":18,
+         "image":"5.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":19,
+         "image":"6.png",
          "imageheight":64,
          "imagewidth":64
         }],

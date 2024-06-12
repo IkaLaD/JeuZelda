@@ -20,6 +20,7 @@ public enum  Direction
         this.y = y;
     }
 
+
     public int getX() {
         return this.x;
     }
@@ -27,6 +28,16 @@ public enum  Direction
     public int getY()
     {
         return this.y;
+    }
+    public static Direction randomDirection(){
+        double random = Math.random();
+        if(random<0.25)
+            return GAUCHE;
+        if(random<0.5)
+            return DROITE;
+        if(random<0.75)
+            return HAUT;
+        return BAS;
     }
 
 

@@ -10,6 +10,7 @@ import javafx.util.Duration;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
@@ -33,8 +34,9 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
     {
         for(SpriteEntite animationSprite : animationSprites)
         {
-            if(animationSprite.getEntite().isSeDeplace())
+            if(animationSprite.getEntite().isSeDeplace()) {
                 animationSprite.miseAJourAnimation();
+            }
             else
                 animationSprite.finAnimationMarche();
 
@@ -76,10 +78,12 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
     {
         while(change.next()){
             for (Acteur entite : change.getAddedSubList())
+                if(entite instanceof Entite)
                     creeSprite(entite);
 
 
             for(Acteur entite : change.getRemoved())
+                if(entite instanceof Entite)
                     suprimmerSprite(entite);
 
         }
@@ -104,7 +108,8 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
         }
         else{
             skin = 3;
-            vitesse = 1;
+            colorAdjust = Math.random()*2-1;
+            vitesse = 2;
         }
 
         SpriteEntite animationSprite = new SpriteEntite(entite, skin, vitesse, colorAdjust);

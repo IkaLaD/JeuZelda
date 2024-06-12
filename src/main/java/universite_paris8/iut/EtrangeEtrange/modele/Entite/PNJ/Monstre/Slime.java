@@ -24,25 +24,21 @@ public class Slime extends EntiteOffensif
      * @param hitbox         La hitbox de l'entité.
      */
     public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(monde, x, y, direction, 100, 30, 20, 20, 50, 0.5, hitbox);
+        super(monde, x, y, direction, 100, 30, 20, 20, 50, 0.05, hitbox);
     }
 
     @Override
     public void unTour()
     {
-        Random rdm = new Random();
-        boolean directionPossible = false;
-        Direction[] directions = Direction.values();
-        int directionCount = directions.length;
-
-        // Essayer toutes les directions aléatoirement
-        for (int attempt = 0; attempt < directionCount && !directionPossible; attempt++) {
-            Direction d = directions[rdm.nextInt(directionCount)];
-            setDirection(d);
-
-            if (peutSeDeplacer()) {
+        if (peutSeDeplacer()) {
+            if(Math.random()>0.95){
+                setSeDeplace(false);
+            }
+            else {
                 seDeplace(1);
-                directionPossible = true;
+            }
+            if(Math.random()>0.95){
+                setDirection(Direction.randomDirection());
             }
         }
 

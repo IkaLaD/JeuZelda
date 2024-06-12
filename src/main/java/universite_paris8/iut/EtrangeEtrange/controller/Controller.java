@@ -102,7 +102,7 @@ public class Controller implements Initializable {
 
         KeyFrame kf = new KeyFrame
                 (
-                    Duration.seconds(0.4),
+                    Duration.seconds(0.17),
 
                     (ev ->
                     {
@@ -229,9 +229,6 @@ public class Controller implements Initializable {
     public void mouseClick(MouseEvent mouseEvent)
     {
         this.paneEntite.requestFocus();
-
-        if (mouseEvent.getButton() == MouseButton.PRIMARY)
-            this.joueur.actionMainDroite();
     }
 
     public void ouvrirMenu() throws IOException {

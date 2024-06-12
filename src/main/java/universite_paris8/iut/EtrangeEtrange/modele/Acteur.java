@@ -49,6 +49,7 @@ public abstract class Acteur
         this.statsPv = new Pv(pv);
         this.statsVitesse = new Vitesse(vitesse);
         this.hitbox = hitbox;
+        this.seDeplace = false;
         this.ID = iid++;
     }
 
@@ -87,7 +88,7 @@ public abstract class Acteur
     {
         int x = this.direction.getX();
         int y = this.direction.getY();
-
+        this.seDeplace=true;
         if(peutSeDeplacer())
         {
             position.setX(position.getX() + x * statsVitesse.getVitesse() * coef);

@@ -2,19 +2,21 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.HumainPNJ;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Interagisable;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.PetitSac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.TypeObjet;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
-import java.lang.reflect.Type;
 import java.util.Random;
 
 public class Marchand extends HumainPNJ implements Interagisable
@@ -45,6 +47,11 @@ public class Marchand extends HumainPNJ implements Interagisable
     }
 
     @Override
+    public String typeActeur() {
+        return null;
+    }
+
+    @Override
     public void subitDegat(Dommageable causeDegat) {
 
     }
@@ -54,6 +61,8 @@ public class Marchand extends HumainPNJ implements Interagisable
 
     }
 
+
+
     @Override
     public void lanceUnSort(int numSort) {
 
@@ -62,6 +71,11 @@ public class Marchand extends HumainPNJ implements Interagisable
     @Override
     public void action() {
 
+    }
+
+    @Override
+    public Prompt prompt() {
+        return null;
     }
 
     @Override

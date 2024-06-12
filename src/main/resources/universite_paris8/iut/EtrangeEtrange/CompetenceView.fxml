@@ -7,4 +7,4 @@
 <?import javafx.scene.layout.*?>
 
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1080.0" minWidth="1920.0" onKeyPressed="#onKeyPressed" onMouseClicked="#onMouseClicked" prefHeight="401.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControllerCompetence" />
+<Pane fx:id="pane" onKeyPressed="#onKeyPressed" onMouseClicked="#onMouseClicked" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControllerCompetence" />

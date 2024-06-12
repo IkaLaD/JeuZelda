@@ -17,9 +17,7 @@ import java.util.ResourceBundle;
 
 public class ControllerInteractionPNJ implements Initializable
 {
-    private Pane pane;
-    private Joueur joueur;
-    private PNJ pnj;
+
 
     private AfficheBulleConversation afficheBulleConversation;
     private GestionPrompt gestionPrompt;
@@ -31,7 +29,7 @@ public class ControllerInteractionPNJ implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        this.afficheBulleConversation = new AfficheBulleConversation(joueur,pnj,pane);
+
 
         this.listProposition =  this.afficheBulleConversation.getListProposition();
 
@@ -73,8 +71,8 @@ public class ControllerInteractionPNJ implements Initializable
 
                     if (gestionPrompt.getChoixPossible() != null && !gestionPrompt.getChoixPossible().isEmpty())
                         afficheBulleConversation.affichePrompt(gestionPrompt.getPrompt());
-                    else
-                        afficheBulleConversation.estFini();
+
+
                 }
                 break;
 

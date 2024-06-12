@@ -62,14 +62,7 @@ public class Aetoile {
         }
 
         // Marquer les positions des entités comme non traversables
-        for (Entite entite : monde.getEntitesA()) {
-            Position pos = entite.getPosition();
-            int x = (int) pos.getX();
-            int y = (int) pos.getY();
-            if (x >= 0 && y >= 0 && x < graphe[0].length && y < graphe.length) {
-                graphe[y][x].setTraversable(false);
-            }
-        }
+
     }
 
     // Trouver le chemin entre deux positions en utilisant l'algorithme A*
@@ -114,7 +107,6 @@ public class Aetoile {
                 }
             }
         }
-        System.out.println("Aucun chemin trouvé.");
         return Collections.emptyList();
     }
 

@@ -9,9 +9,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueMelee.ParametreAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
 
 import java.util.TimerTask;
 
@@ -21,16 +20,15 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     private short cycle;
 
 
-    public Epee() {
-        super(25, 1, new Hitbox(0.2,0.1));
+    public Epee()
+    {
+        super(10, 1.2, new Hitbox(0.3,0.2));
         this.peuTaper = true;
         this.cycle = 0;
     }
 
     @Override
-    public boolean peutSeDeplacer() {
-        return false;
-    }
+    public boolean peutSeDeplacer() {return true;}
 
     @Override
     public void unTour()
@@ -78,6 +76,10 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
         this.getMonde().enleveActeur(this);
     }
 
+    @Override
+    public String typeActeur() {
+        return "Epee";
+    }
 
 
     @Override
@@ -95,6 +97,8 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
                 setPositionAttaque();
 
                 param.getOrigineAction().getMonde().ajoutActeur(this);
+                param.getOrigineAction().getMonde().ajoutRechargeable(this);
+
 
                 this.peuTaper = false;
                 cooldown();
@@ -106,24 +110,20 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 
     @Override
     public long delaie() {
-        return 0;
+        return 10;
     }
 
     @Override
     public void cooldown()
     {
-        TimerAction.addAction(new TimerTask() {
-            @Override
-            public void run() {
-                peuTaper = true;
-            }
-        },delaie());
+        peuTaper = true;
     }
+
 
 
     @Override
     public String getNom() {
-        return null;
+        return "Epée";
     }
 
     @Override
@@ -162,7 +162,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 
     @Override
     public double degatPhysique() {
-        return 0;
+        return 100;
     }
 
     @Override

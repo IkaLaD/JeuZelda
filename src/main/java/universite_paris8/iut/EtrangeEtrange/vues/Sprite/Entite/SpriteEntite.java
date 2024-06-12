@@ -1,62 +1,71 @@
 package universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite;
 
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 public class SpriteEntite {
-    private Entite entite;
-    private String skin;
-    private ImageView SpriteEntite;
+    private static GestionAffichageSpriteEntite gestionAffichageSpriteEntite;
+
+    private Acteur entite;
+    private ImageView spriteEntite;
     private Rectangle SpriteVie;
     private ColorAdjust effetCouleur;
     private boolean appliquerEffet;
     private int id;
-    int image;
+    private int skin;
+    private int vitesse;
+    private int cptImageChange;
+    private int image;
 
     /**
      * La class est uniquement adapté pour le joueur pour le moment (les sprites de chevalier)
      */
-    public SpriteEntite(Entite entite, String skin)
+    public SpriteEntite(Acteur entite, int skin, int vitesse, double colorAdjust)
     {
-        this.image = 1;
-        this.SpriteEntite = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+skin+"/bas1.png");
+        this.image = 0;
+        this.spriteEntite = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+skin+"/bas1.png");
         this.entite = entite;
         this.skin = skin;
-       // this.id = entite.getID();
-
+        this.id = entite.getID();
+        this.vitesse = vitesse;
+        this.cptImageChange = 0;
+        
+        
 
         if(!(entite instanceof Joueur))
             this.SpriteVie = new Rectangle();
 
         // On lie le sprite et l'entité par un même identifiant
-        this.SpriteEntite.setId(entite.getID()+"");
+        this.spriteEntite.setId(entite.getID()+"");
 
         // Listener pour lié position de l'entité et de son sprite
         entite.getPosition().getXProperty().addListener((obs, old, nouv)->
-                SpriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32)
+                spriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32)
         );
         entite.getPosition().getYProperty().addListener((obs, old, nouv)->
-                SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64)
+                spriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64)
         );
 
         effetCouleur = new ColorAdjust();
-        SpriteEntite.setEffect(effetCouleur);
+        effetCouleur.setHue(colorAdjust);
+        spriteEntite.setEffect(effetCouleur);
         // Listener pour savoir si on doit appliquer un effet suite à un dégat ou un heal
         entite.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv) -> {
             demarrerEffet();
         });
 
         //
-        SpriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32);
-        SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64);
+        spriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32);
+        spriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64);
     }
+    
+    
 
     public void demarrerEffet(){
         appliquerEffet=true;
@@ -105,42 +114,51 @@ public class SpriteEntite {
         return SpriteVie;
     }
 
-    public void miseAJourAnimation(){
-        String face = null;
-        if (entite.getDirection() == Direction.BAS) {
-            face = "bas";
-        } else if (entite.getDirection() == Direction.HAUT) {
-            face = "haut";
-        } else if (entite.getDirection() == Direction.DROITE) {
-            face = "droite";
-        } else if (entite.getDirection() == Direction.GAUCHE) {
-            face = "gauche";
+    public void miseAJourAnimation()
+    {
+        int face = 0;
+        if(cptImageChange%vitesse==0)
+        {
+            if (entite.getDirection() == Direction.BAS) {
+                face = 1;
+            } else if (entite.getDirection() == Direction.HAUT) {
+                face = 0;
+            } else if (entite.getDirection() == Direction.DROITE) {
+                face = 3;
+            } else if (entite.getDirection() == Direction.GAUCHE) {
+                face = 2;
+            }
+
+            spriteEntite.setImage(gestionAffichageSpriteEntite.getImagesSprite().get(this.skin)[face][image]);
+
+            if(image==5)
+                image=0;
+            else
+                image++;
         }
 
-        SpriteEntite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+ skin +"/"+face+image+".png"));
-        if(image==6)
-            image=1;
-        else
-            image++;
+
+
+        cptImageChange++;
     }
 
     public void finAnimationMarche(){
-        image=1;
-        String face = null;
+        image=0;
+        int face = 0;
         if (entite.getDirection() == Direction.BAS) {
-            face = "bas";
+            face = 1;
         } else if (entite.getDirection() == Direction.HAUT) {
-            face = "haut";
+            face = 0;
         } else if (entite.getDirection() == Direction.DROITE) {
-            face = "droite";
+            face = 3;
         } else if (entite.getDirection() == Direction.GAUCHE) {
-            face = "gauche";
+            face = 2;
         }
-        this.SpriteEntite.setImage(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+ skin +"/"+face+1+".png"));
+        this.spriteEntite.setImage(gestionAffichageSpriteEntite.getImagesSprite().get(this.skin)[face][image]);
     }
 
     public ImageView getSpriteEntite(){
-        return SpriteEntite;
+        return spriteEntite;
     }
 
     public Rectangle getSpriteVie(){
@@ -151,7 +169,7 @@ public class SpriteEntite {
         return this.id;
     }
 
-    public Entite getEntite() {
+    public Acteur getEntite() {
         return entite;
     }
     public boolean getAppliquerEffet(){
@@ -160,5 +178,9 @@ public class SpriteEntite {
 
     public void setAppliquerEffet(boolean bool){
         this.appliquerEffet=bool;
+    }
+
+    public static void setGestionAffichageSpriteEntite(GestionAffichageSpriteEntite nouveau){
+        gestionAffichageSpriteEntite = nouveau;
     }
 }

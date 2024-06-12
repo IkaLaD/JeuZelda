@@ -24,10 +24,15 @@ public abstract class Fleche extends Projectile
     public void subitCollision(Acteur acteur) {enleveToutPv();}
 
     @Override
+    public String typeActeur(){ return "Fleche"; }
+
+
+    @Override
     public void unTour()
     {
         seDeplace(1);
         if (monde.estHorsMap(this) || monde.collisionMap(this))
             enleveToutPv();
     }
+
 }

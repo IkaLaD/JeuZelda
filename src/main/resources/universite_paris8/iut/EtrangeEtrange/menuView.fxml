@@ -15,12 +15,23 @@
             <TilePane fx:id="TilePaneNontraversable" />
         </children>
     </Pane>
-    <TabPane fx:id="TabPane" onScroll="#onSroll" tabClosingPolicy="UNAVAILABLE">
+    <TabPane fx:id="TabPane" onKeyPressed="#onKeyPressed" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab fx:id="Inventaire" text="Inventaire" >
-            <content>
-                <fx:include source="inventaireView.fxml"/>
-            </content></Tab>
+                <content>
+                    <fx:include source="inventaireView.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="Competence" text="Compétences" >
+                <content>
+                    <fx:include source="CompetenceView.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="ToucheClavier" text="Touches clavier" >
+                <content>
+                    <fx:include source="touchesClavierView.fxml"/>
+                </content>
+            </Tab>
         </tabs>
     </TabPane>
 </StackPane>

@@ -1,7 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Attaque.SortilegePluitDeFleche;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
@@ -57,4 +57,7 @@ public  class LivreMagique implements Arme
     public int stackMax() {
         return 1;
     }
+
+
+
 }

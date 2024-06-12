@@ -40,13 +40,8 @@ public class gestionAffichageSpriteDropAuSol implements ListChangeListener<DropA
         }
     }
     public void creeSprite(DropAuSol dropAuSol){
-        String skin;
-        if (dropAuSol.getObjet().getClass().equals(Arc.class))
-            skin = "arc";
-        else if (dropAuSol.getObjet().getClass().equals(EpeeDeSoldat.class))
-            skin = "epeeDeSoldat";
-        else
-            skin = null;
+        String skin = dropAuSol.getObjet().getNom();
+
 
         SpriteDropAuSol animationDropAuSol = new SpriteDropAuSol(dropAuSol, skin);
 

@@ -1,7 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 
 import java.lang.reflect.Constructor;
@@ -18,7 +18,7 @@ public class FabriquePnj
             for (int i = 0; i < nombre; i++)
             {
                 PNJ pnj = constructor.newInstance(monde,position.getX()+(Math.random()*2+0.5),position.getY()+(Math.random()*2+0.5),Direction.BAS);
-                monde.ajoutEntite((Entite) pnj);
+                monde.ajoutActeur((Entite) pnj);
             }
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException e)
         {

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.GestionPrompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
@@ -19,7 +20,7 @@ public class AfficheBulleConversation
     private ListView<String> listProposition;
 
 
-    public AfficheBulleConversation(Joueur joueur, PNJ pnj,Pane pane)
+    public AfficheBulleConversation(Joueur joueur, Acteur pnj, Pane pane)
     {
         this.pane = pane;
 
@@ -53,12 +54,10 @@ public class AfficheBulleConversation
         afficherPropositionReponse(prompt.getChoixPossible());
     }
 
+    public Label getTextePnj(){ return this.textePnj;}
 
-    public void estFini()
-    {
-        this.textePnj.setVisible(false);
-        this.listProposition.setVisible(false);
-    }
+
+
 
 
 

@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Vitesse;
@@ -7,6 +8,10 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
+/**
+ * La classe abstraite Acteur représente une entité dynamique dans le monde du jeu.
+ * Contient des informations sur la position, la direction, les statistiques de santé et de vitesse, ainsi que la hitbox de l'acteur.
+ */
 public abstract class Acteur
 {
     protected Monde monde;
@@ -20,9 +25,23 @@ public abstract class Acteur
     protected boolean seDeplace;
 
 
-    private final String ID;
+    private final int ID;
     private static int iid = 0;
 
+
+
+
+    /**
+     * Constructeur avec paramètres pour initialiser un Acteur.
+     *
+     * @param monde     Le monde dans lequel l'acteur se situe.
+     * @param x         La coordonnée en x de la position initiale.
+     * @param y         La coordonnée en y de la position initiale.
+     * @param direction La direction initiale de l'acteur.
+     * @param pv        Les points de vie initiaux de l'acteur.
+     * @param vitesse   La vitesse initiale de l'acteur.
+     * @param hitbox    La hitbox de l'acteur.
+     */
     public Acteur(Monde monde,double x,double y,Direction direction,double pv,double vitesse, Hitbox hitbox)
     {
         this.monde = monde;
@@ -31,9 +50,16 @@ public abstract class Acteur
         this.statsPv = new Pv(pv);
         this.statsVitesse = new Vitesse(vitesse);
         this.hitbox = hitbox;
-        this.ID = "acteur:"+iid++;
+        this.ID = iid++;
     }
 
+    /**
+     * Constructeur avec paramètres pour initialiser un Acteur.
+     *
+     * @param pv        Les points de vie initiaux de l'acteur.
+     * @param vitesse   La vitesse initiale de l'acteur.
+     * @param hitbox    La hitbox de l'acteur.
+     */
     public Acteur(double pv,double vitesse,Hitbox hitbox)
     {
         this.monde = null;
@@ -42,10 +68,22 @@ public abstract class Acteur
         this.statsPv = new Pv(pv);
         this.statsVitesse = new Vitesse(vitesse);
         this.hitbox = hitbox;
-        this.ID = "acteur"+iid++;
+        this.ID = iid++;
     }
 
-    public abstract boolean peutSeDeplacer();
+    /**
+     * Méthode abstraite pour vérifier si l'acteur peut se déplacer dans le monde.
+     * @return true si l'acteur peut se déplacer, false sinon.
+     */
+    public boolean peutSeDeplacer(){return monde.collision(this);}
+
+
+    /**
+     * Déplace l'acteur dans le monde en fonction de sa direction et de sa vitesse.
+     * Le coefficient fourni permet de moduler la vitesse du déplacement.
+     *
+     * @param coef Le coefficient de vitesse du déplacement.
+     */
     public void seDeplace(double coef)
     {
         int x = this.direction.getX();
@@ -58,8 +96,20 @@ public abstract class Acteur
         }
     }
 
+    /**
+     * Méthode abstraite pour effectuer les actions de l'acteur lors de l'apelle dans la gameloop.
+     */
     public abstract void unTour();
+
+    /**
+     * Méthode abstraite pour gérer les réactions de l'acteur lors d'une collision avec un autre acteur.
+     *
+     * @param acteur L'acteur avec lequel la collision s'est produite.
+     */
     public abstract void subitCollision(Acteur acteur);
+
+    public abstract String typeActeur();
+
     public void setSeDeplace(boolean seDeplace){ this.seDeplace = seDeplace;}
     public void setMonde(Monde monde) {this.monde = monde;}
     public void setDirection(Direction direction) {this.direction = direction;}
@@ -92,6 +142,14 @@ public abstract class Acteur
     public void enleveToutPv(){ this.statsPv.enleveToutPv();}
     public void enlevePv(double pv){this.statsPv.enleverPv(pv);}
 
-    public String getID(){return this.ID;}
+    public int getID(){return this.ID;}
 
+    public boolean isSeDeplace() {
+        return seDeplace;
+    }
+
+
+    public Prompt getPrompt(){
+        return null;
+    }
 }

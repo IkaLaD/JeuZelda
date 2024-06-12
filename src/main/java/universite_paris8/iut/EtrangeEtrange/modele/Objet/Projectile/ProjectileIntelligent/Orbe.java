@@ -17,6 +17,11 @@ public class Orbe extends Projectile {
     }
 
     @Override
+    public String typeActeur() {
+        return null;
+    }
+
+    @Override
     public double degatPhysique() {
         return 0;
     }

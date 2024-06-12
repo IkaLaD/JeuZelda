@@ -31,9 +31,16 @@ public class Prompt
     {
         Prompt prompt = null;
 
-        for (int i = 0;i<choixPossible.size() && prompt == null ;i++)
-            if (reponse.equalsIgnoreCase(choixPossible.get(i)))
-                prompt = prompts.get(i);
+        if (reponse == null)
+        {
+            prompt = prompts.get(0);
+        }
+        else
+        {
+            for (int i = 0;i<choixPossible.size() && prompt == null ;i++)
+                if (reponse.equalsIgnoreCase(choixPossible.get(i)))
+                    prompt = prompts.get(i);
+        }
 
         return prompt;
     }

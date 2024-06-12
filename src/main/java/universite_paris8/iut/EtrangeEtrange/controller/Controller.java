@@ -81,14 +81,9 @@ public class Controller implements Initializable {
 
 
         deplacement = new Deplacement(joueur);
-        for (int i = 10;i<15;i++)
-        {
-            for (int j = 10;j<15;j++)
-            {
-                if (monde.getNontraversable()[i][j] == -1)
-                    monde.ajoutActeur(new Slime(monde,i,j,Direction.HAUT,new Hitbox(0.1,0.1)));
-            }
-        }
+
+                    monde.ajoutActeur(new Slime(monde,13,13,Direction.HAUT,new Hitbox(0.1,0.1)));
+
         initGameLoop();
         gameLoop.play();
 

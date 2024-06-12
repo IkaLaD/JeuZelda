@@ -37,10 +37,13 @@ public class Slime extends EntiteOffensif
             else {
                 seDeplace(1);
             }
+
             if(Math.random()>0.95){
                 setDirection(Direction.randomDirection());
             }
         }
+        else if(Math.random()>0.95)
+            setSeDeplace(true);
 
     }
 

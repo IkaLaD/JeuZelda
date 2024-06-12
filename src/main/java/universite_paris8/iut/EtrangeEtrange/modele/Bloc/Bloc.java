@@ -39,6 +39,7 @@ public class Bloc extends Acteur {
         }
         if(acteur instanceof Dommageable){
             subitDegat(new Epee());
+            dropApresMort();
         }
     }
 

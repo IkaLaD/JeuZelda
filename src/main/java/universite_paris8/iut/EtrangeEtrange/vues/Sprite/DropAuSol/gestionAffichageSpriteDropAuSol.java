@@ -33,6 +33,7 @@ public class gestionAffichageSpriteDropAuSol implements ListChangeListener<DropA
         while(change.next()){
             for (DropAuSol dropAuSol: change.getAddedSubList()) {
                 creeSprite(dropAuSol);
+                System.out.println("test");
             }
             for (DropAuSol dropAuSol: change.getRemoved()) {
                 suprimmerSprite(dropAuSol);

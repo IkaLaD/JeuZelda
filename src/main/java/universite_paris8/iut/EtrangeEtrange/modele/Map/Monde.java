@@ -351,53 +351,45 @@ public class Monde {
 
 
 
-    public boolean collisionMap(Acteur acteur)
-    {
-
+    public boolean collisionMap(Acteur acteur) {
         Position position = acteur.getPosition();
         Direction direction = acteur.getDirection();
         Hitbox hitbox = acteur.getHitbox();
         double vitesse = acteur.getVitesse();
 
-        double x = position.getX()+ vitesse*direction.getX();
-        double y = position.getY()+ vitesse*direction.getY();
+        double x = position.getX() + vitesse * direction.getX();
+        double y = position.getY() + vitesse * direction.getY();
 
-        // Extremité de la hitbox, calculer dans le if en dessous en fonction de la direction (on prend extremite gauche et droite si on va vers le haut ou le bas)
         double extremite1;
         double extremite2;
 
-        if (direction == Direction.BAS  || direction == Direction.HAUT)
-        {
+        if (direction == Direction.BAS || direction == Direction.HAUT) {
             extremite1 = hitbox.getPointLePlusAGauche(x);
             extremite2 = hitbox.getPointLePlusADroite(x);
-        }
-        else
-        {
+        } else {
             extremite1 = hitbox.getPointLePlusEnHaut(y);
             extremite2 = hitbox.getPointLePlusEnBas(y);
         }
 
-        boolean colision = false;
+        boolean collision = false;
         int cpt = (int) extremite1;
 
-
-        while (cpt <= extremite2 && !colision)
-        {
-            if (direction == Direction.BAS) {
-                colision = nontraversable[(int) (hitbox.getPointLePlusEnBas(y))][cpt] != -1;
-            } else if (direction == Direction.HAUT) {
-                colision = nontraversable[(int) (hitbox.getPointLePlusEnHaut(y))][cpt] != -1;
-            } else if (direction == Direction.DROITE) {
-                colision = nontraversable[cpt][(int) (hitbox.getPointLePlusADroite(x))] != -1;
-            } else if (direction == Direction.GAUCHE) {
-                colision = nontraversable[cpt][(int) (hitbox.getPointLePlusAGauche(x))] != -1;
+        while (cpt <= extremite2 && !collision) {
+            if (direction.equals(Direction.BAS)) {
+                collision = nontraversable[(int) (hitbox.getPointLePlusEnBas(y))][cpt] != -1;
+            } else if (direction.equals(Direction.HAUT)) {
+                collision = nontraversable[(int) (hitbox.getPointLePlusEnHaut(y))][cpt] != -1;
+            } else if (direction.equals(Direction.DROITE)) {
+                collision = nontraversable[cpt][(int) (hitbox.getPointLePlusADroite(x))] != -1;
+            } else if (direction.equals(Direction.GAUCHE)) {
+                collision = nontraversable[cpt][(int) (hitbox.getPointLePlusAGauche(x))] != -1;
             }
             cpt++;
         }
 
-
-        return colision;
+        return collision;
     }
+
 
     public boolean collisionAvecActeur(Acteur acteur1,Acteur acteur2)
     {
@@ -426,7 +418,7 @@ public class Monde {
 
     public boolean collision(Acteur acteur)
     {
-        return !(collisionMap(acteur) && !collisionAvecActeurs(acteur));
+        return collisionMap(acteur) || collisionAvecActeurs(acteur);
     }
 
     private boolean collisionAvecActeurs(Acteur acteur1)

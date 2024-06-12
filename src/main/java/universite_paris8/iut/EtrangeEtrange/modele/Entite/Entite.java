@@ -38,28 +38,6 @@ public abstract class Entite extends Acteur
         this.statsDefenseSpecial = new DefenseSpecial(defenseSpecial);
     }
 
-    /**
-     * Subit des dégâts infligés par une source dommageable.
-     * @param causeDegat La source de dégâts.
-     */
-    public abstract void subitDegat(Dommageable causeDegat);
-
-    /**
-     * Calcule les dégâts physiques subis par l'entité.
-     * @param attaqueEntite       Les dégâts physiques infligés.
-     * @param degatArme La force de l'entité qui inflige les dégâts.
-     * @return Les dégâts physiques subis.
-     */
-    protected abstract double subitDegatPhysique(double attaqueEntite,double degatArme);
-
-    /**
-     * Calcule les dégâts spéciaux subis par l'entité.
-     *
-     * @param attaqueSpecialEntite Les dégâts spéciaux infligés.
-     * @param degatArme    La force de l'entité qui inflige les dégâts spéciaux.
-     * @return Les dégâts spéciaux subis.
-     */
-    protected abstract double subitDegatSpecial(double attaqueSpecialEntite,double degatArme);
     public void setDefenseMaximum(double statsDefense){this.statsDefense.setDefenseMaximum(statsDefense);}
     public void setDefense(double defense){this.statsDefense.setDefense(defense);}
     public void setDefenseSpecialMaximum(double statsDefenseSpecial) {this.statsDefenseSpecial.setDefenseSpecialMaximum(statsDefenseSpecial);}

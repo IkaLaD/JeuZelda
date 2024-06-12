@@ -16,6 +16,11 @@ public class Archer extends Joueur
     }
 
     @Override
+    public void dropApresMort() {
+
+    }
+
+    @Override
     public void unTour() {
 
     }

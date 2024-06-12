@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Vitesse;
@@ -97,6 +98,9 @@ public abstract class Acteur
         }
     }
 
+
+    public abstract void dropApresMort();
+
     /**
      * Méthode abstraite pour effectuer les actions de l'acteur lors de l'apelle dans la gameloop.
      */
@@ -109,6 +113,28 @@ public abstract class Acteur
      */
     public abstract void subitCollision(Acteur acteur);
 
+    /**
+     * Subit des dégâts infligés par une source dommageable.
+     * @param causeDegat La source de dégâts.
+     */
+    public abstract void subitDegat(Dommageable causeDegat);
+
+    /**
+     * Calcule les dégâts physiques subis par l'entité.
+     * @param attaqueEntite       Les dégâts physiques infligés.
+     * @param degatArme La force de l'entité qui inflige les dégâts.
+     * @return Les dégâts physiques subis.
+     */
+    protected abstract double subitDegatPhysique(double attaqueEntite,double degatArme);
+
+    /**
+     * Calcule les dégâts spéciaux subis par l'entité.
+     *
+     * @param attaqueSpecialEntite Les dégâts spéciaux infligés.
+     * @param degatArme    La force de l'entité qui inflige les dégâts spéciaux.
+     * @return Les dégâts spéciaux subis.
+     */
+    protected abstract double subitDegatSpecial(double attaqueSpecialEntite,double degatArme);
     public abstract String typeActeur();
 
     public void setSeDeplace(boolean seDeplace){ this.seDeplace = seDeplace;}

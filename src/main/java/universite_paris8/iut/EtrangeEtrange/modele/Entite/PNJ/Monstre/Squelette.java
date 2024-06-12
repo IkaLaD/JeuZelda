@@ -108,6 +108,11 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
     }
 
     @Override
+    public void dropApresMort() {
+
+    }
+
+    @Override
     public void unTour() {
 
     }

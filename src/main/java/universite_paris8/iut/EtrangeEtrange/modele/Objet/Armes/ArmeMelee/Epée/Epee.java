@@ -72,10 +72,30 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     }
 
     @Override
+    public void dropApresMort() {
+
+    }
+
+    @Override
     public void subitCollision(Acteur acteur)
     {
         enlevePv(getStatsPv().getPvMaximum()/10);
         this.getMonde().enleveActeur(this);
+    }
+
+    @Override
+    public void subitDegat(Dommageable causeDegat) {
+
+    }
+
+    @Override
+    protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
+        return 0;
+    }
+
+    @Override
+    protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
+        return 0;
     }
 
     @Override
@@ -124,7 +144,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 
     @Override
     public String getNom() {
-        return "Epée";
+        return "epee";
     }
 
     @Override

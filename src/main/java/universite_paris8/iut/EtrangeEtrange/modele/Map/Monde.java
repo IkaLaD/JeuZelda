@@ -108,17 +108,6 @@ public class Monde {
             }
         }
 
-
-        for (int i = 0;i<5;i++)
-        {
-            for (int j = 0;j<5;j++)
-            {
-                if (nontraversable[i][j] == -1)
-                    this.ajoutActeur(new Slime(this,i,j,Direction.HAUT,new Hitbox(0.1,0.1)));
-
-
-            }
-        }
     }
 
     /**
@@ -251,6 +240,7 @@ public class Monde {
 
     public void setJoueur(Joueur joueur){
         this.joueur = joueur;
+        listenerCollision(joueur);
     }
     public Joueur getJoueur(){
         return this.joueur;
@@ -280,23 +270,44 @@ public class Monde {
     public void ajoutActeur(Acteur acteur)
     {
         this.acteurs.add(acteur);
+        listenerCollision(acteur);
+    }
+
+    public void listenerCollision(Acteur acteur){
+        acteur.getPosition().getXProperty().addListener((obs, old, nouv)->{
+            if(acteur != joueur && collisionAvecActeur(acteur,joueur)){
+                acteur.subitCollision(joueur);
+                joueur.subitCollision(acteur);
+            }
+
+            for(int j = acteurs.size()-1 ; j>=0 ; j--){
+                Acteur acteur2 = acteurs.get(j);
+                if(acteur != acteur2 && collisionAvecActeur(acteur,acteur2)){
+                    acteur.subitCollision(acteur2);
+                    acteur2.subitCollision(acteur);
+                }
+            }
+        });
+        acteur.getPosition().getYProperty().addListener((obs, old, nouv)->{
+            if(acteur != joueur && collisionAvecActeur(acteur,joueur)){
+                acteur.subitCollision(joueur);
+                joueur.subitCollision(acteur);
+            }
+
+            for(int j = acteurs.size()-1 ; j>=0 ; j--){
+                Acteur acteur2 = acteurs.get(j);
+                if( acteur != acteur2 && collisionAvecActeur(acteur,acteur2)){
+                    acteur.subitCollision(acteur2);
+                    acteur2.subitCollision(acteur);
+                }
+            }
+        });
     }
 
 
     public void unTour(long tour){
         for(int i = acteurs.size() -1 ; i>=0 ; i--){
             acteurs.get(i).unTour();
-        }
-        for(int i = acteurs.size()-1 ; i>=0 ; i--){
-            Acteur acteur1 = acteurs.get(i);
-            for(int j = acteurs.size()-1 ; j>=0 ; j--){
-                Acteur acteur2 = acteurs.get(j);
-
-                if(collisionAvecActeur(acteur1,acteur2) && acteur1 != acteur2){
-                    acteur1.subitCollision(acteur2);
-                    acteur2.subitCollision(acteur1);
-                }
-            }
         }
 
         for(int i = acteurs.size() -1 ; i>=0 ; i--){
@@ -393,7 +404,9 @@ public class Monde {
 
     public boolean collisionAvecActeur(Acteur acteur1,Acteur acteur2)
     {
-        Position pos1 = acteur1.getPosition();
+        double vitesse = acteur1.getVitesse();
+        Position pos1 = new Position(acteur1.getPosition().getX()+acteur1.getDirection().getX()*vitesse, acteur1.getPosition().getY()+acteur1.getDirection().getY()*vitesse);
+
         Hitbox hitbox1 = acteur1.getHitbox();
 
         Position pos2 = acteur2.getPosition();

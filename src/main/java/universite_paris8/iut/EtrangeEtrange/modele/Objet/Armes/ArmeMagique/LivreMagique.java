@@ -26,7 +26,7 @@ public  class LivreMagique implements Arme
 
     @Override
     public String getNom() {
-        return "Livre magique";
+        return "livremagique";
     }
 
 

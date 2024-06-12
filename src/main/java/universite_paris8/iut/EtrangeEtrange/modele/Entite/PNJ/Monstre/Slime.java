@@ -8,10 +8,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class Slime extends EntiteOffensif
 {
     /**
@@ -25,6 +21,11 @@ public class Slime extends EntiteOffensif
      */
     public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(monde, x, y, direction, 100, 30, 20, 20, 50, 0.05, hitbox);
+    }
+
+    @Override
+    public void dropApresMort() {
+
     }
 
     @Override

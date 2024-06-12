@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.ProjectileIntelligent;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
@@ -14,6 +15,21 @@ public class Orbe extends Projectile {
     @Override
     public void subitCollision(Acteur acteur) {
 
+    }
+
+    @Override
+    public void subitDegat(Dommageable causeDegat) {
+
+    }
+
+    @Override
+    protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
+        return 0;
+    }
+
+    @Override
+    protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
+        return 0;
     }
 
     @Override
@@ -56,6 +72,11 @@ public class Orbe extends Projectile {
     @Override
     public boolean peutSeDeplacer() {
         return false;
+    }
+
+    @Override
+    public void dropApresMort() {
+
     }
 
     @Override

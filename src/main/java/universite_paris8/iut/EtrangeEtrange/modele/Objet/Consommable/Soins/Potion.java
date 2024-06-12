@@ -16,7 +16,7 @@ public class Potion implements Consommable,Guerrisable
 
     @Override
     public String getNom() {
-        return "Potion";
+        return "potion";
     }
 
     @Override

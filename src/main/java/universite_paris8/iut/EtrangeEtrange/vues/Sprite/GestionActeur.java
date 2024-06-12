@@ -37,6 +37,9 @@ public class GestionActeur implements ListChangeListener<Acteur>
                     if (acteur.typeActeur() == "Fleche") {
                         initSpriteProjectile(acteur);
                     }
+                    else if(acteur.typeActeur()=="bloc"){
+                        initSpriteBloc(acteur);
+                    }
                 }
             } else if (change.wasRemoved()) {
                 for (Acteur acteur : change.getRemoved()) {
@@ -58,24 +61,67 @@ public class GestionActeur implements ListChangeListener<Acteur>
     {
         String typeActeur = acteur.typeActeur();
 
+        double reglagePositionX;
+        double reglagePositionY;
+
         ImageView imageView = new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/Projectile/"+typeActeur+".png"));
-        imageView.setTranslateX(acteur.getPosition().getX()*Constantes.tailleTile-32);
-        imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-64);
+
 
         imageView.setId(acteur.getID()+"");
         Direction direction = acteur.getDirection();
 
         int rotation;
-        if(direction==Direction.HAUT)
-            rotation=0;
-        else if(direction==Direction.BAS)
+        if(direction==Direction.HAUT) {
+            rotation = 0;
+            reglagePositionY = 15;
+            reglagePositionX = 5.5;
+        }
+        else if(direction==Direction.BAS){
             rotation=2;
-        else if(direction==Direction.DROITE)
-            rotation=1;
-        else
-            rotation=3;
+            reglagePositionY = 15;
+            reglagePositionX = 5.5;
+        }
+        else if(direction==Direction.DROITE) {
+            rotation = 1;
+            reglagePositionY = 5.5;
+            reglagePositionX = 15;
+        }
+        else {
+            rotation = 3;
+            reglagePositionY = 5.5;
+            reglagePositionX = 15;
+        }
+        imageView.setTranslateX(acteur.getPosition().getX()*Constantes.tailleTile-reglagePositionX);
+        imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-reglagePositionY);
 
         imageView.setRotate(rotation*90);
+        this.pane.getChildren().add(imageView);
+
+        acteur.getPosition().getXProperty().addListener((obs, old, nouv)->
+        {
+            imageView.setTranslateX(acteur.getPosition().getX()*Constantes.tailleTile-reglagePositionX);
+        });
+
+        acteur.getPosition().getYProperty().addListener((obs, old, nouv)->
+        {
+            imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-reglagePositionY);
+        });
+
+    }
+
+
+    public void initSpriteBloc(Acteur acteur){
+        ImageView imageView;
+        if(acteur.typeActeur()=="bloc"){
+            imageView = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/Bloc/boite.png");
+        }
+        else{
+            imageView = new ImageView();
+        }
+
+        imageView.setTranslateX(acteur.getPosition().getX()*Constantes.tailleTile-32);
+        imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-32);
+        imageView.setId(acteur.getID()+"");
         this.pane.getChildren().add(imageView);
 
         acteur.getPosition().getXProperty().addListener((obs, old, nouv)->
@@ -85,13 +131,9 @@ public class GestionActeur implements ListChangeListener<Acteur>
 
         acteur.getPosition().getYProperty().addListener((obs, old, nouv)->
         {
-            imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-64);
+            imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-32);
         });
-
     }
-
-
-
 
 
 

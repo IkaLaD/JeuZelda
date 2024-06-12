@@ -11,8 +11,10 @@ import javafx.util.Duration;
 
 
 import universite_paris8.iut.EtrangeEtrange.Runner;
+import universite_paris8.iut.EtrangeEtrange.modele.Bloc.Bloc;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -81,8 +83,9 @@ public class Controller implements Initializable {
 
 
         deplacement = new Deplacement(joueur);
-
-                    monde.ajoutActeur(new Slime(monde,13,13,Direction.HAUT,new Hitbox(0.1,0.1)));
+        Bloc bloc = new Bloc( monde, 11, 11, Direction.BAS, 1, 0, new Hitbox(1,1));
+        monde.ajoutActeur(new Slime(monde,13,13,Direction.HAUT,new Hitbox(0.5,0.5)));
+        monde.ajoutActeur(bloc);
 
         initGameLoop();
         gameLoop.play();
@@ -156,6 +159,7 @@ public class Controller implements Initializable {
     {
         String guerrier = switchDonnees.getClasseJoueur();
 
+
         if (guerrier.equals("Guerrier"))
         {
             joueur = new Guerrier(monde,Monde.getxPointDeDepart(),Monde.getyPointDeDepart(), Direction.BAS);
@@ -173,7 +177,8 @@ public class Controller implements Initializable {
             // pas encore implementer
         }
         switchDonnees.setJoueur(joueur);
-
+        monde.setJoueur(joueur);
+        joueur.getSac().ajoutItem(new Epee());
     }
 
 

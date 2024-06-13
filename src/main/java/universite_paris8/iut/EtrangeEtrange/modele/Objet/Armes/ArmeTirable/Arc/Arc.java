@@ -26,6 +26,16 @@ public class Arc implements Arme,Rechargeable
     public void cooldown() { peuTirer = true;}
 
     @Override
+    public void setTourApelle(long tourApelle) {
+
+    }
+
+    @Override
+    public long getTourApelle() {
+        return -1;
+    }
+
+    @Override
     public String getNom() {
         return "arc";
     }

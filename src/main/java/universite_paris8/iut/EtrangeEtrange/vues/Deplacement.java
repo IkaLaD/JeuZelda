@@ -71,7 +71,6 @@ public class Deplacement
 
     public void ajoutDirection(Direction direction) {
         this.directions.add(direction);
-        System.out.println(direction);
     }
 
     /**

@@ -52,6 +52,7 @@ public class Monde {
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
 
 
+    private long tour = 0;
 
 
     /**
@@ -283,7 +284,10 @@ public class Monde {
     }
 
 
-    public void unTour(long tour){
+    public void unTour()
+    {
+        this.tour++;
+
         for(int i = acteurs.size() -1 ; i>=0 ; i--){
             acteurs.get(i).unTour();
         }
@@ -305,21 +309,33 @@ public class Monde {
                 acteurs.remove(i);
         }
 
-        for(int i = rechargeables.size()-1 ; i>=0 ; i--){
+        for(int i = rechargeables.size()-1 ; i>=0 ; i--)
+        {
             Rechargeable rechargeable = rechargeables.get(i);
-            if(tour%rechargeable.delaie()==0){
+            System.out.println("boucle");
+            if(rechargeable.getTourApelle() + rechargeable.delaie() == tour)
+            {
+                System.out.println("valider");
                 rechargeable.cooldown();
                 this.rechargeables.remove(rechargeable);
+                System.out.println(rechargeables.size());
+
+
             }
+            else{
+                System.out.println("pas valider");
+            }
+
         }
     }
 
     public void ajoutRechargeable(Rechargeable rechargeable)
     {
         this.rechargeables.add(rechargeable);
+        rechargeable.setTourApelle(tour);
+        System.out.println(tour + "     apelle ");
     }
 
-    private ArrayList<Rechargeable> getRechargeables(){ return this.rechargeables;}
 
     public boolean estHorsMap(Acteur acteur)
     {

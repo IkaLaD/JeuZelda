@@ -18,6 +18,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 {
     private boolean peuTaper;
     private short cycle;
+    private long tourApelle;
 
 
     public Epee()
@@ -25,6 +26,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
         super(10, 1.2, new Hitbox(0.3,0.2));
         this.peuTaper = true;
         this.cycle = 0;
+        this.tourApelle = 0;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     @Override
     public void unTour()
     {
-        if (cycle <= 3)
+        if (cycle <= 2)
         {
             seDeplace(1);
             cycle++;
@@ -54,26 +56,28 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
         double largeur;
         double hauteur;
 
-        if (x != 0)
+        if (x == 0)
         {
-            largeur = hitbox.getLargeur();
-            hauteur = hitbox.getHauteur();
+            largeur = hitbox.getHauteur();
+            position.setX(position.getX() + x + largeur * coeff);
+
+
         }
         else
         {
-            largeur = hitbox.getHauteur();
-            hauteur = hitbox.getLargeur();
+            hauteur = hitbox.getHauteur();
+            position.setY(position.getY() + y + hauteur * coeff);
         }
 
-        position.setX(position.getX() + x * largeur * coeff);
-        position.setY(position.getY() + y * hauteur * coeff);
+
+
     }
 
     @Override
     public void subitCollision(Acteur acteur)
     {
-        enlevePv(getStatsPv().getPvMaximum()/10);
-        this.getMonde().enleveActeur(this);
+        //enlevePv(getStatsPv().getPvMaximum()/10);
+       // this.getMonde().enleveActeur(this);
     }
 
     @Override
@@ -90,18 +94,19 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
             if (peuTaper)
             {
                 EntiteOffensif e = parametre.getOrigineAction();
-
+                setPosition(e.getPosition());
                 setMonde(e.getMonde());
                 setDirection(e.getDirection());
-                setPosition(e.getPosition().getX(),e.getPosition().getY());
-                setPositionAttaque();
+                this.peuTaper = false;
 
+
+                setPositionAttaque();
                 param.getOrigineAction().getMonde().ajoutActeur(this);
                 param.getOrigineAction().getMonde().ajoutRechargeable(this);
 
 
-                this.peuTaper = false;
-                cooldown();
+
+
             }
 
         }
@@ -119,6 +124,15 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
         peuTaper = true;
     }
 
+    @Override
+    public void setTourApelle(long tourApelle) {
+        this.tourApelle = tourApelle;
+    }
+
+    @Override
+    public long getTourApelle() {
+        return this.tourApelle;
+    }
 
 
     @Override
@@ -137,27 +151,36 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
         double x = position.getX();
         double y = position.getY();
 
+        double posX = 0;
+        double posY = 0;
+
         switch (direction)
         {
             case HAUT:
                 x = hitbox.getPointLePlusADroite(x);
                 y = hitbox.getPointLePlusEnHaut(y);
+                posX = 0;
+                posY = -hitbox.getHauteur();
                 break;
             case BAS:
                 x = hitbox.getPointLePlusADroite(x);
                 y = hitbox.getPointLePlusEnBas(y);
+                posX = 0;
+                posY = hitbox.getHauteur();
                 break;
             case DROITE:
                 x = hitbox.getPointLePlusEnBas(x);
                 y = hitbox.getPointLePlusADroite(y);
+                posX = hitbox.getLargeur();
+                posY = 0;
                 break;
             case GAUCHE:
-                x = hitbox.getPointLePlusADroite(x);
-                y = hitbox.getPointLePlusAGauche(y);
+                posX = -hitbox.getLargeur();
+                posY = 0;
                 break;
         }
 
-        this.position = new Position(x,y);
+        this.position = new Position(x+posX,y+posY);
     }
 
     @Override

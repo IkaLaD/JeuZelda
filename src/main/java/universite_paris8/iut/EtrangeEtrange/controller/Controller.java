@@ -133,7 +133,7 @@ public class Controller implements Initializable {
 
         KeyFrame kf = new KeyFrame(Duration.seconds(0.4), (ev -> {
             if (!interactionAvecPnj)
-                monde.unTour(tour++);}));
+                monde.unTour();}));
 
         gameLoop.getKeyFrames().add(kf);
     }

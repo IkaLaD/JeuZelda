@@ -59,10 +59,11 @@ public class AfficheBulleConversation
     {
         if (propositions == null || propositions.isEmpty())
         {
-            listProposition.setVisible(false);
+            this.listProposition.setVisible(false);
         }
         else
         {
+            this.listProposition.setVisible(true);
             this.listProposition.setItems(FXCollections.observableList(propositions));
         }
     }

@@ -19,13 +19,5 @@ public class Necromancier extends Joueur{
 
     }
 
-    @Override
-    public void subitCollision(Acteur acteur) {
 
-    }
-
-    @Override
-    public void subitDegat(Dommageable causeDegat) {
-
-    }
 }

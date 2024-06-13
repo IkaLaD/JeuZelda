@@ -2,7 +2,6 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ;
 
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
@@ -161,7 +160,7 @@ public class Lambda extends Humanoide implements PNJ
     }
 
     @Override
-    public void subitDegat(Dommageable causeDegat) {
+    public void subitAttaque(Dommageable causeDegat) {
 
     }
 }

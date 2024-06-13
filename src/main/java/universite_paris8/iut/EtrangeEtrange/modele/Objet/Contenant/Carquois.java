@@ -4,7 +4,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Flech
 
 public class Carquois extends ObjetConteneur<Fleche>
 {
-
     public Carquois() {
         super(1);
     }
@@ -17,6 +16,11 @@ public class Carquois extends ObjetConteneur<Fleche>
     @Override
     public int stackMax() {
         return 1;
+    }
+
+    @Override
+    public double durabilitee() {
+        return -1;
     }
 
 

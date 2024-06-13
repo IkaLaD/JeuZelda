@@ -21,7 +21,9 @@ public abstract class Fleche extends Projectile
         return 6;
     }
     @Override
-    public void subitCollision(Acteur acteur) {enleveToutPv();}
+    public void subitCollision(Acteur acteur) { enleveToutPv(); }
+    @Override
+    public void causeCollision(Acteur acteur) { acteur.subitAttaque(this); }
 
     @Override
     public String typeActeur(){ return "Fleche"; }
@@ -34,5 +36,9 @@ public abstract class Fleche extends Projectile
         if (monde.estHorsMap(this) || monde.collisionMap(this))
             enleveToutPv();
     }
+
+
+    @Override
+    public double durabilitee(){ return getPv();}
 
 }

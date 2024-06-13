@@ -297,7 +297,7 @@ public class Monde {
                 Acteur acteur2 = acteurs.get(j);
 
                 if(collisionAvecActeur(acteur1,acteur2) && acteur1 != acteur2){
-                    acteur1.subitCollision(acteur2);
+                    acteur1.causeCollision(acteur2);
                     acteur2.subitCollision(acteur1);
                 }
             }

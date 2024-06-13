@@ -1,5 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
+
 public class FlecheSimple extends Fleche
 {
     public FlecheSimple()
@@ -28,7 +30,10 @@ public class FlecheSimple extends Fleche
         return true;
     }
 
+    @Override
+    public void subitAttaque(Dommageable causeDegat) {
 
+    }
 
 
 }

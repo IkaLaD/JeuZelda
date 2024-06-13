@@ -30,7 +30,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
     }
 
     @Override
-    public void subitDegat(Dommageable causeDegat) {
+    public void subitAttaque(Dommageable causeDegat) {
 
     }
 

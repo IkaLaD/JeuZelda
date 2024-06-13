@@ -4,5 +4,6 @@ public interface  Objet {
 
     public String getNom();
     public int stackMax();
+    public double durabilitee();
 
 }

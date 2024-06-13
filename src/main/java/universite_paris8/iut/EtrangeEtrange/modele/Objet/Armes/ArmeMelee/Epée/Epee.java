@@ -4,15 +4,11 @@ import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
-import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueMelee.ParametreAttaqueEpee;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
-
-import java.util.TimerTask;
 
 public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 {
@@ -20,10 +16,12 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     private short cycle;
     private long tourApelle;
 
+    private EntiteOffensif utilisateur;
+
 
     public Epee()
     {
-        super(10, 1.2, new Hitbox(0.3,0.2));
+        super(10, 1.2, new Hitbox(1,1));
         this.peuTaper = true;
         this.cycle = 0;
         this.tourApelle = 0;
@@ -47,7 +45,24 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
         }
     }
 
+
+
     @Override
+    public void seDeplace(double coeff)
+    {
+        double x = this.direction.getX() * 0.2;
+        double y = this.direction.getY() * 0.2;
+
+
+        position.setX(position.getX() + x * statsVitesse.getVitesse() * coeff);
+        position.setY(position.getY() + y * statsVitesse.getVitesse() * coeff);
+
+    }
+
+
+
+   /*
+   *  @Override
     public void seDeplace(double coeff)
     {
         int x = direction.getX();
@@ -60,8 +75,6 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
         {
             largeur = hitbox.getHauteur();
             position.setX(position.getX() + x + largeur * coeff);
-
-
         }
         else
         {
@@ -71,14 +84,19 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 
 
 
+    }*/
+
+    @Override
+    public void subitCollision(Acteur acteur) { /*  NE FAIT RIEN */  }
+
+    @Override
+    public void causeCollision(Acteur acteur) {
+        acteur.subitAttaque(this);
+        enlevePv(getStatsPv().getPvMaximum()/10);
     }
 
     @Override
-    public void subitCollision(Acteur acteur)
-    {
-        //enlevePv(getStatsPv().getPvMaximum()/10);
-       // this.getMonde().enleveActeur(this);
-    }
+    public void subitAttaque(Dommageable causeDegat) {  /*  NE FAIT RIEN */ }
 
     @Override
     public String typeActeur() {
@@ -93,10 +111,11 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
         {
             if (peuTaper)
             {
-                EntiteOffensif e = parametre.getOrigineAction();
-                setPosition(e.getPosition());
-                setMonde(e.getMonde());
-                setDirection(e.getDirection());
+                utilisateur = parametre.getOrigineAction();
+
+                setPosition(utilisateur.getPosition());
+                setMonde(utilisateur.getMonde());
+                setDirection(utilisateur.getDirection());
                 this.peuTaper = false;
 
 
@@ -115,7 +134,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 
     @Override
     public long delaie() {
-        return 10;
+        return 3;
     }
 
     @Override
@@ -143,6 +162,11 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     @Override
     public int stackMax() {
         return 1;
+    }
+
+    @Override
+    public double durabilitee() {
+        return getPv();
     }
 
 

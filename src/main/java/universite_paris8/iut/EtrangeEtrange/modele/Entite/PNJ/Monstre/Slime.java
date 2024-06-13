@@ -9,8 +9,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Slime extends EntiteOffensif {
@@ -58,8 +56,8 @@ public class Slime extends EntiteOffensif {
     }
 
     @Override
-    public void subitDegat(Dommageable causeDegat) {
-
+    public void subitAttaque(Dommageable causeDegat) {
+        enlevePv(20);
     }
 
     @Override

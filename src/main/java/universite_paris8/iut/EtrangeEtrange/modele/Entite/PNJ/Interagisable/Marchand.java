@@ -10,7 +10,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Interagisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.PetitSac;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.TypeObjet;
@@ -52,7 +51,7 @@ public class Marchand extends HumainPNJ implements Interagisable
     }
 
     @Override
-    public void subitDegat(Dommageable causeDegat) {
+    public void subitAttaque(Dommageable causeDegat) {
 
     }
 

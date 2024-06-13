@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.TestJunit;
 
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Lambda;
@@ -8,8 +9,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 
 public class EntiteTest

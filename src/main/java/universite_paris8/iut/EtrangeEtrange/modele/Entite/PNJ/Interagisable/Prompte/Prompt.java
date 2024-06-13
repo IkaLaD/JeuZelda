@@ -31,7 +31,7 @@ public class Prompt
     {
         Prompt prompt = null;
 
-        if (reponse == null)
+        if (reponse == null || reponse.length() == 0)
         {
             prompt = prompts.get(0);
         }

@@ -127,7 +127,9 @@ public class Controller implements Initializable {
         gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
-        KeyFrame kf = new KeyFrame(Duration.seconds(0.4), (ev -> {monde.unTour(tour++);}));
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.4), (ev -> {
+            if (!interactionAvecPnj)
+                monde.unTour(tour++);}));
 
         gameLoop.getKeyFrames().add(kf);
     }
@@ -197,6 +199,7 @@ public class Controller implements Initializable {
             // pas encore implementer
         }
         switchDonnees.setJoueur(joueur);
+        monde.setJoueur(joueur);
 
     }
 
@@ -222,6 +225,8 @@ public class Controller implements Initializable {
                 this.joueur.actionMainDroite();
             else if(touche==ConstantesClavier.inventaire)
                 ouvrirMenu();
+            else if(touche== KeyCode.B)
+                interaction();
     }
 
 
@@ -284,13 +289,14 @@ public class Controller implements Initializable {
     public void interaction()
     {
         Acteur acteur = monde.interactionAvecActeur();
-
+        System.out.println("interaction");
         if (acteur != null)
         {
             Prompt prompt = acteur.getPrompt();
 
             if (prompt != null)
             {
+                System.out.println("interaction");
                 this.interactionAvecPnj = true;
 
                 this.afficheBulleConversation = new AfficheBulleConversation(joueur,acteur,paneEntite);
@@ -314,7 +320,7 @@ public class Controller implements Initializable {
         if (gestionPrompt.getPrompt() != null)
             this.afficheBulleConversation.affichePrompt(gestionPrompt.getPrompt());
         else
-            estFini();
+            interactionFinie();
 
     }
 
@@ -337,7 +343,7 @@ public class Controller implements Initializable {
     }
 
 
-    public void estFini()
+    public void interactionFinie()
     {
         this.textePnj.setVisible(false);
         this.listProposition.setVisible(false);
@@ -361,17 +367,7 @@ public class Controller implements Initializable {
 
         if (keyCode == KeyCode.ENTER)
         {
-
-
-
-
-
-
-
-
-
-
-
+            promptSuivant();
         }
         else if (keyCode == KeyCode.Z || keyCode == KeyCode.D)
         {

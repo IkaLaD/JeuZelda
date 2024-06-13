@@ -1,8 +1,9 @@
 package universite_paris8.iut.EtrangeEtrange.TestJunit;
 
-import org.junit.jupiter.api.Test;
 
 
+
+import org.junit.Test;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
@@ -12,8 +13,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Inventaire;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class InventaireTest {
 

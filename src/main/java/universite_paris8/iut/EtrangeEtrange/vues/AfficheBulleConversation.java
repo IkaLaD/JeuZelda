@@ -3,12 +3,16 @@ package universite_paris8.iut.EtrangeEtrange.vues;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.GestionPrompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
 import java.util.ArrayList;
 
@@ -24,13 +28,21 @@ public class AfficheBulleConversation
     {
         this.pane = pane;
 
-        this.textePnj = new Label();
         this.listProposition = new ListView<>();
+        this.textePnj = new Label();
 
-        this.textePnj.setLayoutY(pnj.getPosition().getY()-1);
+        this.listProposition.setTranslateY((joueur.getPosition().getY()-1) * Constantes.tailleTile);
+        this.listProposition.setTranslateX(joueur.getPosition().getX() * Constantes.tailleTile);
+        this.listProposition.setMaxSize(30,20);
+
+
+
+        this.textePnj.setMinSize(100,100);
+        this.textePnj.setTranslateY((pnj.getPosition().getY()-1)* Constantes.tailleTile);
+        this.textePnj.setTranslateX(pnj.getPosition().getX()* Constantes.tailleTile);
         this.pane.getChildren().add(textePnj);
 
-        this.listProposition.setLayoutY(joueur.getPosition().getY()-1);
+
         this.pane.getChildren().add(listProposition);
     }
 
@@ -38,12 +50,12 @@ public class AfficheBulleConversation
 
     private void afficherMessagePNJ(String texte)
     {
-        this.textePnj = new Label(texte);
+        this.textePnj.setText(texte);
     }
 
     private void afficherPropositionReponse(ArrayList<String> propositions)
     {
-        this.listProposition = new ListView<>(FXCollections.observableList(propositions));
+        this.listProposition.setItems(FXCollections.observableList(propositions));
     }
 
     public ListView<String> getListProposition() {return this.listProposition;}

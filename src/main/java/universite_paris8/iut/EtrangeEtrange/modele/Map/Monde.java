@@ -460,11 +460,6 @@ public class Monde {
 
 
 
-    public boolean cheminLibre(Position position1, Direction direction1, Position position2,Direction direction2)
-    {
-        return true;
-    }
-
     public void setListenerListeEntites(GestionAffichageSpriteEntite gestionAffichageSprite) {
         this.acteurs.addListener(gestionAffichageSprite);
     }
@@ -482,7 +477,7 @@ public class Monde {
     public Acteur interactionAvecActeur()
     {
         Acteur act = null;
-        double distance = estEnFace(act);
+        double distance = -1;
 
 
         for (Acteur acteur : acteurs)

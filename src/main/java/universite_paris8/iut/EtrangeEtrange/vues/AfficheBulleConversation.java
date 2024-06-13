@@ -31,15 +31,17 @@ public class AfficheBulleConversation
         this.listProposition = new ListView<>();
         this.textePnj = new Label();
 
-        this.listProposition.setTranslateY((joueur.getPosition().getY()-1) * Constantes.tailleTile);
-        this.listProposition.setTranslateX(joueur.getPosition().getX() * Constantes.tailleTile);
-        this.listProposition.setMaxSize(30,20);
+        this.listProposition.setTranslateY((joueur.getPosition().getY()+2)*(Constantes.tailleTile-32));
+        this.listProposition.setTranslateX((joueur.getPosition().getX()+1)*Constantes.tailleTile);
+        this.listProposition.setMaxSize(200,50);
 
 
 
-        this.textePnj.setMinSize(100,100);
-        this.textePnj.setTranslateY((pnj.getPosition().getY()-1)* Constantes.tailleTile);
-        this.textePnj.setTranslateX(pnj.getPosition().getX()* Constantes.tailleTile);
+
+
+        this.textePnj.setTranslateY((pnj.getPosition().getY()-1) * (Constantes.tailleTile-32));
+        this.textePnj.setTranslateX((pnj.getPosition().getX()-1)* Constantes.tailleTile);
+        this.textePnj.setBackground(new Background(new BackgroundFill(Color.WHITE,null,null)));
         this.pane.getChildren().add(textePnj);
 
 
@@ -55,7 +57,14 @@ public class AfficheBulleConversation
 
     private void afficherPropositionReponse(ArrayList<String> propositions)
     {
-        this.listProposition.setItems(FXCollections.observableList(propositions));
+        if (propositions == null || propositions.isEmpty())
+        {
+            listProposition.setVisible(false);
+        }
+        else
+        {
+            this.listProposition.setItems(FXCollections.observableList(propositions));
+        }
     }
 
     public ListView<String> getListProposition() {return this.listProposition;}

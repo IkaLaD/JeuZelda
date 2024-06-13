@@ -53,6 +53,10 @@ public class Controller implements Initializable {
     private TilePane TilePaneNontraversable;
     @FXML
     private Pane paneEntite;
+
+    @FXML
+    private Pane paneInteraction;
+
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
@@ -209,24 +213,31 @@ public class Controller implements Initializable {
     public void keyPressed(KeyEvent keyEvent) throws IOException {
         KeyCode touche = keyEvent.getCode();;
 
-            if(touche==ConstantesClavier.deplacementHaut)
-                deplacement.ajoutDirection(Direction.HAUT);
-            else if (touche==ConstantesClavier.deplacementDroite)
-                deplacement.ajoutDirection(Direction.DROITE);
-            else if (touche==ConstantesClavier.recupererObjetSol)
-                joueur.ramasserObjet();
-            else if(touche==ConstantesClavier.deplacementGauche)
-                deplacement.ajoutDirection(Direction.GAUCHE);
-            else if(touche==ConstantesClavier.deplacementBas)
-                deplacement.ajoutDirection(Direction.BAS);
-            else if(touche==ConstantesClavier.courrir)
-                joueur.estEntrainDeCourir(true);
-            else if(touche==ConstantesClavier.attaquer)
-                this.joueur.actionMainDroite();
-            else if(touche==ConstantesClavier.inventaire)
-                ouvrirMenu();
-            else if(touche== KeyCode.B)
-                interaction();
+            if (!interactionAvecPnj)
+            {
+                if(touche==ConstantesClavier.deplacementHaut)
+                    deplacement.ajoutDirection(Direction.HAUT);
+                else if (touche==ConstantesClavier.deplacementDroite)
+                    deplacement.ajoutDirection(Direction.DROITE);
+                else if (touche==ConstantesClavier.recupererObjetSol)
+                    joueur.ramasserObjet();
+                else if(touche==ConstantesClavier.deplacementGauche)
+                    deplacement.ajoutDirection(Direction.GAUCHE);
+                else if(touche==ConstantesClavier.deplacementBas)
+                    deplacement.ajoutDirection(Direction.BAS);
+                else if(touche==ConstantesClavier.courrir)
+                    joueur.estEntrainDeCourir(true);
+                else if(touche==ConstantesClavier.attaquer)
+                    this.joueur.actionMainDroite();
+                else if(touche==ConstantesClavier.inventaire)
+                    ouvrirMenu();
+                else if(touche== KeyCode.B)
+                    interaction();
+            }
+            else
+            {
+                handleInteractionPnj(keyEvent);
+            }
     }
 
 
@@ -236,16 +247,20 @@ public class Controller implements Initializable {
     {
             KeyCode touche = keyEvent.getCode();
 
-            if(touche==ConstantesClavier.deplacementHaut)
-                deplacement.enleveDirection(Direction.HAUT);
-            else if(touche==ConstantesClavier.deplacementDroite)
-                deplacement.enleveDirection(Direction.DROITE);
-            else if(touche==ConstantesClavier.deplacementGauche)
-                deplacement.enleveDirection(Direction.GAUCHE);
-            else if(touche==ConstantesClavier.deplacementBas)
-                deplacement.enleveDirection(Direction.BAS);
-            else if(touche==ConstantesClavier.courrir)
-                joueur.estEntrainDeCourir(false);
+            if (!interactionAvecPnj)
+            {
+                if(touche==ConstantesClavier.deplacementHaut)
+                    deplacement.enleveDirection(Direction.HAUT);
+                else if(touche==ConstantesClavier.deplacementDroite)
+                    deplacement.enleveDirection(Direction.DROITE);
+                else if(touche==ConstantesClavier.deplacementGauche)
+                    deplacement.enleveDirection(Direction.GAUCHE);
+                else if(touche==ConstantesClavier.deplacementBas)
+                    deplacement.enleveDirection(Direction.BAS);
+                else if(touche==ConstantesClavier.courrir)
+                    joueur.estEntrainDeCourir(false);
+            }
+
 
 
     }
@@ -289,17 +304,17 @@ public class Controller implements Initializable {
     public void interaction()
     {
         Acteur acteur = monde.interactionAvecActeur();
-        System.out.println("interaction");
+
         if (acteur != null)
         {
             Prompt prompt = acteur.getPrompt();
 
             if (prompt != null)
             {
-                System.out.println("interaction");
+
                 this.interactionAvecPnj = true;
 
-                this.afficheBulleConversation = new AfficheBulleConversation(joueur,acteur,paneEntite);
+                this.afficheBulleConversation = new AfficheBulleConversation(joueur,acteur,paneInteraction);
                 this.listProposition = afficheBulleConversation.getListProposition();
                 this.textePnj = afficheBulleConversation.getTextePnj();
 
@@ -320,7 +335,11 @@ public class Controller implements Initializable {
         if (gestionPrompt.getPrompt() != null)
             this.afficheBulleConversation.affichePrompt(gestionPrompt.getPrompt());
         else
+        {
             interactionFinie();
+            System.out.println("fini");
+        }
+
 
     }
 
@@ -369,11 +388,11 @@ public class Controller implements Initializable {
         {
             promptSuivant();
         }
-        else if (keyCode == KeyCode.Z || keyCode == KeyCode.D)
+        else if (keyCode == KeyCode.S || keyCode == KeyCode.D)
         {
             defile(1);
         }
-        else if (keyCode == KeyCode.S || keyCode == KeyCode.Q)
+        else if (keyCode == KeyCode.Z || keyCode == KeyCode.Q)
         {
             defile(-1);
         }

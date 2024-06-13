@@ -24,6 +24,10 @@ public class FlecheSimple extends Fleche
     public String getNom() {
         return "Fleche";
     }
+    @Override
+    public String typeActeur(){
+        return "fleche";
+    }
 
     @Override
     public boolean peutSeDeplacer() {

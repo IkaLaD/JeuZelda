@@ -20,7 +20,7 @@ public class Slime extends EntiteOffensif
      * @param hitbox         La hitbox de l'entité.
      */
     public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(monde, x, y, direction, 100, 30, 20, 20, 50, 0.05, hitbox);
+        super(monde, x, y, direction, 100, 30, 20, 20, 50, 0.025, hitbox);
     }
 
     @Override

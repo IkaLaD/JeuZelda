@@ -34,7 +34,7 @@ public class GestionActeur implements ListChangeListener<Acteur>
         while (change.next()) {
             if (change.wasAdded()) {
                 for (Acteur acteur : change.getAddedSubList()) {
-                    if (acteur.typeActeur() == "Fleche") {
+                    if (acteur.typeActeur() == "fleche") {
                         initSpriteProjectile(acteur);
                     }
                     else if(acteur.typeActeur()=="bloc"){

@@ -30,9 +30,11 @@ public abstract class Fleche extends Projectile
     @Override
     public void unTour()
     {
-        seDeplace(1);
-        if (monde.estHorsMap(this) || monde.collisionMap(this))
+        if(peutSeDeplacer())
+            seDeplace(1);
+        else
             enleveToutPv();
+
     }
 
 }

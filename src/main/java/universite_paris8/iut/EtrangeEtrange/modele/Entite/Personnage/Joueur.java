@@ -71,7 +71,6 @@ public abstract class Joueur extends Humanoide
         }
     }
 
-
     @Override
     public void lanceUnSort(int numSort)
     {

@@ -7,11 +7,15 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
+import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+
+import java.util.ArrayList;
 
 public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur
 {
@@ -19,14 +23,17 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
     private Aetoile aetoile;
     private long lastPathCalculationTime;
 
-    public Squelette(Monde monde, double x, double y, Direction direction, double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Hitbox hitbox) {
+    public Squelette(Monde monde, double x, double y, Direction direction, double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Hitbox hitbox, Aetoile aetoile, Joueur joueur) {
         super(monde, x, y, direction, pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, hitbox);
+        this.aetoile = aetoile;
+        this.joueur = joueur;
     }
 
 
     @Override
     public void action() {
         seDeplacerVersJoueur(joueur.getPosition());
+        attaque(new Epee());
     }
 
     @Override
@@ -99,7 +106,12 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
 
     @Override
     public void attaque(Arme arme) {
-
+        Position position1 = joueur.getPosition();
+        if(Math.abs(getPosition().getX()+getDirection().getX()-position1.getX())<1) {
+            if(Math.abs(getPosition().getY()+getDirection().getY()-position1.getY())<1) {
+                this.joueur.subitDegat(new Epee());
+            }
+        }
     }
 
     @Override
@@ -114,7 +126,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
 
     @Override
     public void unTour() {
-
+        action();
     }
 
     @Override

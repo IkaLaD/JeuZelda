@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
@@ -58,6 +59,11 @@ public abstract class Humanoide extends EntiteOffensif
     @Override
     protected double subitDegatSpecial(double attaqueSpecial,double forceEntite) {
         return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
+    }
+
+    @Override
+    public void subitDegat(Dommageable dommageable){
+        this.enlevePv(5);
     }
 
     public Sac getSac()

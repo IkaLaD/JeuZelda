@@ -13,10 +13,12 @@ import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Bloc.Bloc;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
@@ -86,6 +88,7 @@ public class Controller implements Initializable {
         Bloc bloc = new Bloc( monde, 11, 11, Direction.BAS, 1, 0, new Hitbox(1,1));
         monde.ajoutActeur(new Slime(monde,13,13,Direction.HAUT,new Hitbox(0.5,0.5)));
         monde.ajoutActeur(bloc);
+        monde.ajoutActeur(new Squelette( monde,  15, 25, Direction.BAS, 50, 5, 5, 10, 10, 0.025, new Hitbox(0.5, 0.5), new Aetoile(monde), joueur));
 
         initGameLoop();
         gameLoop.play();
@@ -100,7 +103,7 @@ public class Controller implements Initializable {
 
         KeyFrame kf = new KeyFrame
                 (
-                    Duration.seconds(0.17),
+                    Duration.seconds(0.07),
 
                     (ev ->
                     {

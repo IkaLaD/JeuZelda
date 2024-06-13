@@ -11,7 +11,9 @@ import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.ComparePositionSprite;
@@ -60,7 +62,7 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
     {
         imagesSprite = new ArrayList<>();
         String[] directions = {"haut","bas","gauche","droite"};
-        String[] skins = {"chevalier","pnjtest","roiSquelette","slime","squelette"};
+        String[] skins = {"chevalier","pnjtest","roiSquelette","slime","squelette","archer"};
 
         for(int s = 0 ; s < skins.length ; s++){
             String skin = skins[s];
@@ -102,14 +104,19 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
             skin = 0;
             vitesse = 1;
 
+        } else if (entite.getClass().equals(Archer.class)) {
+            skin = 5;
+            vitesse = 2;
         } else if (entite.getClass().equals(Squelette.class)) {
             skin = 4;
             vitesse = 1;
-        }
-        else{
+        } else if (entite.getClass().equals(Slime.class)) {
             skin = 3;
-            colorAdjust = Math.random()*2-1;
+            colorAdjust = Math.random() * 2 - 1;
             vitesse = 2;
+        } else {
+            skin = 0;
+            vitesse = 0;
         }
 
         SpriteEntite animationSprite = new SpriteEntite(entite, skin, vitesse, colorAdjust);

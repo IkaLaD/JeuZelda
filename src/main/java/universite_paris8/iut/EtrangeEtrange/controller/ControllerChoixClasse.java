@@ -150,6 +150,7 @@ public class ControllerChoixClasse implements Initializable
             }
 
             miseAjourProgressBar(statPv,statAttaque,statDefense,statAttaqueSpecial,statDefenseSpecial,statVitesse);
+
         });
     }
 

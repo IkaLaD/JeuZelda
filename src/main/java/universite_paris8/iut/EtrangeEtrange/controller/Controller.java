@@ -163,7 +163,7 @@ public class Controller implements Initializable {
     {
         String guerrier = switchDonnees.getClasseJoueur();
 
-
+        System.out.println(guerrier);
         if (guerrier.equals("Guerrier"))
         {
             joueur = new Guerrier(monde,Monde.getxPointDeDepart(),Monde.getyPointDeDepart(), Direction.BAS);

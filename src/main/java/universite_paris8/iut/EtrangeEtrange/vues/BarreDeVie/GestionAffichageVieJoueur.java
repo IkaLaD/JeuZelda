@@ -26,7 +26,7 @@ public class GestionAffichageVieJoueur {
     }
 
     public void initialize() {
-        // Ajout d'un listener à la propriété pv pour actualiser les cœurs à chaque changement
+
         pv.getPvActuelleProperty().addListener((obs, oldVal, newVal) -> actualiseCoeurs());
         actualiseCoeurs(); // Initialisation de l'affichage des cœurs
     }
@@ -41,7 +41,6 @@ public class GestionAffichageVieJoueur {
 
             for (int i = 0; i < nombreCoeursMax; i++) {
                 ImageView coeur;
-                System.out.println("ahvrmt");
 
                 if (pointsDeVieActuels >= 20) {
                     coeur = new ImageView(new Image(getClass().getResourceAsStream(coeurPleinPath)));
@@ -55,8 +54,8 @@ public class GestionAffichageVieJoueur {
                     System.out.println(coeur.getY());
                 }
 
-                coeur.setFitWidth(30);  // Définir la largeur de l'image du cœur
-                coeur.setFitHeight(30); // Définir la hauteur de l'image du cœur
+                coeur.setFitWidth(30);
+                coeur.setFitHeight(30);
                 hboxCoeurs.getChildren().add(coeur);
             }
         }

@@ -3,16 +3,15 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVers;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ParametreLivreMagique.ParametreLivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur {
+public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVers {
 
     protected Joueur joueur;
     protected boolean estFamilier;
@@ -39,14 +38,14 @@ public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur
 
         if (estFamilier) {
             setSeDeplace(true);
-            seDeplacerVersJoueur(joueur.getPosition());
+            seDeplacerVers(joueur.getPosition());
         } else {
             seDeplaceAleatoire();
         }
     }
 
     @Override
-    public void seDeplacerVersJoueur(Position joueurPosition) {
+    public void seDeplacerVers(Position joueurPosition) {
         if (aetoile == null) {
             return;
         }

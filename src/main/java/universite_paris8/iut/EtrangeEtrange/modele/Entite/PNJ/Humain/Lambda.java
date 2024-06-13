@@ -2,7 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVers;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
@@ -12,8 +12,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ParametreActionAttaque;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ParametreLivreMagique.ParametreLivreMagique;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesPersonnages;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.*;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
@@ -25,7 +23,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Flech
 
 import java.util.ArrayList;
 
-public class Lambda extends Humanoide implements PNJ, SeDeplacerVersJoueur
+public class Lambda extends Humanoide implements PNJ, SeDeplacerVers
 {
     private ArrayList<Potion> potions;
     private long tourBoucle;
@@ -175,7 +173,7 @@ public class Lambda extends Humanoide implements PNJ, SeDeplacerVersJoueur
 
 
     @Override
-    public void seDeplacerVersJoueur(Position position) {
+    public void seDeplacerVers(Position position) {
 
     }
 }

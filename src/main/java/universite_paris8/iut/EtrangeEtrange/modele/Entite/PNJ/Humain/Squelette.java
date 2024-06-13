@@ -2,7 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVers;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -11,7 +11,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 
-public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoueur {
+public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
 
     private Joueur joueur;
     private Aetoile aetoile;
@@ -26,7 +26,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
 
     @Override
     public void action() {
-        seDeplacerVersJoueur(joueur.getPosition());
+        seDeplacerVers(joueur.getPosition());
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
 
 
     @Override
-    public void seDeplacerVersJoueur(Position joueurPosition) {
+    public void seDeplacerVers(Position joueurPosition) {
         if (aetoile == null) {
             return;
         }

@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Loup;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Slime;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
@@ -89,7 +89,7 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Entite> 
         } else if (entite.getClass().equals(RoiSquelette.class)) {
             skin = 2;
             vitesse = 1;
-        } else if (entite.getClass().equals(Loup.class)) {
+        } else if (entite.getClass().equals(Slime.class)) {
             skin = 3;
             vitesse = 2;
             colorAdjust = Math.random() * 2 - 1;

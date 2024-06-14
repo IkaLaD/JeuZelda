@@ -147,6 +147,9 @@ public abstract class Acteur
         this.position.setY(y);
     }
     public void setPosition(Position pos){ this.position = new Position(pos.getX(),pos.getY());}
+    public void setNewPosition(double x, double y){
+        this.position = new Position(x,y);
+    }
     public void setVitesseMaximum(double statsVitesse) {this.statsVitesse.setVitesseMaximum(statsVitesse);}
     public void soigner(double pv)
     {

@@ -163,7 +163,7 @@ public class Controller implements Initializable {
 
         KeyFrame kf = new KeyFrame
                 (
-                    Duration.seconds(0.04),
+                    Duration.seconds(0.1),
 
                     (ev ->
                     {

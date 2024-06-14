@@ -67,8 +67,9 @@ public class Arc implements Arme,Rechargeable
                 Projectile projectile = parametre.getProjectile();
 
                 projectile.setMonde(e.getMonde());
-                projectile.setPosition(e.getPosition().getX(),e.getPosition().getY());
+                projectile.setNewPosition(e.getPosition().getX(),e.getPosition().getY());
                 projectile.setDirection(e.getDirection());
+
 
 
                 e.getMonde().ajoutActeur(projectile);

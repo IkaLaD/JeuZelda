@@ -38,6 +38,41 @@ public abstract class Entite extends Acteur
         this.statsDefenseSpecial = new DefenseSpecial(defenseSpecial);
     }
 
+    /**
+     * Subit des dégâts infligés par une source dommageable.
+     * @param causeDegat La source de dégâts.
+     */
+    public void subitAttaque(Dommageable causeDegat)
+    {
+        enlevePv(subitDegatPhysique(causeDegat.degatPhysique(),0)+subitDegatSpecial(causeDegat.degatSpecial(),0));
+    }
+
+    public void subitCollision(Acteur acteur)
+    {
+        acteur.causeCollision(this);
+    }
+
+    public void causeCollision(Acteur acteur)
+    {
+        acteur.subitCollision(this);
+    }
+
+    /**
+     * Calcule les dégâts physiques subis par l'entité.
+     * @param attaqueEntite       Les dégâts physiques infligés.
+     * @param degatArme La force de l'entité qui inflige les dégâts.
+     * @return Les dégâts physiques subis.
+     */
+    protected abstract double subitDegatPhysique(double attaqueEntite,double degatArme);
+
+    /**
+     * Calcule les dégâts spéciaux subis par l'entité.
+     *
+     * @param attaqueSpecialEntite Les dégâts spéciaux infligés.
+     * @param degatArme    La force de l'entité qui inflige les dégâts spéciaux.
+     * @return Les dégâts spéciaux subis.
+     */
+    protected abstract double subitDegatSpecial(double attaqueSpecialEntite,double degatArme);
     public void setDefenseMaximum(double statsDefense){this.statsDefense.setDefenseMaximum(statsDefense);}
     public void setDefense(double defense){this.statsDefense.setDefense(defense);}
     public void setDefenseSpecialMaximum(double statsDefenseSpecial) {this.statsDefenseSpecial.setDefenseSpecialMaximum(statsDefenseSpecial);}
@@ -46,6 +81,7 @@ public abstract class Entite extends Acteur
     public double getDefenseSpecial(){ return this.statsDefenseSpecial.getDefenseSpecial();}
     public Defense getStatsDefense(){return this.statsDefense;}
     public DefenseSpecial getStatsDefenseSpecial(){return this.statsDefenseSpecial;}
+    public boolean peutSeDeplacer(){return !monde.estHorsMap(this) && monde.collision(this);}
 
     /**
      * Consomme un objet consommable.

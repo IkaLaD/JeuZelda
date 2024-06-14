@@ -29,6 +29,7 @@ public class SortilegePluitDeFleche extends Sortilege
             int delaie = i+1;
             Rechargeable rechargeable = new Rechargeable()
             {
+                private long tourApelle = 0;
                 @Override
                 public long delaie() {
                     return delaie * 2 ;
@@ -42,6 +43,17 @@ public class SortilegePluitDeFleche extends Sortilege
                     flecheSimple.setPosition(positionAleaAutourDe(x,y, direction));
                     flecheSimple.setMonde(utilisateur.getMonde());
                     utilisateur.getMonde().ajoutActeur(flecheSimple);
+                }
+
+                @Override
+                public void setTourApelle(long tourApelle)
+                {
+                    this.tourApelle = tourApelle;
+                }
+
+                @Override
+                public long getTourApelle() {
+                    return tourApelle;
                 }
             };
 

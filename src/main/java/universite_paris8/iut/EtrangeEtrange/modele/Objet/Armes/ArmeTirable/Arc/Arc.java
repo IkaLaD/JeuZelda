@@ -10,11 +10,16 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 
 public class Arc implements Arme,Rechargeable
 {
+    private long tourMonde;
     private boolean peuTirer;
+
+    private double durabilitee;
 
     public Arc()
     {
         this.peuTirer = true;
+        this.tourMonde = 0;
+        durabilitee = 0;
     }
 
     @Override
@@ -26,6 +31,16 @@ public class Arc implements Arme,Rechargeable
     public void cooldown() { peuTirer = true;}
 
     @Override
+    public void setTourApelle(long tourApelle) {
+        this.tourMonde = tourApelle;
+    }
+
+    @Override
+    public long getTourApelle() {
+        return tourMonde;
+    }
+
+    @Override
     public String getNom() {
         return "arc";
     }
@@ -35,12 +50,18 @@ public class Arc implements Arme,Rechargeable
     }
 
     @Override
+    public double durabilitee() {
+        return durabilitee;
+    }
+
+    @Override
     public void utilise(ParametreAction param)
     {
         if (param instanceof ParametreAttaqueArc parametre)
         {
             if (peuTirer)
             {
+                durabilitee--;
                 EntiteOffensif e = parametre.getOrigineAction();
 
                 Projectile projectile = parametre.getProjectile();

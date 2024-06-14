@@ -8,6 +8,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 
 public class Potion implements Consommable,Guerrisable
 {
+    private int durabilitee;
+
+    public Potion(){this.durabilitee = 1;}
 
     @Override
     public double restoration() {
@@ -24,6 +27,11 @@ public class Potion implements Consommable,Guerrisable
         return 6;
     }
 
+    @Override
+    public double durabilitee() {
+        return 1;
+    }
+
 
     @Override
     public void utilise(ParametreAction param)
@@ -37,5 +45,6 @@ public class Potion implements Consommable,Guerrisable
     public void consommer(ParametreActionConsomable param)
     {
         param.getOrigineAction().soigner(restoration());
+        durabilitee--;
     }
 }

@@ -52,6 +52,7 @@ public class Monde {
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
 
 
+    private long tour = 0;
 
 
     /**
@@ -107,6 +108,8 @@ public class Monde {
                 System.err.println("Erreur de format dans le fichier : " + e.getMessage());
             }
         }
+
+
 
     }
 
@@ -305,9 +308,23 @@ public class Monde {
     }
 
 
-    public void unTour(long tour){
+    public void unTour()
+    {
+        this.tour++;
+
         for(int i = acteurs.size() -1 ; i>=0 ; i--){
             acteurs.get(i).unTour();
+        }
+        for(int i = acteurs.size()-1 ; i>=0 ; i--){
+            Acteur acteur1 = acteurs.get(i);
+            for(int j = acteurs.size()-1 ; j>=0 ; j--){
+                Acteur acteur2 = acteurs.get(j);
+
+                if(collisionAvecActeur(acteur1,acteur2) && acteur1 != acteur2){
+                    acteur1.causeCollision(acteur2);
+                    acteur2.subitCollision(acteur1);
+                }
+            }
         }
 
         for(int i = acteurs.size() -1 ; i>=0 ; i--){
@@ -316,21 +333,33 @@ public class Monde {
                 acteurs.remove(i);
         }
 
-        for(int i = rechargeables.size()-1 ; i>=0 ; i--){
+        for(int i = rechargeables.size()-1 ; i>=0 ; i--)
+        {
             Rechargeable rechargeable = rechargeables.get(i);
-            if(tour%rechargeable.delaie()==0){
+            System.out.println("boucle");
+            if(rechargeable.getTourApelle() + rechargeable.delaie() == tour)
+            {
+                System.out.println("valider");
                 rechargeable.cooldown();
                 this.rechargeables.remove(rechargeable);
+                System.out.println(rechargeables.size());
+
+
             }
+            else{
+                System.out.println("pas valider");
+            }
+
         }
     }
 
     public void ajoutRechargeable(Rechargeable rechargeable)
     {
         this.rechargeables.add(rechargeable);
+        rechargeable.setTourApelle(tour);
+        System.out.println(tour + "     apelle ");
     }
 
-    private ArrayList<Rechargeable> getRechargeables(){ return this.rechargeables;}
 
     public boolean estHorsMap(Acteur acteur)
     {
@@ -467,11 +496,6 @@ public class Monde {
 
 
 
-    public boolean cheminLibre(Position position1, Direction direction1, Position position2,Direction direction2)
-    {
-        return true;
-    }
-
     public void setListenerListeEntites(GestionAffichageSpriteEntite gestionAffichageSprite) {
         this.acteurs.addListener(gestionAffichageSprite);
     }
@@ -479,6 +503,60 @@ public class Monde {
     public void enleveActeur(Acteur acteur) {
         this.acteurs.remove(acteur);
     }
+
+
+
+
+
+
+
+    public Acteur interactionAvecActeur()
+    {
+        Acteur act = null;
+        double distance = -1;
+
+
+        for (Acteur acteur : acteurs)
+        {
+            double distancePretendant = estEnFace(acteur);
+
+             if (distancePretendant > distance)
+             {
+                 act = acteur;
+                 distance = distancePretendant;
+             }
+        }
+
+        return act;
+    }
+
+    private double estEnFace(Acteur acteur)
+    {
+        final double yDistanceMax = 0.5;
+        final double xDistanceMax = 0.2;
+
+        double dX;
+        double dY;
+        Direction directionJoueur = joueur.getDirection();
+
+
+        if (directionJoueur == Direction.BAS ||directionJoueur == Direction.HAUT)
+        {
+            dX = Math.abs(acteur.getPosition().getX() - joueur.getPosition().getX());
+            dY = Math.abs(acteur.getPosition().getY() - joueur.getPosition().getY());
+        }
+        else
+        {
+            dY = Math.abs(acteur.getPosition().getX() - joueur.getPosition().getX());
+            dX = Math.abs(acteur.getPosition().getY() - joueur.getPosition().getY());
+        }
+
+        return dX <= xDistanceMax && dY <= yDistanceMax ?  dX+dY : -1;
+    }
+
+
+
+
 }
 
 

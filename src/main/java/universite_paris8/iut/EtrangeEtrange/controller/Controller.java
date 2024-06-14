@@ -7,20 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 
 
 import universite_paris8.iut.EtrangeEtrange.Runner;
-import universite_paris8.iut.EtrangeEtrange.modele.Bloc.Bloc;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.PieceOr;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
@@ -53,12 +47,38 @@ public class Controller implements Initializable {
     private TilePane TilePaneNontraversable;
     @FXML
     private Pane paneEntite;
+
+    @FXML
+    private Pane paneInteraction;
+
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
     private long tour = 0;
     private Deplacement deplacement;
     private SwitchScene switchDonnees;
+
+
+
+
+    //-----------------------------------------------//
+
+    private boolean interactionAvecPnj = false;
+    private ListView<String> listProposition;
+    private Label textePnj;
+    private AfficheBulleConversation afficheBulleConversation;
+
+    private GestionPrompt gestionPrompt;
+
+
+
+
+
+    //---------------------------------------------------//
+
+
+
+
 
 
     @Override
@@ -94,8 +114,6 @@ public class Controller implements Initializable {
 
         initGameLoop();
         gameLoop.play();
-        AudioClip audioClip = new AudioClip("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/epee.mp3");
-        audioClip.play();
 
     }
 
@@ -107,7 +125,7 @@ public class Controller implements Initializable {
 
         KeyFrame kf = new KeyFrame
                 (
-                    Duration.seconds(0.07),
+                    Duration.seconds(0.4),
 
                     (ev ->
                     {
@@ -166,7 +184,6 @@ public class Controller implements Initializable {
     {
         String guerrier = switchDonnees.getClasseJoueur();
 
-        System.out.println(guerrier);
         if (guerrier.equals("Guerrier"))
         {
             joueur = new Guerrier(monde,Monde.getxPointDeDepart(),Monde.getyPointDeDepart(), Direction.BAS);
@@ -194,22 +211,31 @@ public class Controller implements Initializable {
     public void keyPressed(KeyEvent keyEvent) throws IOException {
         KeyCode touche = keyEvent.getCode();;
 
-            if(touche==ConstantesClavier.deplacementHaut)
-                deplacement.ajoutDirection(Direction.HAUT);
-            else if (touche==ConstantesClavier.deplacementDroite)
-                deplacement.ajoutDirection(Direction.DROITE);
-            else if (touche==ConstantesClavier.recupererObjetSol)
-                joueur.ramasserObjet();
-            else if(touche==ConstantesClavier.deplacementGauche)
-                deplacement.ajoutDirection(Direction.GAUCHE);
-            else if(touche==ConstantesClavier.deplacementBas)
-                deplacement.ajoutDirection(Direction.BAS);
-            else if(touche==ConstantesClavier.courrir)
-                joueur.estEntrainDeCourir(true);
-            else if(touche==ConstantesClavier.attaquer)
-                this.joueur.actionMainDroite();
-            else if(touche==ConstantesClavier.inventaire)
-                ouvrirMenu();
+            if (!interactionAvecPnj)
+            {
+                if(touche==ConstantesClavier.deplacementHaut)
+                    deplacement.ajoutDirection(Direction.HAUT);
+                else if (touche==ConstantesClavier.deplacementDroite)
+                    deplacement.ajoutDirection(Direction.DROITE);
+                else if (touche==ConstantesClavier.recupererObjetSol)
+                    joueur.ramasserObjet();
+                else if(touche==ConstantesClavier.deplacementGauche)
+                    deplacement.ajoutDirection(Direction.GAUCHE);
+                else if(touche==ConstantesClavier.deplacementBas)
+                    deplacement.ajoutDirection(Direction.BAS);
+                else if(touche==ConstantesClavier.courrir)
+                    joueur.estEntrainDeCourir(true);
+                else if(touche==ConstantesClavier.attaquer)
+                    this.joueur.actionMainDroite();
+                else if(touche==ConstantesClavier.inventaire)
+                    ouvrirMenu();
+                else if(touche== KeyCode.B)
+                    interaction();
+            }
+            else
+            {
+                handleInteractionPnj(keyEvent);
+            }
     }
 
 
@@ -219,16 +245,20 @@ public class Controller implements Initializable {
     {
             KeyCode touche = keyEvent.getCode();
 
-            if(touche==ConstantesClavier.deplacementHaut)
-                deplacement.enleveDirection(Direction.HAUT);
-            else if(touche==ConstantesClavier.deplacementDroite)
-                deplacement.enleveDirection(Direction.DROITE);
-            else if(touche==ConstantesClavier.deplacementGauche)
-                deplacement.enleveDirection(Direction.GAUCHE);
-            else if(touche==ConstantesClavier.deplacementBas)
-                deplacement.enleveDirection(Direction.BAS);
-            else if(touche==ConstantesClavier.courrir)
-                joueur.estEntrainDeCourir(false);
+            if (!interactionAvecPnj)
+            {
+                if(touche==ConstantesClavier.deplacementHaut)
+                    deplacement.enleveDirection(Direction.HAUT);
+                else if(touche==ConstantesClavier.deplacementDroite)
+                    deplacement.enleveDirection(Direction.DROITE);
+                else if(touche==ConstantesClavier.deplacementGauche)
+                    deplacement.enleveDirection(Direction.GAUCHE);
+                else if(touche==ConstantesClavier.deplacementBas)
+                    deplacement.enleveDirection(Direction.BAS);
+                else if(touche==ConstantesClavier.courrir)
+                    joueur.estEntrainDeCourir(false);
+            }
+
 
 
     }
@@ -236,6 +266,9 @@ public class Controller implements Initializable {
     public void mouseClick(MouseEvent mouseEvent)
     {
         this.paneEntite.requestFocus();
+
+        if (mouseEvent.getButton() == MouseButton.PRIMARY)
+            this.joueur.actionMainDroite();
     }
 
     public void ouvrirMenu() throws IOException {
@@ -249,12 +282,136 @@ public class Controller implements Initializable {
         switchDonnees.getControllerMenu().recupererDonnees();
         switchDonnees.getStage().setScene(switchDonnees.getSceneMenu());
         switchDonnees.getStage().show();
-        System.out.println("Changement de scène vers Menu");
+
     }
 
     public void recupererDonnees() {
         switchDonnees.recupererPane(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
-        System.out.println(switchDonnees.getStage().getScene()+" JEU");
     }
+
+
+
+
+    //-------------------------------------------------------------------------------------------//
+    //                                      PNJ                                                 //
+    //-----------------------------------------------------------------------------------------//
+
+
+
+
+    public void interaction()
+    {
+        Acteur acteur = monde.interactionAvecActeur();
+
+        if (acteur != null)
+        {
+            Prompt prompt = acteur.getPrompt();
+
+            if (prompt != null)
+            {
+
+                this.interactionAvecPnj = true;
+
+                this.afficheBulleConversation = new AfficheBulleConversation(joueur,acteur,paneInteraction);
+                this.listProposition = afficheBulleConversation.getListProposition();
+                this.textePnj = afficheBulleConversation.getTextePnj();
+
+
+                this.gestionPrompt = new GestionPrompt(acteur.getPrompt());
+                this.afficheBulleConversation.affichePrompt(gestionPrompt.getPrompt());
+            }
+        }
+    }
+
+
+    // Permet de passer un tour du prompt
+
+    private void promptSuivant()
+    {
+        gestionPrompt.promptSuivant(choixSelectionner());
+
+        if (gestionPrompt.getPrompt() != null)
+            this.afficheBulleConversation.affichePrompt(gestionPrompt.getPrompt());
+        else
+        {
+            interactionFinie();
+            System.out.println("fini");
+        }
+
+
+    }
+
+
+
+
+
+
+    //  Permet de changer le choix de réponse
+    private void defile(int scroll)
+    {
+        int index = listProposition.getSelectionModel().getSelectedIndex();
+        int indexSuivant = index + scroll;
+
+        if (indexSuivant >= 0 && indexSuivant < listProposition.getItems().size())
+        {
+            listProposition.getSelectionModel().select(indexSuivant);
+            listProposition.scrollTo(indexSuivant);
+        }
+    }
+
+
+    public void interactionFinie()
+    {
+        this.textePnj.setVisible(false);
+        this.listProposition.setVisible(false);
+        this.interactionAvecPnj = false;
+
+    }
+
+
+    //  Retourne le choix séléctionner
+    private String choixSelectionner()
+    {
+        return listProposition.getSelectionModel().getSelectedItem();
+    }
+
+
+
+    //
+    private void handleInteractionPnj(KeyEvent event)
+    {
+        KeyCode keyCode = event.getCode();
+
+        if (keyCode == KeyCode.ENTER)
+        {
+            promptSuivant();
+        }
+        else if (keyCode == KeyCode.S || keyCode == KeyCode.D)
+        {
+            defile(1);
+        }
+        else if (keyCode == KeyCode.Z || keyCode == KeyCode.Q)
+        {
+            defile(-1);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

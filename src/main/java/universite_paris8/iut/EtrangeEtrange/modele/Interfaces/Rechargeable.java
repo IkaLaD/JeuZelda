@@ -5,4 +5,8 @@ public interface Rechargeable
     public long delaie();
 
     public void cooldown();
+
+    public void setTourApelle(long tourApelle);
+
+    long getTourApelle();
 }

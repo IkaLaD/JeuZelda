@@ -58,6 +58,10 @@ public  class LivreMagique implements Arme
         return 1;
     }
 
+    @Override
+    public double durabilitee() {
+        return -1; // ilimité
+    }
 
 
 }

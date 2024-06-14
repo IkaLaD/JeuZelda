@@ -43,7 +43,10 @@ public class FlecheSimple extends Fleche
     public void subitDegat(Dommageable causeDegat) {
 
     }
+    @Override
+    public void subitAttaque(Dommageable causeDegat) {
 
+    }
     @Override
     protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
         return 0;

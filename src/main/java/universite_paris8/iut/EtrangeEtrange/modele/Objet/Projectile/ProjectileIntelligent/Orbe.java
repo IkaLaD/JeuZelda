@@ -5,7 +5,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
-public class Orbe extends Projectile {
+public class Orbe extends Projectile
+{
     public Orbe() {
         super(1,new Hitbox(0.2,0.2));
     }
@@ -14,6 +15,16 @@ public class Orbe extends Projectile {
 
     @Override
     public void subitCollision(Acteur acteur) {
+
+    }
+
+    @Override
+    public void causeCollision(Acteur acteur) {
+
+    }
+
+    @Override
+    public void subitAttaque(Dommageable causeDegat) {
 
     }
 

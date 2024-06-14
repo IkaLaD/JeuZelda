@@ -1,6 +1,5 @@
 package universite_paris8.iut.EtrangeEtrange.modele;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Vitesse;
@@ -98,9 +97,6 @@ public abstract class Acteur
         }
     }
 
-
-    public abstract void dropApresMort();
-
     /**
      * Méthode abstraite pour effectuer les actions de l'acteur lors de l'apelle dans la gameloop.
      */
@@ -112,6 +108,9 @@ public abstract class Acteur
      * @param acteur L'acteur avec lequel la collision s'est produite.
      */
     public abstract void subitCollision(Acteur acteur);
+    public abstract void causeCollision(Acteur acteur);
+
+    public abstract void subitAttaque(Dommageable causeDegat);
 
     /**
      * Subit des dégâts infligés par une source dommageable.
@@ -173,5 +172,10 @@ public abstract class Acteur
 
     public boolean isSeDeplace() {
         return seDeplace;
+    }
+
+
+    public Prompt getPrompt(){
+        return null;
     }
 }

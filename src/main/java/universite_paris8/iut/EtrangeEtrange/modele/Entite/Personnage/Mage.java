@@ -31,7 +31,7 @@ public class Mage extends Joueur{
     }
 
     @Override
-    public void subitDegat(Dommageable causeDegat) {
+    public void subitAttaque(Dommageable causeDegat) {
 
     }
 }

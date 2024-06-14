@@ -15,7 +15,10 @@ public abstract class Projectile extends Acteur implements Dommageable,Objet
         super(1,vitesse,hitbox);
     }
 
-
+    @Override
+    public String typeActeur(){
+        return "fleche";
+    }
 
 
 }

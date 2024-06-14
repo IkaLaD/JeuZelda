@@ -176,7 +176,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 
     @Override
     public String getNom() {
-        return "Epée";
+        return "epee";
     }
 
     @Override

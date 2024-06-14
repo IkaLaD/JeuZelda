@@ -20,12 +20,15 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prom
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.PieceOr;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -150,8 +153,8 @@ public class Controller implements Initializable {
 
                     (ev ->
                     {
-
-                        monde.unTour();
+                        if(!interactionAvecPnj)
+                            monde.unTour();
 
                     })
         );
@@ -216,6 +219,10 @@ public class Controller implements Initializable {
         switchDonnees.setJoueur(joueur);
         monde.setJoueur(joueur);
         joueur.getSac().ajoutItem(new Epee());
+        joueur.getSac().ajoutItem(new LivreMagique());
+        joueur.getSac().ajoutItem(new Arc());
+        joueur.getSac().ajoutItem(new Potion());
+        joueur.getSac().ajoutItem(new PieceOr());
 
 
     }
@@ -224,20 +231,29 @@ public class Controller implements Initializable {
 
         KeyCode keyCode = keyEvent.getCode();
 
-         if(keyCode==ConstantesClavier.deplacementHaut)
-            deplacement.ajoutDirection(Direction.HAUT);
-        else if(keyCode==ConstantesClavier.deplacementDroite)
-            deplacement.ajoutDirection(Direction.DROITE);
-        else if(keyCode==ConstantesClavier.deplacementGauche)
-            deplacement.ajoutDirection(Direction.GAUCHE);
-        else if(keyCode==ConstantesClavier.deplacementBas)
-            deplacement.ajoutDirection(Direction.BAS);
-        else if(keyCode==ConstantesClavier.recupererObjetSol)
-            joueur.ramasserObjet();
-        else if(keyCode==ConstantesClavier.degattest)
-            joueur.enlevePv(10);
-        else if(keyCode==ConstantesClavier.inventaire)
-            ouvrirMenu();
+        if(!interactionAvecPnj) {
+            if (keyCode == ConstantesClavier.deplacementHaut)
+                deplacement.ajoutDirection(Direction.HAUT);
+            else if (keyCode == ConstantesClavier.deplacementDroite)
+                deplacement.ajoutDirection(Direction.DROITE);
+            else if (keyCode == ConstantesClavier.deplacementGauche)
+                deplacement.ajoutDirection(Direction.GAUCHE);
+            else if (keyCode == ConstantesClavier.deplacementBas)
+                deplacement.ajoutDirection(Direction.BAS);
+            else if (keyCode == ConstantesClavier.recupererObjetSol)
+                joueur.ramasserObjet();
+            else if (keyCode == ConstantesClavier.degattest)
+                joueur.enlevePv(10);
+            else if(keyCode == ConstantesClavier.attaquer)
+                joueur.actionMainDroite();
+            else if (keyCode == KeyCode.B)
+                interaction();
+            else if (keyCode == ConstantesClavier.inventaire)
+                ouvrirMenu();
+        }
+        else{
+            handleInteractionPnj(keyEvent);
+        }
 
 
     }

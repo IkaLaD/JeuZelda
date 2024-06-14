@@ -72,7 +72,7 @@ public class Orbe extends Projectile
 
     @Override
     public String getNom() {
-        return null;
+        return "orbe";
     }
 
     @Override

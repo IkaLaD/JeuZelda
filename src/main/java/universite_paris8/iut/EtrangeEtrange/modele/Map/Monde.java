@@ -386,6 +386,7 @@ public class Monde {
             collision = false;
         }
 
+
         return collision;
     }
 
@@ -434,17 +435,17 @@ public class Monde {
     public boolean collisionAvecActeur(Acteur acteur1,Acteur acteur2)
     {
         double vitesse = acteur1.getVitesse();
-        Position pos1 = new Position(acteur1.getPosition().getX()+acteur1.getDirection().getX()*vitesse, acteur1.getPosition().getY()+acteur1.getDirection().getY()*vitesse);
+        Position pos1 = new Position(acteur1.getPosition().getX(), acteur1.getPosition().getY());
 
         Hitbox hitbox1 = acteur1.getHitbox();
 
         Position pos2 = acteur2.getPosition();
         Hitbox hitbox2 = acteur2.getHitbox();
 
-        double x1Min = hitbox1.getPointLePlusAGauche(pos1.getX());
-        double y1Min = hitbox1.getPointLePlusEnHaut(pos1.getY());
-        double x1Max = hitbox1.getPointLePlusADroite(pos1.getX());
-        double y1Max = hitbox1.getPointLePlusEnBas(pos1.getY());
+        double x1Min = hitbox1.getPointLePlusAGauche(pos1.getX()+acteur1.getDirection().getX()*vitesse);
+        double y1Min = hitbox1.getPointLePlusEnHaut(pos1.getY()+acteur1.getDirection().getY()*vitesse);
+        double x1Max = hitbox1.getPointLePlusADroite(pos1.getX()+acteur1.getDirection().getX()*vitesse);
+        double y1Max = hitbox1.getPointLePlusEnBas(pos1.getY()+acteur1.getDirection().getY()*vitesse);
 
         double x2Min = hitbox2.getPointLePlusAGauche(pos2.getX());
         double y2Min = hitbox2.getPointLePlusEnHaut(pos2.getY());

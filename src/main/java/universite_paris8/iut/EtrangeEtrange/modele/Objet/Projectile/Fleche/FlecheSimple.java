@@ -22,7 +22,7 @@ public class FlecheSimple extends Fleche
 
     @Override
     public String getNom() {
-        return "Fleche";
+        return "fleche";
     }
     @Override
     public String typeActeur(){

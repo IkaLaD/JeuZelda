@@ -55,7 +55,7 @@ public class GestionActeur implements ListChangeListener<Acteur>
 
         double reglagePositionX;
         double reglagePositionY;
-
+        System.out.println("test");
         ImageView imageView = new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/Projectile/"+typeActeur+".png"));
 
 

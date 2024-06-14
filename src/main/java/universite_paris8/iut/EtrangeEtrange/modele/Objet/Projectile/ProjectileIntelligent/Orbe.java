@@ -81,6 +81,11 @@ public class Orbe extends Projectile
     }
 
     @Override
+    public double durabilitee() {
+        return 0;
+    }
+
+    @Override
     public boolean peutSeDeplacer() {
         return false;
     }

@@ -15,4 +15,9 @@ public class PieceOr extends Piece{
     public int stackMax() {
         return 64;
     }
+
+    @Override
+    public double durabilitee() {
+        return 0;
+    }
 }

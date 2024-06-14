@@ -40,7 +40,6 @@ public class GestionActeur implements ListChangeListener<Acteur>
                         initSpriteProjectile(acteur);
                     }
                     else if(acteur.typeActeur() == "epee"){
-                        audioClip.play();
                     }
                     else if(acteur.typeActeur()=="bloc"){
                         initSpriteBloc(acteur);

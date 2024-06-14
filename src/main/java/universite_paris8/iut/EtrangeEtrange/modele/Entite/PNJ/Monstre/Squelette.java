@@ -42,6 +42,11 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
     }
 
     @Override
+    public void subitDegat(Dommageable causeDegat) {
+
+    }
+
+    @Override
     protected double subitDegatPhysique(double degat, double forceEntite) {
         return (degat * forceEntite) / (getDefense() - (degat/6));
     }

@@ -61,10 +61,6 @@ public abstract class Humanoide extends EntiteOffensif
         return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
     }
 
-    @Override
-    public void subitDegat(Dommageable dommageable){
-        this.enlevePv(5);
-    }
 
     public Sac getSac()
     {

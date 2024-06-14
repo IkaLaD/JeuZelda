@@ -44,6 +44,16 @@ public class Bloc extends Acteur {
     }
 
     @Override
+    public void causeCollision(Acteur acteur) {
+
+    }
+
+    @Override
+    public void subitAttaque(Dommageable causeDegat) {
+
+    }
+
+    @Override
     public void subitDegat(Dommageable causeDegat) {
         statsPv.setPv(0);
     }

@@ -26,7 +26,7 @@ public class Marchand extends HumainPNJ implements Interagisable
     public Marchand(Monde monde, double x, double y, Direction direction, double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Hitbox hitbox, Sac sac, Objet objetMainGauche, Objet objetMainDroite) {
         super(monde, x, y, direction, pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, hitbox, sac, objetMainGauche, objetMainDroite);
         this.cycle = 0;
-        this.sac = new PetitSac();
+        this.sac = new Sac();
     }
 
     @Override
@@ -52,6 +52,16 @@ public class Marchand extends HumainPNJ implements Interagisable
 
     @Override
     public void subitAttaque(Dommageable causeDegat) {
+
+    }
+
+    @Override
+    public void subitDegat(Dommageable causeDegat) {
+
+    }
+
+    @Override
+    public void dropApresMort() {
 
     }
 

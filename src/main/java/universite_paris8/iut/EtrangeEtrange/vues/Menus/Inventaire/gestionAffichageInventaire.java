@@ -158,7 +158,7 @@ public class gestionAffichageInventaire {
 
             // S'il y a un objet, on ajoute son image sinon une case vide
             if (imageView != null) {
-                TextField textField = ajouterQuantite(joueur.getSac().getInv().getEmplacement(i).quantiteObjet());
+                TextField textField = ajouterQuantite(joueur.getSac().getEmplacement(i).quantiteObjet());
                 // Ajout de l'image de l'objet et de sa quantité dans la case
                 objetsInventaire.getChildren().add(imageView);
                 quantiteObjetInventaire.getChildren().add(textField);

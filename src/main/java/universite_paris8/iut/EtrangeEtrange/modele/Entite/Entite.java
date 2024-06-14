@@ -81,7 +81,6 @@ public abstract class Entite extends Acteur
     public double getDefenseSpecial(){ return this.statsDefenseSpecial.getDefenseSpecial();}
     public Defense getStatsDefense(){return this.statsDefense;}
     public DefenseSpecial getStatsDefenseSpecial(){return this.statsDefenseSpecial;}
-    public boolean peutSeDeplacer(){return !monde.estHorsMap(this) && monde.collision(this);}
 
     /**
      * Consomme un objet consommable.

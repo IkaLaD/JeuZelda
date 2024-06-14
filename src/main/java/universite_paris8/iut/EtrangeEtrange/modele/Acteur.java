@@ -1,5 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Vitesse;
@@ -134,6 +136,7 @@ public abstract class Acteur
      * @return Les dégâts spéciaux subis.
      */
     protected abstract double subitDegatSpecial(double attaqueSpecialEntite,double degatArme);
+    public abstract void dropApresMort();
     public abstract String typeActeur();
 
     public void setSeDeplace(boolean seDeplace){ this.seDeplace = seDeplace;}

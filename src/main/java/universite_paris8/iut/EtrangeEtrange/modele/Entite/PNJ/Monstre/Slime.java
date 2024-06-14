@@ -61,6 +61,11 @@ public class Slime extends EntiteOffensif {
     }
 
     @Override
+    public void subitDegat(Dommageable causeDegat) {
+
+    }
+
+    @Override
     protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
         return 0;
     }
@@ -68,6 +73,11 @@ public class Slime extends EntiteOffensif {
     @Override
     protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
         return 0;
+    }
+
+    @Override
+    public void dropApresMort() {
+
     }
 
     @Override

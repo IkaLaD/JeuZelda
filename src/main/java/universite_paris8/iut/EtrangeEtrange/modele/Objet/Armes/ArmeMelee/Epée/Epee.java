@@ -99,8 +99,28 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     public void subitAttaque(Dommageable causeDegat) {  /*  NE FAIT RIEN */ }
 
     @Override
+    public void subitDegat(Dommageable causeDegat) {
+
+    }
+
+    @Override
+    protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
+        return 0;
+    }
+
+    @Override
+    protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
+        return 0;
+    }
+
+    @Override
+    public void dropApresMort() {
+
+    }
+
+    @Override
     public String typeActeur() {
-        return "Epee";
+        return "epee";
     }
 
 

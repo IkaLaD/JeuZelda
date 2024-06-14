@@ -1,10 +1,14 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
+
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -22,7 +26,7 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
     private double distanceDetection = 5.0;
 
     public RoiSquelette(Monde monde, double x, double y, Direction direction) {
-        super(1000, 20, 100, 15, 30, 0.2, monde, x, y, direction, new Hitbox(0,0));
+        super( monde,  x,  y,  direction,  1000,  20,  20,  20 ,  20,  0.025, new Hitbox(1, 1));
         this.dernierTempsAttaque = System.currentTimeMillis();
         this.positionInitiale = new Position(x, y);
         this.etapeAttaque = 0;
@@ -42,7 +46,7 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
     }
 
     @Override
-    public void action() {
+    public void unTour() {
         // Vérifie si le joueur a été détecté
         if (!joueurDetecte) {
             if (detecteJoueurDansRayon(distanceDetection)) {
@@ -91,6 +95,16 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
         }
     }
 
+    @Override
+    public void action() {
+
+    }
+
+    @Override
+    public Prompt prompt() {
+        return null;
+    }
+
     // Détecte si le joueur est dans un certain rayon autour du Roi Squelette
     private boolean detecteJoueurDansRayon(double rayon) {
         Position positionJoueur = getMonde().getJoueur().getPosition();
@@ -114,8 +128,8 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
         Position positionBas = new Position(getPosition().getX(), getPosition().getY()+2);
         Squelette squeletteGauche = new Squelette(30, 10, 5, 10, 10, 0.1, getMonde(), positionHaut.getX(), positionHaut.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
         Squelette squeletteDroite = new Squelette(30, 10, 5, 10, 10, 0.1, getMonde(), positionBas.getX(), positionBas.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
-        getMonde().ajoutEntite(squeletteGauche);
-        getMonde().ajoutEntite(squeletteDroite);
+        getMonde().ajoutActeur(squeletteGauche);
+        getMonde().ajoutActeur(squeletteDroite);
     }
 
     // Déplace le Roi Squelette vers une destination donnée
@@ -128,12 +142,17 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
         } else {
             setDirection(deltaY > 0 ? Direction.BAS : Direction.HAUT);
         }
-            seDeplace();
+            seDeplace(1);
     }
 
     // Vérifie si le Roi Squelette a atteint une certaine position
     private boolean positionAtteinte(Position position) {
         return Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1;
+    }
+
+    @Override
+    public void subitDegat(Dommageable causeDegat) {
+
     }
 
     @Override
@@ -144,6 +163,16 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
     @Override
     protected double subitDegatSpecial(double attaqueSpecial, double forceEntite) {
         return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
+    }
+
+    @Override
+    public void dropApresMort() {
+
+    }
+
+    @Override
+    public String typeActeur() {
+        return "roisquelette";
     }
 
 

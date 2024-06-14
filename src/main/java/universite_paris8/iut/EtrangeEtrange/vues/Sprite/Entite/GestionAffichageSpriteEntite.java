@@ -9,11 +9,9 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Slime;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
@@ -56,7 +54,7 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
     public void initialisationSprites(){
         imagesSprite = new ArrayList<>();
         String[] directions = {"haut","bas","gauche","droite"};
-        String[] skins = {"chevalier","pnjtest","roiSquelette","slime","squelette"};
+        String[] skins = {"chevalier","pnjtest","roiSquelette","slime","squelette","archer"};
         for(int s = 0 ; s < skins.length ; s++){
             String skin = skins[s];
             imagesSprite.add(new Image[directions.length][6]);
@@ -69,13 +67,15 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
         }
     }
     @Override
-    public void onChanged(Change<? extends Entite> change) {
+    public void onChanged(Change<? extends Acteur> change) {
         while(change.next()){
-            for (Entite entite : change.getAddedSubList()) {
-                creeSprite(entite);
+            for (Acteur entite : change.getAddedSubList()) {
+                if(entite instanceof Entite)
+                    creeSprite(entite);
             }
-            for(Entite entite : change.getRemoved()) {
-                suprimmerSprite(entite);
+            for(Acteur entite : change.getRemoved()) {
+                if(entite instanceof Entite)
+                    suprimmerSprite(entite);
             }
         }
     }
@@ -92,7 +92,6 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
         if (entite.getClass().equals(Guerrier.class)) {
             skin = 0;
             vitesse = 1;
-
         } else if (entite.getClass().equals(Archer.class)) {
             skin = 5;
             vitesse = 2;
@@ -103,6 +102,9 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
             skin = 3;
             colorAdjust = Math.random() * 2 - 1;
             vitesse = 2;
+        } else if (entite.getClass().equals(RoiSquelette.class)) {
+            skin = 2;
+            vitesse = 1;
         } else {
             skin = 0;
             vitesse = 0;
@@ -111,7 +113,6 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
         SpriteEntite animationSprite = new SpriteEntite(entite, skin, vitesse, colorAdjust);
 
         animationSprites.add(animationSprite);
-        paneEntite.getChildren().add(animationSprite.getSpriteEntite());
 
         paneEntite.getChildren().add(animationSprite.ajoutOmbre()); // Ajouter l'ombre
         paneEntite.getChildren().add(animationSprite.getSpriteEntite()); // Ajouter le sprite de l'entité
@@ -152,10 +153,10 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
      * Suprimme le sprite de la vue dès qu'une entité est retiré de la liste des entités du monde
      * @param entite
      */
-    public void suprimmerSprite(Entite entite){
+    public void suprimmerSprite(Acteur entite){
         SpriteEntite animationSprite = null;
         for(int i = 0 ; i < animationSprites.size() ; i++){
-            if(animationSprites.get(i).getId() == entite.getId()){
+            if(animationSprites.get(i).getId() == entite.getID()){
                 animationSprite = animationSprites.get(i);
             }
         }

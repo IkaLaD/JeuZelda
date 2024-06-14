@@ -2,7 +2,6 @@ module com.example.essaie {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.json;
-    requires javafx.media;
     requires junit;
 
 

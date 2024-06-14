@@ -4,8 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.*;
@@ -21,19 +19,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.Bloc.Bloc;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.GestionPrompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Lambda;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
@@ -42,9 +30,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
-
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.AfficheBulleConversation;
 import universite_paris8.iut.EtrangeEtrange.vues.BarreDeVie.GestionAffichageVieJoueur;
@@ -53,16 +40,16 @@ import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
 
+
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActionDegat;
 
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
+
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -77,21 +64,18 @@ public class Controller implements Initializable {
     @FXML
     private HBox hboxCoeurs;
 
-
     @FXML
     private Pane paneInteraction;
+
 
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
+    private int temps = 0;
     private Deplacement deplacement;
     private SwitchScene switchDonnees;
     private GestionAffichageVieJoueur vueVie; // La vue qui gère l'affichage des PV
-
-
-
-
-    //-----------------------------------------------//
+//-----------------------------------------------//
 
     private boolean interactionAvecPnj = false;
     private ListView<String> listProposition;
@@ -105,11 +89,6 @@ public class Controller implements Initializable {
 
 
     //---------------------------------------------------//
-
-
-
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -133,32 +112,23 @@ public class Controller implements Initializable {
 
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMondeJSON();
-
         gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol = new gestionAffichageSpriteDropAuSol(paneEntite);
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
         
-
-        // Création des entités avec l'algo A* qui leur permet de rejoindre le joueur
-        Aetoile aetoile = new Aetoile(monde);
-        initLoups(aetoile);
-        initBoss(monde, joueur, aetoile);
-
+        monde.setJoueur(joueur);
+        initBoss();
+        monde.ajoutActeur(new Slime(monde, 12, 12 , Direction.DROITE, new Hitbox(0.4, 0.4)));
+        monde.ajoutActeur(new Bloc(monde, 13, 13, Direction.DROITE, 15, 1, new Hitbox(1, 1)));
 
         deplacement = new Deplacement(joueur);
-        Bloc bloc = new Bloc( monde, 11, 11, Direction.BAS, 1, 0, new Hitbox(1,1));
-        monde.ajoutActeur(new Slime(monde,13,13,Direction.HAUT,new Hitbox(0.5,0.5)));
-        monde.ajoutActeur(bloc);
-        monde.ajoutActeur(new Squelette( monde,  15, 25, Direction.BAS, 50, 5, 5, 10, 10, 0.025, new Hitbox(0.5, 0.5), new Aetoile(monde), joueur));
-
         initGameLoop();
         gameLoop.play();
 
     }
 
     private void initBoss() {
-        RoiSquelette RoiSquelette;
-        monde.ajoutEntite(RoiSquelette = new RoiSquelette(monde,5.5,27.5,Direction.DROITE));
+        monde.ajoutActeur(new RoiSquelette(monde,5.5,27.5,Direction.DROITE));
     }
 
     private void initVie() {
@@ -171,6 +141,7 @@ public class Controller implements Initializable {
 
     private void initGameLoop() {
         gameLoop = new Timeline();
+        temps=0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         KeyFrame kf = new KeyFrame
@@ -179,6 +150,7 @@ public class Controller implements Initializable {
 
                     (ev ->
                     {
+
                         monde.unTour();
 
                     })
@@ -229,67 +201,45 @@ public class Controller implements Initializable {
         monde = new Monde("src/main/resources/universite_paris8/iut/EtrangeEtrange/TiledMap/", "maptest", Monde.getSizeMondeHauteur(), Monde.getSizeMondeLargeur());
     }
 
-
-    public void initJoueur()
-    {
+    public void initJoueur() {
         String guerrier = switchDonnees.getClasseJoueur();
 
-        if (guerrier.equals("Guerrier"))
-        {
-            joueur = new Guerrier(monde,Monde.getxPointDeDepart(),Monde.getyPointDeDepart(), Direction.BAS);
-        }
-        else if (guerrier.equals("Archer"))
-        {
-            joueur = new Archer(monde,Monde.getxPointDeDepart(),Monde.getyPointDeDepart(), Direction.BAS);
-        }
-        else if (guerrier.equals("Mage"))
-        {
+        if (guerrier.equals("Guerrier")) {
+            joueur = new Guerrier(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
+        } else if (guerrier.equals("Archer")) {
+            joueur = new Archer(monde, Monde.getxPointDeDepart(), Monde.getyPointDeDepart(), Direction.BAS);
+        } else if (guerrier.equals("Mage")) {
             // pas encore implementer
-        }
-        else if (guerrier.equals("Necromancier"))
-        {
+        } else if (guerrier.equals("Necromancier")) {
             // pas encore implementer
         }
         switchDonnees.setJoueur(joueur);
         monde.setJoueur(joueur);
         joueur.getSac().ajoutItem(new Epee());
-        joueur.getSac().ajoutItem(new LivreMagique());
+
+
     }
 
-    private void initBoss(Monde monde, Joueur joueur, Aetoile aetoile) {
-        RoiSquelette roiSquelette = new RoiSquelette(1000, 20, 100, 15, 5, 0.1, monde, 6, 28, Direction.BAS, new Hitbox(0.5, 0.5));
-        monde.ajoutEntite(roiSquelette);
-    }
+        public void keyPressed(KeyEvent keyEvent) throws IOException {
+
+        KeyCode keyCode = keyEvent.getCode();
+
+         if(keyCode==ConstantesClavier.deplacementHaut)
+            deplacement.ajoutDirection(Direction.HAUT);
+        else if(keyCode==ConstantesClavier.deplacementDroite)
+            deplacement.ajoutDirection(Direction.DROITE);
+        else if(keyCode==ConstantesClavier.deplacementGauche)
+            deplacement.ajoutDirection(Direction.GAUCHE);
+        else if(keyCode==ConstantesClavier.deplacementBas)
+            deplacement.ajoutDirection(Direction.BAS);
+        else if(keyCode==ConstantesClavier.recupererObjetSol)
+            joueur.ramasserObjet();
+        else if(keyCode==ConstantesClavier.degattest)
+            joueur.enlevePv(10);
+        else if(keyCode==ConstantesClavier.inventaire)
+            ouvrirMenu();
 
 
-    public void keyPressed(KeyEvent keyEvent) throws IOException {
-        KeyCode touche = keyEvent.getCode();
-
-            if (!interactionAvecPnj)
-            {
-                if(touche==ConstantesClavier.deplacementHaut)
-                    deplacement.ajoutDirection(Direction.HAUT);
-                else if (touche==ConstantesClavier.deplacementDroite)
-                    deplacement.ajoutDirection(Direction.DROITE);
-                else if (touche==ConstantesClavier.recupererObjetSol)
-                    joueur.ramasserObjet();
-                else if(touche==ConstantesClavier.deplacementGauche)
-                    deplacement.ajoutDirection(Direction.GAUCHE);
-                else if(touche==ConstantesClavier.deplacementBas)
-                    deplacement.ajoutDirection(Direction.BAS);
-                else if(touche==ConstantesClavier.courrir)
-                    joueur.estEntrainDeCourir(true);
-                else if(touche==ConstantesClavier.attaquer)
-                    this.joueur.actionMainDroite();
-                else if(touche==ConstantesClavier.inventaire)
-                    ouvrirMenu();
-                else if(touche== KeyCode.B)
-                    interaction();
-            }
-            else
-            {
-                handleInteractionPnj(keyEvent);
-            }
     }
 
 
@@ -299,20 +249,16 @@ public class Controller implements Initializable {
     {
             KeyCode touche = keyEvent.getCode();
 
-            if (!interactionAvecPnj)
-            {
-                if(touche==ConstantesClavier.deplacementHaut)
-                    deplacement.enleveDirection(Direction.HAUT);
-                else if(touche==ConstantesClavier.deplacementDroite)
-                    deplacement.enleveDirection(Direction.DROITE);
-                else if(touche==ConstantesClavier.deplacementGauche)
-                    deplacement.enleveDirection(Direction.GAUCHE);
-                else if(touche==ConstantesClavier.deplacementBas)
-                    deplacement.enleveDirection(Direction.BAS);
-                else if(touche==ConstantesClavier.courrir)
-                    joueur.estEntrainDeCourir(false);
-            }
-
+            if(touche==ConstantesClavier.deplacementHaut)
+                deplacement.enleveDirection(Direction.HAUT);
+            else if(touche==ConstantesClavier.deplacementDroite)
+                deplacement.enleveDirection(Direction.DROITE);
+            else if(touche==ConstantesClavier.deplacementGauche)
+                deplacement.enleveDirection(Direction.GAUCHE);
+            else if(touche==ConstantesClavier.deplacementBas)
+                deplacement.enleveDirection(Direction.BAS);
+            else if(touche==ConstantesClavier.courrir)
+                joueur.estEntrainDeCourir(false);
 
 
     }

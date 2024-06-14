@@ -4,8 +4,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVersJoueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVers;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
@@ -25,7 +24,8 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
     private long lastPathCalculationTime;
 
     public Squelette(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox, Joueur joueur, Aetoile aetoile) {
-        super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
+        super( monde,  x,  y,  direction,  pv,  attaque,  defense,  attaqueSpecial ,  defenseSpecial,  vitesse, hitbox);
+
         this.joueur = joueur;
         this.aetoile = aetoile;
         this.lastPathCalculationTime = System.currentTimeMillis();
@@ -80,7 +80,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
         // Déplacer l'entité si elle peut se déplacer
         if (peutSeDeplacer()) {
             setSeDeplace(true);
-            seDeplace();
+            seDeplace(1);
         } else {
             System.out.println("Collision détectée, déplacement annulé.");
         }
@@ -127,6 +127,11 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
     @Override
     public void subitCollision(Acteur acteur) {
 
+    }
+
+    @Override
+    public void subitDegat(Dommageable causeDegat) {
+        enlevePv(causeDegat.degatPhysique());
     }
 
     @Override

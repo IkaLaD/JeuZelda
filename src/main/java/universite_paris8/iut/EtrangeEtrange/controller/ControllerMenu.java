@@ -43,6 +43,8 @@ public class ControllerMenu implements Initializable {
     private ColorAdjust ombreArrierePlan;
 
     public void initBackgroundJeu(){
+        switchScene = SwitchScene.getSwitchScene();
+        switchScene.setControllerMenu(this);
         // Initialisation taille en fonction de la taille de la map
         int largeur = Monde.getSizeMondeLargeur()* Constantes.tailleTile;
         int hauteur = Monde.getSizeMondeHauteur()*Constantes.tailleTile;

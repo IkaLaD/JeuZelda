@@ -5,21 +5,9 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Soldat;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
-import javafx.scene.media.AudioClip;
-
-import java.io.File;
 
 public class GestionActeur implements ListChangeListener<Acteur>
 {

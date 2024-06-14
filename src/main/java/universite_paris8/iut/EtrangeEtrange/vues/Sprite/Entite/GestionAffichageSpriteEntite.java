@@ -114,7 +114,6 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
 
         animationSprites.add(animationSprite);
 
-        paneEntite.getChildren().add(animationSprite.ajoutOmbre()); // Ajouter l'ombre
         paneEntite.getChildren().add(animationSprite.getSpriteEntite()); // Ajouter le sprite de l'entité
 
         if (!(entite instanceof Joueur))

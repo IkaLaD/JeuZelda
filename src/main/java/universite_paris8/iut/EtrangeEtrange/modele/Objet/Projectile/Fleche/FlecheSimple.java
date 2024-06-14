@@ -8,18 +8,14 @@ public class FlecheSimple extends Fleche
     {
         super();
     }
-
     @Override
     public double degatPhysique() {
         return 10;
     }
-
     @Override
     public double degatSpecial() {
         return 0;
     }
-
-
     @Override
     public String getNom() {
         return "fleche";
@@ -28,17 +24,14 @@ public class FlecheSimple extends Fleche
     public String typeActeur(){
         return "fleche";
     }
-
     @Override
     public boolean peutSeDeplacer() {
-        return true;
+        return !monde.estHorsMap(this) && !monde.collisionMap(this);
     }
-
     @Override
     public void dropApresMort() {
 
     }
-
     @Override
     public void subitDegat(Dommageable causeDegat) {
 

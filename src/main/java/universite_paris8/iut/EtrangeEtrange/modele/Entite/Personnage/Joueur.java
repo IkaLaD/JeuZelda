@@ -3,11 +3,14 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.Competences;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.CreationArbre;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Consommable;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueDistance.ParametreAttaqueArc;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueMelee.ParametreAttaqueEpee;
@@ -26,6 +29,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.E
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
+
+import java.io.File;
 
 /**
  * Représente le joueur dans le jeu.
@@ -67,8 +73,9 @@ public abstract class Joueur extends Humanoide
             if (getObjetMainDroite() instanceof Arme arme)
                 attaque(arme);
 
-            if (getObjetMainDroite() instanceof Consommable consommable)
+            if (getObjetMainDroite() instanceof Consommable consommable) {
                 consommer(consommable);
+            }
         }
     }
 

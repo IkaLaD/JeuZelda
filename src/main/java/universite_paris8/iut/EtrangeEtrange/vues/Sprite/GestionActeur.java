@@ -5,9 +5,14 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import javafx.scene.media.AudioClip;
+
+import java.io.File;
 
 public class GestionActeur implements ListChangeListener<Acteur>
 {
@@ -26,8 +31,15 @@ public class GestionActeur implements ListChangeListener<Acteur>
                 for (Acteur acteur : change.getAddedSubList()) {
                     if (acteur.typeActeur() == "fleche") {
                         initSpriteProjectile(acteur);
+                        String path = new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/fleche.mp3").toURI().toString();
+                        AudioClip audioClip = new AudioClip(path);
+                        audioClip.play();
+
                     }
                     else if(acteur.typeActeur() == "epee"){
+                        Media media = new Media(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/epee.mp3").toURI().toString());
+                        MediaPlayer mediaPlayer = new MediaPlayer(media);
+                        mediaPlayer.play();
                     }
                     else if(acteur.typeActeur()=="bloc"){
                         initSpriteBloc(acteur);

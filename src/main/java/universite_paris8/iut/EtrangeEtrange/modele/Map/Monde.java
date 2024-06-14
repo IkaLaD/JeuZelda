@@ -386,7 +386,7 @@ public class Monde {
             collision = false;
         }
 
-
+        System.out.println(acteur.typeActeur()+" "+collision);
         return collision;
     }
 

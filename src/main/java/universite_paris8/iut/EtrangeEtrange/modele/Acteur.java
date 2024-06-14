@@ -142,7 +142,10 @@ public abstract class Acteur
     public void setSeDeplace(boolean seDeplace){ this.seDeplace = seDeplace;}
     public void setMonde(Monde monde) {this.monde = monde;}
     public void setDirection(Direction direction) {this.direction = direction;}
-    public void setPosition(double x,double y){ this.position = new Position(x,y);}
+    public void setPosition(double x,double y){
+        this.position.setX(x);
+        this.position.setY(y);
+    }
     public void setPosition(Position pos){ this.position = new Position(pos.getX(),pos.getY());}
     public void setVitesseMaximum(double statsVitesse) {this.statsVitesse.setVitesseMaximum(statsVitesse);}
     public void soigner(double pv)

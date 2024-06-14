@@ -40,8 +40,8 @@ public class SpriteEntite {
         this.id = entite.getID();
         this.vitesse = vitesse;
         this.cptImageChange = 0;
-        
-        
+
+
 
         if(!(entite instanceof Joueur))
             this.SpriteVie = new Rectangle();
@@ -69,8 +69,8 @@ public class SpriteEntite {
         SpriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32);
         SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64);
     }
-    
-    
+
+
 
     public void demarrerEffet(){
         appliquerEffet=true;

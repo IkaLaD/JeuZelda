@@ -10,6 +10,8 @@ import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 
@@ -51,6 +53,7 @@ import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -244,8 +247,14 @@ public class Controller implements Initializable {
                 joueur.ramasserObjet();
             else if (keyCode == ConstantesClavier.degattest)
                 joueur.enlevePv(10);
-            else if(keyCode == ConstantesClavier.attaquer)
+            else if(keyCode == ConstantesClavier.attaquer) {
                 joueur.actionMainDroite();
+                if(joueur.getObjetMainDroite() instanceof Potion){
+                    Media media = new Media(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/potion.mp3").toURI().toString());
+                    MediaPlayer mediaPlayer = new MediaPlayer(media);
+                    mediaPlayer.play();
+                }
+            }
             else if (keyCode == KeyCode.B)
                 interaction();
             else if (keyCode == ConstantesClavier.inventaire)

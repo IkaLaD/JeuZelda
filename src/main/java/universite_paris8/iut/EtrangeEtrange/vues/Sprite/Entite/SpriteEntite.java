@@ -12,7 +12,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 
-public class SpriteEntite {
+public class SpriteEntite
+{
     private static GestionAffichageSpriteEntite gestionAffichageSpriteEntite;
 
     private Acteur entite;

@@ -80,11 +80,11 @@ public class gestionAffichageMap {
             // On récupère les id de tuiles avec les images associées.
             JSONArray jsonArray = new JSONArray(jsonObject.getJSONArray("tiles"));
             TilePane tilePane = TilePaneCouchesMonde.get(i);
-            System.out.println(i);
+
             for(int h = 0 ; h < Monde.getSizeMondeHauteur() ; h++){
                 for(int l = 0 ; l < Monde.getSizeMondeLargeur() ; l++){
                     if(couchesMap.get(i)[h][l]!=-1) {
-                        System.out.println(i);
+
                         String chemin = jsonArray.getJSONObject(couchesMap.get(i)[h][l]).getString("image");
                         tilePane.getChildren().add(new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/" + fichiers[i] + "/" + chemin));
                     }

@@ -98,10 +98,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     @Override
     public void subitAttaque(Dommageable causeDegat) {  /*  NE FAIT RIEN */ }
 
-    @Override
-    public void subitDegat(Dommageable causeDegat) {
 
-    }
 
     @Override
     protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
@@ -123,6 +120,11 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
         return "epee";
     }
 
+    @Override
+    public void seFaitPousser(Acteur acteur) {
+
+    }
+
 
     @Override
     public void utilise(ParametreAction param)
@@ -142,9 +144,6 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
                 setPositionAttaque();
                 param.getOrigineAction().getMonde().ajoutActeur(this);
                 param.getOrigineAction().getMonde().ajoutRechargeable(this);
-
-
-
 
             }
 
@@ -237,13 +236,4 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
         return 0;
     }
 
-    @Override
-    public double portee() {
-        return 0;
-    }
-
-    @Override
-    public double angle() {
-        return 0;
-    }
 }

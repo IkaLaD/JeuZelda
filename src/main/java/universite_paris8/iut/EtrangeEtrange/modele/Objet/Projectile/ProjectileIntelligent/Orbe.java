@@ -28,10 +28,6 @@ public class Orbe extends Projectile
 
     }
 
-    @Override
-    public void subitDegat(Dommageable causeDegat) {
-
-    }
 
     @Override
     protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
@@ -49,6 +45,11 @@ public class Orbe extends Projectile
     }
 
     @Override
+    public void seFaitPousser(Acteur acteur) {
+
+    }
+
+    @Override
     public double degatPhysique() {
         return 0;
     }
@@ -58,15 +59,7 @@ public class Orbe extends Projectile
         return 0;
     }
 
-    @Override
-    public double portee() {
-        return 0;
-    }
 
-    @Override
-    public double angle() {
-        return 0;
-    }
 
 
 

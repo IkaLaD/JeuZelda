@@ -5,45 +5,42 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
-import javafx.scene.media.AudioClip;
-
-import java.io.File;
 
 public class GestionActeur implements ListChangeListener<Acteur>
 {
-
     private Pane pane;
+    private Monde monde;
 
-    public GestionActeur(Pane pane)
+    public GestionActeur(Monde monde, Pane pane)
     {
+        this.monde = monde;
         this.pane = pane;
     }
 
     @Override
     public void onChanged(Change<? extends Acteur> change) {
-        while (change.next()) {
-            if (change.wasAdded()) {
-                for (Acteur acteur : change.getAddedSubList()) {
-                    if (acteur.typeActeur() == "fleche") {
+        while (change.next())
+        {
+            if (change.wasAdded())
+            {
+                for (Acteur acteur : change.getAddedSubList())
+                {
+                    if (acteur.typeActeur().equals("fleche"))
                         initSpriteProjectile(acteur);
-                        String path = new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/fleche.mp3").toURI().toString();
-                        AudioClip audioClip = new AudioClip(path);
-                        audioClip.play();
-
+                    else if(acteur.typeActeur().equals("epee")){
                     }
-                    else if(acteur.typeActeur() == "epee"){
-                        Media media = new Media(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/epee.mp3").toURI().toString());
-                        MediaPlayer mediaPlayer = new MediaPlayer(media);
-                        mediaPlayer.play();
-                    }
-                    else if(acteur.typeActeur()=="bloc"){
+                    else if(acteur.typeActeur().equals("bloc")){
                         initSpriteBloc(acteur);
                     }
+
+
+                    listenerCollision(acteur);
+                    listenerPv(acteur);
                 }
             } else if (change.wasRemoved()) {
                 for (Acteur acteur : change.getRemoved()) {
@@ -52,6 +49,34 @@ public class GestionActeur implements ListChangeListener<Acteur>
             }
         }
     }
+
+    private void listenerPv(Acteur acteur)
+    {
+        acteur.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv)->{
+            if (Math.round(nouv.doubleValue()) == 0)
+                this.monde.ajoutActeurAsupprimer(acteur);
+        });
+    }
+
+    public void listenerCollision(Acteur acteur)
+    {
+        acteur.getPosition().getXProperty().addListener((obs, old, nouv)-> {verifCollision(acteur);});
+        acteur.getPosition().getYProperty().addListener((obs, old, nouv)-> {verifCollision(acteur);});
+    }
+
+    private void verifCollision(Acteur acteur)
+    {
+        Joueur joueur = monde.getJoueur();
+
+        if(acteur != joueur && monde.collisionAvecActeur(acteur,joueur))
+        {
+            joueur.causeCollision(joueur);
+            acteur.subitCollision(acteur);
+        }
+
+        monde.verifCollision(acteur);
+    }
+
 
     private void suppSpriteActeur(Acteur acteur)
     {
@@ -67,7 +92,7 @@ public class GestionActeur implements ListChangeListener<Acteur>
 
         double reglagePositionX;
         double reglagePositionY;
-        System.out.println("test");
+
         ImageView imageView = new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/Projectile/"+typeActeur+".png"));
 
 
@@ -75,6 +100,7 @@ public class GestionActeur implements ListChangeListener<Acteur>
         Direction direction = acteur.getDirection();
 
         int rotation;
+
         if(direction==Direction.HAUT) {
             rotation = 0;
             reglagePositionY = 15;
@@ -90,11 +116,13 @@ public class GestionActeur implements ListChangeListener<Acteur>
             reglagePositionY = 5.5;
             reglagePositionX = 15;
         }
-        else {
+        else
+        {
             rotation = 3;
             reglagePositionY = 5.5;
             reglagePositionX = 15;
         }
+
         imageView.setTranslateX(acteur.getPosition().getX()*Constantes.tailleTile-reglagePositionX);
         imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-reglagePositionY);
 

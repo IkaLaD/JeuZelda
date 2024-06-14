@@ -17,7 +17,6 @@ import java.util.Set;
 
 public class Deplacement
 {
-    private Timeline timeline;
     private Joueur joueur;
     private Set<Direction> directions;
 
@@ -32,22 +31,14 @@ public class Deplacement
         this.joueur = joueur;
         this.estEntrainDeCourir = new SimpleBooleanProperty();
         this.coefficientCourse = 1;
-        estEntrainDeCourir.bind(this.joueur.estEntrainDeCourirProperty());
+        this.estEntrainDeCourir.bind(this.joueur.estEntrainDeCourirProperty());
         this.directions = new HashSet<>();
         this.delai = 0.020;
-        initAnimationTimer();
-        this.timeline.setCycleCount(Timeline.INDEFINITE);
-        this.timeline.play();
+
+
     }
 
-    private void initAnimationTimer() {
-        this.timeline = new Timeline(new KeyFrame(Duration.seconds(delai), event -> {
-            seDeplace();
-
-        }));
-    }
-
-    private void seDeplace()
+    public void seDeplace()
     {
         coefficientCourse = 1;
 

@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
 
 public class Monde {
@@ -50,22 +51,12 @@ public class Monde {
 
 
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
-
+    private ArrayList<Acteur> acteursAsupprimer = new ArrayList<>();
 
     private long tour = 0;
 
 
-    /**
-     * Liste des identifiants des éléments du structureMonde :
-     */
 
-    public Monde(){
-        this.sol = new int[sizeMondeHauteur][sizeMondeLargeur];
-
-        this.joueur = null;
-
-        this.dropsAuSol = FXCollections.observableArrayList();
-    }
 
     /**
      * Méthode création de monde à partir d'une TiledMap
@@ -113,61 +104,7 @@ public class Monde {
 
     }
 
-    /**
-     * Permet de créer la map en récupérant les données dans un fichier qui a pour chemin d'accès le paramètre "nom"
-     * @param nom
-     */
-    public Monde(String nom)
-    {
 
-
-
-        this.dropsAuSol = FXCollections.observableArrayList();
-        try
-        {
-            BufferedReader reader = new BufferedReader(new FileReader(nom));
-
-            String ligneY = reader.readLine();
-            String ligneX = reader.readLine();
-            int y = Integer.parseInt(ligneY);
-            int x = Integer.parseInt(ligneX);
-
-            this.sol = new int[y][x];
-
-            String ligne;
-            int ligneIndex = 0;
-
-            while ((ligne = reader.readLine()) != null && ligneIndex < y)
-            {
-                String[] block = ligne.split(" ");
-
-                for (int i = 0; i < x && i < block.length; i++)
-                    this.sol[ligneIndex][i] = Integer.parseInt(block[i]);
-
-                ligneIndex++;
-            }
-
-        }
-        catch (IOException e)
-        {
-            System.err.println("Erreur lors de la lecture du fichier : " + e.getMessage());
-        }
-        catch (NumberFormatException e)
-        {
-            System.err.println("Erreur de format dans le fichier : " + e.getMessage());
-        }
-
-
-
-        for (int i = 0;i<5;i++)
-        {
-            for (int j = 0;j<5;j++)
-            {
-                if (nontraversable[i][j] == -1)
-                    this.ajoutActeur(new Slime(this,i,j,Direction.HAUT,new Hitbox(0.1,0.1)));
-            }
-        }
-    }
 
 
 
@@ -187,16 +124,23 @@ public class Monde {
     /**
      * Génération totalement aléatoire d'un monde (pour les tests).
      */
-    public void generationAléatoire(){
-        for(int i = 0; i < this.sol.length ; i++){
-            for(int j = 0; j < this.sol[i].length ; j++){
-                this.sol[i][j] = (int)(Math.random()*3)+1;
+
+
+    public void verifCollision(Acteur acteur)
+    {
+        for (Acteur acteur2 : acteurs)
+        {
+            if (collisionAvecActeur(acteur,acteur2) && acteur != acteur2)
+            {
+                acteur.causeCollision(acteur2);
             }
         }
     }
 
-
-
+    public void ajoutActeurAsupprimer(Acteur acteur)
+    {
+        this.acteursAsupprimer.add(acteur);
+    }
 
     public void ajouterDropAuSol(DropAuSol dropAuSol){
         this.dropsAuSol.add(dropAuSol);
@@ -205,14 +149,6 @@ public class Monde {
         this.dropsAuSol.remove(dropAuSol);
     }
 
-
-    private double calculerDistance(Position pos1, Position pos2)
-    {
-        double dx = pos2.getX() - pos1.getX();
-        double dy = pos2.getY() - pos1.getY();
-
-        return Math.sqrt(dx * dx + dy * dy);
-    }
 
 
     public static double getxPointDeDepart(){
@@ -241,16 +177,12 @@ public class Monde {
         this.dropsAuSol.remove(dropAuSol);
     }
 
-    public void setJoueur(Joueur joueur){
-        this.joueur = joueur;
-        listenerCollision(joueur);
-    }
-    public Joueur getJoueur(){
-        return this.joueur;
-    }
+    public void setJoueur(Joueur joueur){this.joueur = joueur;}
+    public Joueur getJoueur(){return this.joueur;}
 
 
-    public ArrayList<int[][]> getToutesLesCouches(){
+    public ArrayList<int[][]> getToutesLesCouches()
+    {
         ArrayList<int[][] > couches = new ArrayList<>();
         couches.add(this.sol);
         couches.add(this.traversable);
@@ -270,86 +202,31 @@ public class Monde {
 
 
 
-    public void ajoutActeur(Acteur acteur)
-    {
-        this.acteurs.add(acteur);
-        listenerCollision(acteur);
-    }
+    public void ajoutActeur(Acteur acteur) {this.acteurs.add(acteur);}
 
-    public void listenerCollision(Acteur acteur){
-        acteur.getPosition().getXProperty().addListener((obs, old, nouv)->{
-            if(acteur != joueur && collisionAvecActeur(acteur,joueur)){
-                acteur.subitCollision(joueur);
-                joueur.subitCollision(acteur);
-            }
-
-            for(int j = acteurs.size()-1 ; j>=0 ; j--){
-                Acteur acteur2 = acteurs.get(j);
-                if(acteur != acteur2 && collisionAvecActeur(acteur,acteur2)){
-                    acteur.subitCollision(acteur2);
-                    acteur2.subitCollision(acteur);
-                }
-            }
-        });
-        acteur.getPosition().getYProperty().addListener((obs, old, nouv)->{
-            if(acteur != joueur && collisionAvecActeur(acteur,joueur)){
-                acteur.subitCollision(joueur);
-                joueur.subitCollision(acteur);
-            }
-
-            for(int j = acteurs.size()-1 ; j>=0 ; j--){
-                Acteur acteur2 = acteurs.get(j);
-                if( acteur != acteur2 && collisionAvecActeur(acteur,acteur2)){
-                    acteur.subitCollision(acteur2);
-                    acteur2.subitCollision(acteur);
-                }
-            }
-        });
-    }
 
 
     public void unTour()
     {
         this.tour++;
 
-        for(int i = acteurs.size() -1 ; i>=0 ; i--){
+        for(int i = acteurs.size()-1 ; i>=0 ; i--)
             acteurs.get(i).unTour();
-        }
-        for(int i = acteurs.size()-1 ; i>=0 ; i--){
-            Acteur acteur1 = acteurs.get(i);
-            for(int j = acteurs.size()-1 ; j>=0 ; j--){
-                Acteur acteur2 = acteurs.get(j);
 
-                if(collisionAvecActeur(acteur1,acteur2) && acteur1 != acteur2){
-                    acteur1.causeCollision(acteur2);
-                    acteur2.subitCollision(acteur1);
-                }
-            }
-        }
 
-        for(int i = acteurs.size() -1 ; i>=0 ; i--){
-            Acteur acteur = acteurs.get(i);
-            if(acteur.plusDePv())
-                acteurs.remove(i);
-        }
+        acteurs.removeAll(acteursAsupprimer);
+        acteursAsupprimer.clear();
+
 
         for(int i = rechargeables.size()-1 ; i>=0 ; i--)
         {
             Rechargeable rechargeable = rechargeables.get(i);
-            System.out.println("boucle");
+
             if(rechargeable.getTourApelle() + rechargeable.delaie() == tour)
             {
-                System.out.println("valider");
                 rechargeable.cooldown();
                 this.rechargeables.remove(rechargeable);
-                System.out.println(rechargeables.size());
-
-
             }
-            else{
-                System.out.println("pas valider");
-            }
-
         }
     }
 
@@ -357,7 +234,6 @@ public class Monde {
     {
         this.rechargeables.add(rechargeable);
         rechargeable.setTourApelle(tour);
-        System.out.println(tour + "     apelle ");
     }
 
 
@@ -431,7 +307,7 @@ public class Monde {
         return collision;
     }
 
-
+    //TODO CORRIGER METHODE
     public boolean collisionAvecActeur(Acteur acteur1,Acteur acteur2)
     {
         double vitesse = acteur1.getVitesse();
@@ -457,6 +333,9 @@ public class Monde {
 
         return collisionX && collisionY;
     }
+
+
+
 
 
     public boolean collision(Acteur acteur)

@@ -55,10 +55,7 @@ public class Marchand extends HumainPNJ implements Interagisable
 
     }
 
-    @Override
-    public void subitDegat(Dommageable causeDegat) {
 
-    }
 
     @Override
     public void dropApresMort() {

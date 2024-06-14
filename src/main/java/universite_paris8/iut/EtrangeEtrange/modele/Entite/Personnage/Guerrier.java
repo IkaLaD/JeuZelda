@@ -17,14 +17,86 @@ public class Guerrier extends Joueur
     public Guerrier(Monde monde, double x, double y, Direction direction) {
         super(ConstantesPersonnages.GUERRIER_PV, ConstantesPersonnages.GUERRIER_ATTAQUE, ConstantesPersonnages.GUERRIER_DEFENSE, ConstantesPersonnages.GUERRIER_ATTAQUE_SPECIAL, ConstantesPersonnages.GUERRIER_DEFENSE_SEPCIAL, ConstantesPersonnages.GUERRIER_VITESSE, new Sac(), null, new Epee(), monde, x, y, direction, new Hitbox(0.50, 0.50));
         this.carquois = new Carquois();
-        this.carquois.ajoutItem(new FlecheSimple());
-        this.carquois.ajoutItem(new FlecheSimple());
-        this.carquois.ajoutItem(new FlecheSimple());
-        this.carquois.ajoutItem(new FlecheSimple());
-        this.carquois.ajoutItem(new FlecheSimple());
-        this.carquois.ajoutItem(new FlecheSimple());
-        this.carquois.ajoutItem(new FlecheSimple());
-        this.carquois.ajoutItem(new FlecheSimple());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
+        this.carquois.ajoutItem(new Fleche());
 
     }
 
@@ -52,5 +124,4 @@ public class Guerrier extends Joueur
     public void subitDegat(Dommageable causeDegat) {
 
     }
-
 }

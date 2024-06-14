@@ -9,8 +9,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
-import java.util.Random;
-
 public class Slime extends EntiteOffensif {
     /**
      * Crée une nouvelle entité offensif.
@@ -60,10 +58,7 @@ public class Slime extends EntiteOffensif {
         enlevePv(20);
     }
 
-    @Override
-    public void subitDegat(Dommageable causeDegat) {
 
-    }
 
     @Override
     protected double subitDegatPhysique(double attaqueEntite, double degatArme) {

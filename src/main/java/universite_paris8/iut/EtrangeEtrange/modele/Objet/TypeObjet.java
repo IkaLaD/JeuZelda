@@ -5,7 +5,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Livre
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
 
 public enum TypeObjet
 {
@@ -14,7 +14,7 @@ public enum TypeObjet
     LIVRE_MAGIQUE,
 
 
-    FLECHE_SIMPLE,
+    FLECHE,
 
     POTION;
 
@@ -31,7 +31,7 @@ public enum TypeObjet
             case ARC -> objet = new Arc();
             case LIVRE_MAGIQUE -> objet = new LivreMagique();
             case POTION -> objet = new Potion();
-            case FLECHE_SIMPLE -> objet = new FlecheSimple();
+            case FLECHE -> objet = new Fleche();
         }
 
 

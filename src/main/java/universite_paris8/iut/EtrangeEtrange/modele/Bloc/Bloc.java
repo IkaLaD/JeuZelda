@@ -1,13 +1,9 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Bloc;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -25,38 +21,25 @@ public class Bloc extends Acteur {
     }
 
     @Override
-    public void unTour() {
-
-    }
+    public void unTour() {}
     @Override
-    public void subitCollision(Acteur acteur) {
-        if(acteur instanceof Entite) {
-            setDirection(acteur.getDirection());
-            setVitesse(acteur.getVitesse());
-            if (peutSeDeplacer()) {
-                seDeplace(1);
-            }
-        }
-        if(acteur instanceof Dommageable){
-            subitDegat(new Epee());
-            dropApresMort();
-        }
+    public void subitCollision(Acteur acteur)
+    {
+        acteur.causeCollision(this);
     }
 
     @Override
-    public void causeCollision(Acteur acteur) {
+    public void causeCollision(Acteur acteur)
+    {
 
     }
 
     @Override
     public void subitAttaque(Dommageable causeDegat) {
-
+        enleveToutPv();
     }
 
-    @Override
-    public void subitDegat(Dommageable causeDegat) {
-        statsPv.setPv(0);
-    }
+
 
     @Override
     protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
@@ -72,6 +55,17 @@ public class Bloc extends Acteur {
     @Override
     public String typeActeur() {
         return "bloc";
+    }
+
+    @Override
+    public void seFaitPousser(Acteur acteur)
+    {
+        setDirection(acteur.getDirection());
+        setVitesse(acteur.getVitesse());
+
+        if (peutSeDeplacer())
+            seDeplace(1);
+
     }
 
 

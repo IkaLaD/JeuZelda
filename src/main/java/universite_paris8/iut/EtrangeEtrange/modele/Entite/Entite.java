@@ -54,8 +54,15 @@ public abstract class Entite extends Acteur
 
     public void causeCollision(Acteur acteur)
     {
-        acteur.subitCollision(this);
+        acteur.seFaitPousser(this);
     }
+
+    @Override
+    public void seFaitPousser(Acteur acteur) {
+
+    }
+
+
 
     /**
      * Calcule les dégâts physiques subis par l'entité.

@@ -112,13 +112,13 @@ public abstract class Acteur
     public abstract void subitCollision(Acteur acteur);
     public abstract void causeCollision(Acteur acteur);
 
-    public abstract void subitAttaque(Dommageable causeDegat);
+
 
     /**
      * Subit des dégâts infligés par une source dommageable.
      * @param causeDegat La source de dégâts.
      */
-    public abstract void subitDegat(Dommageable causeDegat);
+    public abstract void subitAttaque(Dommageable causeDegat);
 
     /**
      * Calcule les dégâts physiques subis par l'entité.
@@ -173,6 +173,8 @@ public abstract class Acteur
     public double getVitesse() { return this.statsVitesse.getVitesse();}
     public void enleveToutPv(){ this.statsPv.enleveToutPv();}
     public void enlevePv(double pv){this.statsPv.enleverPv(pv);}
+
+    public abstract void seFaitPousser(Acteur acteur);
 
     public int getID(){return this.ID;}
 

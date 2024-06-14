@@ -1,6 +1,5 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
@@ -25,7 +24,7 @@ public class Necromancier extends Joueur{
     }
 
     @Override
-    public void subitDegat(Dommageable causeDegat) {
+    public void subitAttaque(Dommageable causeDegat) {
 
     }
 

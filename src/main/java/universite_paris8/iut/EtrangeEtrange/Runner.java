@@ -19,10 +19,7 @@ public class Runner extends Application {
         Scene sceneCompetences = new Scene(fxmlLoaderMenuDebut.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
         stage.setScene(sceneCompetences);
         stage.show();
-
-
     }
-
 
     public static void main(String[] args) {
         launch();

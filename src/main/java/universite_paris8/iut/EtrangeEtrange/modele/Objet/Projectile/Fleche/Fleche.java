@@ -1,32 +1,73 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 
-public abstract class Fleche extends Projectile
+public class Fleche extends Projectile
 {
     public Fleche() {super(1,new Hitbox(0.5,0.2));}
 
     @Override
-    public double portee() {
+    public double degatPhysique() {
+        return 10;
+    }
+
+    @Override
+    public double degatSpecial() {
         return 0;
+    }
+
+    @Override
+    public boolean peutSeDeplacer()
+    {
+        return !monde.estHorsMap(this);
+    }
+
+    @Override
+    public String getNom() {
+        return "Fleche";
     }
     @Override
-    public double angle() {
-        return 0;
+    public String typeActeur(){
+        return "fleche";
     }
+    @Override
+    public void seFaitPousser(Acteur acteur) {}
     @Override
     public int stackMax() {
-        return 6;
+        return 64;
     }
     @Override
     public void subitCollision(Acteur acteur) { enleveToutPv(); }
     @Override
-    public void causeCollision(Acteur acteur) { acteur.subitAttaque(this); }
+    public void causeCollision(Acteur acteur)
+    {
+        acteur.subitAttaque(this);
+        enleveToutPv();
+    }
 
     @Override
-    public String typeActeur(){ return "fleche"; }
+    public void subitAttaque(Dommageable causeDegat) {}
+
+
+
+    @Override
+    protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
+        return 0;
+    }
+
+    @Override
+    protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
+        return 0;
+    }
+
+    @Override
+    public void dropApresMort() {
+
+    }
+
 
 
     @Override
@@ -34,8 +75,9 @@ public abstract class Fleche extends Projectile
     {
         if(peutSeDeplacer())
             seDeplace(1);
-        else
+        else {
             enleveToutPv();
+        }
 
     }
 

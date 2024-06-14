@@ -1,15 +1,11 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Attaque;
 
-import javafx.application.Platform;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.FlecheSimple;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
-
-import java.util.TimerTask;
 
 public class SortilegePluitDeFleche extends Sortilege
 {
@@ -38,7 +34,7 @@ public class SortilegePluitDeFleche extends Sortilege
                 @Override
                 public void cooldown()
                 {
-                    FlecheSimple flecheSimple = new FlecheSimple();
+                    Fleche flecheSimple = new Fleche();
                     flecheSimple.setDirection(direction);
                     flecheSimple.setPosition(positionAleaAutourDe(x,y, direction));
                     flecheSimple.setMonde(utilisateur.getMonde());

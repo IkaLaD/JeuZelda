@@ -9,11 +9,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 
 public class gestionAffichageInventaire {
 
@@ -152,14 +151,14 @@ public class gestionAffichageInventaire {
             ImageView imageView = null;
             // Si l'emplacement de l'inventaire n'est pas vide, on ajoute l'objet qui y est présent à l'écran
             if (joueur.getSac().objetALemplacement(i) != null) {
-                imageView = new ImageView(getImageObjet(joueur.getSac().objetALemplacement(i).getClass()));
+                imageView = new ImageView(getImageObjet(joueur.getSac().objetALemplacement(i)));
                 // Aggrandisement de l'icône de l'objet
                 setParamatresImageViewObjetInventaire(imageView, false);
             }
 
             // S'il y a un objet, on ajoute son image sinon une case vide
             if (imageView != null) {
-                TextField textField = ajouterQuantite(joueur.getSac().getInv().getEmplacement(i).quantiteObjet());
+                TextField textField = ajouterQuantite(joueur.getSac().getEmplacement(i).quantiteObjet());
                 // Ajout de l'image de l'objet et de sa quantité dans la case
                 objetsInventaire.getChildren().add(imageView);
                 quantiteObjetInventaire.getChildren().add(textField);
@@ -170,9 +169,9 @@ public class gestionAffichageInventaire {
             }
         }
         if(joueur.getObjetMainDroite()!=null)
-            objetMainDroite.setImage(getImageObjet(joueur.getObjetMainDroite().getClass()));
+            objetMainDroite.setImage(getImageObjet(joueur.getObjetMainDroite()));
         if(joueur.getObjetMainGauche()!=null)
-            objetMainGauche.setImage(getImageObjet(joueur.getObjetMainGauche().getClass()));
+            objetMainGauche.setImage(getImageObjet(joueur.getObjetMainGauche()));
 
     }
 
@@ -256,16 +255,10 @@ public class gestionAffichageInventaire {
      * @param objet
      * @return
      */
-    public Image getImageObjet(Class<? extends Objet> objet){
-        if (objet.equals(Arc.class))
-            return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/arc.png");
-        if(objet.equals(LivreMagique.class))
-            return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/livremagique.png");
-        if(objet.equals(Potion.class))
-            return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/potion.png");
-        if(objet.equals(EpeeDeSoldat.class))
-            return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/epee.png");
-        System.out.println("Pas d'objet");
-        return null;
+    public Image getImageObjet(Objet objet)
+    {
+        String typeObjet = objet.getNom();
+
+        return new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/objet/icone/"+typeObjet+".png");
     }
 }

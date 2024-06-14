@@ -1,8 +1,9 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac.Sac;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 
 
@@ -12,6 +13,11 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 import java.util.ArrayList;
 
+/**
+ * Représente un humanoïde dans le monde du jeu.
+ * A deux mains pouvant stocker des objet.
+ * Peut porter un sac.
+ */
 public abstract class Humanoide extends EntiteOffensif
 {
     protected Objet objetMainGauche;
@@ -19,14 +25,31 @@ public abstract class Humanoide extends EntiteOffensif
     protected Sac sac;
 
 
-    public Humanoide(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, monde, x, y, direction, hitbox);
+    /**
+     * Crée un nouvel humanoïde.
+     *
+     * @param monde            Le monde dans lequel l'humanoïde existe.
+     * @param x                La position horizontale de l'humanoïde.
+     * @param y                La position verticale de l'humanoïde.
+     * @param direction        La direction dans laquelle l'humanoïde est orienté.
+     * @param pv               Les points de vie de l'humanoïde.
+     * @param attaque          La valeur de l'attaque de l'humanoïde.
+     * @param defense          La valeur de la défense de l'humanoïde.
+     * @param attaqueSpecial   La valeur de l'attaque spéciale de l'humanoïde.
+     * @param defenseSpecial  La valeur de la défense spéciale de l'humanoïde.
+     * @param vitesse          La vitesse de déplacement de l'humanoïde.
+     * @param hitbox           La hitbox de l'humanoïde.
+     * @param sac              Le sac à dos de l'humanoïde.
+     * @param objetMainGauche  L'objet tenu dans la main gauche de l'humanoïde.
+     * @param objetMainDroite L'objet tenu dans la main droite de l'humanoïde.
+     */
+    public Humanoide(Monde monde, double x, double y, Direction direction,double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse,Hitbox hitbox,Sac sac, Objet objetMainGauche, Objet objetMainDroite)
+    {
+        super(monde, x, y, direction, pv, attaque, defense, attaqueSpecial, defenseSpecial, vitesse, hitbox);
         this.sac = sac;
         this.objetMainGauche = objetMainGauche;
         this.objetMainDroite = objetMainDroite;
     }
-
-
 
     @Override
     protected double subitDegatPhysique(double attaque,double forceEntite) {
@@ -38,10 +61,13 @@ public abstract class Humanoide extends EntiteOffensif
         return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
     }
 
+
     public Sac getSac()
     {
         return this.sac;
     }
+
+
     public Objet retournerObjetMainDroite()
     {
         Objet objet = this.objetMainDroite;

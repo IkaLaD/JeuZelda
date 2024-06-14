@@ -7,7 +7,6 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 
 import java.util.ArrayList;
@@ -41,13 +40,8 @@ public class gestionAffichageSpriteDropAuSol implements ListChangeListener<DropA
         }
     }
     public void creeSprite(DropAuSol dropAuSol){
-        String skin;
-        if (dropAuSol.getObjet().getClass().equals(Arc.class))
-            skin = "arc";
-        else if (dropAuSol.getObjet().getClass().equals(EpeeDeSoldat.class))
-            skin = "epeeDeSoldat";
-        else
-            skin = null;
+        String skin = dropAuSol.getObjet().getNom();
+
 
         SpriteDropAuSol animationDropAuSol = new SpriteDropAuSol(dropAuSol, skin);
 

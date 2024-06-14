@@ -1,60 +1,91 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Entite;
 
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegat;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEntite;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParEpee;
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreConsomable.ParametreActionConsomable;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Defense;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.DefenseSpecial;
-import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
-import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Vitesse;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Surface;
-
-
-import java.util.ArrayList;
-
-import static universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction.*;
-
-public abstract class Entite extends Acteur{
-
+/**
+ * Représente un être vivant dans le monde du jeu.
+ * Cette classe étend la classe abstraite Acteur
+ */
+public abstract class Entite extends Acteur
+{
     protected Defense statsDefense;
     protected DefenseSpecial statsDefenseSpecial;
 
-
-    public Entite(double pv,double defense,double defenseSpecial,double vitesse,Monde monde,double x,double y,Direction direction, Hitbox hitbox)
+    /**
+     * Crée une nouvelle instance d'Entite avec les paramètres spécifiés.
+     *
+     * @param monde            Le monde dans lequel l'entité évolue.
+     * @param x                La position horizontale de l'entité dans le monde.
+     * @param y                La position verticale de l'entité dans le monde.
+     * @param direction        La direction initiale de l'entité.
+     * @param pv               Les points de vie de l'entité.
+     * @param defense          La défense de l'entité.
+     * @param defenseSpecial   La défense spéciale de l'entité.
+     * @param vitesse          La vitesse de déplacement de l'entité.
+     * @param hitbox           La hitbox de l'entité.
+     */
+    public Entite(Monde monde,double x,double y,Direction direction,double pv,double defense,double defenseSpecial,double vitesse, Hitbox hitbox)
     {
-        super(new Pv(pv) ,new Vitesse(vitesse) , new Position(x, y), direction, monde, hitbox, false);
+        super(monde,x,y,direction,pv,vitesse,hitbox);
         this.statsDefense = new Defense(defense);
         this.statsDefenseSpecial = new DefenseSpecial(defenseSpecial);
     }
 
+    /**
+     * Subit des dégâts infligés par une source dommageable.
+     * @param causeDegat La source de dégâts.
+     */
+    public void subitAttaque(Dommageable causeDegat)
+    {
+        enlevePv(subitDegatPhysique(causeDegat.degatPhysique(),0)+subitDegatSpecial(causeDegat.degatSpecial(),0));
+    }
 
+    public void subitCollision(Acteur acteur)
+    {
+        acteur.causeCollision(this);
+    }
+
+    public void causeCollision(Acteur acteur)
+    {
+        acteur.subitCollision(this);
+    }
+
+    /**
+     * Calcule les dégâts physiques subis par l'entité.
+     * @param attaqueEntite       Les dégâts physiques infligés.
+     * @param degatArme La force de l'entité qui inflige les dégâts.
+     * @return Les dégâts physiques subis.
+     */
+    protected abstract double subitDegatPhysique(double attaqueEntite,double degatArme);
+
+    /**
+     * Calcule les dégâts spéciaux subis par l'entité.
+     *
+     * @param attaqueSpecialEntite Les dégâts spéciaux infligés.
+     * @param degatArme    La force de l'entité qui inflige les dégâts spéciaux.
+     * @return Les dégâts spéciaux subis.
+     */
+    protected abstract double subitDegatSpecial(double attaqueSpecialEntite,double degatArme);
     public void setDefenseMaximum(double statsDefense){this.statsDefense.setDefenseMaximum(statsDefense);}
     public void setDefense(double defense){this.statsDefense.setDefense(defense);}
-
-
     public void setDefenseSpecialMaximum(double statsDefenseSpecial) {this.statsDefenseSpecial.setDefenseSpecialMaximum(statsDefenseSpecial);}
     public void setDefenseSpecial(double defenseSpecial) {this.statsDefenseSpecial.setDefenseSpecial(defenseSpecial);}
-
-
-
-
     public double getDefense(){ return this.statsDefense.getDefense();}
     public double getDefenseSpecial(){ return this.statsDefenseSpecial.getDefenseSpecial();}
-
     public Defense getStatsDefense(){return this.statsDefense;}
     public DefenseSpecial getStatsDefenseSpecial(){return this.statsDefenseSpecial;}
 
-
-
-
+    /**
+     * Consomme un objet consommable.
+     * @param consommable L'objet consommable à consommer.
+     */
     public void consommer(Consommable consommable)
     {
         consommable.consommer(new ParametreActionConsomable(this));

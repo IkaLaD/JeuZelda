@@ -1,16 +1,26 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Exeptions.HitboxInvalideExeption;
+import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+
 public class Hitbox {
 
     private double hauteur;
     private double largeur;
 
-    public Hitbox(double hauteur, double largeur) {
-        this.hauteur = hauteur;
-        this.largeur = largeur;
+    public Hitbox(double hauteur, double largeur)
+    {
+        setHitbox(hauteur,largeur);
     }
 
-    public void setHitbox(double hauteur, double largeur) {
+    public void setHitbox(double hauteur, double largeur)
+    {
+        if (hauteur < 0 || largeur < 0)
+            throw new HitboxInvalideExeption("Valeur négatif interdit");
+
+        if (hauteur > Monde.getSizeMondeHauteur() || largeur > Monde.getSizeMondeLargeur())
+            throw new HitboxInvalideExeption("Valeur trop grande ");
+
         this.hauteur = hauteur;
         this.largeur = largeur;
     }
@@ -54,5 +64,18 @@ public class Hitbox {
         Position centreHitbox = new Position(centre.getX(), centre.getY());
         double rayonEffectif = rayon + Math.max(largeur, hauteur) / 2.0;
         return estDansCercle(centre, rayonEffectif, centreHitbox);
+    }
+
+
+
+    public Position[] points(Position position)
+    {
+        Position[] point = new Position[2];
+
+        point[0] = new Position(getPointLePlusADroite(position.getX()),getPointLePlusEnHaut(position.getY()));
+        point[1] = new Position(getPointLePlusAGauche(position.getX()),getPointLePlusEnBas(position.getY()));
+
+        return point;
+
     }
 }

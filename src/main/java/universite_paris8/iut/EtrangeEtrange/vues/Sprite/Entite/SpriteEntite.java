@@ -5,15 +5,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
+
 public class SpriteEntite {
     private static GestionAffichageSpriteEntite gestionAffichageSpriteEntite;
 
-    private Entite entite;
+    private Acteur entite;
     private ImageView SpriteEntite;
     private Rectangle SpriteVie;
     private ColorAdjust effetCouleur;
@@ -29,23 +31,23 @@ public class SpriteEntite {
     /**
      * La class est uniquement adapté pour le joueur pour le moment (les sprites de chevalier)
      */
-    public SpriteEntite(Entite entite, int skin, int vitesse, double colorAdjust)
+    public SpriteEntite(Acteur entite, int skin, int vitesse, double colorAdjust)
     {
         this.image = 0;
         this.SpriteEntite = new ImageView("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/sprite/"+skin+"/bas1.png");
         this.entite = entite;
         this.skin = skin;
-        this.id = entite.getId();
+        this.id = entite.getID();
         this.vitesse = vitesse;
         this.cptImageChange = 0;
-
-
+        
+        
 
         if(!(entite instanceof Joueur))
             this.SpriteVie = new Rectangle();
 
         // On lie le sprite et l'entité par un même identifiant
-        this.SpriteEntite.setId(entite.getId()+"");
+        this.SpriteEntite.setId(entite.getID()+"");
 
         // Listener pour lié position de l'entité et de son sprite
         entite.getPosition().getXProperty().addListener((obs, old, nouv)->
@@ -67,8 +69,8 @@ public class SpriteEntite {
         SpriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32);
         SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64);
     }
-
-
+    
+    
 
     public void demarrerEffet(){
         appliquerEffet=true;
@@ -187,7 +189,7 @@ public class SpriteEntite {
         return this.id;
     }
 
-    public Entite getEntite() {
+    public Acteur getEntite() {
         return entite;
     }
     public boolean getAppliquerEffet(){

@@ -7,17 +7,24 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+
+import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Families.Slime;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Humain.Squelette;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.ComparePositionSprite;
 
 import java.util.ArrayList;
 
-public class GestionAffichageSpriteEntite implements ListChangeListener<Entite> {
+public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
+{
     /**
      * On stock toutes les images des sprites :
      * dans chaque tableau d'image 2D, la première ligne correspond au haut, la 2eme haut bas, 3eme gauche, 4eme droite
@@ -76,46 +83,50 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Entite> 
      * Choisi le skin de sprite adéquat en fonction de la class de l'entité, et crée son sprite animé qui est directement ajouté à la vue
      * @param entite
      */
-    public void creeSprite(Entite entite) {
+    public void creeSprite(Acteur entite)
+    {
         int skin;
         int vitesse;
         double colorAdjust = 0;
+
         if (entite.getClass().equals(Guerrier.class)) {
             skin = 0;
             vitesse = 1;
+
+        } else if (entite.getClass().equals(Archer.class)) {
+            skin = 5;
+            vitesse = 2;
         } else if (entite.getClass().equals(Squelette.class)) {
             skin = 4;
             vitesse = 1;
-        } else if (entite.getClass().equals(RoiSquelette.class)) {
-            skin = 2;
-            vitesse = 1;
         } else if (entite.getClass().equals(Slime.class)) {
             skin = 3;
-            vitesse = 2;
             colorAdjust = Math.random() * 2 - 1;
+            vitesse = 2;
         } else {
-            skin = 1;
-            vitesse = 1;
+            skin = 0;
+            vitesse = 0;
         }
+
         SpriteEntite animationSprite = new SpriteEntite(entite, skin, vitesse, colorAdjust);
 
         animationSprites.add(animationSprite);
+        paneEntite.getChildren().add(animationSprite.getSpriteEntite());
 
         paneEntite.getChildren().add(animationSprite.ajoutOmbre()); // Ajouter l'ombre
         paneEntite.getChildren().add(animationSprite.getSpriteEntite()); // Ajouter le sprite de l'entité
 
         if (!(entite instanceof Joueur))
             paneEntite.getChildren().add(animationSprite.ajoutBarrePv());
-
         listenerPosition(entite);
     }
-
 
     /**
      * Ajoute un listenner sur la position de l'entité, permettant de superposer correctement les entités entre elle dans l'affichage
      * @param entite
      */
-    public void listenerPosition(Entite entite){
+    public void listenerPosition(Acteur entite)
+    {
         entite.getPosition().getYProperty().addListener((old, obs, nouv)->
                 animationSprites.sort(new ComparePositionSprite())
         );

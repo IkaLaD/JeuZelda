@@ -1,7 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Attaque.SortilegePluitDeFleche;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
@@ -10,10 +10,13 @@ import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.Param
 
 import java.util.ArrayList;
 
-public  class LivreMagique extends Arme implements Utilisable
+public  class LivreMagique implements Arme
 {
     private ArrayList<Sortilege> sortileges;
     private final int sortMaximum = 3;
+
+
+
 
     public LivreMagique()
     {
@@ -23,7 +26,7 @@ public  class LivreMagique extends Arme implements Utilisable
 
     @Override
     public String getNom() {
-        return "Livre magique";
+        return "livremagique";
     }
 
 
@@ -54,4 +57,11 @@ public  class LivreMagique extends Arme implements Utilisable
     public int stackMax() {
         return 1;
     }
+
+    @Override
+    public double durabilitee() {
+        return -1; // ilimité
+    }
+
+
 }

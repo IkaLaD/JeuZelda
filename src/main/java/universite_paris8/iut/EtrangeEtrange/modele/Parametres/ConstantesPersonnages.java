@@ -23,7 +23,8 @@ public class ConstantesPersonnages
     public static final double ARCHER_ATTAQUE_SPECIAL = 20;
     public static final double ARCHER_DEFENSE_SEPCIAL = 40;
     public static final double ARCHER_VITESSE = 0.08;
-    public static final double ARCHER_HITBOX = 0.50;
+    public static final double ARCHER_HITBOX_HAUTEUR = 0.35;
+    public static final double ARCHER_HITBOX_LARGEUR = 0.50;
 
 
     public static final double MAGE_PV = 40;

@@ -1,18 +1,20 @@
 package universite_paris8.iut.EtrangeEtrange.TestJunit;
 
-import org.junit.jupiter.api.Test;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.EpeeDeSoldat;
+
+
+import org.junit.Test;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Emplacement;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Inventaire;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class InventaireTest {
 
@@ -28,8 +30,8 @@ public class InventaireTest {
     {
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat();
-        objet3 = new EpeeDeSoldat();
+        objet2 = new Arc();
+        objet3 = new Arc();
         objet4 = new Potion();
 
 
@@ -45,8 +47,8 @@ public class InventaireTest {
     {
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat();
-        objet3 = new EpeeDeSoldat();
+        objet2 = new Arc();
+        objet3 = new Arc();
         objet4 = new Potion();
 
         inventaire.ajoutItem(objet1);
@@ -65,8 +67,8 @@ public class InventaireTest {
 
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat();
-        objet3 = new EpeeDeSoldat();
+        objet2 = new Arc();
+        objet3 = new Arc();
         objet4 = new Potion();
 
 
@@ -90,8 +92,8 @@ public class InventaireTest {
 
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat();
-        objet3 = new EpeeDeSoldat();
+        objet2 = new Arc();
+        objet3 = new Arc();
         objet4 = new Potion();
 
 
@@ -107,8 +109,8 @@ public class InventaireTest {
     {
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat();
-        objet3 = new EpeeDeSoldat();
+        objet2 = new Arc();
+        objet3 = new Arc();
         objet4 = new Potion();
 
         assertFalse(inventaire.estPlein());
@@ -123,8 +125,8 @@ public class InventaireTest {
 
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat();
-        objet3 = new EpeeDeSoldat();
+        objet2 = new Arc();
+        objet3 = new Arc();
         objet4 = new Potion();
 
         assertTrue(inventaire.estVide());
@@ -137,8 +139,8 @@ public class InventaireTest {
     {
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat();
-        objet3 = new EpeeDeSoldat();
+        objet2 = new Arc();
+        objet3 = new Arc();
         objet4 = new Potion();
 
 
@@ -166,8 +168,8 @@ public class InventaireTest {
 
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat();
-        objet3 = new EpeeDeSoldat();
+        objet2 = new Arc();
+        objet3 = new Arc();
         objet4 = new Potion();
 
         inventaire.ajoutItem(objet1);
@@ -191,8 +193,8 @@ public class InventaireTest {
 
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat();
-        objet3 = new EpeeDeSoldat();
+        objet2 = new Arc();
+        objet3 = new Arc();
         objet4 = new Potion();
 
 
@@ -214,8 +216,8 @@ public class InventaireTest {
     {
         inventaire = new Inventaire<>(2);
         objet1 = new Potion();
-        objet2 = new EpeeDeSoldat();
-        objet3 = new EpeeDeSoldat();
+        objet2 = new Arc();
+        objet3 = new Arc();
         objet4 = new Potion();
 
         inventaire.ajoutItem(objet1);

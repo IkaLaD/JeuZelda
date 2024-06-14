@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox fx:id="hbox" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" onKeyPressed="#changeClasse" onMouseClicked="#mouseClick" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControllerChoixClasse">
+<HBox fx:id="hbox" alignment="TOP_RIGHT" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" onKeyPressed="#changeClasse" onMouseClicked="#mouseClick" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControllerChoixClasse">
    <children>
-      <Pane prefHeight="1080.0" prefWidth="2070.0" />
-      <VBox prefHeight="1080.0" prefWidth="1186.0">
+      <Pane fx:id="imageHeros" maxHeight="1024.0" maxWidth="1024.0" minHeight="1024.0" minWidth="1024.0" />
+      <VBox fx:id="Menu">
          <children>
             <Label fx:id="nomClasse" layoutX="25.0" layoutY="25.0" prefHeight="82.0" prefWidth="284.0" wrapText="true">
                <font>
-                  <Font size="30.0" />
+                  <Font name="System Bold Italic" size="30.0" />
                </font></Label>
             <Pane prefHeight="587.0" prefWidth="518.0">
                <children>
-                  <Label layoutX="14.0" layoutY="14.0" text="Description :">
+                  <Label layoutX="14.0" layoutY="14.0" text="DESCRIPTION : ">
                      <font>
-                        <Font size="30.0" />
+                        <Font name="System Bold" size="30.0" />
                      </font></Label>
                   <Label fx:id="descriptionClasse" alignment="TOP_LEFT" layoutX="15.0" layoutY="59.0" prefHeight="268.0" prefWidth="489.0" wrapText="true" />
                </children>
@@ -32,7 +34,7 @@
                   <Insets left="170.0" />
                </padding>
                <font>
-                  <Font size="30.0" />
+                  <Font name="System Bold" size="30.0" />
                </font>
             </Label>
             <HBox>
@@ -41,27 +43,27 @@
                      <children>
                         <Label prefHeight="36.0" prefWidth="271.0" text="Pv">
                            <font>
-                              <Font size="30.0" />
+                              <Font name="System Bold Italic" size="30.0" />
                            </font></Label>
                         <Label prefHeight="36.0" prefWidth="261.0" text="Attaque">
                            <font>
-                              <Font size="30.0" />
+                              <Font name="System Bold Italic" size="30.0" />
                            </font></Label>
                         <Label prefHeight="36.0" prefWidth="262.0" text="Defense">
                            <font>
-                              <Font size="30.0" />
+                              <Font name="System Bold Italic" size="30.0" />
                            </font></Label>
                         <Label prefHeight="36.0" prefWidth="264.0" text="Attaque Special">
                            <font>
-                              <Font size="30.0" />
+                              <Font name="System Bold Italic" size="30.0" />
                            </font></Label>
                         <Label prefHeight="36.0" prefWidth="264.0" text="Defense Special">
                            <font>
-                              <Font size="30.0" />
+                              <Font name="System Bold Italic" size="30.0" />
                            </font></Label>
                         <Label prefHeight="36.0" prefWidth="263.0" text="Vitesse ">
                            <font>
-                              <Font size="30.0" />
+                              <Font name="System Bold Italic" size="30.0" />
                            </font></Label>
                      </children>
                   </VBox>

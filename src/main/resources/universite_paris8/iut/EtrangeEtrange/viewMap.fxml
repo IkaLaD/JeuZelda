@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,6 +13,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.shape.Rectangle?>
 <Pane xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.Controller" onMouseClicked="#mouseClick">
+
+<Pane fx:id="paneInteraction" onKeyPressed="#keyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#mouseClick" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.Controller">
    <children>
             <Pane fx:id="paneEntite" onKeyReleased="#onKeyReleased" onKeyPressed="#keyPressed">
          <children>

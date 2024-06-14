@@ -2,12 +2,15 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins;
 
 
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Guerrisable;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Consommable;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Consommable;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreConsomable.ParametreActionConsomable;
 
-public class Potion extends Consommable implements Guerrisable, Utilisable {
+public class Potion implements Consommable,Guerrisable
+{
+    private int durabilitee;
+
+    public Potion(){this.durabilitee = 1;}
 
     @Override
     public double restoration() {
@@ -16,7 +19,7 @@ public class Potion extends Consommable implements Guerrisable, Utilisable {
 
     @Override
     public String getNom() {
-        return "Potion";
+        return "potion";
     }
 
     @Override
@@ -24,12 +27,17 @@ public class Potion extends Consommable implements Guerrisable, Utilisable {
         return 6;
     }
 
+    @Override
+    public double durabilitee() {
+        return 1;
+    }
+
 
     @Override
     public void utilise(ParametreAction param)
     {
-        if (param instanceof ParametreActionConsomable)
-            consommer((ParametreActionConsomable) param);
+        if (param instanceof ParametreActionConsomable parametre)
+            consommer(parametre);
     }
 
 
@@ -37,5 +45,6 @@ public class Potion extends Consommable implements Guerrisable, Utilisable {
     public void consommer(ParametreActionConsomable param)
     {
         param.getOrigineAction().soigner(restoration());
+        durabilitee--;
     }
 }

@@ -1,37 +1,44 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc;
 
 
-import universite_paris8.iut.EtrangeEtrange.modele.ActionDegat.ActionDegatParProjectile;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
 import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueDistance.ParametreAttaqueArc;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.TimerAction;
 
-import java.util.TimerTask;
-
-public class Arc extends Arme implements Rechargeable
+public class Arc implements Arme,Rechargeable
 {
-
+    private long tourMonde;
     private boolean peuTirer;
+
+    private double durabilitee;
 
     public Arc()
     {
-        this.peuTirer = false;
+        this.peuTirer = true;
+        this.tourMonde = 0;
+        durabilitee = 0;
     }
 
     @Override
     public long delaie() {
-        return 1000;
+        return 10;
     }
 
     @Override
-    public void cooldown() { TimerAction.addAction(new TimerTask() {
-            @Override
-            public void run() {
-                peuTirer = true;
-            }
-        }, delaie()); }
+    public void cooldown() { peuTirer = true;}
+
+    @Override
+    public void setTourApelle(long tourApelle) {
+        this.tourMonde = tourApelle;
+    }
+
+    @Override
+    public long getTourApelle() {
+        return tourMonde;
+    }
 
     @Override
     public String getNom() {
@@ -43,15 +50,30 @@ public class Arc extends Arme implements Rechargeable
     }
 
     @Override
+    public double durabilitee() {
+        return durabilitee;
+    }
+
+    @Override
     public void utilise(ParametreAction param)
     {
         if (param instanceof ParametreAttaqueArc parametre)
         {
             if (peuTirer)
             {
-                parametre.getOrigineAction().getMonde().ajoutActionDegat(new ActionDegatParProjectile(parametre.getOrigineAction(), parametre.getProjectile()));
+                durabilitee--;
+                EntiteOffensif e = parametre.getOrigineAction();
+
+                Projectile projectile = parametre.getProjectile();
+
+                projectile.setMonde(e.getMonde());
+                projectile.setPosition(e.getPosition().getX(),e.getPosition().getY());
+                projectile.setDirection(e.getDirection());
+
+
+                e.getMonde().ajoutActeur(projectile);
                 this.peuTirer = false;
-                cooldown();
+                e.getMonde().ajoutRechargeable(this);
             }
         }
     }

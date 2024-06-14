@@ -150,10 +150,7 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
         return Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1;
     }
 
-    @Override
-    public void subitDegat(Dommageable causeDegat) {
 
-    }
 
     @Override
     protected double subitDegatPhysique(double degat, double forceEntite) {

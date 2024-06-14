@@ -101,12 +101,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
 
     @Override
     public void attaque(Arme arme) {
-        Position position1 = joueur.getPosition();
-        if(Math.abs(getPosition().getX()+getDirection().getX()-position1.getX())<1) {
-            if(Math.abs(getPosition().getY()+getDirection().getY()-position1.getY())<1) {
-                this.joueur.subitDegat(new Epee());
-            }
-        }
+
     }
 
     @Override
@@ -129,10 +124,6 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
 
     }
 
-    @Override
-    public void subitDegat(Dommageable causeDegat) {
-        enlevePv(causeDegat.degatPhysique());
-    }
 
     @Override
     public String typeActeur() {

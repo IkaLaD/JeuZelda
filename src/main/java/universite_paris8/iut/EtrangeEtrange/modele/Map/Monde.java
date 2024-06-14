@@ -15,7 +15,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
-
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
 
 

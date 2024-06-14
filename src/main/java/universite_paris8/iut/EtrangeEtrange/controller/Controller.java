@@ -51,8 +51,6 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageS
 
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
-
-
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
@@ -120,7 +118,7 @@ public class Controller implements Initializable {
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
 
-        GestionActeur gestionCauseDegat = new GestionActeur(paneEntite);
+        GestionActeur gestionCauseDegat = new GestionActeur(monde,paneEntite);
         monde.setListenerActeur(gestionCauseDegat);
 
 
@@ -140,8 +138,7 @@ public class Controller implements Initializable {
         Bloc bloc = new Bloc( monde, 11, 11, Direction.BAS, 1, 0, new Hitbox(1,1));
         monde.ajoutActeur(new Slime(monde,13,13,Direction.HAUT,new Hitbox(0.5,0.5)));
         monde.ajoutActeur(bloc);
-        monde.ajoutActeur(new Squelette( monde,  15, 25, Direction.BAS, 50, 5, 5, 10, 10, 0.025, new Hitbox(0.5, 0.5), new Aetoile(monde), joueur));
-
+        monde.ajoutActeur(new Squelette(100,10,10,10,10,0.05,monde,3,3, Direction.BAS, new Hitbox(0.5,0.5),joueur,new Aetoile(monde)));
         initGameLoop();
         gameLoop.play();
 
@@ -166,11 +163,12 @@ public class Controller implements Initializable {
 
         KeyFrame kf = new KeyFrame
                 (
-                    Duration.seconds(0.4),
+                    Duration.seconds(0.04),
 
                     (ev ->
                     {
                         monde.unTour();
+                        deplacement.seDeplace();
 
                     })
         );
@@ -239,13 +237,12 @@ public class Controller implements Initializable {
         joueur.getSac().ajoutItem(new Arc());
         joueur.getSac().ajoutItem(new Potion());
         joueur.getSac().ajoutItem(new PieceOr());
+    }
 
 
 
-
-    public void keyPressed(KeyEvent keyEvent) throws IOException {
-        KeyCode touche = keyEvent.getCode();;
-
+    public void keyPressed(KeyEvent keyEvent) throws IOException
+    {
         KeyCode keyCode = keyEvent.getCode();
 
         if(!interactionAvecPnj) {

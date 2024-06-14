@@ -145,10 +145,7 @@ public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVers {
 
     }
 
-    @Override
-    public void subitDegat(Dommageable causeDegat) {
 
-    }
 
     @Override
     protected double subitDegatPhysique(double degat, double forceEntite) {

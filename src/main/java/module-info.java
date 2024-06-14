@@ -6,7 +6,7 @@ module com.example.essaie {
     requires org.junit.jupiter.api;
 
     requires org.junit.platform.commons;
-
+    requires javafx.media;
 
 
     opens universite_paris8.iut.EtrangeEtrange to javafx.fxml;

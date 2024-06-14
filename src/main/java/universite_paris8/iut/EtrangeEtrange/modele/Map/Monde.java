@@ -445,6 +445,8 @@ public class Monde {
             if (collisionAvecActeur(acteur1,acteur2) && acteur2 != acteur1)
                 aCollision = true;
         }
+        if(collisionAvecActeur(acteur1,joueur) && joueur != acteur1)
+            aCollision = true;
 
         return aCollision;
     }

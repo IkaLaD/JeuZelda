@@ -24,7 +24,7 @@ public abstract class Fleche extends Projectile
     public void subitCollision(Acteur acteur) {enleveToutPv();}
 
     @Override
-    public String typeActeur(){ return "Fleche"; }
+    public String typeActeur(){ return "fleche"; }
 
 
     @Override

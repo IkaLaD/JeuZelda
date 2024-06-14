@@ -17,7 +17,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
+import javafx.scene.media.AudioClip;
 
+import java.io.File;
 
 public class GestionActeur implements ListChangeListener<Acteur>
 {
@@ -36,6 +38,9 @@ public class GestionActeur implements ListChangeListener<Acteur>
                 for (Acteur acteur : change.getAddedSubList()) {
                     if (acteur.typeActeur() == "fleche") {
                         initSpriteProjectile(acteur);
+                    }
+                    else if(acteur.typeActeur() == "epee"){
+                        audioClip.play();
                     }
                     else if(acteur.typeActeur()=="bloc"){
                         initSpriteBloc(acteur);
@@ -106,6 +111,7 @@ public class GestionActeur implements ListChangeListener<Acteur>
         {
             imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-reglagePositionY);
         });
+
 
     }
 

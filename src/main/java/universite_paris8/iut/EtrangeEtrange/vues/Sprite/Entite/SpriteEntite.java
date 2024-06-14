@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite;
 
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -37,7 +38,7 @@ public class SpriteEntite {
         this.id = entite.getID();
         this.vitesse = vitesse;
         this.cptImageChange = 0;
-        
+
         
 
         if(!(entite instanceof Joueur))

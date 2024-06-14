@@ -100,7 +100,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 
     @Override
     public String typeActeur() {
-        return "Epee";
+        return "epee";
     }
 
 

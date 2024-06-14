@@ -55,7 +55,6 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
     @Override
     public void seDeplacerVersJoueur(Position joueurPosition) {
         if (aetoile == null) {
-            System.out.println("Aetoile non configuré.");
             return;
         }
 
@@ -64,7 +63,6 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
             aetoile.trouverChemin(getPosition(), joueurPosition);
             lastPathCalculationTime = currentTime;
             if (aetoile.getChemin().isEmpty()) {
-                System.out.println("Aucun chemin trouvé pour atteindre le joueur.");
                 return;
             }
         }
@@ -86,8 +84,6 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
         if (peutSeDeplacer()) {
             setSeDeplace(true);
             seDeplace(1);
-        } else {
-            System.out.println("Collision détectée, déplacement annulé.");
         }
 
         // Vérifier si l'entité a atteint la prochaine positionq
@@ -97,7 +93,6 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVersJoue
             setPosition(Math.round(getPosition().getX() * 10) / 10.0, Math.round(getPosition().getY() * 10) / 10.0);
         }
 
-        System.out.println("Squelette se déplace vers : " + getPosition().getX() + ", " + getPosition().getY());
     }
 
     private boolean positionAtteinte(Position position) {

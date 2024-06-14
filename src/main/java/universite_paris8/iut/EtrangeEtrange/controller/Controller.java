@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 
 
@@ -93,6 +94,8 @@ public class Controller implements Initializable {
 
         initGameLoop();
         gameLoop.play();
+        AudioClip audioClip = new AudioClip("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/epee.mp3");
+        audioClip.play();
 
     }
 

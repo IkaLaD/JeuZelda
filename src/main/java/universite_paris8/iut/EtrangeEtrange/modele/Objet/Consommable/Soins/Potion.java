@@ -29,7 +29,12 @@ public class Potion implements Consommable,Guerrisable
 
     @Override
     public double durabilitee() {
-        return 1;
+        return durabilitee;
+    }
+
+    @Override
+    public int prixAchat() {
+        return 0;
     }
 
 

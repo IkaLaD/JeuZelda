@@ -12,12 +12,7 @@ public class PromptPnjTest
     private void initGestionPrompt()
     {
 
-        Prompt root = new Prompt("Je suis la racine");
-        Prompt enfant1 = new Prompt("Je suis l'enfant de la racine 1");
 
-        root.ajoutPrompt(enfant1,null);
-
-        gestionPrompt = new GestionPrompt(root);
     }
 
 

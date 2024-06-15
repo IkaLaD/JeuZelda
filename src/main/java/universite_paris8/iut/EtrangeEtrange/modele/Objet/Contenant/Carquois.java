@@ -23,6 +23,11 @@ public class Carquois extends ObjetConteneur<Fleche>
         return -1;
     }
 
+    @Override
+    public int prixAchat() {
+        return 0;
+    }
+
 
     public Fleche retourneUneFleche()
     {

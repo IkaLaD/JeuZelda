@@ -37,8 +37,6 @@ public class Inventaire<T extends Objet> implements Conteneur<T>
             emplacement.ajoutObjet(objet);
             ajoutReussi = true;
         }
-        for(int i = 0 ; i < inventaire.length ; i++)
-            System.out.println(inventaire[i].nomObjet());
 
         return ajoutReussi;
     }
@@ -179,7 +177,7 @@ public class Inventaire<T extends Objet> implements Conteneur<T>
         return inventaire[emplacement];
     }
 
-
+    public Emplacement<T>[] getInventaire(){return this.inventaire;}
 
     @Override
     public String toString() {

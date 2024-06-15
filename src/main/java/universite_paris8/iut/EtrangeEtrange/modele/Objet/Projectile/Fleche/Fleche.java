@@ -53,22 +53,6 @@ public class Fleche extends Projectile
 
 
 
-    @Override
-    protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
-        return 0;
-    }
-
-    @Override
-    protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
-        return 0;
-    }
-
-    @Override
-    public void dropApresMort() {
-
-    }
-
-
 
     @Override
     public void unTour()
@@ -84,5 +68,10 @@ public class Fleche extends Projectile
 
     @Override
     public double durabilitee(){ return getPv();}
+
+    @Override
+    public int prixAchat() {
+        return 0;
+    }
 
 }

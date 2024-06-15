@@ -23,6 +23,6 @@ public class GestionPrompt
 
     public Prompt getPrompt(){ return this.prompt; }
 
-
+    public void setPrompt(Prompt prompt){ this.prompt = prompt;}
 
 }

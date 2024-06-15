@@ -30,16 +30,6 @@ public class Orbe extends Projectile
 
 
     @Override
-    protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
-        return 0;
-    }
-
-    @Override
-    protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
-        return 0;
-    }
-
-    @Override
     public String typeActeur() {
         return null;
     }
@@ -79,18 +69,17 @@ public class Orbe extends Projectile
     }
 
     @Override
+    public int prixAchat() {
+        return 0;
+    }
+
+    @Override
     public boolean peutSeDeplacer() {
         return false;
     }
 
     @Override
-    public void dropApresMort() {
-
-    }
-
-    @Override
     public void unTour()
     {
-
     }
 }

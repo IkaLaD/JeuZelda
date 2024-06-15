@@ -32,12 +32,15 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Représente le joueur dans le jeu.
  */
 public abstract class Joueur extends Humanoide
 {
+    private Set<Direction> directions;
     private Competences competences;
     protected Carquois carquois;
     private BooleanProperty estEntrainDeCourir;
@@ -64,19 +67,52 @@ public abstract class Joueur extends Humanoide
         super(monde, x, y, direction, pv,attaque,defense,attaqueSpecial,defenseSpecial,vitesse,hitbox,sac,objetMainGauche,objetMainDroite);
         this.competences = CreationArbre.arbres();
         this.estEntrainDeCourir = new SimpleBooleanProperty();
+        this.directions = new HashSet<>();
+    }
+
+    @Override
+    public void setDirection(Direction direction)
+    {
+        this.direction = direction;
+        this.directions.add(direction);
+    }
+
+
+    public void enleveDirection(Direction direction)
+    {
+        this.directions.remove(direction);
     }
 
     public void actionMainDroite()
     {
-        if (getObjetMainDroite() != null)
+        if (objetMainDroite != null)
         {
-            if (getObjetMainDroite() instanceof Arme arme)
+            if (objetMainDroite instanceof Arme arme)
                 attaque(arme);
 
-            if (getObjetMainDroite() instanceof Consommable consommable) {
+            if (objetMainDroite instanceof Consommable consommable) {
                 consommer(consommable);
             }
+
+            if (objetMainDroite.durabilitee() == 0)
+                objetMainDroite = null;
+
         }
+    }
+
+
+    @Override
+    public void unTour()
+    {
+
+        for (Direction direction1 : directions)
+        {
+            setDirection(direction1);
+            seDeplace(1);
+        }
+
+
+
     }
 
     @Override
@@ -116,5 +152,8 @@ public abstract class Joueur extends Humanoide
     public void estEntrainDeCourir(boolean bool) {this.estEntrainDeCourir.set(bool);}
     public Competences getCompetences() {return this.competences;}
     public final BooleanProperty estEntrainDeCourirProperty() {return this.estEntrainDeCourir;}
+
+
+    public int getPiece(){ return 0;}
 
 }

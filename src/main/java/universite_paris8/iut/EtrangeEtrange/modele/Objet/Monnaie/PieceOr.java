@@ -20,4 +20,9 @@ public class PieceOr extends Piece{
     public double durabilitee() {
         return 0;
     }
+
+    @Override
+    public int prixAchat() {
+        return 0;
+    }
 }

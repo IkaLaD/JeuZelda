@@ -3,20 +3,16 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.PNJ;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVers;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
-import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 
-import java.util.ArrayList;
 public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
 
     private Joueur joueur;
@@ -50,7 +46,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
     @Override
     public void seDeplacerVers(Position joueurPosition) {
         if (aetoile == null) {
-            System.out.println("Aetoile non configuré.");
+
             return;
         }
 
@@ -59,7 +55,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
             aetoile.trouverChemin(getPosition(), joueurPosition);
             lastPathCalculationTime = currentTime;
             if (aetoile.getChemin().isEmpty()) {
-                System.out.println("Aucun chemin trouvé pour atteindre le joueur.");
+
                 return;
             }
         }
@@ -82,7 +78,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
             setSeDeplace(true);
             seDeplace(1);
         } else {
-            System.out.println("Collision détectée, déplacement annulé.");
+
         }
 
         // Vérifier si l'entité a atteint la prochaine positionq
@@ -92,7 +88,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
             setPosition(Math.round(getPosition().getX() * 10) / 10.0, Math.round(getPosition().getY() * 10) / 10.0);
         }
 
-        System.out.println("Squelette se déplace vers : " + getPosition().getX() + ", " + getPosition().getY());
+
     }
 
     private boolean positionAtteinte(Position position) {
@@ -106,11 +102,6 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
 
     @Override
     public void lanceUnSort(int numSort) {
-
-    }
-
-    @Override
-    public void dropApresMort() {
 
     }
 

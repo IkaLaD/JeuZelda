@@ -209,8 +209,11 @@ public class Monde {
     {
         this.tour++;
 
+        joueur.unTour();
         for(int i = acteurs.size()-1 ; i>=0 ; i--)
             acteurs.get(i).unTour();
+
+
 
 
         acteurs.removeAll(acteursAsupprimer);
@@ -411,8 +414,8 @@ public class Monde {
 
     private double estEnFace(Acteur acteur)
     {
-        final double yDistanceMax = 0.5;
-        final double xDistanceMax = 0.2;
+        final double yDistanceMax = 2;
+        final double xDistanceMax = 2;
 
         double dX;
         double dY;

@@ -120,23 +120,8 @@ public abstract class Acteur
      */
     public abstract void subitAttaque(Dommageable causeDegat);
 
-    /**
-     * Calcule les dégâts physiques subis par l'entité.
-     * @param attaqueEntite       Les dégâts physiques infligés.
-     * @param degatArme La force de l'entité qui inflige les dégâts.
-     * @return Les dégâts physiques subis.
-     */
-    protected abstract double subitDegatPhysique(double attaqueEntite,double degatArme);
 
-    /**
-     * Calcule les dégâts spéciaux subis par l'entité.
-     *
-     * @param attaqueSpecialEntite Les dégâts spéciaux infligés.
-     * @param degatArme    La force de l'entité qui inflige les dégâts spéciaux.
-     * @return Les dégâts spéciaux subis.
-     */
-    protected abstract double subitDegatSpecial(double attaqueSpecialEntite,double degatArme);
-    public abstract void dropApresMort();
+
     public abstract String typeActeur();
 
     public void setSeDeplace(boolean seDeplace){ this.seDeplace = seDeplace;}

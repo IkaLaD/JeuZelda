@@ -63,5 +63,10 @@ public  class LivreMagique implements Arme
         return -1; // ilimité
     }
 
+    @Override
+    public int prixAchat() {
+        return 0;
+    }
+
 
 }

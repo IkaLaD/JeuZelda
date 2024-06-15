@@ -5,7 +5,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prom
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVers;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
@@ -155,11 +154,6 @@ public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVers {
     @Override
     protected double subitDegatSpecial(double attaqueSpecial, double forceEntite) {
         return 0;
-    }
-
-    @Override
-    public void dropApresMort() {
-
     }
 
     @Override

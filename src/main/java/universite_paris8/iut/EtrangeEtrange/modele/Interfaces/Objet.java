@@ -6,4 +6,6 @@ public interface  Objet {
     public int stackMax();
     public double durabilitee();
 
+    public int prixAchat();
+
 }

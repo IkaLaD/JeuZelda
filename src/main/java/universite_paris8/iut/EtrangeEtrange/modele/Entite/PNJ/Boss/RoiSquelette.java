@@ -6,7 +6,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.PNJ;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
@@ -160,11 +159,6 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
     @Override
     protected double subitDegatSpecial(double attaqueSpecial, double forceEntite) {
         return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
-    }
-
-    @Override
-    public void dropApresMort() {
-
     }
 
     @Override

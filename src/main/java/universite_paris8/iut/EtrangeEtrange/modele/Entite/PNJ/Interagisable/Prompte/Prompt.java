@@ -13,11 +13,12 @@ public class Prompt
     private ArrayList<String> choixPossible;
     private ArrayList<Prompt> prompts;
 
-    public Prompt(String prompt)
+    public Prompt(String prompt,Action action)
     {
         this.textePrompt = prompt;
         this.prompts = new ArrayList<>();
         this.choixPossible = new ArrayList<>();
+        this.action = action;
     }
 
     public String getTextePrompt(){ return this.textePrompt;}
@@ -48,8 +49,23 @@ public class Prompt
         return prompt;
     }
 
+    public void setAction(Action action)
+    {
+        this.action = action;
+    }
+
     public Action getAction(){ return this.action;}
 
     public ArrayList<String> getChoixPossible() {return this.choixPossible;}
 
+
+    public String toString()
+    {
+        return textePrompt;
+    }
+
+    public ArrayList<String> getC()
+    {
+        return this.choixPossible;
+    }
 }

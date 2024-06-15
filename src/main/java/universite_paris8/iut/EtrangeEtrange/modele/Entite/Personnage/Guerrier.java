@@ -11,7 +11,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesPersonnages;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public class Guerrier extends Joueur
 {
@@ -101,15 +100,6 @@ public class Guerrier extends Joueur
 
     }
 
-    @Override
-    public void dropApresMort() {
-
-    }
-
-    @Override
-    public void unTour() {
-
-    }
 
     @Override
     public void subitCollision(Acteur acteur) {

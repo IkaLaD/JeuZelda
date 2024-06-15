@@ -6,6 +6,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.GestionPrompt;
@@ -33,10 +34,10 @@ public class AfficheBulleConversation
 
         this.listProposition.setTranslateY((joueur.getPosition().getY()+2)*(Constantes.tailleTile-32));
         this.listProposition.setTranslateX((joueur.getPosition().getX()+1)*Constantes.tailleTile);
-        this.listProposition.setMaxSize(200,50);
+        this.listProposition.setMaxSize(900,100);
 
-
-
+        textePnj.minWidthProperty().bind(textePnj.widthProperty());
+        textePnj.minHeightProperty().bind(textePnj.heightProperty());
 
 
         this.textePnj.setTranslateY((pnj.getPosition().getY()-1) * (Constantes.tailleTile-32));

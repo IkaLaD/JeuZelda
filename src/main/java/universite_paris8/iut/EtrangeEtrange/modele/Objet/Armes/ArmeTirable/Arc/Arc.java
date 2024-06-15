@@ -55,6 +55,11 @@ public class Arc implements Arme,Rechargeable
     }
 
     @Override
+    public int prixAchat() {
+        return 0;
+    }
+
+    @Override
     public void utilise(ParametreAction param)
     {
         if (param instanceof ParametreAttaqueArc parametre)

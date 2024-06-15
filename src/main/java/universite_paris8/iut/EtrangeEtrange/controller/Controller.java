@@ -18,6 +18,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Bloc.Bloc;
+import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Marchand;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.GestionPrompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
@@ -25,6 +26,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantePrompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
@@ -35,16 +37,13 @@ import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.PieceOr;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.AfficheBulleConversation;
 import universite_paris8.iut.EtrangeEtrange.vues.BarreDeVie.GestionAffichageVieJoueur;
-import universite_paris8.iut.EtrangeEtrange.vues.Deplacement;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
@@ -79,7 +78,7 @@ public class Controller implements Initializable {
     private Joueur joueur;
     private Timeline gameLoop;
     
-    private Deplacement deplacement;
+
     private SwitchScene switchDonnees;
     private GestionAffichageVieJoueur vueVie; // La vue qui gère l'affichage des PV
 //-----------------------------------------------//
@@ -131,14 +130,10 @@ public class Controller implements Initializable {
         
         monde.setJoueur(joueur);
         initBoss();
-        monde.ajoutActeur(new Slime(monde, 12, 12 , Direction.DROITE, new Hitbox(0.4, 0.4)));
-        monde.ajoutActeur(new Bloc(monde, 13, 13, Direction.DROITE, 15, 1, new Hitbox(1, 1)));
 
-        deplacement = new Deplacement(joueur);
         Bloc bloc = new Bloc( monde, 11, 11, Direction.BAS, 1, 0, new Hitbox(1,1));
-        monde.ajoutActeur(new Slime(monde,13,13,Direction.HAUT,new Hitbox(0.5,0.5)));
         monde.ajoutActeur(bloc);
-        monde.ajoutActeur(new Squelette(100,10,10,10,10,0.05,monde,3,3, Direction.BAS, new Hitbox(0.5,0.5),joueur,new Aetoile(monde)));
+        monde.ajoutActeur(new Marchand(monde,12,12,Direction.BAS));
         initGameLoop();
         gameLoop.play();
 
@@ -161,17 +156,7 @@ public class Controller implements Initializable {
 
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
-        KeyFrame kf = new KeyFrame
-                (
-                    Duration.seconds(0.1),
-
-                    (ev ->
-                    {
-                        monde.unTour();
-                        deplacement.seDeplace();
-
-                    })
-        );
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.005), (ev -> {monde.unTour();}));
         gameLoop.getKeyFrames().add(kf);
     }
 
@@ -246,14 +231,22 @@ public class Controller implements Initializable {
         KeyCode keyCode = keyEvent.getCode();
 
         if(!interactionAvecPnj) {
-            if (keyCode == ConstantesClavier.deplacementHaut)
-                deplacement.ajoutDirection(Direction.HAUT);
-            else if (keyCode == ConstantesClavier.deplacementDroite)
-                deplacement.ajoutDirection(Direction.DROITE);
-            else if (keyCode == ConstantesClavier.deplacementGauche)
-                deplacement.ajoutDirection(Direction.GAUCHE);
-            else if (keyCode == ConstantesClavier.deplacementBas)
-                deplacement.ajoutDirection(Direction.BAS);
+            if (keyCode == ConstantesClavier.deplacementHaut) {
+                joueur.setDirection(Direction.HAUT);
+                joueur.setSeDeplace(true);
+            }
+            else if (keyCode == ConstantesClavier.deplacementDroite) {
+                joueur.setDirection(Direction.DROITE);
+                joueur.setSeDeplace(true);
+            }
+            else if (keyCode == ConstantesClavier.deplacementGauche) {
+                joueur.setDirection(Direction.GAUCHE);
+                joueur.setSeDeplace(true);
+            }
+            else if (keyCode == ConstantesClavier.deplacementBas) {
+                joueur.setDirection(Direction.BAS);
+                joueur.setSeDeplace(true);
+            }
             else if (keyCode == ConstantesClavier.recupererObjetSol)
                 joueur.ramasserObjet();
             else if (keyCode == ConstantesClavier.degattest)
@@ -287,14 +280,22 @@ public class Controller implements Initializable {
 
             if (!interactionAvecPnj)
             {
-                if(touche==ConstantesClavier.deplacementHaut)
-                    deplacement.enleveDirection(Direction.HAUT);
-                else if(touche==ConstantesClavier.deplacementDroite)
-                    deplacement.enleveDirection(Direction.DROITE);
-                else if(touche==ConstantesClavier.deplacementGauche)
-                    deplacement.enleveDirection(Direction.GAUCHE);
-                else if(touche==ConstantesClavier.deplacementBas)
-                    deplacement.enleveDirection(Direction.BAS);
+                if(touche==ConstantesClavier.deplacementHaut) {
+                    joueur.enleveDirection(Direction.HAUT);
+                    joueur.setSeDeplace(false);
+                }
+                else if(touche==ConstantesClavier.deplacementDroite) {
+                    joueur.enleveDirection(Direction.DROITE);
+                    joueur.setSeDeplace(false);
+                }
+                else if(touche==ConstantesClavier.deplacementGauche) {
+                    joueur.enleveDirection(Direction.GAUCHE);
+                    joueur.setSeDeplace(false);
+                }
+                else if(touche==ConstantesClavier.deplacementBas) {
+                    joueur.enleveDirection(Direction.BAS);
+                    joueur.setSeDeplace(false);
+                }
                 else if(touche==ConstantesClavier.courrir)
                     joueur.estEntrainDeCourir(false);
             }
@@ -342,23 +343,24 @@ public class Controller implements Initializable {
     public void interaction()
     {
         Acteur acteur = monde.interactionAvecActeur();
+        System.out.println(acteur);
 
         if (acteur != null)
         {
             Prompt prompt = acteur.getPrompt();
 
+
             if (prompt != null)
             {
-
                 this.interactionAvecPnj = true;
 
                 this.afficheBulleConversation = new AfficheBulleConversation(joueur,acteur,paneInteraction);
                 this.listProposition = afficheBulleConversation.getListProposition();
                 this.textePnj = afficheBulleConversation.getTextePnj();
 
-
-                this.gestionPrompt = new GestionPrompt(acteur.getPrompt());
+                this.gestionPrompt = new GestionPrompt(prompt);
                 this.afficheBulleConversation.affichePrompt(gestionPrompt.getPrompt());
+
             }
         }
     }
@@ -366,20 +368,31 @@ public class Controller implements Initializable {
 
     // Permet de passer un tour du prompt
 
-    private void promptSuivant()
-    {
-        gestionPrompt.promptSuivant(choixSelectionner());
+    private void promptSuivant() {
+        // Exécute l'action associée au prompt actuel, s'il y en a une
+        if (gestionPrompt.getPrompt().getAction() != null) {
+            Prompt pr = gestionPrompt.getPrompt().getAction().execute();
 
-        if (gestionPrompt.getPrompt() != null)
-            this.afficheBulleConversation.affichePrompt(gestionPrompt.getPrompt());
-        else
-        {
-            interactionFinie();
-            System.out.println("fini");
+            // Si l'action retourne un nouveau prompt, continuez avec ce nouveau prompt
+            if (pr != null) {
+                gestionPrompt = new GestionPrompt(pr);
+                this.afficheBulleConversation.affichePrompt(gestionPrompt.getPrompt());
+                return; // Arrêtez ici pour éviter d'exécuter le reste du code
+            }
         }
 
+        // Passer au prompt suivant basé sur le choix sélectionné
+        gestionPrompt.promptSuivant(choixSelectionner());
 
+        // Affiche le nouveau prompt si disponible
+        if (gestionPrompt.getPrompt() != null) {
+            this.afficheBulleConversation.affichePrompt(gestionPrompt.getPrompt());
+        } else {
+            interactionFinie(); // Terminer l'interaction si aucun prompt suivant n'est disponible
+        }
     }
+
+
 
 
 

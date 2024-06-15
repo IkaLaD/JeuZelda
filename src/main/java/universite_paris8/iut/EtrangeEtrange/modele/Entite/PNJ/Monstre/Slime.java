@@ -71,11 +71,6 @@ public class Slime extends EntiteOffensif {
     }
 
     @Override
-    public void dropApresMort() {
-
-    }
-
-    @Override
     public void attaque(Arme arme) {
 
     }
@@ -83,13 +78,7 @@ public class Slime extends EntiteOffensif {
     @Override
     public Prompt getPrompt()
     {
-        Prompt prompt = new Prompt("Je suis un slime");
-        Prompt prompt1 = new Prompt("OKKKKKKKKKKKKKKKKKKKK");
-        Prompt prompt2 = new Prompt("aaaaaaaaaaaaaaaHEHG");
-        prompt.ajoutPrompt(prompt1,"teeeeeeeeeee");
-        prompt.ajoutPrompt(prompt2,"eegzgezgzgzgz");
-
-        return prompt;
+       return  null;
     }
 
     @Override

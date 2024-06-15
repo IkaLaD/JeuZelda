@@ -100,20 +100,6 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 
 
 
-    @Override
-    protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
-        return 0;
-    }
-
-    @Override
-    protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
-        return 0;
-    }
-
-    @Override
-    public void dropApresMort() {
-
-    }
 
     @Override
     public String typeActeur() {
@@ -186,6 +172,11 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     @Override
     public double durabilitee() {
         return getPv();
+    }
+
+    @Override
+    public int prixAchat() {
+        return 0;
     }
 
 

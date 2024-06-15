@@ -15,13 +15,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import universite_paris8.iut.EtrangeEtrange.Runner;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesAffichage;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesPersonnages;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 import java.io.IOException;
 import java.net.URL;
@@ -210,7 +205,7 @@ public class ControllerChoixClasse implements Initializable
         {
             switchScene.setClasseJoueur(nomActuelle.get());
             FXMLLoader fxmlLoaderJeu = new FXMLLoader(Runner.class.getResource("viewMap.fxml"));
-            Scene sceneJeu = new Scene(fxmlLoaderJeu.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
+            Scene sceneJeu = new Scene(fxmlLoaderJeu.load(), ConstantesAffichage.largeurEcran, ConstantesAffichage.hauteurEcran);
             switchScene.getStage().setScene(sceneJeu);
 
 

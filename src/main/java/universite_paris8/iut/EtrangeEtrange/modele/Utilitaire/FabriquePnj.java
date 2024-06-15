@@ -1,6 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 

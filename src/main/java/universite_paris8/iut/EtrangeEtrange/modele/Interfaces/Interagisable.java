@@ -1,6 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Interfaces;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 
 public interface Interagisable
 {

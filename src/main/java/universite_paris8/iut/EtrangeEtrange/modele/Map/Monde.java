@@ -2,12 +2,10 @@ package universite_paris8.iut.EtrangeEtrange.modele.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -22,8 +20,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Objects;
 
 public class Monde {
     /**

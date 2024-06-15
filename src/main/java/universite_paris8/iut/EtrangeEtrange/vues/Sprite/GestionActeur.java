@@ -5,10 +5,10 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesAffichage;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 public class GestionActeur implements ListChangeListener<Acteur>
@@ -123,20 +123,20 @@ public class GestionActeur implements ListChangeListener<Acteur>
             reglagePositionX = 15;
         }
 
-        imageView.setTranslateX(acteur.getPosition().getX()*Constantes.tailleTile-reglagePositionX);
-        imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-reglagePositionY);
+        imageView.setTranslateX(acteur.getPosition().getX()* ConstantesAffichage.tailleTile-reglagePositionX);
+        imageView.setTranslateY(acteur.getPosition().getY()* ConstantesAffichage.tailleTile-reglagePositionY);
 
         imageView.setRotate(rotation*90);
         this.pane.getChildren().add(imageView);
 
         acteur.getPosition().getXProperty().addListener((obs, old, nouv)->
         {
-            imageView.setTranslateX(acteur.getPosition().getX()*Constantes.tailleTile-reglagePositionX);
+            imageView.setTranslateX(acteur.getPosition().getX()* ConstantesAffichage.tailleTile-reglagePositionX);
         });
 
         acteur.getPosition().getYProperty().addListener((obs, old, nouv)->
         {
-            imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-reglagePositionY);
+            imageView.setTranslateY(acteur.getPosition().getY()* ConstantesAffichage.tailleTile-reglagePositionY);
         });
 
 
@@ -152,19 +152,19 @@ public class GestionActeur implements ListChangeListener<Acteur>
             imageView = new ImageView();
         }
 
-        imageView.setTranslateX(acteur.getPosition().getX()*Constantes.tailleTile-32);
-        imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-32);
+        imageView.setTranslateX(acteur.getPosition().getX()* ConstantesAffichage.tailleTile-32);
+        imageView.setTranslateY(acteur.getPosition().getY()* ConstantesAffichage.tailleTile-32);
         imageView.setId(acteur.getID()+"");
         this.pane.getChildren().add(imageView);
 
         acteur.getPosition().getXProperty().addListener((obs, old, nouv)->
         {
-            imageView.setTranslateX(acteur.getPosition().getX()*Constantes.tailleTile-32);
+            imageView.setTranslateX(acteur.getPosition().getX()* ConstantesAffichage.tailleTile-32);
         });
 
         acteur.getPosition().getYProperty().addListener((obs, old, nouv)->
         {
-            imageView.setTranslateY(acteur.getPosition().getY()*Constantes.tailleTile-32);
+            imageView.setTranslateY(acteur.getPosition().getY()* ConstantesAffichage.tailleTile-32);
         });
     }
 

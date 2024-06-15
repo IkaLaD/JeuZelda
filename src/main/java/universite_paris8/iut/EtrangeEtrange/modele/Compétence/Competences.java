@@ -2,7 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Compétence;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.Competence;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.CompetenceActif;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -10,8 +10,9 @@ import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+//import javafx.scene.media.Media;
+//import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
@@ -108,6 +109,7 @@ public class Controller implements Initializable {
         initMonde();
         initJoueur();
         initVie();
+
 
 
         switchDonnees.setJoueur(joueur);
@@ -222,8 +224,18 @@ public class Controller implements Initializable {
         joueur.getSac().ajoutItem(new Arc());
         joueur.getSac().ajoutItem(new Potion());
         joueur.getSac().ajoutItem(new PieceOr());
-    }
 
+
+        joueur.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv) -> {
+            if (nouv.doubleValue() <= 0) {
+                try {
+                    switchDonnees.gameOver();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
 
 
     public void keyPressed(KeyEvent keyEvent) throws IOException
@@ -254,9 +266,15 @@ public class Controller implements Initializable {
             else if(keyCode == ConstantesClavier.attaquer) {
                 joueur.actionMainDroite();
                 if(joueur.getObjetMainDroite() instanceof Potion){
+
+                    /*
+
                     Media media = new Media(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/potion.mp3").toURI().toString());
                     MediaPlayer mediaPlayer = new MediaPlayer(media);
                     mediaPlayer.play();
+
+                    */
+
                 }
             }
             else if (keyCode == KeyCode.B)

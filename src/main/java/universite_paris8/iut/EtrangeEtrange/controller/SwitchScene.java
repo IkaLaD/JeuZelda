@@ -1,11 +1,15 @@
 package universite_paris8.iut.EtrangeEtrange.controller;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+
+import java.io.IOException;
 
 public class SwitchScene {
 
@@ -149,5 +153,12 @@ public class SwitchScene {
         return this.classeJoueur;
     }
 
+    public void gameOver() throws IOException {
 
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/universite_paris8/iut/EtrangeEtrange/gameOver.fxml"));
+            Scene gameOverScene = new Scene(fxmlLoader.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
+            stage.setScene(gameOverScene);
+            stage.show();
+
+    }
 }

@@ -32,23 +32,12 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
     private static ArrayList<Image[][]> imagesSprite;
     private Pane paneEntite;
     private ArrayList<SpriteEntite> animationSprites;
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.075), event -> {
-        for(SpriteEntite animationSprite : animationSprites){
-            if(animationSprite.getEntite().isSeDeplace())
-                animationSprite.miseAJourAnimation();
-            else
-                animationSprite.finAnimationMarche();
-            if(animationSprite.getAppliquerEffet())
-                animationSprite.arreterEffet();
-        }
-    }));
+    private long derniereApelle = 0;
     public GestionAffichageSpriteEntite(Pane paneEntite){
         this.paneEntite = paneEntite;
         this.animationSprites = new ArrayList<>();
         initialisationSprites();
         SpriteEntite.setGestionAffichageSpriteEntite(this);
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
     }
 
     public void initialisationSprites(){
@@ -166,6 +155,23 @@ public class GestionAffichageSpriteEntite implements ListChangeListener<Acteur>
         }
     }
 
+    public void miseAjour()
+    {
+        long apelle = System.currentTimeMillis();
+
+        if (apelle - derniereApelle >= 100 )
+        {
+            for(SpriteEntite animationSprite : animationSprites){
+                if(animationSprite.getEntite().isSeDeplace())
+                    animationSprite.miseAJourAnimation();
+                else
+                    animationSprite.finAnimationMarche();
+                if(animationSprite.getAppliquerEffet())
+                    animationSprite.arreterEffet();
+            }
+            derniereApelle = apelle;
+        }
+    }
     public ArrayList<Image[][]> getImagesSprite() {
         return imagesSprite;
     }

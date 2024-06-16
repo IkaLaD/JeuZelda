@@ -16,7 +16,6 @@
       <element id="library" level="project" name="Maven: org.openjfx:javafx-base:18.0.2" />
       <element id="library" level="project" name="Maven: org.testng:testng:7.10.1" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:18.0.2" />
-      <element id="library" level="project" name="json-20240303" />
       <element id="library" level="project" name="Maven: junit:junit:4.13.1" />
       <element id="library" level="project" name="Maven: org.webjars:jquery:3.7.1" />
       <element id="library" level="project" name="Maven: org.junit.jupiter:junit-jupiter-api:5.11.0-M2" />

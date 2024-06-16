@@ -74,7 +74,7 @@ public class Controller implements Initializable {
     private Joueur joueur;
     private Timeline gameLoop;
     private GestionSon gestionSon;
-
+    private GestionAffichageSpriteEntite gestionAffichageSpriteEntite;
 
     private SwitchScene switchDonnees;
     private GestionAffichageVieJoueur vueVie; // La vue qui gère l'affichage des PV
@@ -106,9 +106,9 @@ public class Controller implements Initializable {
         switchDonnees.setJoueur(joueur);
         initPane();
 
-        GestionAffichageSpriteEntite gestionAffichageSprite = new GestionAffichageSpriteEntite(paneEntite);
-        monde.setListenerListeEntites(gestionAffichageSprite);
-        gestionAffichageSprite.ajouterJoueur(joueur);
+        gestionAffichageSpriteEntite = new GestionAffichageSpriteEntite(paneEntite);
+        monde.setListenerListeEntites(gestionAffichageSpriteEntite);
+        gestionAffichageSpriteEntite.ajouterJoueur(joueur);
         this.gestionSon = new GestionSon();
         switchDonnees.setGestionSon(gestionSon);
         GestionActeur gestionActeur = new GestionActeur(monde,paneEntite, gestionSon);
@@ -159,7 +159,9 @@ public class Controller implements Initializable {
 
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
-        KeyFrame kf = new KeyFrame(Duration.seconds(0.005), (ev -> {monde.unTour();}));
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.005), (ev -> {
+            monde.unTour();
+            gestionAffichageSpriteEntite.miseAjour();}));
         gameLoop.getKeyFrames().add(kf);
     }
 

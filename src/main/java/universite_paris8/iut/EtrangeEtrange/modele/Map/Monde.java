@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
+//import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
@@ -436,8 +436,28 @@ public class Monde {
         return dX <= xDistanceMax && dY <= yDistanceMax ?  dX+dY : -1;
     }
 
+    public ObservableList<Acteur> getActeursAll() {
+        return acteurs;
+    }
 
+    public ArrayList<Acteur> getActeursDansRayon(Position centre, double rayon) {
+        ArrayList<Acteur> acteursProches = new ArrayList<>();
+        for (Acteur acteur : this.acteurs) {
+            if (acteur.getPosition().distance(centre) <= rayon) {
+                acteursProches.add(acteur);
+            }
+        }
+        return acteursProches;
+    }
 
+    public boolean joueurEstDansListe(ArrayList<Acteur> liste) {
+        for (Acteur acteur : liste) {
+            if (acteur.equals(joueur)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
 

@@ -29,10 +29,12 @@ public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVers {
         this.lastPathCalculationTime = System.currentTimeMillis();
     }
 
-    @Override
+   /* @Override
     public void action() {
         if (!estFamilier) {
-            if (detecteJoueur(joueur)) {
+            if (devientFamilier()) {
+
+                seDeplaceAleatoire();
                 estFamilier = true;
             }
         }
@@ -43,6 +45,15 @@ public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVers {
         } else {
             seDeplaceAleatoire();
         }
+    }
+*/
+    private void devientFamilier(Joueur joueur) {
+
+    }
+
+    @Override
+    public void action() {
+
     }
 
     @Override

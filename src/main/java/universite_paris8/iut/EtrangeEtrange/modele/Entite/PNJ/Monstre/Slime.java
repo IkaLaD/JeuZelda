@@ -5,11 +5,13 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVers;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public class Slime extends EntiteOffensif {
+public class Slime extends EntiteOffensif implements SeDeplacerVers {
     /**
      * Crée une nouvelle entité offensif.
      *
@@ -26,6 +28,18 @@ public class Slime extends EntiteOffensif {
     @Override
     public void unTour()
     {
+   /*     if (joueurDetecte()){
+
+        }
+
+*/
+    }
+
+   // private boolean joueurDetecte() {
+
+  //  }
+
+    public void seDeplaceAleatoire(){
         if (peutSeDeplacer()) {
             if(Math.random()>0.95){
                 setSeDeplace(false);
@@ -40,8 +54,8 @@ public class Slime extends EntiteOffensif {
         if(Math.random()>0.95)
             setDirection(Direction.randomDirection());
 
-
     }
+
 
     @Override
     public void subitCollision(Acteur acteur) {
@@ -73,6 +87,7 @@ public class Slime extends EntiteOffensif {
     @Override
     public void attaque(Arme arme) {
 
+
     }
 
     @Override
@@ -83,6 +98,11 @@ public class Slime extends EntiteOffensif {
 
     @Override
     public void lanceUnSort(int numSort) {
+
+    }
+
+    @Override
+    public void seDeplacerVers(Position joueurPosition) {
 
     }
 }

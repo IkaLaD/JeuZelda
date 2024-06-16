@@ -25,7 +25,7 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
     private double distanceDetection = 5.0;
 
     public RoiSquelette(Monde monde, double x, double y, Direction direction) {
-        super( monde,  x,  y,  direction,  1000,  20,  20,  20 ,  20,  0.025, new Hitbox(1, 1));
+        super( monde,  x,  y,  direction,  1000,  20,  20,  20 ,  20,  0.5, new Hitbox(1, 1));
         this.dernierTempsAttaque = System.currentTimeMillis();
         this.positionInitiale = new Position(x, y);
         this.etapeAttaque = 0;
@@ -118,6 +118,7 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
         double rayon = 1.5; // Rayon d'exemple pour l'attaque circulaire
         // Vérifie si la hitbox du joueur est dans le rayon de l'attaque
         if (getMonde().getJoueur().getHitbox().estDansCercle(centre, rayon)) {
+            attaque();
         }
     }
 
@@ -125,8 +126,8 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
     private void invoquerSquelettes() {
         Position positionHaut = new Position(getPosition().getX(), getPosition().getY()-2);
         Position positionBas = new Position(getPosition().getX(), getPosition().getY()+2);
-        Squelette squeletteGauche = new Squelette(30, 10, 5, 10, 10, 0.1, getMonde(), positionHaut.getX(), positionHaut.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
-        Squelette squeletteDroite = new Squelette(30, 10, 5, 10, 10, 0.1, getMonde(), positionBas.getX(), positionBas.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
+        Squelette squeletteGauche = new Squelette(30, 10, 5, 10, 10, 0.02, getMonde(), positionHaut.getX(), positionHaut.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
+        Squelette squeletteDroite = new Squelette(30, 10, 5, 10, 10, 0.02, getMonde(), positionBas.getX(), positionBas.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
         getMonde().ajoutActeur(squeletteGauche);
         getMonde().ajoutActeur(squeletteDroite);
     }

@@ -22,7 +22,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Bloc.Bloc;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Marchand;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.GestionPrompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
+// universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;

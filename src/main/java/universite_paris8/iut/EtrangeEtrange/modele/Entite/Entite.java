@@ -62,6 +62,7 @@ public abstract class Entite extends Acteur
 
 
 
+
     /**
      * Calcule les dégâts physiques subis par l'entité.
      * @param attaqueEntite       Les dégâts physiques infligés.

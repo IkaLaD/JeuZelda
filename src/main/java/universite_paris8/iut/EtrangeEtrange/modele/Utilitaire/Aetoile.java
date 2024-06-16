@@ -6,9 +6,13 @@ import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
 import java.util.*;
 
 public class Aetoile {
+    private static final long DELAI_ENTRE_APPELS_MS = 3000; // 3 secondes
+
     private Monde monde;
     private Sommet[][] graphe;
     private ArrayList<Position> chemin;
+
+    private long dernierAppelGetChemin = 0; // Pour le contrôle du délai entre les appels
 
     public Aetoile(Monde monde) {
         this.monde = monde;
@@ -62,7 +66,6 @@ public class Aetoile {
         }
 
         // Marquer les positions des entités comme non traversables
-
     }
 
     // Trouver le chemin entre deux positions en utilisant l'algorithme A*
@@ -84,20 +87,20 @@ public class Aetoile {
         allNodes.put(sommetDepart, startNode);
 
         while (!openList.isEmpty()) {
-            Noeud currentNode = openList.poll();
+            Noeud NoeudActuelle = openList.poll();
 
             // Si le sommet actuel est le sommet de destination, reconstruire le chemin
-            if (currentNode.getSommet().equals(sommetArrivee)) {
-                return reconstruireChemin(currentNode);
+            if (NoeudActuelle.getSommet().equals(sommetArrivee)) {
+                return reconstruireChemin(NoeudActuelle);
             }
 
             // Explorer les voisins du sommet actuel
-            for (Sommet voisin : currentNode.getSommet().getVoisins()) {
-                double tentativeG = currentNode.getG() + currentNode.getSommet().distance(voisin);
+            for (Sommet voisin : NoeudActuelle.getSommet().getVoisins()) {
+                double tentativeG = NoeudActuelle.getG() + NoeudActuelle.getSommet().distance(voisin);
 
                 Noeud voisinNode = allNodes.getOrDefault(voisin, new Noeud(voisin));
                 if (tentativeG < voisinNode.getG()) {
-                    voisinNode.setParent(currentNode);
+                    voisinNode.setParent(NoeudActuelle);
                     voisinNode.setG(tentativeG);
                     voisinNode.setH(voisin.distance(sommetArrivee));
                     allNodes.put(voisin, voisinNode);
@@ -141,6 +144,13 @@ public class Aetoile {
 
     // Obtenir le chemin trouvé
     public List<Position> getChemin() {
+        long maintenant = System.currentTimeMillis();
+        if (maintenant - dernierAppelGetChemin < DELAI_ENTRE_APPELS_MS) {
+            // Le délai minimum n'est pas écoulé, retourner une liste vide
+            return Collections.emptyList();
+        }
+
+        dernierAppelGetChemin = maintenant;
         return chemin;
     }
 

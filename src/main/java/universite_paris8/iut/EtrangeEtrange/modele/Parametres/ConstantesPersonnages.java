@@ -10,7 +10,7 @@ public class ConstantesPersonnages
     public static final double GUERRIER_DEFENSE = 50;
     public static final double GUERRIER_ATTAQUE_SPECIAL = 10;
     public static final double GUERRIER_DEFENSE_SEPCIAL = 25;
-    public static final double GUERRIER_VITESSE = 0.05;
+    public static final double GUERRIER_VITESSE = 0.015;
     public static final double GUERRIER_HITBOX = 0.50;
 
 
@@ -22,7 +22,7 @@ public class ConstantesPersonnages
     public static final double ARCHER_DEFENSE = 40;
     public static final double ARCHER_ATTAQUE_SPECIAL = 20;
     public static final double ARCHER_DEFENSE_SEPCIAL = 40;
-    public static final double ARCHER_VITESSE = 0.08;
+    public static final double ARCHER_VITESSE = 0.025;
     public static final double ARCHER_HITBOX_HAUTEUR = 0.35;
     public static final double ARCHER_HITBOX_LARGEUR = 0.50;
 

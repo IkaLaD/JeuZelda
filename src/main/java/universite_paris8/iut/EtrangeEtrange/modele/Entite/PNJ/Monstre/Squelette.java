@@ -2,11 +2,14 @@ package universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.PNJ;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVers;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
+import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueMelee.ParametreAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
@@ -17,6 +20,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
 
     private Joueur joueur;
     private Aetoile aetoile;
+    private Epee epee;
     private long lastPathCalculationTime;
 
     public Squelette(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Monde monde, double x, double y, Direction direction, Hitbox hitbox, Joueur joueur, Aetoile aetoile) {
@@ -24,12 +28,37 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
 
         this.joueur = joueur;
         this.aetoile = aetoile;
+        this.epee = new Epee();
         this.lastPathCalculationTime = System.currentTimeMillis();
     }
 
     @Override
     public void action() {
-        seDeplacerVers(joueur.getPosition());
+
+
+        if (detecteJoueurDansRayon(5)){
+            System.out.println("detecter");
+            seDeplacerVers(joueur.getPosition());
+            if (monde.joueurEstDansListe(monde.getActeursDansRayon(getPosition(), 1))){
+                attaque(epee);
+            }
+        }
+        else {
+            seDeplaceAleatoire();
+        }
+
+    }
+
+    private boolean joueurDetecte() {
+        System.out.println("grfeg");
+        return monde.joueurEstDansListe(monde.getActeursDansRayon(getPosition(),10));
+    }
+
+    private boolean detecteJoueurDansRayon(double rayon) {
+        Position positionJoueur = getMonde().getJoueur().getPosition();
+        double distance = Math.sqrt(Math.pow(positionJoueur.getX() - getPosition().getX(), 2) +
+                Math.pow(positionJoueur.getY() - getPosition().getY(), 2));
+        return distance <= rayon;
     }
 
     @Override
@@ -40,6 +69,23 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
     @Override
     protected double subitDegatSpecial(double attaqueSpecial, double forceEntite) {
         return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
+    }
+
+    public void seDeplaceAleatoire(){
+        if (peutSeDeplacer()) {
+            if(Math.random()>0.95){
+                setSeDeplace(false);
+            }
+            else {
+                seDeplace(1);
+            }
+        }
+        else if(Math.random()>0.95)
+            setSeDeplace(true);
+
+        if(Math.random()>0.95)
+            setDirection(Direction.randomDirection());
+
     }
 
 
@@ -98,7 +144,15 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
     @Override
     public void attaque(Arme arme) {
 
+            System.out.println("10");
+            subitAttaque((Dommageable) arme);
+
+
+        // Utilise l'arme avec les paramètres appropriés
+        System.out.println("11");
+        arme.utilise(new ParametreAttaqueEpee(this));
     }
+
 
     @Override
     public void lanceUnSort(int numSort) {

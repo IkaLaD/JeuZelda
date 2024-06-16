@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Bloc;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dropable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
@@ -27,8 +28,7 @@ public class Bloc extends Acteur implements Dropable {
 
     @Override
     public void subitCollision(Acteur acteur) {acteur.causeCollision(this);}
-    @Override
-    public void subitAttaque(Dommageable causeDegat) {enleveToutPv();}
+
     @Override
     public String typeActeur() { return "bloc";}
 
@@ -47,5 +47,8 @@ public class Bloc extends Acteur implements Dropable {
     public void unTour() {/*NE FAIT RIEN*/}
     @Override
     public void causeCollision(Acteur acteur) {/*NE FAIT RIEN*/}
+
+    @Override
+    public void subitAttaque(Dommageable causeDegat, EntiteOffensif entiteOffensif) {enleveToutPv();}
 
 }

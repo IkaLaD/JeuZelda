@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.Competences;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.CreationArbre;
@@ -75,10 +76,11 @@ public abstract class Joueur extends Humanoide
         {
             if (objetMainDroite instanceof Utilisable utilisable)
             {
-                if (objetMainDroite instanceof Arme arme)
-                    attaque(arme);
-                else
-                    utilisable.utilise(this);
+                if (objetMainDroite instanceof Arme )
+                    attaque();
+
+
+                utilisable.utilise(this);
 
                 if (objetMainDroite.durabilitee() == 0)
                     objetMainDroite = null;
@@ -104,17 +106,15 @@ public abstract class Joueur extends Humanoide
     }
 
     @Override
-    public void attaque(Arme arme)
+    public void attaque()
     {
-        if (arme instanceof Arc arc)
+        if (objetMainDroite instanceof Arc arc)
         {
             Fleche flecheSimple = carquois.retourneUneFleche();
 
             if (flecheSimple != null)
                 arc.setFleche(flecheSimple);
         }
-
-        arme.utilise(this);
     }
 
     @Override
@@ -122,7 +122,6 @@ public abstract class Joueur extends Humanoide
     {
         if (objetMainDroite instanceof LivreMagique livreMagique)
         {
-            System.out.println("test");
             Sortilege sortilege = livreMagique.getSortilege(numSort);
             if (sortilege != null)
                 sortilege.utilise(this);
@@ -134,7 +133,6 @@ public abstract class Joueur extends Humanoide
         this.direction = direction;
         this.directions.add(direction);
     }
-
 
     public void enleveDirection(Direction direction)
     {

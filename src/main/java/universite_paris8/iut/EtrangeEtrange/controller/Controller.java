@@ -76,8 +76,6 @@ public class Controller implements Initializable {
     private AfficheBulleConversation afficheBulleConversation;
     private GestionPrompt gestionPrompt;
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         switchDonnees = switchDonnees.getSwitchScene();
@@ -205,12 +203,7 @@ public class Controller implements Initializable {
         switchDonnees.setJoueur(joueur);
         monde.setJoueur(joueur);
         joueur.getSac().ajoutItem(new Epee());
-        joueur.getSac().ajoutItem(new LivreMagique());
-        joueur.getSac().ajoutItem(new Arc());
         joueur.getSac().ajoutItem(new Potion());
-        for(int i = 0 ; i < 20 ;i ++){
-            joueur.getSac().ajoutItem(new PieceOr());
-        }
     }
 
 
@@ -416,23 +409,5 @@ public class Controller implements Initializable {
             defile(-1);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

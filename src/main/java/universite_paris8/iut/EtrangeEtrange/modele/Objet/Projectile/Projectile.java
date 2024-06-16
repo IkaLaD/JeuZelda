@@ -2,6 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
@@ -29,7 +30,7 @@ public abstract class Projectile extends Acteur implements Dommageable,Objet
     {
         if (acteur != utilisateur)
         {
-            acteur.subitAttaque(this);
+            acteur.subitAttaque(this,(EntiteOffensif) utilisateur);
             enleveToutPv();
         }
     }
@@ -46,6 +47,8 @@ public abstract class Projectile extends Acteur implements Dommageable,Objet
     @Override
     public void seFaitPousser(Acteur acteur) {}
     @Override
-    public void subitAttaque(Dommageable causeDegat) {}
+    public void subitAttaque(Dommageable causeDegat, EntiteOffensif entiteOffensif) {
+
+    }
 
 }

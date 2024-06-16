@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
@@ -118,7 +119,7 @@ public abstract class Acteur
      * Subit des dégâts infligés par une source dommageable.
      * @param causeDegat La source de dégâts.
      */
-    public abstract void subitAttaque(Dommageable causeDegat);
+    public abstract void subitAttaque(Dommageable causeDegat, EntiteOffensif entiteOffensif);
 
 
 

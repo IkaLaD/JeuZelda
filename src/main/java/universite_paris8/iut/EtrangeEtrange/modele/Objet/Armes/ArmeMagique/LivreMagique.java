@@ -80,8 +80,6 @@ public  class LivreMagique implements Arme, Rechargeable
     public int prixAchat() {
         return PRIX_ACHAT;
     }
-
-
     @Override
     public long delaie() {
         return SORTILEGE1.delaie();

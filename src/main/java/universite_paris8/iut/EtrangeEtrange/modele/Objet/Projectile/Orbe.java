@@ -2,6 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstanteObjet;
@@ -38,6 +39,16 @@ public class Orbe extends Projectile implements Utilisable, Rechargeable
         this.bfs = new BFS();
     }
 
+    public Orbe(Joueur joueur)
+    {
+        super(PV,VITESSE,HITBOX);
+        this.positionAsuivre = null;
+        this.nombreUtilisationRestant = NOMBRE_UTILISATION;
+        this.derniereApelle = 0;
+        this.bfs = new BFS();
+        acteurAsuivre = joueur;
+    }
+
     @Override
     public void utilise(Entite entite)
     {
@@ -46,7 +57,8 @@ public class Orbe extends Projectile implements Utilisable, Rechargeable
             setMonde(entite.getMonde());
             setNewPosition(entite.getPosition().getX(), entite.getPosition().getY());
 
-            this.acteurAsuivre =  monde.chercheEnemie();
+            if (acteurAsuivre == null)
+                this.acteurAsuivre =  monde.chercheEnemie();
 
             if (acteurAsuivre != null)
             {

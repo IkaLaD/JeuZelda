@@ -17,7 +17,7 @@ public class ConstanteObjet
     public static final Hitbox HITBOX_EPEE = new Hitbox(0.25,0.25);
     public static final int DURABILITE_EPEE = 10;
     public static final int PRIX_ACHAT_EPEE = 12;
-    public static final long DELAIE_UTILISATION_EPEE = 50;
+    public static final long DELAIE_UTILISATION_EPEE = 1000;
     public static final int STACK_MAX_EPEE = 1;
 
 
@@ -25,14 +25,14 @@ public class ConstanteObjet
 
     public static final int DURABILITE_ARC = 25;
     public static final int PRIX_ACHAT_ARC = 12;
-    public static final long DELAIE_UTILISATION_ARC = 65;
+    public static final long DELAIE_UTILISATION_ARC = 1000;
     public static final int STACK_MAX_ARC = 1;
 
     //------------------------------------------------POTION----------------------------------------------------------//
 
     public static final int DURABILITE_POTION = 2;
     public static final int PRIX_ACHAT_POTION = 12;
-    public static final int STACK_MAX_POTION = 1;
+    public static final int STACK_MAX_POTION = 5;
     public static final int RESTORATION = 20;
 
     //------------------------------------------------CARQUOIS--------------------------------------------------------//

@@ -77,20 +77,7 @@ public class CompetenceView {
         imageView.setScaleY(1);
         if(!competence.getCompetence().estDebloquer())
             imageView.setEffect(colorAdjust);
-
-        imageView.setOnMouseClicked(e ->
-        {
-            if (competences.parentDebloquer(competence))
-            {
-                competence.getCompetence().monterDeNiveau(joueur);
-                competence.getCompetence().debloquer();
-                imageView.setEffect(null);
-            }
-            else
-            {
-                System.out.println("fzfaqfqzf<sdfgkln,rjkngdfg");
-            }
-        });
+        
 
         imageView.setImage(image);
         return imageView;

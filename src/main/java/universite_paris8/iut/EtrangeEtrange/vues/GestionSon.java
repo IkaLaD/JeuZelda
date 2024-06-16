@@ -35,7 +35,7 @@ public class GestionSon
     }
     public void lanceSong(Objet objet)
     {
-        if(objet.getNom() !="livremagique" && objet.getNom() !="arc" && objet.getNom()!="orbe") {
+        if(objet.getNom() !="livremagique" && objet.getNom() !="arc") {
             AudioClip mediaPlayer = new AudioClip(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/" + objet.getNom() + ".mp3").toURI().toString());
             mediaPlayer.play();
         }

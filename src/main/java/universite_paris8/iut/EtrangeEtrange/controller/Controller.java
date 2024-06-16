@@ -35,9 +35,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.PieceOr;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.AfficheBulleConversation;
 import universite_paris8.iut.EtrangeEtrange.vues.BarreDeVie.GestionAffichageVieJoueur;
 
@@ -48,9 +45,6 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageS
 
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss.RoiSquelette;
-
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -69,28 +63,18 @@ public class Controller implements Initializable {
 
     @FXML
     private Pane paneInteraction;
-
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
     private GestionSon gestionSon;
     private GestionAffichageSpriteEntite gestionAffichageSpriteEntite;
-
     private SwitchScene switchDonnees;
-    private GestionAffichageVieJoueur vueVie; // La vue qui gère l'affichage des PV
-//-----------------------------------------------//
-
+    private GestionAffichageVieJoueur vueVie;
     private boolean interactionAvecPnj = false;
     private ListView<String> listProposition;
     private Label textePnj;
     private AfficheBulleConversation afficheBulleConversation;
-
     private GestionPrompt gestionPrompt;
-
-    //---------------------------------------------------//
-
-
-
 
 
 
@@ -101,20 +85,18 @@ public class Controller implements Initializable {
         initMonde();
         initJoueur();
         initVie();
-
-
         switchDonnees.setJoueur(joueur);
         initPane();
 
         gestionAffichageSpriteEntite = new GestionAffichageSpriteEntite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSpriteEntite);
         gestionAffichageSpriteEntite.ajouterJoueur(joueur);
+
         this.gestionSon = new GestionSon();
         switchDonnees.setGestionSon(gestionSon);
+
         GestionActeur gestionActeur = new GestionActeur(monde,paneEntite, gestionSon);
         monde.setListenerActeur(gestionActeur);
-
-
 
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
         gestionAffichageMap.afficherMondeJSON();
@@ -125,11 +107,14 @@ public class Controller implements Initializable {
         monde.setJoueur(joueur);
         monde.creationMonstre("src/main/resources/universite_paris8/iut/EtrangeEtrange/TiledMap/", "mapfinal", Monde.getSizeMondeHauteur());
 
-
         initGameLoop();
         gameLoop.play();
 
         gestionActeur.listenerCollision(joueur);
+        listenerPvJoueur();
+    }
+
+    private void listenerPvJoueur() {
         joueur.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv) -> {
             if (nouv.doubleValue() <= 0) {
                 try {
@@ -142,9 +127,6 @@ public class Controller implements Initializable {
         });
     }
 
-    private void initBoss() {
-        monde.ajoutActeur(new RoiSquelette(monde,5.5,27.5,Direction.DROITE));
-    }
 
     private void initVie() {
         vueVie = new GestionAffichageVieJoueur(joueur.getStatsPv());
@@ -274,12 +256,7 @@ public class Controller implements Initializable {
         else{
             handleInteractionPnj(keyEvent);
         }
-
-
     }
-
-
-
 
     public void onKeyReleased(KeyEvent keyEvent)
     {
@@ -306,9 +283,6 @@ public class Controller implements Initializable {
             else if(touche==ConstantesClavier.courrir)
                 joueur.estEntrainDeCourir(false);
         }
-
-
-
     }
 
     public void mouseClick(MouseEvent mouseEvent)
@@ -333,16 +307,6 @@ public class Controller implements Initializable {
     public void recupererDonnees() {
         switchDonnees.recupererPane(paneEntite, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
     }
-
-
-
-
-    //-------------------------------------------------------------------------------------------//
-    //                                      PNJ                                                 //
-    //-----------------------------------------------------------------------------------------//
-
-
-
 
     public void interaction()
     {
@@ -396,13 +360,6 @@ public class Controller implements Initializable {
         }
     }
 
-
-
-
-
-
-
-
     //  Permet de changer le choix de réponse
     private void defile(int scroll)
     {
@@ -425,16 +382,11 @@ public class Controller implements Initializable {
 
     }
 
-
-    //  Retourne le choix séléctionner
     private String choixSelectionner()
     {
         return listProposition.getSelectionModel().getSelectedItem();
     }
 
-
-
-    //
     private void handleInteractionPnj(KeyEvent event)
     {
         KeyCode keyCode = event.getCode();

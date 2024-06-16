@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Bloc.Bloc;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss.RoiSquelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Marchand;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre.Slime;
@@ -123,13 +124,15 @@ public class Monde {
                     Acteur acteur = null;
                     if (monstre != -1) {
                         if (monstre == 4)
-                            acteur = new Marchand(this, j ,ligneIndex, Direction.BAS);
+                            acteur = new Marchand(this, j+0.5 ,ligneIndex+0.5, Direction.BAS);
                         else if(monstre == 2)
-                            acteur = new Slime(this, j, ligneIndex, Direction.BAS, new Hitbox(0.25, 0.5));
+                            acteur = new Slime(this, j+0.5, ligneIndex+0.5, Direction.BAS, new Hitbox(0.25, 0.5), new Aetoile(this), joueur);
                         else if(monstre == 3)
-                            acteur = new Squelette(this, j, ligneIndex,  Direction.BAS, new Hitbox(0.5, 0.5),joueur , new Aetoile(this));
+                            acteur = new Squelette(this, j+0.5, ligneIndex+0.5,  Direction.BAS, new Hitbox(0.5, 0.5),joueur , new Aetoile(this));
                         else if(monstre == 1)
-                            acteur = new RoiSquelette(this, j , ligneIndex, Direction.BAS);
+                            acteur = new RoiSquelette(this, j+0.5 , ligneIndex+0.5, Direction.BAS);
+                        else if(monstre == 0)
+                            acteur = new Bloc(this, j+0.5, ligneIndex+0.5, Direction.BAS, 1, 1, new Hitbox(1,1 ));
                         ajoutActeur(acteur);
                     }
                 }

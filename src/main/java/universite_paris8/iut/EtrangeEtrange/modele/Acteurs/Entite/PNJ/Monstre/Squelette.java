@@ -27,18 +27,6 @@ public class Squelette extends EntiteOffensif  {
     }
 
 
-    @Override
-    protected double subitDegatPhysique(double degat, double forceEntite) {
-        return (degat * forceEntite) / (getDefense() - (degat/6));
-    }
-
-    @Override
-    protected double subitDegatSpecial(double attaqueSpecial, double forceEntite) {
-        return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
-    }
-
-
-
     public void seDeplacerVers(Position joueurPosition) {
         if (aetoile == null) {
             return;

@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Action.ActionVendre;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Action.Soigner;
@@ -23,7 +24,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Marchand extends HumainPNJ implements Dropable
+public class Marchand extends Humanoide implements Dropable
 {
 
     private int cycle;
@@ -47,7 +48,7 @@ public class Marchand extends HumainPNJ implements Dropable
 
         if (cycle % 2000 == 0)
         {
-            //remplieAleatoirementMarchandise();
+            remplieAleatoirementMarchandise();
             sac.ajoutItem(new Epee());
             sac.ajoutItem(new Arc());
             cycle = 0;

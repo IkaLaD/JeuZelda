@@ -23,8 +23,5 @@ public class Guerrier extends Joueur
         }
     }
 
-    @Override
-    public void dropApresMort() {
 
-    }
 }

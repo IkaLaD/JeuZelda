@@ -3,6 +3,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre.Squelette;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 
@@ -116,7 +117,8 @@ public class RoiSquelette extends EntiteOffensif
     }
 
     // Invoque des squelettes pour aider le Roi Squelette
-    private void invoquerSquelettes() {
+    private void invoquerSquelettes()
+    {
         Position positionHaut = new Position(getPosition().getX(), getPosition().getY()-2);
         Position positionBas = new Position(getPosition().getX(), getPosition().getY()+2);
         Squelette squeletteGauche = new Squelette( getMonde(), positionHaut.getX(), positionHaut.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
@@ -140,21 +142,8 @@ public class RoiSquelette extends EntiteOffensif
     }
 
     // Vérifie si le Roi Squelette a atteint une certaine position
-    private boolean positionAtteinte(Position position) {
-        return Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1;
-    }
+    private boolean positionAtteinte(Position position) {return Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1;}
 
-
-
-    @Override
-    protected double subitDegatPhysique(double degat, double forceEntite) {
-        return (degat * forceEntite) / (getDefense() - (degat/6));
-    }
-
-    @Override
-    protected double subitDegatSpecial(double attaqueSpecial, double forceEntite) {
-        return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
-    }
 
     @Override
     public String typeActeur() {
@@ -162,9 +151,7 @@ public class RoiSquelette extends EntiteOffensif
     }
 
     @Override
-    public void dropApresMort() {
-
-    }
+    public void dropApresMort() {TypeCompetence.COURIR.getCompetence().monterDeNiveau(monde.getJoueur());}
 
     @Override
     public boolean estUnEnemie() {

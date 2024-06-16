@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
@@ -12,7 +13,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public class Slime extends EntiteOffensif {
+public class Slime extends Entite {
     /**
      * Crée une nouvelle entité offensif.
      *
@@ -24,7 +25,7 @@ public class Slime extends EntiteOffensif {
      */
 
     public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(monde, x, y, direction, 100, 30, 20, 20, 50, 0.005, hitbox);
+        super(monde, x, y, direction, 100, 30, 20, 20, hitbox);
     }
 
     @Override
@@ -47,9 +48,6 @@ public class Slime extends EntiteOffensif {
 
     }
 
-    @Override
-    public void subitCollision(Acteur acteur) {
-    }
 
     @Override
     public String typeActeur() {
@@ -57,7 +55,8 @@ public class Slime extends EntiteOffensif {
     }
 
     @Override
-    public void dropApresMort() {
+    public void dropApresMort()
+    {
         double x = getPosition().getX();
         double y = getPosition().getY();
         getMonde().ajouterDropAuSol(new DropAuSol(new PieceOr(), 1, new Position(x, y)));
@@ -73,31 +72,10 @@ public class Slime extends EntiteOffensif {
         enlevePv(20);
     }
 
-
-
-    @Override
-    protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
-        return 0;
-    }
-
-    @Override
-    protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
-        return 0;
-    }
-
-    @Override
-    public void attaque(Arme arme) {
-
-    }
-
     @Override
     public Prompt getPrompt()
     {
        return  null;
     }
 
-    @Override
-    public void lanceUnSort(int numSort) {
-
-    }
 }

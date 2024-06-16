@@ -244,6 +244,14 @@ public class Controller implements Initializable {
                 joueur.actionMainDroite();
                 gestionSon.lanceSong(joueur.getObjetMainDroite());
             }
+            else if(keyCode == ConstantesClavier.sort2){
+                joueur.lanceUnSort(1);
+                System.out.println("sort1");
+            }
+            else if(keyCode == ConstantesClavier.sort3){
+                joueur.lanceUnSort(0);
+                System.out.println("sort2");
+            }
             else if (keyCode == ConstantesClavier.parlerPnj)
                 interaction();
             else if (keyCode == ConstantesClavier.inventaire)

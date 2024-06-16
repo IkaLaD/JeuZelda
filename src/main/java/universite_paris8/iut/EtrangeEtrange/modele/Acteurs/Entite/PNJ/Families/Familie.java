@@ -1,15 +1,19 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Families;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Orbe;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public class Familie extends EntiteOffensif {
+import java.util.ArrayList;
+
+public abstract class Familie extends EntiteOffensif {
 
     protected Joueur joueur;
     protected boolean estFamilier;
@@ -25,9 +29,6 @@ public class Familie extends EntiteOffensif {
         this.aetoile = aetoile;
         this.lastPathCalculationTime = System.currentTimeMillis();
     }
-
-
-
 
 
     public void seDeplacerVers(Position joueurPosition) {
@@ -118,20 +119,50 @@ public class Familie extends EntiteOffensif {
         }
     }
 
+    public Position positionDerriereJoueur() {
+        Position positionJoueur = joueur.getPosition();
+        Direction directionJoueur = joueur.getDirection();
+
+        // Calcul des coordonnées de la position derrière le joueur en fonction de sa direction
+        double newX = positionJoueur.getX() - directionJoueur.getX();
+        double newY = positionJoueur.getY() - directionJoueur.getY();
+
+        // Retourner une nouvelle instance de Position avec les coordonnées calculées
+        return new Position(newX, newY);
+    }
+
+
     @Override
     public void unTour() {
         if (!estFamilier) {
             if (detecteJoueur(joueur)) {
                 estFamilier = true;
             }
-        }
-
-        if (estFamilier) {
-            setSeDeplace(true);
-            seDeplacerVers(joueur.getPosition());
-        } else {
             seDeplaceAleatoire();
         }
+        else {
+            setSeDeplace(true);
+            seDeplacerVers(positionDerriereJoueur());
+            if (detecteEntiteDansRayon(5)){
+                new Orbe().utilise(this);
+            }
+        }
+    }
+
+    public boolean detecteEntiteDansRayon(double rayon) {
+        ArrayList<Entite> entites = monde.getEntites(); // Suppose une méthode qui retourne toutes les entités du monde
+        Position maPosition = getPosition();
+
+        for (Entite entite : entites) {
+            if (entite != this) { // Pour ne pas se détecter soi-même
+                double distance = Math.sqrt(Math.pow(maPosition.getX() - entite.getPosition().getX(), 2) +
+                        Math.pow(maPosition.getY() - entite.getPosition().getY(), 2));
+                if (distance <= rayon) {
+                    return true; // Retourne vrai dès qu'une entité est trouvée dans le rayon
+                }
+            }
+        }
+        return false; // Aucune entité trouvée dans le rayon
     }
 
 

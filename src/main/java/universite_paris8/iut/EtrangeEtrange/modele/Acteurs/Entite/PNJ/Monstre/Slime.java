@@ -6,6 +6,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ParametreMonstre;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 
@@ -20,7 +21,14 @@ public class Slime extends EntiteOffensif {
      * @param hitbox    La hitbox de l'entité.
      */
     public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(monde, x, y, direction, 100, 30, 20, 20, 50, 0.005, hitbox);
+        super(monde, x, y, direction,
+                ParametreMonstre.PV_SLIME,
+                ParametreMonstre.ATTAQUE_SLIME,
+                ParametreMonstre.DEFENSE_SLIME,
+                ParametreMonstre.ATTAQUE_SPECIALE_SLIME,
+                ParametreMonstre.DEFENSE_SPECIALE_SLIME,
+                ParametreMonstre.VITESSE_SLIME,
+                hitbox);
     }
 
     @Override

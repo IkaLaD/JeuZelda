@@ -82,8 +82,8 @@ public class Slime extends Entite {
     public void dropApresMort() {
         double x = getPosition().getX();
         double y = getPosition().getY();
-        getMonde().ajouterDropAuSol(new DropAuSol(new PieceOr(), 1, new Position(x, y)));
-        System.out.println("passage");
+        for(int i = 0 ; i < 5 ; i++)
+            getMonde().ajouterDropAuSol(new DropAuSol(new PieceOr(), 1, new Position(x, y)));
     }
 
     @Override

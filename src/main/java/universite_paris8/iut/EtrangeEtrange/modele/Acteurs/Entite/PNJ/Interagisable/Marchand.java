@@ -13,6 +13,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.TypeObjet;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Emplacement;
@@ -50,6 +51,7 @@ public class Marchand extends Humanoide implements Dropable
             remplieAleatoirementMarchandise();
             sac.ajoutItem(new Epee());
             sac.ajoutItem(new Arc());
+            sac.ajoutItem(new Potion());
             cycle = 0;
         }
     }

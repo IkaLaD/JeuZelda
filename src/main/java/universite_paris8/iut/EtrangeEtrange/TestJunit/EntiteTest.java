@@ -6,6 +6,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Guerrier;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 import static org.junit.Assert.assertEquals;

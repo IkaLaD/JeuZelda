@@ -85,10 +85,6 @@ public class Controller implements Initializable {
 
     private GestionPrompt gestionPrompt;
 
-
-
-
-
     //---------------------------------------------------//
 
 
@@ -122,14 +118,11 @@ public class Controller implements Initializable {
 
         gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol = new gestionAffichageSpriteDropAuSol(paneEntite);
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
-        monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23)));
         
         monde.setJoueur(joueur);
-        initBoss();
+        monde.creationMonstre("src/main/resources/universite_paris8/iut/EtrangeEtrange/TiledMap/", "mapfinal", Monde.getSizeMondeHauteur());
 
-        Bloc bloc = new Bloc( monde, 11, 11, Direction.BAS, 1, 0, new Hitbox(1,1));
-        monde.ajoutActeur(bloc);
-        monde.ajoutActeur(new Marchand(monde,12,12,Direction.BAS));
+
         initGameLoop();
         gameLoop.play();
 

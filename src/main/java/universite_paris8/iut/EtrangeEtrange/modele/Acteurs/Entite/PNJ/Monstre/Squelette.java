@@ -18,8 +18,7 @@ public class Squelette extends EntiteOffensif  {
     private long lastPathCalculationTime;
 
     public Squelette( Monde monde, double x, double y, Direction direction, Hitbox hitbox, Joueur joueur, Aetoile aetoile) {
-        super( monde,  x,  y,  direction,  100,  10,  10,1 ,  10,  0.5, hitbox);
-
+        super( monde,  x,  y,  direction,  100,  10,  10,1 ,  10,  0.025, hitbox);
         this.joueur = joueur;
         this.aetoile = aetoile;
         this.lastPathCalculationTime = System.currentTimeMillis();

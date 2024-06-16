@@ -4,9 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss.RoiSquelette;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Marchand;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre.Slime;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre.Squelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
@@ -66,7 +71,6 @@ public class Monde {
         this.traversable = new int[hauteur][largeur];
         this.nontraversable = new int[hauteur][largeur];
         this.dropsAuSol = FXCollections.observableArrayList();
-
         ArrayList<int[][]> coucheMap = new ArrayList<>();
         coucheMap.add(this.sol);
         coucheMap.add(this.traversable);
@@ -97,17 +101,43 @@ public class Monde {
             }
         }
 
-
-
     }
 
+    public void creationMonstre(String chemin, String nommap, int hauteur){
+        Aetoile aetoile = new Aetoile(this);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(chemin+"/"+nommap+"_monstres.csv"));
+            String ligne;
+            int ligneIndex = 0;
 
+            while ((ligne = reader.readLine()) != null && ligneIndex < hauteur) {
+                String[] block = ligne.split(",");
 
+                for (int j = 0; j < hauteur && j < block.length; j++) {
+                    int monstre = Integer.parseInt(block[j]);
+                    Acteur acteur = null;
+                    if (monstre != -1) {
+                        if (monstre == 4)
+                            acteur = new Marchand(this, j ,ligneIndex, Direction.BAS);
+                        else if(monstre == 2)
+                            acteur = new Slime(this, j, ligneIndex, Direction.BAS, new Hitbox(0.25, 0.5));
+                        else if(monstre == 3)
+                            acteur = new Squelette(this, j, ligneIndex,  Direction.BAS, new Hitbox(0.5, 0.5),joueur , aetoile);
+                        else if(monstre == 1)
+                            acteur = new RoiSquelette(this, j , ligneIndex, Direction.BAS);
+                        ajoutActeur(acteur);
+                    }
+                }
 
+                ligneIndex++;
+            }
 
-
-
-
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la lecture du fichier : " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.err.println("Erreur de format dans le fichier : " + e.getMessage());
+        }
+    }
 
     public int[][] getSol() {
         return sol;

@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import universite_paris8.iut.EtrangeEtrange.Runner;
 
@@ -24,7 +23,7 @@ public class ControllerGameOver {
     }
 
     @FXML
-    public void quitterClick(MouseEvent mouseEvent) {
+    public void quitterClick(ActionEvent mouseEvent) {
         Platform.exit();
         System.exit(0);
     }

@@ -39,7 +39,6 @@ public class Squelette extends EntiteOffensif  {
 
     public void seDeplacerVers(Position joueurPosition) {
         if (aetoile == null) {
-
             return;
         }
 
@@ -70,11 +69,9 @@ public class Squelette extends EntiteOffensif  {
         if (peutSeDeplacer()) {
             setSeDeplace(true);
             seDeplace(1);
-        } else {
-
         }
 
-        // Vérifier si l'entité a atteint la prochaine positionq
+        // Vérifier si l'entité a atteint la prochaine position
         if (positionAtteinte(prochainePosition)) {
             aetoile.getChemin().remove(0); // Supprimer la position atteinte du chemin
             // Ajuster la position à des coordonnées arrondies au dixième

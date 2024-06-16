@@ -27,7 +27,7 @@ public class Runner extends Application {
             switchScene.setStage(stage);
 
             FXMLLoader fxmlLoaderMenuDebut = new FXMLLoader(Runner.class.getResource("menuDebutJeu.fxml"));
-            Scene sceneCompetences = new Scene(fxmlLoaderMenuDebut.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
+            Scene sceneCompetences = new Scene(fxmlLoaderMenuDebut.load(), ConstantesAffichage.largeurEcran, ConstantesAffichage.hauteurEcran);
             stage.setScene(sceneCompetences);
             stage.show();
         }

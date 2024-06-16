@@ -149,6 +149,6 @@ public abstract class Joueur extends Humanoide
         }
     }
     public Competences getCompetences() { return this.competences; }
-    public int getPiece(){ return 0;}
+    public int getPiece(){ return 110;}
 
 }

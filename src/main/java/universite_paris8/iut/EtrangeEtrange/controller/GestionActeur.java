@@ -7,20 +7,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesAffichage;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+import universite_paris8.iut.EtrangeEtrange.vues.GestionSon;
 
 
 public class GestionActeur implements ListChangeListener<Acteur>
 {
     private Pane pane;
     private Monde monde;
+    private GestionSon gestionSon;
 
-    public GestionActeur(Monde monde, Pane pane)
+    public GestionActeur(Monde monde, Pane pane, GestionSon gestionSon)
     {
         this.monde = monde;
         this.pane = pane;
+        this.gestionSon = gestionSon;
     }
 
     @Override
@@ -31,9 +35,13 @@ public class GestionActeur implements ListChangeListener<Acteur>
             {
                 for (Acteur acteur : change.getAddedSubList())
                 {
-                    if (acteur.typeActeur().equals("fleche") || acteur.typeActeur().equals("orbe"))
+                    if (acteur.typeActeur().equals("fleche") || acteur.typeActeur().equals("orbe")) {
                         initSpriteProjectile(acteur);
+                        gestionSon.lanceSong((Objet) acteur);
+                    }
+
                     else if(acteur.typeActeur().equals("epee")){
+                        gestionSon.lanceSong((Objet) acteur);
                     }
                     else if(acteur.typeActeur().equals("bloc")){
                         initSpriteBloc(acteur);

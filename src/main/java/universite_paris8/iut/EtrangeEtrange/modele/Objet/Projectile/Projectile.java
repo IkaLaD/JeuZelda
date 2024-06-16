@@ -34,7 +34,7 @@ public abstract class Projectile extends Acteur implements Dommageable,Objet
     @Override
     public boolean peutSeDeplacer()
     {
-        return !monde.estHorsMap(this);
+        return !monde.estHorsMap(this) && !monde.collisionMap(this);
     }
     @Override
     public void seFaitPousser(Acteur acteur) {/*NE FAIT RIEN*/}

@@ -38,4 +38,5 @@ public class Bloc extends Acteur implements Dropable {
     public void unTour() {/*NE FAIT RIEN*/}
     @Override
     public void causeCollision(Acteur acteur) {/*NE FAIT RIEN*/}
+
 }

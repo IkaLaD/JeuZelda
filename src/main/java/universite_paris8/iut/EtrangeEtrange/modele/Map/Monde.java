@@ -103,8 +103,13 @@ public class Monde {
 
     }
 
+    public static void setSizeMondeLargeur(int largeurMonde) {
+    }
+
+    public static void setSizeMondeHauteur(int hauteurMonde) {
+    }
+
     public void creationMonstre(String chemin, String nommap, int hauteur){
-        Aetoile aetoile = new Aetoile(this);
         try {
             BufferedReader reader = new BufferedReader(new FileReader(chemin+"/"+nommap+"_monstres.csv"));
             String ligne;
@@ -122,7 +127,7 @@ public class Monde {
                         else if(monstre == 2)
                             acteur = new Slime(this, j, ligneIndex, Direction.BAS, new Hitbox(0.25, 0.5));
                         else if(monstre == 3)
-                            acteur = new Squelette(this, j, ligneIndex,  Direction.BAS, new Hitbox(0.5, 0.5),joueur , aetoile);
+                            acteur = new Squelette(this, j, ligneIndex,  Direction.BAS, new Hitbox(0.5, 0.5),joueur , new Aetoile(this));
                         else if(monstre == 1)
                             acteur = new RoiSquelette(this, j , ligneIndex, Direction.BAS);
                         ajoutActeur(acteur);
@@ -455,8 +460,6 @@ public class Monde {
 
         return dX <= xDistanceMax && dY <= yDistanceMax ?  dX+dY : -1;
     }
-
-
 
 
 }

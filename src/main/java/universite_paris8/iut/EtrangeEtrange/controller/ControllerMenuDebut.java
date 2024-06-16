@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.EtrangeEtrange.Runner;
@@ -18,10 +20,14 @@ public class ControllerMenuDebut implements Initializable {
     public Pane pane;
     public Button jouer;
     public Button quitter;
+    public Pane fondImage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        ImageView imageView = new ImageView(new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Menu Debut/fond.png"));
+        imageView.setX(0);
+        imageView.setY(0);
+        fondImage.getChildren().add(imageView);
     }
 
     public void jouerClick(MouseEvent mouseEvent) throws IOException {

@@ -35,7 +35,7 @@ public class Fleche extends Projectile
     }
     @Override
     public String getNom() {
-        return "Fleche";
+        return "fleche";
     }
     @Override
     public String typeActeur(){

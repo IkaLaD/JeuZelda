@@ -41,6 +41,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.vues.AfficheBulleConversation;
 import universite_paris8.iut.EtrangeEtrange.vues.BarreDeVie.GestionAffichageVieJoueur;
 
+import universite_paris8.iut.EtrangeEtrange.vues.GestionSon;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
 
@@ -72,6 +73,7 @@ public class Controller implements Initializable {
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
+    private GestionSon gestionSon;
 
 
     private SwitchScene switchDonnees;
@@ -107,8 +109,8 @@ public class Controller implements Initializable {
         GestionAffichageSpriteEntite gestionAffichageSprite = new GestionAffichageSpriteEntite(paneEntite);
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
-
-        GestionActeur gestionActeur = new GestionActeur(monde,paneEntite);
+        this.gestionSon = new GestionSon();
+        GestionActeur gestionActeur = new GestionActeur(monde,paneEntite, gestionSon);
         monde.setListenerActeur(gestionActeur);
 
 
@@ -127,7 +129,15 @@ public class Controller implements Initializable {
         gameLoop.play();
 
         gestionActeur.listenerCollision(joueur);
-
+        joueur.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv) -> {
+            if (nouv.doubleValue() <= 0) {
+                try {
+                    switchDonnees.gameOver();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     private void initBoss() {
@@ -244,6 +254,7 @@ public class Controller implements Initializable {
             else if(keyCode == ConstantesClavier.attaquer)
             {
                 joueur.actionMainDroite();
+                gestionSon.lanceSong(joueur.getObjetMainDroite());
             }
             else if (keyCode == ConstantesClavier.parlerPnj)
                 interaction();

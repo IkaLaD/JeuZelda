@@ -4,6 +4,8 @@ module com.example.essaie {
     requires org.json;
     requires javafx.media;
     requires junit;
+    requires org.junit.jupiter.api;
+    requires java.desktop;
 
     opens universite_paris8.iut.EtrangeEtrange to javafx.fxml;
     exports universite_paris8.iut.EtrangeEtrange;
@@ -18,4 +20,5 @@ module com.example.essaie {
     exports universite_paris8.iut.EtrangeEtrange.TestJunit;
     exports universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
     opens universite_paris8.iut.EtrangeEtrange.modele.Utilitaire to javafx.fxml;
+    
 }

@@ -39,8 +39,8 @@ public class RoiSquelette extends EntiteOffensif
         this.dernierTempsAttaque = System.currentTimeMillis();
         this.positionInitiale = new Position(x, y);
         this.etapeAttaque = 0;
-        this.positionMilieu = new Position(5.5, 27.5);
-        this.position5_2 = new Position(2, 27.5);
+        this.positionMilieu = new Position(x, y);
+        this.position5_2 = new Position(x-5, y);
         setPosition(x, y); // Positionnement initial du Roi Squelette
     }
 
@@ -81,24 +81,13 @@ public class RoiSquelette extends EntiteOffensif
                     }
                     break;
                 case 1:
-                    seDeplacerVers(position5_2);
-                    if (positionAtteinte(position5_2)) {
-
-                        new Orbe().utilise(this);
-
-
-
-                        etapeAttaque++;
-                    }
-                    break;
-                case 2:
                     seDeplacerVers(positionMilieu);
                     if (positionAtteinte(positionMilieu)) {
                         invoquerSquelettes();
                         etapeAttaque++;
                     }
                     break;
-                case 3:
+                case 2:
                     seDeplacerVers(position5_2);
                     if (positionAtteinte(position5_2)) {
                         grandeAttaqueCirculaire();

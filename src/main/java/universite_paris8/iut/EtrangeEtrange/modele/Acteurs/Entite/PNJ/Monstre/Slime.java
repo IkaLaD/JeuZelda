@@ -72,10 +72,6 @@ public class Slime extends Entite {
 
     }
 
-    @Override
-    public void subitCollision(Acteur acteur) {
-
-    }
 
     @Override
     public String typeActeur() {
@@ -95,28 +91,11 @@ public class Slime extends Entite {
         return true;
     }
 
-    @Override
-    public void subitAttaque(Dommageable causeDegat) {
-        enlevePv(20);
-    }
 
 
 
-    @Override
-    protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
-        return 0;
-    }
-
-    @Override
-    protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
-        return 0;
-    }
 
 
-    @Override
-    public Prompt getPrompt()
-    {
-       return  null;
-    }
+
 
 }

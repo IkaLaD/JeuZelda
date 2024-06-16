@@ -8,7 +8,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.PieceOr;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ParametreMonstre;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -25,66 +27,28 @@ public class Slime extends Entite {
      * @param direction La direction dans laquelle l'entité est orientée.
      * @param hitbox    La hitbox de l'entité.
      */
-    public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
+    private Aetoile aetoile;
+    private long lastPathCalculationTime;
+    private Joueur joueur;
+
+    public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox, Aetoile aEtoile, Joueur joueur) {
         super(monde, x, y, direction,
                 ParametreMonstre.PV_SLIME,
-                ParametreMonstre.ATTAQUE_SLIME,
                 ParametreMonstre.DEFENSE_SLIME,
-                ParametreMonstre.ATTAQUE_SPECIALE_SLIME,
                 ParametreMonstre.DEFENSE_SPECIALE_SLIME,
                 ParametreMonstre.VITESSE_SLIME,
                 hitbox);
+        this.joueur = joueur;
+        this.aetoile = aEtoile;
+        this.lastPathCalculationTime = System.currentTimeMillis();
     }
 
     @Override
     public void unTour()
     {
-        seDeplacerVers(joueur.getPosition());
+        deplacementAleatoire();
     }
 
-
-    public void seDeplacerVers(Position joueurPosition) {
-        if (aetoile == null) {
-            return;
-        }
-
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - lastPathCalculationTime >= 3000 || aetoile.getChemin().isEmpty()) {
-            aetoile.trouverChemin(getPosition(), joueurPosition);
-            lastPathCalculationTime = currentTime;
-            if (aetoile.getChemin().isEmpty()) {
-                return;
-            }
-        }
-
-        // Obtenir la prochaine position dans le chemin
-        Position prochainePosition = aetoile.getChemin().get(0);
-
-        // Calculer la direction vers la prochaine position
-        double deltaX = prochainePosition.getX() - getPosition().getX();
-        double deltaY = prochainePosition.getY() - getPosition().getY();
-
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            setDirection(deltaX > 0 ? Direction.DROITE : Direction.GAUCHE);
-        } else {
-            setDirection(deltaY > 0 ? Direction.BAS : Direction.HAUT);
-        }
-
-        // Déplacer l'entité si elle peut se déplacer
-        if (peutSeDeplacer()) {
-            setSeDeplace(true);
-            seDeplace(1);
-        }
-
-        // Vérifier si l'entité a atteint la prochaine position
-        if (positionAtteinte(prochainePosition)) {
-            aetoile.getChemin().remove(0); // Supprimer la position atteinte du chemin
-            // Ajuster la position à des coordonnées arrondies au dixième
-            setPosition(Math.round(getPosition().getX() * 10) / 10.0, Math.round(getPosition().getY() * 10) / 10.0);
-        }
-
-
-    }
     private boolean positionAtteinte(Position position) {
         return Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1;
     }
@@ -123,6 +87,7 @@ public class Slime extends Entite {
         double x = getPosition().getX();
         double y = getPosition().getY();
         getMonde().ajouterDropAuSol(new DropAuSol(new PieceOr(), 1, new Position(x, y)));
+        System.out.println("passage");
     }
 
     @Override
@@ -147,10 +112,6 @@ public class Slime extends Entite {
         return 0;
     }
 
-    @Override
-    public void attaque(Arme arme) {
-
-    }
 
     @Override
     public Prompt getPrompt()
@@ -158,8 +119,4 @@ public class Slime extends Entite {
        return  null;
     }
 
-    @Override
-    public void lanceUnSort(int numSort) {
-
-    }
 }

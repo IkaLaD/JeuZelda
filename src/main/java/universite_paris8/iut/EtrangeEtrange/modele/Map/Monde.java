@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Bloc.Bloc;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss.RoiSquelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Marchand;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre.Slime;
@@ -470,13 +471,13 @@ public class Monde {
     }
 
 
-    public ArrayList<Entite> getEntites() {
-        ArrayList<Entite> toutesLesEntites = new ArrayList<>();
+    public ArrayList<Acteur> getEntites() {
+        ArrayList<Acteur> toutesLesEntites = new ArrayList<>();
 
         // Ajouter tous les acteurs qui sont des entités
         for (Acteur acteur : this.acteurs) {
-            if (acteur instanceof Entite) {
-                toutesLesEntites.add((Entite) acteur);
+            if (acteur instanceof Acteur) {
+                toutesLesEntites.add((Acteur) acteur);
             }
         }
         return toutesLesEntites;

@@ -252,6 +252,10 @@ public class Controller implements Initializable {
                 joueur.lanceUnSort(0);
                 System.out.println("sort2");
             }
+            else if(keyCode == ConstantesClavier.sort1){
+                joueur.lanceUnSort(2);
+                System.out.println("sort3");
+            }
             else if (keyCode == ConstantesClavier.parlerPnj)
                 interaction();
             else if (keyCode == ConstantesClavier.inventaire)

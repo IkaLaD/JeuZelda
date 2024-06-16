@@ -105,7 +105,7 @@ public class Orbe extends Projectile implements Utilisable, Rechargeable
     }
 
     @Override
-    public String typeActeur() { return "fleche"; }
+    public String typeActeur() { return "orbe"; }
     @Override
     public boolean estUnEnemie() { return false; }
     @Override
@@ -113,7 +113,7 @@ public class Orbe extends Projectile implements Utilisable, Rechargeable
     @Override
     public double degatSpecial() { return DEGAT_SPECIAL; }
     @Override
-    public String getNom() {return "fleche";}
+    public String getNom() {return "orbe";}
     @Override
     public int stackMax() { return STACK_MAX; }
     @Override

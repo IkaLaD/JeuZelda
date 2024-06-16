@@ -17,20 +17,5 @@ public class Archer extends Joueur
         this.carquois = new Carquois();
     }
 
-    @Override
-    public void unTour() {
-
-    }
-
-    @Override
-    public void subitCollision(Acteur acteur) {
-
-    }
-
-    @Override
-    public void subitAttaque(Dommageable causeDegat) {
-
-    }
-
 
 }

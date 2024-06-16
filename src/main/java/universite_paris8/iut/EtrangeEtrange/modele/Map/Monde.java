@@ -30,8 +30,8 @@ public class Monde {
      */
     private static final int sizeMondeHauteur = 70;
     private static final int sizeMondeLargeur = 70;
-    private static final double xPointDeDepart = 16;
-    private static final double yPointDeDepart = 16;
+    private static final double xPointDeDepart = 7;
+    private static final double yPointDeDepart = 7;
     private int[][] sol;
     private int[][] traversable;
     private int[][] nontraversable;

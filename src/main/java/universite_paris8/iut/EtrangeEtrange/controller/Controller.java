@@ -45,7 +45,6 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAfficha
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
 
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss.RoiSquelette;
@@ -253,7 +252,7 @@ public class Controller implements Initializable {
             {
                 joueur.actionMainDroite();
             }
-            else if (keyCode == KeyCode.B)
+            else if (keyCode == ConstantesClavier.parlerPnj)
                 interaction();
             else if (keyCode == ConstantesClavier.inventaire)
                  ouvrirMenu();

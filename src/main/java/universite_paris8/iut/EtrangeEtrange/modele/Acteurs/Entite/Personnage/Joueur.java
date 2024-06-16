@@ -120,7 +120,6 @@ public abstract class Joueur extends Humanoide
         if (objetMainDroite instanceof LivreMagique livreMagique)
         {
             Sortilege sortilege = livreMagique.getSortilege(numSort);
-
             if (sortilege != null)
                 sortilege.utilise(this);
         }

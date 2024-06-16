@@ -2,6 +2,8 @@ package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.scene.input.KeyCode;
 
+import java.security.Key;
+
 
 public class ConstantesClavier {
 
@@ -15,7 +17,10 @@ public class ConstantesClavier {
     public static KeyCode inventaire = KeyCode.I;
     public static KeyCode courrir = KeyCode.L;
 
+    public static KeyCode sort2 = KeyCode.W;
+    public static KeyCode sort3 = KeyCode.X;
     public static KeyCode degattest = KeyCode.Y;
+    public static KeyCode parlerPnj = KeyCode.B;
 
     public static KeyCode menuDeplacementGauche = KeyCode.Q;
     public static KeyCode menuDeplacementDroite = KeyCode.D;
@@ -29,6 +34,10 @@ public class ConstantesClavier {
 
     public static void setCourrir(KeyCode courrir) {
         ConstantesClavier.courrir = courrir;
+    }
+
+    public static void setParlerPnj(KeyCode parlerPnj) {
+        ConstantesClavier.parlerPnj = parlerPnj;
     }
 
     public static void setDeplacementBas(KeyCode deplacementBas) {
@@ -73,5 +82,13 @@ public class ConstantesClavier {
 
     public static void setRecupererObjetSol(KeyCode recupererObjetSol) {
         ConstantesClavier.recupererObjetSol = recupererObjetSol;
+    }
+
+    public static void setSort2(KeyCode sort2) {
+        ConstantesClavier.sort2 = sort2;
+    }
+
+    public static void setSort3(KeyCode sort3) {
+        ConstantesClavier.sort3 = sort3;
     }
 }

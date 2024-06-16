@@ -1,26 +1,47 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-
 import java.util.ArrayList;
+import java.util.List;
 
-public class Sommet
-{
-    private int x,y;
-    public Sommet(int x, int y)
-    {
-        this.x = x;
-        this.y = y;
+public class Sommet {
+    private Position position;
+    private boolean traversable;
+    private List<Sommet> voisins;
+
+    public Sommet(Position position, boolean traversable) {
+        this.position = position;
+        this.traversable = traversable;
+        this.voisins = new ArrayList<>();
     }
 
-
-    public int getY() {
-        return y;
+    public Position getPosition() {
+        return position;
     }
 
-    public int getX()
+    public boolean isTraversable() {
+        return traversable;
+    }
+
+    public void setTraversable(boolean traversable) {
+        this.traversable = traversable;
+    }
+
+    public List<Sommet> getVoisins() {
+        return voisins;
+    }
+
+    public void addVoisin(Sommet voisin) {
+        this.voisins.add(voisin);
+    }
+
+    public double distance(Sommet autre) {
+        return Math.sqrt(Math.pow(position.getX() - autre.getPosition().getX(), 2) +
+                Math.pow(position.getY() - autre.getPosition().getY(), 2));
+    }
+
+    @Override
+    public String toString()
     {
-        return x;
+        return position.toString();
     }
 }
-

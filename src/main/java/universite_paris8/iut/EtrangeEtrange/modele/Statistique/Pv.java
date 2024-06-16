@@ -5,61 +5,75 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 public class Pv
 {
+    private DoubleProperty pvMaximum;
     private DoubleProperty pv;
-    private DoubleProperty pvActuelle;
 
     public Pv(double pv)
     {
+        this.pvMaximum = new SimpleDoubleProperty(pv);
         this.pv = new SimpleDoubleProperty(pv);
-        this.pvActuelle = new SimpleDoubleProperty(pv);
     }
 
-    public void setPvActuelle(double pvActuelle)
+    public void setPv(double pv)
     {
-        if (pvActuelle <= pv.get())
-            this.pvActuelle.set(pvActuelle);
+        if (pv <= pvMaximum.get())
+            this.pv.set(pv);
     }
 
-    public void setPv(double pvMax)
+    public void setPvMaximum(double pvMax)
     {
-        this.pv.set(pvMax);
+        this.pvMaximum.set(pvMax);
 
-        if (pvActuelle.get() < pv.get())
-            pvActuelle.set(pvMax);
+        if (pv.get() < pvMaximum.get())
+            pv.set(pvMax);
     }
 
     public void enleverPv(double pv)
     {
-        if (pv >= pvActuelle.get())
-            pvActuelle.set(0);
+        if (pv >= this.pv.get())
+            this.pv.set(0);
         else
-            pvActuelle.set(pvActuelle.get()-pv);
+            this.pv.set(this.pv.get()-pv);
     }
 
     public void ajoutPv(double pv)
     {
-        if (pv + pvActuelle.get() > this.pv.get())
-            this.pvActuelle.set(this.pv.get());
+        if (pv + this.pv.get() > this.pvMaximum.get())
+            this.pv.set(this.pvMaximum.get());
         else
-            this.pvActuelle.set(this.pvActuelle.get()+pv);
+            this.pv.set(this.pv.get()+pv);
     }
 
+    public void enleveToutPv()
+    {
+        this.pv.set(0);
+    }
 
     public boolean pvAzero()
     {
-        return this.pvActuelle.get() == 0;
+        return this.pv.get() == 0;
     }
 
     public void remettreMaxPv()
     {
-        this.pvActuelle.set(this.pv.get());
-    }
-    public double getPvActuelle() {
-        return this.pvActuelle.get();
+        this.pv.set(this.pvMaximum.get());
     }
     public double getPv() {
         return this.pv.get();
     }
+    public double getPvMaximum() {
+        return this.pvMaximum.get();
+    }
 
-    public DoubleProperty getPvActuelleProperty(){return this.pvActuelle;}
+    public DoubleProperty getPvActuelleProperty(){return this.pv;}
+
+    public int nbCoeurs() {
+        return (int) Math.ceil(getPv() / 20);
+    }
+
+    public int nbCoeursMax() {
+        return (int) Math.ceil(getPvMaximum() / 20);
+    }
+
+
 }

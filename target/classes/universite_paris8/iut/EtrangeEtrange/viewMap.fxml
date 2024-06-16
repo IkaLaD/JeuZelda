@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
 
-<Pane fx:id="paneEntite" onKeyReleased="#onKeyReleased" onKeyPressed="#keyPressed" onMouseClicked="#mouseClick" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.Controller">
-   <children>
-      <TilePane fx:id="TilePaneSol" />
-      <TilePane fx:id="TilePaneTraversable" />
-      <TilePane fx:id="TilePaneNontraversable" />
-   </children>
-</Pane>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
+ <Pane fx:id="paneInteraction" onKeyPressed="#keyPressed" onKeyReleased="#onKeyReleased" onMouseClicked="#mouseClick" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.Controller" >
+        <children>
+                <Pane fx:id="paneEntite" onKeyReleased="#onKeyReleased" onKeyPressed="#keyPressed">
+             <children>
+                <TilePane fx:id="TilePaneSol" />
+                <TilePane fx:id="TilePaneTraversable" />
+                <TilePane fx:id="TilePaneNontraversable" />
+            </children>
+        </Pane>
+            <HBox fx:id="hboxCoeurs" spacing="5" prefWidth="500" prefHeight="50">
+                 <Rectangle width="30" height="30" fill="white" />
+            </HBox>
+        </children>
+    </Pane>
+

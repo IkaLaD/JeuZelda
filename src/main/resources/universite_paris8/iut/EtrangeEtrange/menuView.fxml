@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+
+
+<StackPane fx:id="mainConteneur" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.EtrangeEtrange.controller.ControllerMenu">
+    <Pane fx:id="paneEntite">
+        <children>
+            <TilePane fx:id="TilePaneSol" />
+            <TilePane fx:id="TilePaneTraversable" />
+            <TilePane fx:id="TilePaneNontraversable" />
+        </children>
+    </Pane>
+    <TabPane fx:id="TabPane" onKeyPressed="#onKeyPressed" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab fx:id="Inventaire" text="Inventaire" >
+                <content>
+                    <fx:include source="inventaireView.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="Competence" text="Compétences" >
+                <content>
+                    <fx:include source="CompetenceView.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="ToucheClavier" text="Touches clavier" >
+                <content>
+                    <fx:include source="touchesClavierView.fxml"/>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+</StackPane>

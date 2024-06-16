@@ -1,96 +1,90 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arme;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-import java.util.ArrayList;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstanteObjet;
 
-public class Arc extends Arme {
-    private double degats;
-    private double portee;
+public class Arc implements Arme,Rechargeable
+{
+    private long derniereApelle;
+    private boolean peutTirer;
 
-    public Arc(double degats, double portee) {
-        this.degats = degats;
-        this.portee = portee;
+    private final static int DURABILITE = ConstanteObjet.DURABILITE_ARC;
+    private final static int PRIX_ACHAT = ConstanteObjet.PRIX_ACHAT_ARC;
+    private final static long DELAIE_UTILISATION = ConstanteObjet.DELAIE_UTILISATION_ARC;
+    private final static int STACK_MAX = ConstanteObjet.STACK_MAX_ARC;
+
+    private int durabilitee;
+    private Fleche fleche;
+
+    public Arc()
+    {
+        this.peutTirer = true;
+        this.derniereApelle = -1;
+        this.durabilitee = DURABILITE;
+        this.fleche = null;
     }
 
     @Override
-    public double degatPhysique() {
-        return degats;
+    public void utilise(Entite entite)
+    {
+        if (peutTirer && fleche != null)
+        {
+            this.durabilitee--;
+            this.fleche.setMonde(entite.getMonde());
+            this.fleche.setNewPosition(entite.getPosition().getX(),entite.getPosition().getY());
+            this.fleche.setDirection(entite.getDirection());
+            this.fleche.setUtilisateur(entite);
+            entite.getMonde().ajoutActeur(fleche);
+            this.derniereApelle = System.currentTimeMillis();
+            entite.getMonde().ajoutRechargeable(this);
+
+            this.peutTirer = false;
+            this.fleche = null;
+        }
     }
 
-    @Override
-    public double degatSpecial() {
-        return 0; // Pas de dégât spécial pour un arc
-    }
 
+    public void setFleche(Fleche fleche){ this.fleche = fleche; }
     @Override
-    public double portee() {
-        return portee;
+    public long delaie() {
+        return DELAIE_UTILISATION;
     }
-
     @Override
-    public double angle() {
-        return 0; // Pour un arc, l'angle n'est pas pertinent
-    }
+    public boolean cooldown()
+    {
+        boolean actionFait = false;
 
-    @Override
-    public double delaieEntreCoup() {
-        return 0; // Pour un arc, le délai entre les coups n'est pas pertinent
+        long apelle = System.currentTimeMillis();
+
+        if (apelle - derniereApelle >= delaie())
+        {
+            this.derniereApelle = -1;
+            this.peutTirer = true;
+            actionFait = true;
+        }
+
+        return actionFait;
     }
 
     @Override
     public String getNom() {
-        return "Arc"; // Nom générique pour un arc
+        return "arc";
     }
-
     @Override
     public int stackMax() {
-        return 1; // On suppose qu'on ne peut porter qu'un arc à la fois
+        return STACK_MAX;
+    }
+    @Override
+    public double durabilitee() {
+        return durabilitee;
+    }
+    @Override
+    public int prixAchat() {
+        return PRIX_ACHAT;
     }
 
-    public void infligerDegatsEntiteDevant(Position positionJoueur, Direction directionJoueur, ArrayList<Entite> entites) {
-        double distanceMin = Double.MAX_VALUE;
-        Entite entiteProche = null;
-
-        for (Entite entite : entites) {
-            // Calcul de la distance entre le joueur et l'entité
-            double distance = calculerDistance(positionJoueur, entite.getPosition());
-
-            // Vérification si l'entité est dans la direction du joueur et plus proche que la distance minimale actuelle
-            if (estDansDirection(directionJoueur, positionJoueur, entite.getPosition()) && distance < distanceMin) {
-                distanceMin = distance;
-                entiteProche = entite;
-            }
-        }
-
-        // Si une entité a été trouvée dans la portée de l'arc
-        if (entiteProche != null) {
-            // Infliger des dégâts à l'entité trouvée
-            entiteProche.subitDegat(degats, 0); // On suppose que l'attaque spéciale est de 0
-        }
-    }
-
-    private double calculerDistance(Position pos1, Position pos2) {
-        double dx = pos2.getX() - pos1.getX();
-        double dy = pos2.getY() - pos1.getY();
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-
-    private boolean estDansDirection(Direction direction, Position positionJoueur, Position positionEntite) {
-        switch (direction) {
-            case HAUT:
-                return positionEntite.getY() < positionJoueur.getY() && positionEntite.getX() == positionJoueur.getX();
-            case BAS:
-                return positionEntite.getY() > positionJoueur.getY() && positionEntite.getX() == positionJoueur.getX();
-            case GAUCHE:
-                return positionEntite.getX() < positionJoueur.getX() && positionEntite.getY() == positionJoueur.getY();
-            case DROITE:
-                return positionEntite.getX() > positionJoueur.getX() && positionEntite.getY() == positionJoueur.getY();
-            default:
-                return false;
-        }
-    }
 }

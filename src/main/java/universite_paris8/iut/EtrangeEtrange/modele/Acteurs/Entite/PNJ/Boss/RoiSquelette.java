@@ -14,12 +14,17 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public class RoiSquelette extends EntiteOffensif {
+public class RoiSquelette extends EntiteOffensif
+{
+
     private long dernierTempsAttaque;
+    private long delaiAttaque = 200;
     private Position positionInitiale;
     private int etapeAttaque;
     private Position positionMilieu;
     private Position position5_2;
+    private boolean joueurDetecte = false;
+    private double distanceDetection = 5.0;
 
     public RoiSquelette(Monde monde, double x, double y, Direction direction) {
         super(monde, x, y, direction,

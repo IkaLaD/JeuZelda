@@ -30,10 +30,10 @@ public class Monde {
      * Taille du monde (généré aléatoirement)
      * Ces valeurs ne servent que pour tester le fonctionnement de la scrolling map, elles seront supprimées lorsque les tests seront finis.
      */
-    private static final int sizeMondeHauteur = 33;
-    private static final int sizeMondeLargeur = 33;
-    private static final double xPointDeDepart = 17;
-    private static final double yPointDeDepart = 17;
+    private static final int sizeMondeHauteur = 70;
+    private static final int sizeMondeLargeur = 70;
+    private static final double xPointDeDepart = 16;
+    private static final double yPointDeDepart = 16;
     private int[][] sol;
     private int[][] traversable;
     private int[][] nontraversable;
@@ -98,8 +98,6 @@ public class Monde {
                 System.err.println("Erreur de format dans le fichier : " + e.getMessage());
             }
         }
-
-
 
     }
 
@@ -208,7 +206,6 @@ public class Monde {
     public void unTour()
     {
         this.tour++;
-
         joueur.unTour();
         for(int i = acteurs.size()-1 ; i>=0 ; i--)
             acteurs.get(i).unTour();

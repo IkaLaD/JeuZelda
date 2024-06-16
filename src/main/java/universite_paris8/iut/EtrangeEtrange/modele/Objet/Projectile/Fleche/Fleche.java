@@ -7,7 +7,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Projectile;
 
 public class Fleche extends Projectile
 {
-    public Fleche() {super(1,new Hitbox(0.5,0.2));}
+    public Fleche() {super(0.08,new Hitbox(0.5,0.2));}
 
     @Override
     public double degatPhysique() {

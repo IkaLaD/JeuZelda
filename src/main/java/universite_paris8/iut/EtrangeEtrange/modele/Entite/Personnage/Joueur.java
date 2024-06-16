@@ -104,7 +104,6 @@ public abstract class Joueur extends Humanoide
     @Override
     public void unTour()
     {
-
         for (Direction direction1 : directions)
         {
             setDirection(direction1);

@@ -8,7 +8,7 @@
  "margin":0,
  "name":"nontraversable",
  "spacing":0,
- "tilecount":20,
+ "tilecount":41,
  "tiledversion":"1.10.2",
  "tileheight":64,
  "tiles":[
@@ -129,6 +129,132 @@
         {
          "id":19,
          "image":"6.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":20,
+         "image":"grandarbre1.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":21,
+         "image":"grandarbre2.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":22,
+         "image":"grandarbre3.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":23,
+         "image":"grandarbre4.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":24,
+         "image":"petitarbre4.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":25,
+         "image":"petitarbre1.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":26,
+         "image":"petitarbre2.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":27,
+         "image":"petitarbre3.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":28,
+         "image":"eau0.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":29,
+         "image":"eau1.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":30,
+         "image":"eau2.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":31,
+         "image":"eau3.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":32,
+         "image":"eau4.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":33,
+         "image":"eau5.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":34,
+         "image":"eau6.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":35,
+         "image":"eau7.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":36,
+         "image":"eau8.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":37,
+         "image":"eau9.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":38,
+         "image":"eau10.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":39,
+         "image":"eau11.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":40,
+         "image":"eau12.png",
          "imageheight":64,
          "imagewidth":64
         }],

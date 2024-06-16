@@ -8,7 +8,7 @@
  "margin":0,
  "name":"sol",
  "spacing":0,
- "tilecount":14,
+ "tilecount":15,
  "tiledversion":"1.10.2",
  "tileheight":64,
  "tiles":[
@@ -93,6 +93,12 @@
         {
          "id":13,
          "image":"20.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":14,
+         "image":"planche.png",
          "imageheight":64,
          "imagewidth":64
         }],

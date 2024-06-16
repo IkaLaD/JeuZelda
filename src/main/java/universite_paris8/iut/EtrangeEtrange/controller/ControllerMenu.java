@@ -62,14 +62,14 @@ public class ControllerMenu implements Initializable {
         // Listener pour que la TilePane et la Pane suivent le joueur
         // Listener pour que la TilePane et la Pane suivent le joueur
         joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
-            paneEntite.setTranslateX(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
+            paneEntite.setTranslateX(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX(), largeur));
         });
         joueur.getPosition().getYProperty().addListener((obs, old, nouv)-> {
-            paneEntite.setTranslateY(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
+            paneEntite.setTranslateY(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY(), hauteur));
         });
 
-        paneEntite.setTranslateX(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
-        paneEntite.setTranslateY(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
+        paneEntite.setTranslateX(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX(), largeur));
+        paneEntite.setTranslateY(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY(), hauteur));
     }
 
 

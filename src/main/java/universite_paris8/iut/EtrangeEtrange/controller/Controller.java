@@ -77,7 +77,7 @@ public class Controller implements Initializable {
     private Monde monde;
     private Joueur joueur;
     private Timeline gameLoop;
-    
+
 
     private SwitchScene switchDonnees;
     private GestionAffichageVieJoueur vueVie; // La vue qui gère l'affichage des PV
@@ -127,7 +127,7 @@ public class Controller implements Initializable {
         gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol = new gestionAffichageSpriteDropAuSol(paneEntite);
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
         monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
-        
+
         monde.setJoueur(joueur);
         initBoss();
 
@@ -177,14 +177,14 @@ public class Controller implements Initializable {
 
         // Listener pour que la TilePane et la Pane suivent le joueur
         joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
-            paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
+            paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX(), largeur));
         });
         joueur.getPosition().getYProperty().addListener((obs, old, nouv)-> {
-            paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
+            paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY(), hauteur));
         });
 
-        paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX()));
-        paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY()));
+        paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX(), largeur));
+        paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY(), hauteur));
     }
 
     /**
@@ -192,15 +192,15 @@ public class Controller implements Initializable {
      * @param position : Position du joueur
      * @param longueurAxe : Hauteur ou largeur de l'écran
      */
-    public double scrollMap(double position, int longueurAxe, double positionInitiale){
+    public double scrollMap(double position, int longueurAxe, double positionInitiale, int axe){
         if (-position * Constantes.tailleTile + longueurAxe / 2.0 < 0)
-            if (-position * Constantes.tailleTile + longueurAxe / 2.0 > -Monde.getSizeMondeLargeur()*Constantes.tailleTile+longueurAxe )
+            if (-position * Constantes.tailleTile + longueurAxe / 2.0 > -axe+longueurAxe )
                 return -position * Constantes.tailleTile + longueurAxe / 2.0;
         return positionInitiale;
     }
     public void initMonde()
     {
-        monde = new Monde("src/main/resources/universite_paris8/iut/EtrangeEtrange/TiledMap/", "maptest", Monde.getSizeMondeHauteur(), Monde.getSizeMondeLargeur());
+        monde = new Monde("src/main/resources/universite_paris8/iut/EtrangeEtrange/TiledMap/", "mapfinal", Monde.getSizeMondeHauteur(), Monde.getSizeMondeLargeur());
     }
 
     public void initJoueur() {
@@ -276,29 +276,29 @@ public class Controller implements Initializable {
 
     public void onKeyReleased(KeyEvent keyEvent)
     {
-            KeyCode touche = keyEvent.getCode();
+        KeyCode touche = keyEvent.getCode();
 
-            if (!interactionAvecPnj)
-            {
-                if(touche==ConstantesClavier.deplacementHaut) {
-                    joueur.enleveDirection(Direction.HAUT);
-                    joueur.setSeDeplace(false);
-                }
-                else if(touche==ConstantesClavier.deplacementDroite) {
-                    joueur.enleveDirection(Direction.DROITE);
-                    joueur.setSeDeplace(false);
-                }
-                else if(touche==ConstantesClavier.deplacementGauche) {
-                    joueur.enleveDirection(Direction.GAUCHE);
-                    joueur.setSeDeplace(false);
-                }
-                else if(touche==ConstantesClavier.deplacementBas) {
-                    joueur.enleveDirection(Direction.BAS);
-                    joueur.setSeDeplace(false);
-                }
-                else if(touche==ConstantesClavier.courrir)
-                    joueur.estEntrainDeCourir(false);
+        if (!interactionAvecPnj)
+        {
+            if(touche==ConstantesClavier.deplacementHaut) {
+                joueur.enleveDirection(Direction.HAUT);
+                joueur.setSeDeplace(false);
             }
+            else if(touche==ConstantesClavier.deplacementDroite) {
+                joueur.enleveDirection(Direction.DROITE);
+                joueur.setSeDeplace(false);
+            }
+            else if(touche==ConstantesClavier.deplacementGauche) {
+                joueur.enleveDirection(Direction.GAUCHE);
+                joueur.setSeDeplace(false);
+            }
+            else if(touche==ConstantesClavier.deplacementBas) {
+                joueur.enleveDirection(Direction.BAS);
+                joueur.setSeDeplace(false);
+            }
+            else if(touche==ConstantesClavier.courrir)
+                joueur.estEntrainDeCourir(false);
+        }
 
 
 

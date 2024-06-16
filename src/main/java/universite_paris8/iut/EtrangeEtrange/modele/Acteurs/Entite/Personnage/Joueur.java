@@ -12,6 +12,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Livre
 
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epee;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.Piece;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
 
@@ -149,6 +150,14 @@ public abstract class Joueur extends Humanoide
         }
     }
     public Competences getCompetences() { return this.competences; }
-    public int getPiece(){ return 110;}
+    public int getPiece(){
+        int totalPiece = 0;
+        for(int i = 0 ; i < sac.getTailleMax() ; i++){
+            if(sac.getEmplacement(i).nomObjet()=="pieceor")
+                totalPiece+= sac.getEmplacement(i).quantiteObjet();
+        }
+
+        return totalPiece;
+    }
 
 }

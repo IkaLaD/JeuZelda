@@ -131,6 +131,7 @@ public abstract class Acteur
         this.position.setX(x);
         this.position.setY(y);
     }
+    public abstract void dropApresMort();
     public void setPosition(Position pos){ this.position = new Position(pos.getX(),pos.getY());}
     public void setNewPosition(double x, double y){
         this.position = new Position(x,y);

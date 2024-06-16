@@ -8,6 +8,7 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesAffichage;
+import universite_paris8.iut.EtrangeEtrange.vues.GestionSon;
 
 import java.io.IOException;
 
@@ -26,6 +27,7 @@ public class SwitchScene {
     private TilePane TilePaneSol;
     private TilePane TilePaneTraversable;
     private TilePane TilePaneNontraversable;
+    private GestionSon gestionSon;
     private Joueur joueur;
     private String classeJoueur;
 
@@ -68,6 +70,14 @@ public class SwitchScene {
         this.TilePaneNontraversable.getChildren().clear();
         this.TilePaneSol.getChildren().clear();
         this.TilePaneTraversable.getChildren().clear();
+    }
+
+    public void setGestionSon(GestionSon gestionSon){
+        this.gestionSon = gestionSon;
+    }
+
+    public GestionSon getGestionSon() {
+        return gestionSon;
     }
 
     public ControllerCompetence getControllerCompetence() {

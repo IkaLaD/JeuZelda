@@ -69,7 +69,7 @@ public class ConstanteObjet
     public static final int NOMBRE_UTLISATION_ORBE = 1;
     public static final int PRIX_ACHAT_ORBE = 15;
     public static final int STACK_MAX_ORBE = 64;
-    public static final long DELAIE_CHERCHE_POSITION_ORBE = 200;
+    public static final long DELAIE_CHERCHE_POSITION_ORBE = 10000;
 
 
     //--------------------------------------------LIVRE MAGIQUE-------------------------------------------------------//

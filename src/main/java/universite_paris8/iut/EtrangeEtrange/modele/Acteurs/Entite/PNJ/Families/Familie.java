@@ -152,6 +152,11 @@ public class Familie extends EntiteOffensif {
     }
 
     @Override
+    public void dropApresMort() {
+
+    }
+
+    @Override
     public boolean estUnEnemie() {
         return false;
     }

@@ -29,8 +29,18 @@ public class ActionAchat extends Action
             if (joueur.getPiece() >= objet.prixAchat())
             {
                 joueur.getSac().ajoutItem(objet);
-                //joueur.enlevePiece(objet.prixAchat());
-                //marchand.getSac().enleverObjet(objet);
+                int resteAPayer = objet.prixAchat();
+
+                for(int i = 0 ; i < joueur.getSac().getTailleMax() && resteAPayer!=0 ; i++){
+                    if(joueur.getSac().getEmplacement(i).nomObjet().equals("pieceor")) {
+                        int quantite = joueur.getSac().getEmplacement(i).quantiteObjet();
+                        for(int j = 0 ; j <  quantite &&  resteAPayer!=0; j++){
+                            joueur.getSac().getEmplacement(i).enleveObjet();
+                            resteAPayer--;
+                        }
+                    }
+                }
+
             }
         }
 

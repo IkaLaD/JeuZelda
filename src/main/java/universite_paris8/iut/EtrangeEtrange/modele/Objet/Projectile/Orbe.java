@@ -50,6 +50,7 @@ public class Orbe extends Projectile implements Utilisable, Rechargeable
 
             if (acteurAsuivre != null)
             {
+                setUtilisateur(entite);
                 this.bfs.chercherChemin(monde, getPosition(),acteurAsuivre.getPosition());
 
                 entite.getMonde().ajoutActeur(this);
@@ -106,6 +107,12 @@ public class Orbe extends Projectile implements Utilisable, Rechargeable
 
     @Override
     public String typeActeur() { return "orbe"; }
+
+    @Override
+    public void dropApresMort() {
+
+    }
+
     @Override
     public boolean estUnEnemie() { return false; }
     @Override
@@ -123,9 +130,11 @@ public class Orbe extends Projectile implements Utilisable, Rechargeable
 
     @Override
     public long delaie() {
-        return DELAIE;
+        return DELAIE+500;
     }
 
+    @Override
+    public boolean peutSeDeplacer() {return !monde.estHorsMap(this);}
     @Override
     public boolean cooldown()
     {

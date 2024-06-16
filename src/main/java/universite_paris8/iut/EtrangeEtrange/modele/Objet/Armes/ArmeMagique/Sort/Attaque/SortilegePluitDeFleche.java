@@ -47,6 +47,7 @@ public class SortilegePluitDeFleche extends Sortilege {
                             flecheSimple.setDirection(direction);
                             flecheSimple.setPosition(positionAleaAutourDe(x,y, direction));
                             flecheSimple.setMonde(utilisateur.getMonde());
+                            flecheSimple.setUtilisateur(utilisateur);
                             utilisateur.getMonde().ajoutActeur(flecheSimple);
                             actionFait = true;
                         }
@@ -90,4 +91,3 @@ public class SortilegePluitDeFleche extends Sortilege {
 
 
 }
-

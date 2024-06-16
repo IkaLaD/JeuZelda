@@ -5,6 +5,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif
 
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.PieceOr;
+import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
@@ -18,7 +20,7 @@ public class Squelette extends EntiteOffensif  {
     private long lastPathCalculationTime;
 
     public Squelette( Monde monde, double x, double y, Direction direction, Hitbox hitbox, Joueur joueur, Aetoile aetoile) {
-        super( monde,  x,  y,  direction,  100,  10,  10,1 ,  10,  0.025, hitbox);
+        super( monde,  x,  y,  direction,  100,  10,  10,1 ,  10,  0.005, hitbox);
         this.joueur = joueur;
         this.aetoile = aetoile;
         this.lastPathCalculationTime = System.currentTimeMillis();
@@ -105,6 +107,14 @@ public class Squelette extends EntiteOffensif  {
     @Override
     public String typeActeur() {
         return "Squelette";
+    }
+
+    @Override
+    public void dropApresMort() {
+        double x = getPosition().getX();
+        double y = getPosition().getY();
+        getMonde().ajouterDropAuSol(new DropAuSol(new PieceOr(), 1, new Position(x, y)));
+        System.out.println("passage");
     }
 
     @Override

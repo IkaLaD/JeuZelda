@@ -110,6 +110,7 @@ public class Controller implements Initializable {
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
         this.gestionSon = new GestionSon();
+        switchDonnees.setGestionSon(gestionSon);
         GestionActeur gestionActeur = new GestionActeur(monde,paneEntite, gestionSon);
         monde.setListenerActeur(gestionActeur);
 
@@ -133,6 +134,7 @@ public class Controller implements Initializable {
             if (nouv.doubleValue() <= 0) {
                 try {
                     switchDonnees.gameOver();
+                    gestionSon.gameOver();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -222,7 +224,9 @@ public class Controller implements Initializable {
         joueur.getSac().ajoutItem(new LivreMagique());
         joueur.getSac().ajoutItem(new Arc());
         joueur.getSac().ajoutItem(new Potion());
-        joueur.getSac().ajoutItem(new PieceOr());
+        for(int i = 0 ; i < 20 ;i ++){
+            joueur.getSac().ajoutItem(new PieceOr());
+        }
     }
 
 

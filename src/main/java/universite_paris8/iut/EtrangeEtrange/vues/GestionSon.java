@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.vues;
 
+import javafx.application.Application;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -11,12 +12,30 @@ import java.io.File;
 public class GestionSon
 {
 
-    public GestionSon()
-    {}
+    private AudioClip musiqueFond;
+    private AudioClip musiqueGameOver;
 
+    public GestionSon()
+    {
+        musiqueFond = new AudioClip(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/musiqueGame.mp3").toURI().toString());
+        musiqueGameOver = new AudioClip(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/musiqueGameOver.mp3").toURI().toString());
+        musiqueFond.setCycleCount(AudioClip.INDEFINITE);
+        musiqueFond.play(0.1);
+    }
+
+    public void gameOver(){
+        musiqueFond.stop();
+        musiqueGameOver.setCycleCount(AudioClip.INDEFINITE);
+        musiqueGameOver.play(0.1);
+    }
+
+    public void stopMusique(){
+        musiqueFond.stop();
+        musiqueGameOver.stop();
+    }
     public void lanceSong(Objet objet)
     {
-        if(objet.getNom() !="livremagique" && objet.getNom() !="arc") {
+        if(objet.getNom() !="livremagique" && objet.getNom() !="arc" && objet.getNom()!="orbe") {
             AudioClip mediaPlayer = new AudioClip(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/" + objet.getNom() + ".mp3").toURI().toString());
             mediaPlayer.play();
         }

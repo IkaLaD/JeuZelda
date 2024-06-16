@@ -43,10 +43,14 @@ public class Fleche extends Projectile
     }
 
     @Override
+    public void dropApresMort() {
+
+    }
+
+    @Override
     public boolean estUnEnemie() {
         return false;
     }
-
     @Override
     public int stackMax() {return STACK_MAX;}
     @Override

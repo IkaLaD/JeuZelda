@@ -24,8 +24,9 @@ public  class LivreMagique implements Arme, Rechargeable
     public LivreMagique()
     {
         this.sortileges = new ArrayList<>();
-        this.sortileges.add(SORTILEGE2);
         this.sortileges.add(SORTILEGE1);
+        this.sortileges.add(SORTILEGE2);
+
 
         this.peutTirer = true;
         this.derniereApelle = 0;

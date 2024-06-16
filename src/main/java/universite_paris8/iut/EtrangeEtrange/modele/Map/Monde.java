@@ -189,9 +189,7 @@ public class Monde {
 
     public void ajouterDropAuSol(DropAuSol dropAuSol){
         this.dropsAuSol.add(dropAuSol);
-    }
-    public void supprimerDropAuSol(DropAuSol dropAuSol){
-        this.dropsAuSol.remove(dropAuSol);
+        System.out.println("passage2");
     }
 
 
@@ -248,7 +246,10 @@ public class Monde {
         for(int i = acteurs.size()-1 ; i>=0 ; i--)
             acteurs.get(i).unTour();
 
-        this.acteurs.removeAll(acteursAsupprimer);
+        for(int i = 0 ; i < acteursAsupprimer.size(); i++){
+            enleveActeur(acteursAsupprimer.get(i));
+        }
+
         this.acteursAsupprimer.clear();
 
 
@@ -410,6 +411,7 @@ public class Monde {
     }
 
     public void enleveActeur(Acteur acteur) {
+        acteur.dropApresMort();
         this.acteurs.remove(acteur);
     }
 

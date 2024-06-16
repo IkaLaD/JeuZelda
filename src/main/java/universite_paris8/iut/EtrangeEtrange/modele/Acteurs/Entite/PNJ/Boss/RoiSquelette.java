@@ -162,6 +162,11 @@ public class RoiSquelette extends EntiteOffensif
     }
 
     @Override
+    public void dropApresMort() {
+
+    }
+
+    @Override
     public boolean estUnEnemie() {
         return true;
     }

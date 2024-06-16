@@ -6,8 +6,11 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.PieceOr;
+import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 public class Slime extends EntiteOffensif {
     /**
@@ -19,6 +22,7 @@ public class Slime extends EntiteOffensif {
      * @param direction La direction dans laquelle l'entité est orientée.
      * @param hitbox    La hitbox de l'entité.
      */
+
     public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(monde, x, y, direction, 100, 30, 20, 20, 50, 0.005, hitbox);
     }
@@ -45,12 +49,18 @@ public class Slime extends EntiteOffensif {
 
     @Override
     public void subitCollision(Acteur acteur) {
-
     }
 
     @Override
     public String typeActeur() {
         return "slime";
+    }
+
+    @Override
+    public void dropApresMort() {
+        double x = getPosition().getX();
+        double y = getPosition().getY();
+        getMonde().ajouterDropAuSol(new DropAuSol(new PieceOr(), 1, new Position(x, y)));
     }
 
     @Override

@@ -140,6 +140,12 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     public String typeActeur() {
         return "epee";
     }
+
+    @Override
+    public void dropApresMort() {
+        
+    }
+
     @Override
     public long delaie() {
         return DELAIE_UTILISATION;

@@ -37,7 +37,7 @@ public class Arc implements Arme,Rechargeable
             this.fleche.setMonde(entite.getMonde());
             this.fleche.setNewPosition(entite.getPosition().getX(),entite.getPosition().getY());
             this.fleche.setDirection(entite.getDirection());
-
+            this.fleche.setUtilisateur(entite);
             entite.getMonde().ajoutActeur(fleche);
             this.derniereApelle = System.currentTimeMillis();
             entite.getMonde().ajoutRechargeable(this);

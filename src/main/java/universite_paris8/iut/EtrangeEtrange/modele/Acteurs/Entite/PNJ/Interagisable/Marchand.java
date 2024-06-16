@@ -65,6 +65,11 @@ public class Marchand extends HumainPNJ implements Dropable
     }
 
     @Override
+    public void dropApresMort() {
+
+    }
+
+    @Override
     public boolean estUnEnemie() {return false;}
 
     @Override

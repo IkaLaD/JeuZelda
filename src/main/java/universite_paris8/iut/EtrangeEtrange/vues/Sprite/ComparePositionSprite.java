@@ -2,7 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.vues.Sprite;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.SpriteEntite;
 
 import java.util.Comparator;

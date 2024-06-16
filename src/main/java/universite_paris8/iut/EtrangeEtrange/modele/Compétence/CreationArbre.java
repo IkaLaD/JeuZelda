@@ -1,10 +1,8 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Compétence;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.Competence;
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.CompetenceGeneral.CompetenceStats.CompetenceUpPV;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class CreationArbre {
     public static Competences arbres() {
@@ -12,48 +10,47 @@ public class CreationArbre {
 
         // Création des compétences
         TypeCompetence root = TypeCompetence.COURIR;
-        TypeCompetence comp1 = TypeCompetence.UP_ATTAQUE_SPECIAL;
-        TypeCompetence comp2 = TypeCompetence.UP_ATTAQUE;
-        TypeCompetence comp3 = TypeCompetence.UP_VITESSE;
-        TypeCompetence comp4 = TypeCompetence.UP_PV;
-        TypeCompetence comp5 = TypeCompetence.INVOQUER;
-        TypeCompetence comp6 = TypeCompetence.UP_DEFENSE;
-        TypeCompetence comp7 = TypeCompetence.UP_DEFENSE_SPECIAL;
+        TypeCompetence attaqueSpecial = TypeCompetence.UP_ATTAQUE_SPECIAL;
+        TypeCompetence attaque = TypeCompetence.UP_ATTAQUE;
+        TypeCompetence vitesse = TypeCompetence.UP_PV2;
+        TypeCompetence pv = TypeCompetence.UP_PV;
+        TypeCompetence invoquer = TypeCompetence.INVOQUER;
+        TypeCompetence defense = TypeCompetence.UP_DEFENSE;
+        TypeCompetence defenseSpecial = TypeCompetence.UP_DEFENSE_SPECIAL;
 
         // Définir les relations parent-enfant
         ArrayList<TypeCompetence> rootParents = new ArrayList<>();
-        ArrayList<TypeCompetence> rootEnfants = new ArrayList<>(Arrays.asList(comp1, comp2));
+        ArrayList<TypeCompetence> rootEnfants = new ArrayList<>(List.of(attaqueSpecial));
 
-        ArrayList<TypeCompetence> comp1Parents = new ArrayList<>(Arrays.asList(root));
-        ArrayList<TypeCompetence> comp1Enfants = new ArrayList<>(Arrays.asList(comp3, comp4));
+        ArrayList<TypeCompetence> attaqueSpecialParents = new ArrayList<>(Arrays.asList(root));
+        ArrayList<TypeCompetence> attaqueSpecial1Enfants = new ArrayList<>(Arrays.asList(attaque, vitesse));
 
-        ArrayList<TypeCompetence> comp2Parents = new ArrayList<>(Arrays.asList(root));
-        ArrayList<TypeCompetence> comp2Enfants = new ArrayList<>(Arrays.asList(comp5, comp6));
+        ArrayList<TypeCompetence> attaqueParents = new ArrayList<>(Arrays.asList(attaqueSpecial));
+        ArrayList<TypeCompetence> attaqueEnfants = new ArrayList<>();
 
-        ArrayList<TypeCompetence> comp3Parents = new ArrayList<>(Arrays.asList(comp1));
-        ArrayList<TypeCompetence> comp3Enfants = new ArrayList<>(Arrays.asList(comp7));
+        ArrayList<TypeCompetence> vitesseParents = new ArrayList<>(Arrays.asList(attaqueSpecial));
+        ArrayList<TypeCompetence> vitesseEnfants = new ArrayList<>(Arrays.asList(defense,pv));
 
-        ArrayList<TypeCompetence> comp4Parents = new ArrayList<>(Arrays.asList(comp1));
-        ArrayList<TypeCompetence> comp4Enfants = new ArrayList<>();
+        ArrayList<TypeCompetence> pvParents = new ArrayList<>(Arrays.asList(vitesse));
+        ArrayList<TypeCompetence> pvEnfants = new ArrayList<>();
 
-        ArrayList<TypeCompetence> comp5Parents = new ArrayList<>(Arrays.asList(comp2));
-        ArrayList<TypeCompetence> comp5Enfants = new ArrayList<>();
+        ArrayList<TypeCompetence> defenseParents = new ArrayList<>(Arrays.asList(vitesse));
+        ArrayList<TypeCompetence> defenseEnfants = new ArrayList<>(Arrays.asList(defenseSpecial));
 
-        ArrayList<TypeCompetence> comp6Parents = new ArrayList<>(Arrays.asList(comp2));
-        ArrayList<TypeCompetence> comp6Enfants = new ArrayList<>();
+        ArrayList<TypeCompetence> defenseSpecialParents = new ArrayList<>(Arrays.asList(defenseSpecial));
+        ArrayList<TypeCompetence> defenseSpecialEnfants = new ArrayList<>(Arrays.asList(invoquer));
 
-        ArrayList<TypeCompetence> comp7Parents = new ArrayList<>(Arrays.asList(comp3));
-        ArrayList<TypeCompetence> comp7Enfants = new ArrayList<>();
+
 
         // Ajout des compétences dans l'arbre
         competences.ajoutCompetence(root, rootParents, rootEnfants);
-        competences.ajoutCompetence(comp1, comp1Parents, comp1Enfants);
-        competences.ajoutCompetence(comp2, comp2Parents, comp2Enfants);
-        competences.ajoutCompetence(comp3, comp3Parents, comp3Enfants);
-        competences.ajoutCompetence(comp4, comp4Parents, comp4Enfants);
-        competences.ajoutCompetence(comp5, comp5Parents, comp5Enfants);
-        competences.ajoutCompetence(comp6, comp6Parents, comp6Enfants);
-        competences.ajoutCompetence(comp7, comp7Parents, comp7Enfants);
+        competences.ajoutCompetence(attaqueSpecial, attaqueSpecialParents, attaqueSpecial1Enfants);
+        competences.ajoutCompetence(attaque, attaqueParents, attaqueEnfants);
+        competences.ajoutCompetence(vitesse, vitesseParents, vitesseEnfants);
+        competences.ajoutCompetence(defense, defenseParents, defenseEnfants);
+        competences.ajoutCompetence(defenseSpecial, defenseSpecialParents, defenseSpecialEnfants);
+        competences.ajoutCompetence(pv, pvParents, pvEnfants);
+        competences.ajoutCompetence(invoquer, new ArrayList<>(List.of(defenseSpecial)),new ArrayList<>() );
 
         // Définir la racine de l'arbre
         competences.setRoot(root);

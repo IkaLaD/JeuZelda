@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.EtrangeEtrange.Runner;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesAffichage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +27,7 @@ public class ControllerMenuDebut implements Initializable {
     public void jouerClick(MouseEvent mouseEvent) throws IOException {
         SwitchScene switchScene = SwitchScene.getSwitchScene();
         FXMLLoader fxmlLoaderCompetences = new FXMLLoader(Runner.class.getResource("ChoixClasseView.fxml"));
-        Scene sceneCompetences = new Scene(fxmlLoaderCompetences.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
+        Scene sceneCompetences = new Scene(fxmlLoaderCompetences.load(), ConstantesAffichage.largeurEcran, ConstantesAffichage.hauteurEcran);
         switchScene.getStage().setScene(sceneCompetences);
         switchScene.getStage().show();
     }

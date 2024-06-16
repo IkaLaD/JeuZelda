@@ -16,26 +16,22 @@ import javafx.util.Duration;
 
 
 import universite_paris8.iut.EtrangeEtrange.Runner;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Bloc.Bloc;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Marchand;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.GestionPrompt;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Interagisable.Prompte.Prompt;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Slime;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Monstre.Squelette;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Archer;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Bloc.Bloc;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Marchand;
+import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.GestionPrompt;
+import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantePrompt;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epee;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesAffichage;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Guerrier;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Guerrier;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arc;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.PieceOr;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,7 +48,7 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageS
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.PNJ.Boss.RoiSquelette;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss.RoiSquelette;
 
 import java.io.File;
 import java.io.IOException;
@@ -117,8 +113,9 @@ public class Controller implements Initializable {
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
 
-        GestionActeur gestionCauseDegat = new GestionActeur(monde,paneEntite);
-        monde.setListenerActeur(gestionCauseDegat);
+        GestionActeur gestionActeur = new GestionActeur(monde,paneEntite);
+        monde.setListenerActeur(gestionActeur);
+
 
 
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
@@ -126,8 +123,8 @@ public class Controller implements Initializable {
 
         gestionAffichageSpriteDropAuSol gestionAffichageDropAuSol = new gestionAffichageSpriteDropAuSol(paneEntite);
         monde.setListenerListeDropsAuSol(gestionAffichageDropAuSol);
-        monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23), joueur));
-
+        monde.ajouterDropAuSol(new DropAuSol(new Arc(), 1, new Position(23, 23)));
+        
         monde.setJoueur(joueur);
         initBoss();
 
@@ -136,6 +133,8 @@ public class Controller implements Initializable {
         monde.ajoutActeur(new Marchand(monde,12,12,Direction.BAS));
         initGameLoop();
         gameLoop.play();
+
+        gestionActeur.listenerCollision(joueur);
 
     }
 
@@ -162,8 +161,8 @@ public class Controller implements Initializable {
 
     public void initPane(){
         // Initialisation taille en fonction de la taille de la map
-        int largeur = Monde.getSizeMondeLargeur()*Constantes.tailleTile;
-        int hauteur = Monde.getSizeMondeHauteur()*Constantes.tailleTile;
+        int largeur = Monde.getSizeMondeLargeur()* ConstantesAffichage.tailleTile;
+        int hauteur = Monde.getSizeMondeHauteur()* ConstantesAffichage.tailleTile;
 
         TilePaneSol.setMaxSize(largeur, hauteur);
         TilePaneSol.setMinSize(largeur, hauteur);
@@ -177,14 +176,14 @@ public class Controller implements Initializable {
 
         // Listener pour que la TilePane et la Pane suivent le joueur
         joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
-            paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX(), largeur));
+            paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), ConstantesAffichage.largeurEcran, paneEntite.getTranslateX()));
         });
         joueur.getPosition().getYProperty().addListener((obs, old, nouv)-> {
-            paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY(), hauteur));
+            paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), ConstantesAffichage.hauteurEcran, paneEntite.getTranslateY()));
         });
 
-        paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX(), largeur));
-        paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY(), hauteur));
+        paneEntite.setTranslateX(scrollMap(joueur.getPosition().getX(), ConstantesAffichage.largeurEcran, paneEntite.getTranslateX()));
+        paneEntite.setTranslateY(scrollMap(joueur.getPosition().getY(), ConstantesAffichage.hauteurEcran, paneEntite.getTranslateY()));
     }
 
     /**
@@ -192,10 +191,10 @@ public class Controller implements Initializable {
      * @param position : Position du joueur
      * @param longueurAxe : Hauteur ou largeur de l'écran
      */
-    public double scrollMap(double position, int longueurAxe, double positionInitiale, int axe){
-        if (-position * Constantes.tailleTile + longueurAxe / 2.0 < 0)
-            if (-position * Constantes.tailleTile + longueurAxe / 2.0 > -axe+longueurAxe )
-                return -position * Constantes.tailleTile + longueurAxe / 2.0;
+    public double scrollMap(double position, int longueurAxe, double positionInitiale){
+        if (-position * ConstantesAffichage.tailleTile + longueurAxe / 2.0 < 0)
+            if (-position * ConstantesAffichage.tailleTile + longueurAxe / 2.0 > -Monde.getSizeMondeLargeur()* ConstantesAffichage.tailleTile+longueurAxe )
+                return -position * ConstantesAffichage.tailleTile + longueurAxe / 2.0;
         return positionInitiale;
     }
     public void initMonde()
@@ -226,8 +225,7 @@ public class Controller implements Initializable {
 
 
 
-    public void keyPressed(KeyEvent keyEvent) throws IOException
-    {
+    public void keyPressed(KeyEvent keyEvent) throws IOException {
         KeyCode keyCode = keyEvent.getCode();
 
         if(!interactionAvecPnj) {
@@ -251,18 +249,18 @@ public class Controller implements Initializable {
                 joueur.ramasserObjet();
             else if (keyCode == ConstantesClavier.degattest)
                 joueur.enlevePv(10);
-            else if(keyCode == ConstantesClavier.attaquer) {
+            else if(keyCode == ConstantesClavier.attaquer)
+            {
                 joueur.actionMainDroite();
-                if(joueur.getObjetMainDroite() instanceof Potion){
-                    Media media = new Media(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/potion.mp3").toURI().toString());
-                    MediaPlayer mediaPlayer = new MediaPlayer(media);
-                    mediaPlayer.play();
-                }
             }
             else if (keyCode == KeyCode.B)
                 interaction();
             else if (keyCode == ConstantesClavier.inventaire)
-                ouvrirMenu();
+                 ouvrirMenu();
+            else if (keyCode == ConstantesClavier.courrir)
+            {
+                joueur.estEntrainDeCourir(true);
+            }
         }
         else{
             handleInteractionPnj(keyEvent);
@@ -307,15 +305,12 @@ public class Controller implements Initializable {
     public void mouseClick(MouseEvent mouseEvent)
     {
         this.paneEntite.requestFocus();
-
-        if (mouseEvent.getButton() == MouseButton.PRIMARY)
-            this.joueur.actionMainDroite();
     }
 
     public void ouvrirMenu() throws IOException {
         if(switchDonnees.getSceneMenu()==null){
             FXMLLoader fxmlLoaderMenu = new FXMLLoader(Runner.class.getResource("menuView.fxml"));
-            Scene sceneMenu = new Scene(fxmlLoaderMenu.load(), Constantes.largeurEcran, Constantes.hauteurEcran);
+            Scene sceneMenu = new Scene(fxmlLoaderMenu.load(), ConstantesAffichage.largeurEcran, ConstantesAffichage.hauteurEcran);
             switchDonnees.setSceneMenu(sceneMenu);
             switchDonnees.setControllerMenu(fxmlLoaderMenu.getController());
         }

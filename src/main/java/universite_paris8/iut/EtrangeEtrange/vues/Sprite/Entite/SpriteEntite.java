@@ -5,10 +5,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesAffichage;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 
 
@@ -52,10 +51,10 @@ public class SpriteEntite
 
         // Listener pour lié position de l'entité et de son sprite
         entite.getPosition().getXProperty().addListener((obs, old, nouv)->
-                SpriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32)
+                SpriteEntite.setTranslateX(entite.getPosition().getX() * ConstantesAffichage.tailleTile-32)
         );
         entite.getPosition().getYProperty().addListener((obs, old, nouv)->
-                SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64)
+                SpriteEntite.setTranslateY(entite.getPosition().getY() * ConstantesAffichage.tailleTile-64)
         );
 
         effetCouleur = new ColorAdjust();
@@ -67,8 +66,8 @@ public class SpriteEntite
         });
 
         //
-        SpriteEntite.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile-32);
-        SpriteEntite.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile-64);
+        SpriteEntite.setTranslateX(entite.getPosition().getX() * ConstantesAffichage.tailleTile-32);
+        SpriteEntite.setTranslateY(entite.getPosition().getY() * ConstantesAffichage.tailleTile-64);
     }
 
 
@@ -86,7 +85,7 @@ public class SpriteEntite
     public Rectangle ajoutBarrePv(){
         // Listener pour que la couleur et la taille de la barre change
         entite.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv) -> {
-            SpriteVie.setWidth(Constantes.tailleTile * (entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum()));
+            SpriteVie.setWidth(ConstantesAffichage.tailleTile * (entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum()));
             if(entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum() > 2.0/3.0)
                 SpriteVie.setFill(Color.GREEN);
             else if(entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum() >1.0/3.0)
@@ -97,18 +96,18 @@ public class SpriteEntite
 
         // Listener pour que la barre d'hp suivent le sprite de l'entité
         entite.getPosition().getXProperty().addListener((obs, old, nouv)->
-                SpriteVie.setTranslateX(entite.getPosition().getX()* Constantes.tailleTile-32)
+                SpriteVie.setTranslateX(entite.getPosition().getX()* ConstantesAffichage.tailleTile-32)
         );
         entite.getPosition().getYProperty().addListener((obs, old, nouv)->
-                SpriteVie.setTranslateY(entite.getPosition().getY()*Constantes.tailleTile-48)
+                SpriteVie.setTranslateY(entite.getPosition().getY()* ConstantesAffichage.tailleTile-48)
         );
 
 
         // On execute une première fois le code du listener pour qu'il sapplique dès le début du lancement du jeu
-        SpriteVie.setTranslateX(entite.getPosition().getX()* Constantes.tailleTile-32);
-        SpriteVie.setTranslateY(entite.getPosition().getY()*Constantes.tailleTile-48);
+        SpriteVie.setTranslateX(entite.getPosition().getX()* ConstantesAffichage.tailleTile-32);
+        SpriteVie.setTranslateY(entite.getPosition().getY()* ConstantesAffichage.tailleTile-48);
         SpriteVie.setHeight(5);
-        SpriteVie.setWidth(Constantes.tailleTile * (entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum()));
+        SpriteVie.setWidth(ConstantesAffichage.tailleTile * (entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum()));
 
         if(entite.getStatsPv().getPv() / entite.getStatsPv().getPvMaximum() > 2.0/3.0)
             SpriteVie.setFill(Color.GREEN);
@@ -126,14 +125,14 @@ public class SpriteEntite
 
         // Déplacer l'ombre selon la position de l'entité
         entite.getPosition().getXProperty().addListener((obs, old, nouv) ->
-                ombre.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile - 19)
+                ombre.setTranslateX(entite.getPosition().getX() * ConstantesAffichage.tailleTile - 19)
         );
         entite.getPosition().getYProperty().addListener((obs, old, nouv) ->
-                ombre.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile - 0)
+                ombre.setTranslateY(entite.getPosition().getY() * ConstantesAffichage.tailleTile - 0)
         );
 
-        ombre.setTranslateX(entite.getPosition().getX() * Constantes.tailleTile - 19);
-        ombre.setTranslateY(entite.getPosition().getY() * Constantes.tailleTile - 0);
+        ombre.setTranslateX(entite.getPosition().getX() * ConstantesAffichage.tailleTile - 19);
+        ombre.setTranslateY(entite.getPosition().getY() * ConstantesAffichage.tailleTile - 0);
 
         return ombre;
     }

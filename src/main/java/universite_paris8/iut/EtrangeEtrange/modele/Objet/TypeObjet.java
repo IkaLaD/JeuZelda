@@ -2,10 +2,10 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMelee.Epée.Epee;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeTirable.Arc.Arc;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Consommable.Soins.Potion;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche.Fleche;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epee;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arc;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Soins.Potion;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche;
 
 public enum TypeObjet
 {

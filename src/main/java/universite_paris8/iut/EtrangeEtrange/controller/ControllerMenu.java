@@ -8,11 +8,10 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesAffichage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,8 +45,8 @@ public class ControllerMenu implements Initializable {
         switchScene = SwitchScene.getSwitchScene();
         switchScene.setControllerMenu(this);
         // Initialisation taille en fonction de la taille de la map
-        int largeur = Monde.getSizeMondeLargeur()* Constantes.tailleTile;
-        int hauteur = Monde.getSizeMondeHauteur()*Constantes.tailleTile;
+        int largeur = Monde.getSizeMondeLargeur()* ConstantesAffichage.tailleTile;
+        int hauteur = Monde.getSizeMondeHauteur()* ConstantesAffichage.tailleTile;
 
         TilePaneSol.setMaxSize(largeur, hauteur);
         TilePaneSol.setMinSize(largeur, hauteur);
@@ -62,14 +61,14 @@ public class ControllerMenu implements Initializable {
         // Listener pour que la TilePane et la Pane suivent le joueur
         // Listener pour que la TilePane et la Pane suivent le joueur
         joueur.getPosition().getXProperty().addListener((obs, old, nouv)-> {
-            paneEntite.setTranslateX(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX(), largeur));
+            paneEntite.setTranslateX(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getX(), ConstantesAffichage.largeurEcran, paneEntite.getTranslateX()));
         });
         joueur.getPosition().getYProperty().addListener((obs, old, nouv)-> {
-            paneEntite.setTranslateY(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY(), hauteur));
+            paneEntite.setTranslateY(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getY(), ConstantesAffichage.hauteurEcran, paneEntite.getTranslateY()));
         });
 
-        paneEntite.setTranslateX(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getX(), Constantes.largeurEcran, paneEntite.getTranslateX(), largeur));
-        paneEntite.setTranslateY(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getY(), Constantes.hauteurEcran, paneEntite.getTranslateY(), hauteur));
+        paneEntite.setTranslateX(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getX(), ConstantesAffichage.largeurEcran, paneEntite.getTranslateX()));
+        paneEntite.setTranslateY(switchScene.getControllerJeu().scrollMap(joueur.getPosition().getY(), ConstantesAffichage.hauteurEcran, paneEntite.getTranslateY()));
     }
 
 

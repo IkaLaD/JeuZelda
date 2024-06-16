@@ -4,15 +4,9 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.Competences;
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.CreationArbre;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.Competence;
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.CompetenceGeneral.CompetenceStats.CompetenceUpPV;
-import universite_paris8.iut.EtrangeEtrange.modele.Entite.Personnage.Joueur;
-import universite_paris8.iut.EtrangeEtrange.modele.Parametres.Constantes;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 
 import java.util.ArrayList;
 
@@ -47,7 +41,7 @@ public class CompetenceView {
 
     public void constructionArbre(ArrayList<TypeCompetence> tronc, int x, int y, int ecartEntreIcon)
     {
-        if (tronc.isEmpty())
+        if (tronc == null || tronc.isEmpty())
             return;
 
         int xTmp = x;
@@ -63,6 +57,8 @@ public class CompetenceView {
         }
     }
 
+
+
     private ImageView spriteIcon(TypeCompetence competence)
     {
 
@@ -70,7 +66,7 @@ public class CompetenceView {
         switch (competence){
             case UP_ATTAQUE -> image = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Competences/force.png");
             case UP_DEFENSE -> image = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Competences/defense.png");
-            case UP_PV -> image = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Competences/coeur.png");
+            case UP_PV, UP_PV2, UP_PV3 -> image = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Competences/coeur.png");
             case UP_DEFENSE_SPECIAL -> image = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Competences/defensespeciale.png");
             case COURIR -> image = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Competences/sprint.png");
             case INVOQUER -> image = new Image("file:src/main/resources/universite_paris8/iut/EtrangeEtrange/texture/Menus/Competences/invocation.png");
@@ -84,10 +80,18 @@ public class CompetenceView {
 
         imageView.setOnMouseClicked(e ->
         {
-            competence.getCompetence().monterDeNiveau(joueur);
-            competence.getCompetence().debloquer();
-            imageView.setEffect(null);
+            if (competences.parentDebloquer(competence))
+            {
+                competence.getCompetence().monterDeNiveau(joueur);
+                competence.getCompetence().debloquer();
+                imageView.setEffect(null);
+            }
+            else
+            {
+                System.out.println("fzfaqfqzf<sdfgkln,rjkngdfg");
+            }
         });
+
         imageView.setImage(image);
         return imageView;
     }

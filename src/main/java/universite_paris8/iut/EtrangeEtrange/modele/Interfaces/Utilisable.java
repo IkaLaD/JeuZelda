@@ -1,11 +1,10 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Interfaces;
 
 
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
+
 
 public interface Utilisable
 {
-    void utilise(ParametreAction param);
-
-
+    void utilise(Entite entite);
 }

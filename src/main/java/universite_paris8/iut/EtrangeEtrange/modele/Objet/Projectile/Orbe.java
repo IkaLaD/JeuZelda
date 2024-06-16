@@ -57,7 +57,7 @@ public class Orbe extends Projectile implements Utilisable, Rechargeable
             setMonde(entite.getMonde());
             setNewPosition(entite.getPosition().getX(), entite.getPosition().getY());
 
-            if (acteurAsuivre != null)
+            if (acteurAsuivre == null)
                 this.acteurAsuivre =  monde.chercheEnemie();
 
             if (acteurAsuivre != null)

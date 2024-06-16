@@ -85,10 +85,8 @@ public class RoiSquelette extends EntiteOffensif
 
             switch (etapeAttaque) {
                 case 0:
-
                     seDeplacerVers(positionMilieu);
                     if (positionAtteinte(positionMilieu)) {
-                        grandeAttaqueCirculaire();
                         etapeAttaque++;
                     }
                     break;
@@ -102,7 +100,6 @@ public class RoiSquelette extends EntiteOffensif
                 case 2:
                     seDeplacerVers(position5_2);
                     if (positionAtteinte(position5_2)) {
-                        grandeAttaqueCirculaire();
                         etapeAttaque = 0; // Recommencer le cycle
                     }
                     break;

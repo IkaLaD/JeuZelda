@@ -70,6 +70,7 @@ public class RoiSquelette extends EntiteOffensif
     public void unTour() {
         // Vérifie si le joueur a été détecté
         if (!joueurDetecte) {
+
             if (detecteJoueurDansRayon(distanceDetection)) {
                 joueurDetecte = true;
                 setSeDeplace(true);
@@ -77,7 +78,9 @@ public class RoiSquelette extends EntiteOffensif
                 return;
             }
         }
-
+        if (monde.estDansRayon(getPosition(), 2)){
+            attaque();
+        }
 
         long tempsActuel = System.currentTimeMillis();
         if (tempsActuel - dernierTempsAttaque >= delaiAttaque)

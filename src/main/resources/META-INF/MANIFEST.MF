@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Main-Class: universite_paris8.iut.EtrangeEtrange.Runner
+Class-Path: jcommander-1.82.jar javafx-graphics-18.0.2.jar javafx-contro
+ ls-18.0.2.jar javafx-media-18.0.2-win.jar hamcrest-core-1.3.jar javafx-
+ fxml-18.0.2-win.jar junit-jupiter-5.11.0-M2.jar javafx-media-18.0.2.jar
+  javafx-base-18.0.2.jar testng-7.10.1.jar javafx-base-18.0.2-win.jar js
+ on-20240303.jar junit-4.13.1.jar jquery-3.7.1.jar junit-jupiter-api-5.1
+ 1.0-M2.jar javafx-controls-18.0.2-win.jar opentest4j-1.3.0.jar junit-pl
+ atform-commons-1.11.0-M2.jar junit-platform-engine-1.11.0-M2.jar javafx
+ -fxml-18.0.2.jar apiguardian-api-1.1.2.jar junit-jupiter-engine-5.11.0-
+ M2.jar junit-jupiter-params-5.11.0-M2.jar slf4j-api-1.7.36.jar javafx-g
+ raphics-18.0.2-win.jar
+

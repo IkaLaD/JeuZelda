@@ -77,7 +77,13 @@ public class CompetenceView {
         imageView.setScaleY(1);
         if(!competence.getCompetence().estDebloquer())
             imageView.setEffect(colorAdjust);
-        
+
+        imageView.setOnMouseClicked(e ->
+        {
+            competence.getCompetence().monterDeNiveau(joueur);
+            competence.getCompetence().debloquer();
+            imageView.setEffect(null);
+        });
 
         imageView.setImage(image);
         return imageView;

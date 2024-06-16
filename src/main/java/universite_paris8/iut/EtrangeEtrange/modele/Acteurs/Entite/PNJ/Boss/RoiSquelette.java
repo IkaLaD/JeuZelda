@@ -8,10 +8,12 @@ import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Attaque.SortilegePluitDeFleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Orbe;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ParametreMonstre;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -29,6 +31,8 @@ public class RoiSquelette extends EntiteOffensif
     private Position position5_2;
     private boolean joueurDetecte = false;
     private double distanceDetection = 5.0;
+    private LivreMagique livreMagique;
+    private Epee epee;
 
     public RoiSquelette(Monde monde, double x, double y, Direction direction) {
         super(monde, x, y, direction,
@@ -45,6 +49,8 @@ public class RoiSquelette extends EntiteOffensif
         this.positionMilieu = new Position(5.5, 27.5);
         this.position5_2 = new Position(2, 27.5);
         setPosition(x, y); // Positionnement initial du Roi Squelette
+        livreMagique = new LivreMagique();
+
     }
 
 
@@ -129,22 +135,26 @@ public class RoiSquelette extends EntiteOffensif
 
     // Effectue une grande attaque circulaire
     private void grandeAttaqueCirculaire() {
-        Position centre = getPosition();
-        double rayon = 1.5; // Rayon d'exemple pour l'attaque circulaire
-        // Vérifie si la hitbox du joueur est dans le rayon de l'attaque
-        if (getMonde().getJoueur().getHitbox().estDansCercle(centre, rayon)) {
-        }
+        attaque();
+        new Orbe(getMonde().getJoueur()).utilise(this);
+        new Orbe(getMonde().getJoueur()).utilise(this);
+        new Orbe(getMonde().getJoueur()).utilise(this);
     }
 
     // Invoque des squelettes pour aider le Roi Squelette
     private void invoquerSquelettes()
     {
+
         Position positionHaut = new Position(getPosition().getX(), getPosition().getY()-2);
         Position positionBas = new Position(getPosition().getX(), getPosition().getY()+2);
         Squelette squeletteGauche = new Squelette( getMonde(), positionHaut.getX(), positionHaut.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
         Squelette squeletteDroite = new Squelette( getMonde(), positionBas.getX(), positionBas.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
         getMonde().ajoutActeur(squeletteGauche);
         getMonde().ajoutActeur(squeletteDroite);
+        new Orbe(getMonde().getJoueur()).utilise(this);
+        new Potion().utilise(this);
+        new Potion().utilise(this);
+        new Potion().utilise(this);
     }
 
     // Déplace le Roi Squelette vers une destination donnée

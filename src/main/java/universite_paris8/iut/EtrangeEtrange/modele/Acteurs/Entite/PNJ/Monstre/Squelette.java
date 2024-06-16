@@ -3,7 +3,6 @@ package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.PieceOr;
@@ -21,31 +20,11 @@ public class Squelette extends EntiteOffensif  {
     private long lastPathCalculationTime;
 
     public Squelette( Monde monde, double x, double y, Direction direction, Hitbox hitbox, Joueur joueur, Aetoile aetoile) {
-        super( monde,  x,  y,  direction,80,  10,  10,1 ,  10,  0.005, hitbox);
+        super( monde,  x,  y,  direction,  100,  10,  10,1 ,  10,  0.005, hitbox);
         this.joueur = joueur;
         this.aetoile = aetoile;
         this.lastPathCalculationTime = System.currentTimeMillis();
     }
-
-    @Override
-    public void subitCollision(Acteur acteur){
-
-    }
-
-    @Override
-    public void subitAttaque(Dommageable causeDegat) {
-        enlevePv(20);
-    }
-    @Override
-    protected double subitDegatPhysique(double degat, double forceEntite) {
-        return (degat * forceEntite) / (getDefense() - (degat/6));
-    }
-
-    @Override
-    protected double subitDegatSpecial(double attaqueSpecial, double forceEntite) {
-        return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
-    }
-
 
 
     public void seDeplacerVers(Position joueurPosition) {

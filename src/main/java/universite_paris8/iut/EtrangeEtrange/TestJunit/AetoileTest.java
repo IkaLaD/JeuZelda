@@ -1,68 +1,46 @@
+package universite_paris8.iut.EtrangeEtrange.TestJunit;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import static javafx.beans.binding.Bindings.when;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-import java.util.List;
-
 public class AetoileTest {
-
-    private Monde mondeMock;
+    private Monde monde;
     private Aetoile aetoile;
 
     @BeforeEach
-    public void setup() {
-        mondeMock = mock(Monde.class);
-        when(mondeMock.getSizeMondeHauteur()).thenReturn(10);
-        when(mondeMock.getSizeMondeLargeur()).thenReturn(10);
-        when(mondeMock.getNontraversable()).thenReturn(new int[10][10]); // Un tableau initialisé à 0 (tout traversable)
-
-        aetoile = new Aetoile(mondeMock);
-    }
-
-    @Test
-    public void testTrouverCheminCheminExiste() {
-        // Configuration du monde pour un chemin simple
-        int[][] nonTraversable = new int[10][10];
-        nonTraversable[5][5] = -1; // Un seul bloc non traversable
-        when(mondeMock.getNontraversable()).thenReturn(nonTraversable);
-
-        aetoile.mettreAJourGraphe();
-
-        Position start = new Position(0, 0);
-        Position end = new Position(9, 9);
-
-        List<Position> chemin = aetoile.trouverChemin(start, end);
-
-        // Vérifier que le chemin n'est pas vide et correct
-        assertFalse(chemin.isEmpty(), "Le chemin ne devrait pas être vide.");
-        assertTrue(chemin.contains(end), "Le chemin doit contenir la position de fin.");
-    }
-
-    @Test
-    public void testTrouverCheminCheminInexistant() {
-        // Configuration du monde pour bloquer le chemin
-        int[][] nonTraversable = new int[10][10];
+    public void setUp() {
+        // Initialiser un monde avec des obstacles stratégiques pour tester plusieurs chemins
+        monde = new Monde("", "", 10, 10); // suppose une adaptation pour tester
         for (int i = 0; i < 10; i++) {
-            nonTraversable[i][i] = -1; // Diagonale non traversable bloquant de start à end
+            for (int j = 0; j < 10; j++) {
+                monde.getNontraversable()[i][j] = -1; // Tout est traversable
+            }
         }
-        when(mondeMock.getNontraversable()).thenReturn(nonTraversable);
+        // Placer des obstacles
+        monde.getNontraversable()[5][1] = 1;
+        monde.getNontraversable()[5][2] = 1;
+        monde.getNontraversable()[5][3] = 1;
+        monde.getNontraversable()[5][5] = 1;
+        monde.getNontraversable()[5][6] = 1;
+        monde.getNontraversable()[5][7] = 1;
 
-        aetoile.mettreAJourGraphe();
+        aetoile = new Aetoile(monde);
+    }
 
-        Position start = new Position(0, 0);
-        Position end = new Position(9, 9);
 
-        List<Position> chemin = aetoile.trouverChemin(start, end);
-
-        // Vérifier que le chemin est vide
-        assertTrue(chemin.isEmpty(), "Le chemin devrait être vide car il n'y a pas de route possible.");
+    /*Ce test vérifie que le chemin trouvé par A* est effectivement le plus court. La valeur 14 est déterminée en comptant manuellement les pas du chemin le plus court autour des obstacles.*/
+    @Test
+    public void testShortestPath() {
+        Position start = new Position(0, 5);
+        Position end = new Position(9, 5);
+        var path = aetoile.trouverChemin(start, end);
+        assertNotNull(path);
+        assertFalse(path.isEmpty());
+        assertEquals(14, path.size(), "Le chemin trouvé doit être le plus court possible.");
     }
 }

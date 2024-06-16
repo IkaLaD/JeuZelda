@@ -102,6 +102,8 @@ public class Monde {
 
     }
 
+
+
     public static void setSizeMondeLargeur(int largeurMonde) {
     }
 
@@ -474,6 +476,7 @@ public class Monde {
                 toutesLesEntites.add((Entite) acteur);
             }
         }
+        return toutesLesEntites;
     }
 }
 

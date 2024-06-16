@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.vues.Sprite;
+package universite_paris8.iut.EtrangeEtrange.controller;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
@@ -10,6 +10,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Jou
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesAffichage;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
+
 
 public class GestionActeur implements ListChangeListener<Acteur>
 {
@@ -50,7 +51,7 @@ public class GestionActeur implements ListChangeListener<Acteur>
         }
     }
 
-    private void listenerPv(Acteur acteur)
+    public void listenerPv(Acteur acteur)
     {
         acteur.getStatsPv().getPvActuelleProperty().addListener((obs, old, nouv)->{
             if (Math.round(nouv.doubleValue()) == 0)
@@ -70,8 +71,7 @@ public class GestionActeur implements ListChangeListener<Acteur>
 
         if(acteur != joueur && monde.collisionAvecActeur(acteur,joueur))
         {
-            joueur.causeCollision(joueur);
-            acteur.subitCollision(acteur);
+            acteur.subitCollision(joueur);
         }
 
         monde.verifCollision(acteur);

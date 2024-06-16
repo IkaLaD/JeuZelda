@@ -1,6 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Prompte.Prompt;
+import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Pv;
@@ -170,6 +170,7 @@ public abstract class Acteur
         return seDeplace;
     }
 
+    public abstract boolean estUnEnemie();
 
     public Prompt getPrompt(){
         return null;

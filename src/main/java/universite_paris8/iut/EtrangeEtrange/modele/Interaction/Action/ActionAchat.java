@@ -1,7 +1,7 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Action;
+package universite_paris8.iut.EtrangeEtrange.modele.Interaction.Action;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Marchand;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Prompte.Prompt;
+import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
 

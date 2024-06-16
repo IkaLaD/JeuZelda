@@ -1,4 +1,4 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Prompte;
+package universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte;
 
 import java.util.ArrayList;
 

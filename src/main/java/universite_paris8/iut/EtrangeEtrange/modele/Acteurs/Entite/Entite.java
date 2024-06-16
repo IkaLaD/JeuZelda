@@ -42,14 +42,17 @@ public abstract class Entite extends Acteur
      */
     public void subitAttaque(Dommageable causeDegat)
     {
-        enlevePv(subitDegatPhysique(causeDegat.degatPhysique(),0)+subitDegatSpecial(causeDegat.degatSpecial(),0));
+        //enlevePv(subitDegatPhysique(causeDegat.degatPhysique(),0)+subitDegatSpecial(causeDegat.degatSpecial(),0));
+        System.out.println(getPv());
+        enlevePv(100);
+        System.out.println(getPv());
     }
 
-    public void subitCollision(Acteur acteur) {}
+    public void subitCollision(Acteur acteur) {acteur.causeCollision(this);}
 
     public void causeCollision(Acteur acteur)
     {
-        acteur.seFaitPousser(this);
+        acteur.seFaitPousser(this);System.out.println("cause entité");
     }
 
     @Override

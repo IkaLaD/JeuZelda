@@ -2,9 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.PNJ;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVers;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -13,7 +11,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 
-public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
+public class Squelette extends EntiteOffensif  {
 
     private Joueur joueur;
     private Aetoile aetoile;
@@ -27,10 +25,6 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
         this.lastPathCalculationTime = System.currentTimeMillis();
     }
 
-    @Override
-    public void action() {
-        seDeplacerVers(joueur.getPosition());
-    }
 
     @Override
     protected double subitDegatPhysique(double degat, double forceEntite) {
@@ -43,7 +37,7 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
     }
 
 
-    @Override
+
     public void seDeplacerVers(Position joueurPosition) {
         if (aetoile == null) {
 
@@ -107,17 +101,18 @@ public class Squelette extends EntiteOffensif implements PNJ, SeDeplacerVers {
 
     @Override
     public void unTour() {
-        action();
+        seDeplacerVers(joueur.getPosition());
     }
 
-    @Override
-    public void subitCollision(Acteur acteur) {
-
-    }
 
 
     @Override
     public String typeActeur() {
         return "Squelette";
+    }
+
+    @Override
+    public boolean estUnEnemie() {
+        return true;
     }
 }

@@ -50,8 +50,6 @@ public class GestionAffichageVieJoueur {
                     pointsDeVieActuels = 0;
                 } else {
                     coeur = new ImageView(new Image(getClass().getResourceAsStream(coeurVidePath)));
-                    System.out.println(coeur.getX());
-                    System.out.println(coeur.getY());
                 }
 
                 coeur.setFitWidth(30);

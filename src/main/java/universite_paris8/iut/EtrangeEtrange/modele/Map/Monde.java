@@ -13,7 +13,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAffichageSpriteDropAuSol;
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
+import universite_paris8.iut.EtrangeEtrange.controller.GestionActeur;
 
 
 import java.io.BufferedReader;
@@ -48,7 +48,7 @@ public class Monde {
     private ObservableList<Acteur> acteurs = FXCollections.observableArrayList();
     private ArrayList<Acteur> acteursAsupprimer = new ArrayList<>();
 
-    private long tour = 0;
+
 
 
 
@@ -127,9 +127,22 @@ public class Monde {
         {
             if (collisionAvecActeur(acteur,acteur2) && acteur != acteur2)
             {
-                acteur.causeCollision(acteur2);
+                acteur2.subitCollision(acteur);
             }
         }
+    }
+
+    public Acteur chercheEnemie()
+    {
+        Acteur acteur = null;
+
+        for (Acteur act : acteurs)
+        {
+            if (act.estUnEnemie())
+                acteur = act;
+        }
+
+        return acteur;
     }
 
     public void ajoutActeurAsupprimer(Acteur acteur)
@@ -149,29 +162,19 @@ public class Monde {
     public static double getxPointDeDepart(){
         return xPointDeDepart;
     }
-
     public static double getyPointDeDepart() {
         return yPointDeDepart;
     }
-
     public static int getSizeMondeHauteur(){
         return sizeMondeHauteur;
     }
-
     public static int getSizeMondeLargeur() {
         return sizeMondeLargeur;
     }
-    public ArrayList<DropAuSol> getDropAuSol(){
-        ArrayList<DropAuSol> dropAuSols = new ArrayList<>();
-        dropAuSols.addAll(this.dropsAuSol);
-        return dropAuSols;
-    }
-
-
+    public ArrayList<DropAuSol> getDropAuSol() {return new ArrayList<>(this.dropsAuSol);}
     public void enleverDropAuSol(DropAuSol dropAuSol){
         this.dropsAuSol.remove(dropAuSol);
     }
-
     public void setJoueur(Joueur joueur){this.joueur = joueur;}
     public Joueur getJoueur(){return this.joueur;}
 
@@ -203,37 +206,34 @@ public class Monde {
 
     public void unTour()
     {
-        this.tour++;
+        this.joueur.unTour();
 
-        joueur.unTour();
         for(int i = acteurs.size()-1 ; i>=0 ; i--)
             acteurs.get(i).unTour();
 
-
-
-
-        acteurs.removeAll(acteursAsupprimer);
-        acteursAsupprimer.clear();
+        this.acteurs.removeAll(acteursAsupprimer);
+        this.acteursAsupprimer.clear();
 
 
         for(int i = rechargeables.size()-1 ; i>=0 ; i--)
         {
             Rechargeable rechargeable = rechargeables.get(i);
 
-            if(rechargeable.getTourApelle() + rechargeable.delaie() == tour)
-            {
-                rechargeable.cooldown();
+            if (rechargeable.cooldown())
                 this.rechargeables.remove(rechargeable);
-            }
         }
     }
 
     public void ajoutRechargeable(Rechargeable rechargeable)
     {
         this.rechargeables.add(rechargeable);
-        rechargeable.setTourApelle(tour);
     }
 
+
+    public boolean positionHorsMap(int x,int y)
+    {
+        return x < 0 || x >= sizeMondeLargeur || y < 0 || y >= sizeMondeHauteur;
+    }
 
     public boolean estHorsMap(Acteur acteur)
     {
@@ -260,7 +260,7 @@ public class Monde {
             collision = false;
         }
 
-        System.out.println(acteur.typeActeur()+" "+collision);
+
         return collision;
     }
 
@@ -305,7 +305,6 @@ public class Monde {
         return collision;
     }
 
-    //TODO CORRIGER METHODE
     public boolean collisionAvecActeur(Acteur acteur1,Acteur acteur2)
     {
         double vitesse = acteur1.getVitesse();
@@ -333,13 +332,7 @@ public class Monde {
     }
 
 
-
-
-
-    public boolean collision(Acteur acteur)
-    {
-        return collisionMap(acteur) || collisionAvecActeurs(acteur);
-    }
+    public boolean collision(Acteur acteur) { return collisionMap(acteur) || collisionAvecActeurs(acteur); }
 
     private boolean collisionAvecActeurs(Acteur acteur1)
     {
@@ -418,13 +411,11 @@ public class Monde {
         Direction directionJoueur = joueur.getDirection();
 
 
-        if (directionJoueur == Direction.BAS ||directionJoueur == Direction.HAUT)
-        {
+        if (directionJoueur == Direction.BAS ||directionJoueur == Direction.HAUT) {
             dX = Math.abs(acteur.getPosition().getX() - joueur.getPosition().getX());
             dY = Math.abs(acteur.getPosition().getY() - joueur.getPosition().getY());
         }
-        else
-        {
+        else {
             dY = Math.abs(acteur.getPosition().getX() - joueur.getPosition().getX());
             dX = Math.abs(acteur.getPosition().getY() - joueur.getPosition().getY());
         }

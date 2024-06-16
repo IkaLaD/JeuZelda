@@ -38,4 +38,10 @@ public class Sommet {
         return Math.sqrt(Math.pow(position.getX() - autre.getPosition().getX(), 2) +
                 Math.pow(position.getY() - autre.getPosition().getY(), 2));
     }
+
+    @Override
+    public String toString()
+    {
+        return position.toString();
+    }
 }

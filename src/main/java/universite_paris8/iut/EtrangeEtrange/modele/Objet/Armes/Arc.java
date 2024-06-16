@@ -9,8 +9,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstanteObjet;
 
 public class Arc implements Arme,Rechargeable
 {
-    private long tourMonde;
-    private boolean peuTirer;
+    private long derniereApelle;
+    private boolean peutTirer;
 
     private final static int DURABILITE = ConstanteObjet.DURABILITE_ARC;
     private final static int PRIX_ACHAT = ConstanteObjet.PRIX_ACHAT_ARC;
@@ -22,8 +22,8 @@ public class Arc implements Arme,Rechargeable
 
     public Arc()
     {
-        this.peuTirer = true;
-        this.tourMonde = 0;
+        this.peutTirer = true;
+        this.derniereApelle = -1;
         this.durabilitee = DURABILITE;
         this.fleche = null;
     }
@@ -31,7 +31,7 @@ public class Arc implements Arme,Rechargeable
     @Override
     public void utilise(Entite entite)
     {
-        if (peuTirer)
+        if (peutTirer && fleche != null)
         {
             this.durabilitee--;
             this.fleche.setMonde(entite.getMonde());
@@ -39,9 +39,10 @@ public class Arc implements Arme,Rechargeable
             this.fleche.setDirection(entite.getDirection());
 
             entite.getMonde().ajoutActeur(fleche);
+            this.derniereApelle = System.currentTimeMillis();
             entite.getMonde().ajoutRechargeable(this);
 
-            this.peuTirer = false;
+            this.peutTirer = false;
             this.fleche = null;
         }
     }
@@ -53,15 +54,22 @@ public class Arc implements Arme,Rechargeable
         return DELAIE_UTILISATION;
     }
     @Override
-    public void cooldown() { peuTirer = true;}
-    @Override
-    public void setTourApelle(long tourApelle) {
-        this.tourMonde = tourApelle;
+    public boolean cooldown()
+    {
+        boolean actionFait = false;
+
+        long apelle = System.currentTimeMillis();
+
+        if (apelle - derniereApelle >= delaie())
+        {
+            this.derniereApelle = -1;
+            this.peutTirer = true;
+            actionFait = true;
+        }
+
+        return actionFait;
     }
-    @Override
-    public long getTourApelle() {
-        return tourMonde;
-    }
+
     @Override
     public String getNom() {
         return "arc";

@@ -2,11 +2,8 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAction;
-import universite_paris8.iut.EtrangeEtrange.modele.ParametreActionSurObjet.ParametreAttaque.ActionAttaqueMelee.ParametreAttaqueEpee;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstanteObjet;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
@@ -25,24 +22,24 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     private final int STACK_MAX = ConstanteObjet.STACK_MAX_EPEE;
 
 
-    private boolean peuTaper;
+    private boolean peutTaper;
     private short cycle;
-    private long tourApelle;
+    private long derniereApelle;
 
 
     public Epee()
     {
         super(DURABILITE, VITESSE, HITBOX);
-        this.peuTaper = true;
+        this.peutTaper = true;
         this.cycle = 0;
-        this.tourApelle = 0;
+        this.derniereApelle = 0;
     }
 
 
     @Override
     public void utilise(Entite entite)
     {
-        if (peuTaper)
+        if (peutTaper)
         {
             setPosition(entite.getPosition());
             setMonde(entite.getMonde());
@@ -50,9 +47,11 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 
             setPositionAttaque();
             entite.getMonde().ajoutActeur(this);
+
+            this.derniereApelle = System.currentTimeMillis();
             entite.getMonde().ajoutRechargeable(this);
 
-            this.peuTaper = false;
+            this.peutTaper = false;
         }
     }
 
@@ -113,8 +112,8 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     @Override
     public void seDeplace(double coeff)
     {
-        double x = this.direction.getX() * 0.2;
-        double y = this.direction.getY() * 0.2;
+        double x = this.direction.getX() ;
+        double y = this.direction.getY() ;
 
 
         position.setX(position.getX() + x * VITESSE * coeff);
@@ -127,7 +126,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     public void causeCollision(Acteur acteur)
     {
         acteur.subitAttaque(this);
-        enlevePv((double) DURABILITE /10);
+        monde.ajoutActeurAsupprimer(this);
     }
 
     @Override
@@ -136,31 +135,6 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     }
     @Override
     public boolean peutSeDeplacer() { return true; }
-
-   /*
-   *  @Override
-    public void seDeplace(double coeff)
-    {
-        int x = direction.getX();
-        int y = direction.getY();
-
-        double largeur;
-        double hauteur;
-
-        if (x == 0)
-        {
-            largeur = hitbox.getHauteur();
-            position.setX(position.getX() + x + largeur * coeff);
-        }
-        else
-        {
-            hauteur = hitbox.getHauteur();
-            position.setY(position.getY() + y + hauteur * coeff);
-        }
-
-
-
-    }*/
 
     @Override
     public String typeActeur() {
@@ -172,20 +146,21 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     }
 
     @Override
-    public void cooldown()
+    public boolean cooldown()
     {
-        peuTaper = true;
+        boolean actionFait = false;
+        long apelle = System.currentTimeMillis();
+
+        if (apelle - derniereApelle >= delaie())
+        {
+            this.derniereApelle = -1;
+            this.peutTaper = true;
+            actionFait = true;
+        }
+
+        return actionFait;
     }
 
-    @Override
-    public void setTourApelle(long tourApelle) {
-        this.tourApelle = tourApelle;
-    }
-
-    @Override
-    public long getTourApelle() {
-        return this.tourApelle;
-    }
 
     @Override
     public String getNom() {
@@ -215,6 +190,11 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 
     @Override
     public void seFaitPousser(Acteur acteur) {/*NE FAIT RIEN*/}
+
+    @Override
+    public boolean estUnEnemie() {
+        return false;
+    }
 
     @Override
     public void subitCollision(Acteur acteur) {/*NE FAIT RIEN*/}

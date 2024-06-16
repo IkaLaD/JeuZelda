@@ -21,8 +21,11 @@ public class Potion implements Guerrisable, Objet, Utilisable
     @Override
     public void utilise(Entite entite)
     {
-        entite.soigner(restoration());
-        this.durabilitee--;
+        if (durabilitee > 0)
+        {
+            entite.soigner(restoration());
+            this.durabilitee--;
+        }
     }
 
     @Override
@@ -39,6 +42,7 @@ public class Potion implements Guerrisable, Objet, Utilisable
     }
     @Override
     public double durabilitee() {
+        System.out.println(durabilitee);
         return durabilitee;
     }
     @Override

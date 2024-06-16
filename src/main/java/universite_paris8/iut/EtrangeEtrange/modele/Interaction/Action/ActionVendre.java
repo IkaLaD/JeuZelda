@@ -1,12 +1,9 @@
-package universite_paris8.iut.EtrangeEtrange.modele.Action;
+package universite_paris8.iut.EtrangeEtrange.modele.Interaction.Action;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Marchand;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Prompte.Prompt;
+import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
-import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.Emplacement;
-import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
 import java.util.ArrayList;
 

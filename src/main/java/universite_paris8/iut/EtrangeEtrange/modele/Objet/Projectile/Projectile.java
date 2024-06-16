@@ -26,9 +26,11 @@ public abstract class Projectile extends Acteur implements Dommageable,Objet
     {
         acteur.subitAttaque(this);
         enleveToutPv();
+        System.out.println("tien - " + acteur.typeActeur());
+
     }
     @Override
-    public void subitCollision(Acteur acteur) { enleveToutPv(); }
+    public void subitCollision(Acteur acteur) { enleveToutPv();System.out.println("aie "); }
     @Override
     public boolean peutSeDeplacer()
     {

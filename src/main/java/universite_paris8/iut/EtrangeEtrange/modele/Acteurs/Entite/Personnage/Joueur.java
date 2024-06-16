@@ -4,14 +4,19 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.Competences;
+
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.CreationArbre;
+import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Orbe;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Humanoide;
@@ -32,7 +37,7 @@ public abstract class Joueur extends Humanoide
     private Set<Direction> directions;
     private Competences competences;
     protected Carquois carquois;
-    private BooleanProperty estEntrainDeCourir;
+    private boolean estEntrainDeCourir;
 
     /**
      * Crée un nouveau joueur.
@@ -53,10 +58,11 @@ public abstract class Joueur extends Humanoide
      * @param hitbox         La hitbox du joueur.
      */
     public Joueur(double pv, double attaque, double defense, double attaqueSpecial, double defenseSpecial, double vitesse, Sac sac, Objet objetMainGauche, Objet objetMainDroite, Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
-        super(monde, x, y, direction, pv,attaque,defense,attaqueSpecial,defenseSpecial,vitesse,hitbox,sac,objetMainGauche,objetMainDroite);
+        super(monde, x, y, direction, pv,attaque,defense,attaqueSpecial,defenseSpecial,vitesse,hitbox,sac,objetMainGauche,new Epee());
         this.competences = CreationArbre.arbres();
-        this.estEntrainDeCourir = new SimpleBooleanProperty();
+        this.estEntrainDeCourir = false;
         this.directions = new HashSet<>();
+
     }
 
 
@@ -64,13 +70,16 @@ public abstract class Joueur extends Humanoide
     {
         if (objetMainDroite != null)
         {
-            if (objetMainDroite instanceof Utilisable)
+            if (objetMainDroite instanceof Utilisable utilisable)
             {
                 if (objetMainDroite instanceof Arme arme)
                     attaque(arme);
+                else
+                    utilisable.utilise(this);
 
                 if (objetMainDroite.durabilitee() == 0)
                     objetMainDroite = null;
+
             }
         }
     }
@@ -78,10 +87,16 @@ public abstract class Joueur extends Humanoide
     @Override
     public void unTour()
     {
+        double coeff = 1;
         for (Direction direction1 : directions)
         {
             setDirection(direction1);
-            seDeplace(1);
+
+            if (estEntrainDeCourir)
+                coeff = 1.3;
+
+
+            seDeplace(coeff);
         }
     }
 
@@ -95,6 +110,7 @@ public abstract class Joueur extends Humanoide
             if (flecheSimple != null)
                 arc.setFleche(flecheSimple);
         }
+
         arme.utilise(this);
     }
 
@@ -121,13 +137,19 @@ public abstract class Joueur extends Humanoide
     {
         this.directions.remove(direction);
     }
-
+    @Override
+    public boolean estUnEnemie(){return false;}
     @Override
     public String typeActeur(){ return "Joueur" ;}
 
-    public void estEntrainDeCourir(boolean bool) {this.estEntrainDeCourir.set(bool);}
+    public void estEntrainDeCourir(boolean bool)
+    {
+        if (TypeCompetence.COURIR.getCompetence().estDebloquer())
+        {
+            this.estEntrainDeCourir = bool;
+        }
+    }
     public Competences getCompetences() { return this.competences; }
-    public final BooleanProperty estEntrainDeCourirProperty() { return this.estEntrainDeCourir; }
     public int getPiece(){ return 0;}
 
 }

@@ -55,4 +55,10 @@ public class Position {
         double dy = this.getY() - other.getY();
         return Math.sqrt(dx * dx + dy * dy);
     }
+
+    @Override
+    public String toString()
+    {
+        return x.get() + " - "+y.get();
+    }
 }

@@ -1,7 +1,5 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Compétence;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.Competence;
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetences.CompetenceActif;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 
 import java.util.ArrayList;
@@ -22,10 +20,6 @@ public class Competences
     }
 
 
-    public boolean contientCompetence(TypeCompetence typeCompetence)
-    {
-        return mapEnfant.containsKey(typeCompetence) || mapParent.containsKey(typeCompetence);
-    }
 
 
 
@@ -33,19 +27,6 @@ public class Competences
 
 
 
-
-
-
-
-
-
-    public void debloquerCompetence(TypeCompetence competence,Joueur joueur)
-    {
-        if (!competence.getCompetence().estDebloquer() && parentDebloquer(competence)) {
-            competence.getCompetence().debloquer();
-            competence.getCompetence().monterDeNiveau(joueur);
-        }
-    }
 
 
     public void ajoutCompetence(TypeCompetence competence,ArrayList<TypeCompetence> parents,ArrayList<TypeCompetence> enfants)
@@ -60,7 +41,7 @@ public class Competences
 
 
 
-    private boolean parentDebloquer(TypeCompetence competence)
+    public boolean parentDebloquer(TypeCompetence competence)
     {
         ArrayList<TypeCompetence> parentsCompetence = this.mapParent.get(competence);
         boolean parentDebloquer = false;

@@ -1,12 +1,11 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Action.ActionVendre;
+import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Action.ActionVendre;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Action.Soigner;
+import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Action.Soigner;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Humain.HumainPNJ;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Prompte.Prompt;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
+import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.*;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 
@@ -24,7 +23,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Marchand extends HumainPNJ implements Interagisable, Dropable
+public class Marchand extends HumainPNJ implements Dropable
 {
 
     private int cycle;
@@ -66,6 +65,9 @@ public class Marchand extends HumainPNJ implements Interagisable, Dropable
     }
 
     @Override
+    public boolean estUnEnemie() {return false;}
+
+    @Override
     public void subitAttaque(Dommageable causeDegat) {
 
     }
@@ -104,21 +106,7 @@ public class Marchand extends HumainPNJ implements Interagisable, Dropable
 
     }
 
-    @Override
-    public void action() {
 
-    }
-
-    @Override
-    public Prompt prompt() {
-        return prompt;
-    }
-
-    @Override
-    public void interagir(Joueur joueur)
-    {
-
-    }
 
 
     private void remplieAleatoirementMarchandise()

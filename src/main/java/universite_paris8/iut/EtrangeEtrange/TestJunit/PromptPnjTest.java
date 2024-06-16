@@ -2,8 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.TestJunit;
 
 
 import org.junit.Test;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Prompte.GestionPrompt;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Prompte.Prompt;
+import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.GestionPrompt;
 
 public class PromptPnjTest
 {

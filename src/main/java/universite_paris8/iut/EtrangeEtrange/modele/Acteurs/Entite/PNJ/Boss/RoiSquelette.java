@@ -1,9 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre.Squelette;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.PNJ;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
@@ -13,7 +11,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public class RoiSquelette extends EntiteOffensif implements PNJ {
+public class RoiSquelette extends EntiteOffensif
+{
 
     private long dernierTempsAttaque;
     private long delaiAttaque = 200;
@@ -52,13 +51,15 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
                 joueurDetecte = true;
                 setSeDeplace(true);
             } else {
-                return; // Ne rien faire si le joueur n'est pas détecté
+                return;
             }
         }
 
+
         long tempsActuel = System.currentTimeMillis();
-        // Vérifie si le délai d'attaque est écoulé
-        if (tempsActuel - dernierTempsAttaque >= delaiAttaque) {
+        if (tempsActuel - dernierTempsAttaque >= delaiAttaque)
+        {
+
             switch (etapeAttaque) {
                 case 0:
 
@@ -94,15 +95,8 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
         }
     }
 
-    @Override
-    public void action() {
 
-    }
 
-    @Override
-    public Prompt prompt() {
-        return null;
-    }
 
     // Détecte si le joueur est dans un certain rayon autour du Roi Squelette
     private boolean detecteJoueurDansRayon(double rayon) {
@@ -132,7 +126,8 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
     }
 
     // Déplace le Roi Squelette vers une destination donnée
-    private void seDeplacerVers(Position destination) {
+    private void seDeplacerVers(Position destination)
+    {
         double deltaX = destination.getX() - getPosition().getX();
         double deltaY = destination.getY() - getPosition().getY();
 
@@ -164,6 +159,11 @@ public class RoiSquelette extends EntiteOffensif implements PNJ {
     @Override
     public String typeActeur() {
         return "roisquelette";
+    }
+
+    @Override
+    public boolean estUnEnemie() {
+        return true;
     }
 
 

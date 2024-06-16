@@ -17,10 +17,10 @@ import javafx.util.Duration;
 
 import universite_paris8.iut.EtrangeEtrange.Runner;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Bloc.Bloc;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Bloc.Bloc;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Marchand;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Prompte.GestionPrompt;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Prompte.Prompt;
+import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.GestionPrompt;
+import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Archer;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epee;
@@ -45,7 +45,6 @@ import universite_paris8.iut.EtrangeEtrange.vues.Sprite.DropAuSol.gestionAfficha
 import universite_paris8.iut.EtrangeEtrange.vues.Sprite.Entite.GestionAffichageSpriteEntite;
 
 
-import universite_paris8.iut.EtrangeEtrange.vues.Sprite.GestionActeur;
 import universite_paris8.iut.EtrangeEtrange.vues.gestionAffichageMap;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss.RoiSquelette;
@@ -113,8 +112,9 @@ public class Controller implements Initializable {
         monde.setListenerListeEntites(gestionAffichageSprite);
         gestionAffichageSprite.ajouterJoueur(joueur);
 
-        GestionActeur gestionCauseDegat = new GestionActeur(monde,paneEntite);
-        monde.setListenerActeur(gestionCauseDegat);
+        GestionActeur gestionActeur = new GestionActeur(monde,paneEntite);
+        monde.setListenerActeur(gestionActeur);
+
 
 
         gestionAffichageMap gestionAffichageMap = new gestionAffichageMap(monde, TilePaneSol, TilePaneTraversable, TilePaneNontraversable);
@@ -132,6 +132,8 @@ public class Controller implements Initializable {
         monde.ajoutActeur(new Marchand(monde,12,12,Direction.BAS));
         initGameLoop();
         gameLoop.play();
+
+        gestionActeur.listenerCollision(joueur);
 
     }
 
@@ -222,8 +224,7 @@ public class Controller implements Initializable {
 
 
 
-    public void keyPressed(KeyEvent keyEvent) throws IOException
-    {
+    public void keyPressed(KeyEvent keyEvent) throws IOException {
         KeyCode keyCode = keyEvent.getCode();
 
         if(!interactionAvecPnj) {
@@ -247,18 +248,18 @@ public class Controller implements Initializable {
                 joueur.ramasserObjet();
             else if (keyCode == ConstantesClavier.degattest)
                 joueur.enlevePv(10);
-            else if(keyCode == ConstantesClavier.attaquer) {
+            else if(keyCode == ConstantesClavier.attaquer)
+            {
                 joueur.actionMainDroite();
-                if(joueur.getObjetMainDroite() instanceof Potion){
-                    Media media = new Media(new File("src/main/resources/universite_paris8/iut/EtrangeEtrange/sons/potion.mp3").toURI().toString());
-                    MediaPlayer mediaPlayer = new MediaPlayer(media);
-                    mediaPlayer.play();
-                }
             }
             else if (keyCode == KeyCode.B)
                 interaction();
             else if (keyCode == ConstantesClavier.inventaire)
-                ouvrirMenu();
+                 ouvrirMenu();
+            else if (keyCode == ConstantesClavier.courrir)
+            {
+                joueur.estEntrainDeCourir(true);
+            }
         }
         else{
             handleInteractionPnj(keyEvent);
@@ -304,8 +305,9 @@ public class Controller implements Initializable {
     {
         this.paneEntite.requestFocus();
 
-        if (mouseEvent.getButton() == MouseButton.PRIMARY)
+        if (mouseEvent.getButton() == MouseButton.PRIMARY) {
             this.joueur.actionMainDroite();
+        }
     }
 
     public void ouvrirMenu() throws IOException {
@@ -339,7 +341,7 @@ public class Controller implements Initializable {
     public void interaction()
     {
         Acteur acteur = monde.interactionAvecActeur();
-        System.out.println(acteur);
+
 
         if (acteur != null)
         {

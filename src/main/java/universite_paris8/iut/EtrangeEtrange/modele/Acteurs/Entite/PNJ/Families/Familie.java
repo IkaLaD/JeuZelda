@@ -1,18 +1,15 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Families;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Prompte.Prompt;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.PNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.SeDeplacerVers;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVers {
+public class Familie extends EntiteOffensif {
 
     protected Joueur joueur;
     protected boolean estFamilier;
@@ -29,28 +26,10 @@ public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVers {
         this.lastPathCalculationTime = System.currentTimeMillis();
     }
 
-    @Override
-    public void action() {
-        if (!estFamilier) {
-            if (detecteJoueur(joueur)) {
-                estFamilier = true;
-            }
-        }
 
-        if (estFamilier) {
-            setSeDeplace(true);
-            seDeplacerVers(joueur.getPosition());
-        } else {
-            seDeplaceAleatoire();
-        }
-    }
 
-    @Override
-    public Prompt prompt() {
-        return null;
-    }
 
-    @Override
+
     public void seDeplacerVers(Position joueurPosition) {
         if (aetoile == null) {
             return;
@@ -141,7 +120,18 @@ public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVers {
 
     @Override
     public void unTour() {
+        if (!estFamilier) {
+            if (detecteJoueur(joueur)) {
+                estFamilier = true;
+            }
+        }
 
+        if (estFamilier) {
+            setSeDeplace(true);
+            seDeplacerVers(joueur.getPosition());
+        } else {
+            seDeplaceAleatoire();
+        }
     }
 
 
@@ -159,6 +149,11 @@ public class Familie extends EntiteOffensif implements PNJ, SeDeplacerVers {
     @Override
     public String typeActeur() {
         return null;
+    }
+
+    @Override
+    public boolean estUnEnemie() {
+        return false;
     }
 
     @Override

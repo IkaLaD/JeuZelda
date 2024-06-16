@@ -40,26 +40,13 @@ public abstract class Entite extends Acteur
      * Subit des dégâts infligés par une source dommageable.
      * @param causeDegat La source de dégâts.
      */
-    public void subitAttaque(Dommageable causeDegat)
-    {
-        //enlevePv(subitDegatPhysique(causeDegat.degatPhysique(),0)+subitDegatSpecial(causeDegat.degatSpecial(),0));
-        System.out.println(getPv());
-        enlevePv(100);
-        System.out.println(getPv());
-    }
+    public void subitAttaque(Dommageable causeDegat) {enlevePv((subitDegatPhysique(causeDegat.degatPhysique(),0)+subitDegatSpecial(causeDegat.degatSpecial(),0))/2);}
 
     public void subitCollision(Acteur acteur) {acteur.causeCollision(this);}
-
-    public void causeCollision(Acteur acteur)
-    {
-        acteur.seFaitPousser(this);System.out.println("cause entité");
-    }
+    public void causeCollision(Acteur acteur) {acteur.seFaitPousser(this);}
 
     @Override
-    public void seFaitPousser(Acteur acteur) {
-
-    }
-
+    public void seFaitPousser(Acteur acteur) {}
 
 
 
@@ -69,7 +56,7 @@ public abstract class Entite extends Acteur
      * @param degatArme La force de l'entité qui inflige les dégâts.
      * @return Les dégâts physiques subis.
      */
-    protected abstract double subitDegatPhysique(double attaqueEntite,double degatArme);
+    protected double subitDegatPhysique(double attaqueEntite,double degatArme) {return Math.abs(attaqueEntite+degatArme - statsDefense.getDefense());}
 
     /**
      * Calcule les dégâts spéciaux subis par l'entité.
@@ -78,7 +65,10 @@ public abstract class Entite extends Acteur
      * @param degatArme    La force de l'entité qui inflige les dégâts spéciaux.
      * @return Les dégâts spéciaux subis.
      */
-    protected abstract double subitDegatSpecial(double attaqueSpecialEntite,double degatArme);
+    protected double subitDegatSpecial(double attaqueSpecialEntite,double degatArme)
+    {
+        return Math.abs(attaqueSpecialEntite+degatArme - statsDefenseSpecial.getDefenseSpecial());
+    }
     public void setDefenseMaximum(double statsDefense){this.statsDefense.setDefenseMaximum(statsDefense);}
     public void setDefense(double defense){this.statsDefense.setDefense(defense);}
     public void setDefenseSpecialMaximum(double statsDefenseSpecial) {this.statsDefenseSpecial.setDefenseSpecialMaximum(statsDefenseSpecial);}
@@ -88,10 +78,7 @@ public abstract class Entite extends Acteur
     public Defense getStatsDefense(){return this.statsDefense;}
     public DefenseSpecial getStatsDefenseSpecial(){return this.statsDefenseSpecial;}
 
-    /**
-     * Consomme un objet consommable.
-     * @param consommable L'objet consommable à consommer.
-     */
+
 
 
 }

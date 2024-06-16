@@ -50,15 +50,6 @@ public abstract class Humanoide extends EntiteOffensif
         this.objetMainDroite = objetMainDroite;
     }
 
-    @Override
-    protected double subitDegatPhysique(double attaque,double forceEntite) {
-        return (attaque * forceEntite) / (getDefense() - (attaque/6));
-    }
-
-    @Override
-    protected double subitDegatSpecial(double attaqueSpecial,double forceEntite) {
-        return (attaqueSpecial * forceEntite) / (getDefense() - (attaqueSpecial/6));
-    }
 
 
     public Sac getSac()

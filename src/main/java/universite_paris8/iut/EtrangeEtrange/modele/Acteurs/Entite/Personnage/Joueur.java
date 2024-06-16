@@ -3,10 +3,12 @@ package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.Competences;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.CreationArbre;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 
@@ -159,5 +161,10 @@ public abstract class Joueur extends Humanoide
 
         return totalPiece;
     }
+
+
+
+    @Override
+    public void dropApresMort() {}
 
 }

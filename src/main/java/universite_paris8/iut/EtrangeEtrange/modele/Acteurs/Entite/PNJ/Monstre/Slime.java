@@ -25,16 +25,15 @@ public class Slime extends Entite {
      * @param direction La direction dans laquelle l'entité est orientée.
      * @param hitbox    La hitbox de l'entité.
      */
-
-    private Aetoile aetoile;
-    private long lastPathCalculationTime;
-    private Joueur joueur;
-
-    public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox, Aetoile aetoile, Joueur joueur) {
-        super(monde, x, y, direction, 100, 30, 50, 0.005, hitbox);
-        this.aetoile = aetoile;
-        this.lastPathCalculationTime = System.currentTimeMillis();
-        this.joueur = joueur;
+    public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
+        super(monde, x, y, direction,
+                ParametreMonstre.PV_SLIME,
+                ParametreMonstre.ATTAQUE_SLIME,
+                ParametreMonstre.DEFENSE_SLIME,
+                ParametreMonstre.ATTAQUE_SPECIALE_SLIME,
+                ParametreMonstre.DEFENSE_SPECIALE_SLIME,
+                ParametreMonstre.VITESSE_SLIME,
+                hitbox);
     }
 
     @Override
@@ -105,8 +104,14 @@ public class Slime extends Entite {
 
         if(Math.random()>0.95)
             setDirection(Direction.randomDirection());
+
+
     }
 
+    @Override
+    public void subitCollision(Acteur acteur) {
+
+    }
 
     @Override
     public String typeActeur() {
@@ -126,10 +131,35 @@ public class Slime extends Entite {
     }
 
     @Override
+    public void subitAttaque(Dommageable causeDegat) {
+        enlevePv(20);
+    }
+
+
+
+    @Override
+    protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
+        return 0;
+    }
+
+    @Override
+    protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
+        return 0;
+    }
+
+    @Override
+    public void attaque(Arme arme) {
+
+    }
+
+    @Override
     public Prompt getPrompt()
     {
        return  null;
     }
 
+    @Override
+    public void lanceUnSort(int numSort) {
 
+    }
 }

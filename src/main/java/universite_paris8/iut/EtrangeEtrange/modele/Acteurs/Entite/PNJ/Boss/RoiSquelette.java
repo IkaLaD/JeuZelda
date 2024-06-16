@@ -1,5 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre.Squelette;
 
@@ -7,6 +8,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Orbe;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ParametreMonstre;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
@@ -25,7 +28,14 @@ public class RoiSquelette extends EntiteOffensif
     private double distanceDetection = 5.0;
 
     public RoiSquelette(Monde monde, double x, double y, Direction direction) {
-        super( monde,  x,  y,  direction,  1000,  20,  20,  20 ,  20,  0.025, new Hitbox(1, 1));
+        super(monde, x, y, direction,
+                ParametreMonstre.PV_ROI_SQUELETTE,
+                ParametreMonstre.ATTAQUE_ROI_SQUELETTE,
+                ParametreMonstre.DEFENSE_ROI_SQUELETTE,
+                ParametreMonstre.ATTAQUE_SPECIALE_ROI_SQUELETTE,
+                ParametreMonstre.DEFENSE_SPECIALE_ROI_SQUELETTE,
+                ParametreMonstre.VITESSE_ROI_SQUELETTE,
+                new Hitbox(1, 1));
         this.dernierTempsAttaque = System.currentTimeMillis();
         this.positionInitiale = new Position(x, y);
         this.etapeAttaque = 0;
@@ -73,7 +83,11 @@ public class RoiSquelette extends EntiteOffensif
                 case 1:
                     seDeplacerVers(position5_2);
                     if (positionAtteinte(position5_2)) {
-                        // Implémenter ici la deuxième attaque
+
+                        new Orbe().utilise(this);
+
+
+
                         etapeAttaque++;
                     }
                     break;
@@ -157,6 +171,8 @@ public class RoiSquelette extends EntiteOffensif
     public boolean estUnEnemie() {
         return true;
     }
+
+
 
 
 }

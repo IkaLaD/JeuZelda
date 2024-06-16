@@ -7,7 +7,7 @@ public class ParametreMonstre {
     public static final int DEFENSE_SQUELETTE = 10;
     public static final int ATTAQUE_SPECIALE_SQUELETTE = 1;
     public static final int DEFENSE_SPECIALE_SQUELETTE = 10;
-    public static final double VITESSE_SQUELETTE = 0.025;
+    public static final double VITESSE_SQUELETTE = 0.005;
 
     // Paramètres pour Slime
 

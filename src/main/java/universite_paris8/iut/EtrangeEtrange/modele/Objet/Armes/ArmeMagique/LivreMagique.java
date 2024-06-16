@@ -13,6 +13,7 @@ public  class LivreMagique implements Arme, Rechargeable
 
     private static final Sortilege SORTILEGE1 = ConstanteObjet.SORTILEGE1_LIVRE_MAGIQUE;
     private static final Sortilege SORTILEGE2 = ConstanteObjet.SORTILEGE2_LIVRE_MAGIQUE;
+    private static final Sortilege SORTILEGE3 = ConstanteObjet.SORTILEGE3_LIVRE_SOIN;
     private static final int NOMBRE_SORT_MAXIMUM = ConstanteObjet.SORT_MAXIMUM_LIVRE_MAGIQUE;
     private static final int PRIX_ACHAT = ConstanteObjet.PRIX_ACHAT_LIVRE_MAGIQUE;
     private static final int STACK_MAX = ConstanteObjet.STACK_MAX_LIVRE_MAGIQUE;
@@ -26,6 +27,7 @@ public  class LivreMagique implements Arme, Rechargeable
         this.sortileges = new ArrayList<>();
         this.sortileges.add(SORTILEGE1);
         this.sortileges.add(SORTILEGE2);
+        this.sortileges.add(SORTILEGE3);
 
 
         this.peutTirer = true;
@@ -56,7 +58,7 @@ public  class LivreMagique implements Arme, Rechargeable
     {
         Sortilege sortilege = null;
 
-        if (num > 0 && num < sortileges.size()-1)
+        if (num >= 0 && num < sortileges.size())
             sortilege = sortileges.get(num);
 
         return sortilege;

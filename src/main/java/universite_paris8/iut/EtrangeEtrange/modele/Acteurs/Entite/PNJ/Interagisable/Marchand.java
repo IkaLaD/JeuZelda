@@ -5,7 +5,6 @@ import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Action.ActionVendre;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Action.Soigner;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Humain.HumainPNJ;
 import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Prompte.Prompt;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.*;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;

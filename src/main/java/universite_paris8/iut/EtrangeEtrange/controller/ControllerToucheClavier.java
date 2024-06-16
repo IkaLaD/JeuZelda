@@ -27,8 +27,9 @@ public class ControllerToucheClavier implements Initializable {
     public TextArea menuDroite;
     public TextArea selectionner;
     public TextArea Sort2;
-    public TextArea Sort3;
     public TextArea ParlerPnj;
+    public TextArea Sort1;
+    public TextArea Sort3;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,7 +57,8 @@ public class ControllerToucheClavier implements Initializable {
         menuGauche.setText(ConstantesClavier.deplacementGauche.getChar());
         selectionner.setText(ConstantesClavier.menuSelectionner.getChar());
         Sort2.setText(ConstantesClavier.sort2.getChar());
-        Sort3.setText(ConstantesClavier.sort3.getChar());
+        Sort1.setText(ConstantesClavier.sort3.getChar());
+        Sort3.setText(ConstantesClavier.sort1.getChar());
         ParlerPnj.setText(ConstantesClavier.parlerPnj.getChar());
     }
 
@@ -71,6 +73,7 @@ public class ControllerToucheClavier implements Initializable {
         textAreas.add(UtiliserObjet);
         textAreas.add(Courrir);
         textAreas.add(Sort2);
+        textAreas.add(Sort1);
         textAreas.add(Sort3);
         textAreas.add(ParlerPnj);
         for(int i = 0 ; i < textAreas.size() ; i++){
@@ -89,7 +92,8 @@ public class ControllerToucheClavier implements Initializable {
         ConstantesClavier.setDeplacementHaut(getKeyCode(Haut, ConstantesClavier.deplacementHaut));
         ConstantesClavier.setAttaquer(getKeyCode(UtiliserObjet, ConstantesClavier.attaquer));
         ConstantesClavier.setSort2(getKeyCode(Sort2, ConstantesClavier.sort2));
-        ConstantesClavier.setSort3(getKeyCode(Sort3, ConstantesClavier.sort3));
+        ConstantesClavier.setSort3(getKeyCode(Sort1, ConstantesClavier.sort3));
+        ConstantesClavier.setSort3(getKeyCode(Sort3, ConstantesClavier.sort1));
         ConstantesClavier.setParlerPnj(getKeyCode(ParlerPnj, ConstantesClavier.parlerPnj));
 
 

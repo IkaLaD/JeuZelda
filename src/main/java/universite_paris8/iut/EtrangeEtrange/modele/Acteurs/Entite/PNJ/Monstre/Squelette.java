@@ -3,8 +3,10 @@ package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
+import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ParametreMonstre;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.PieceOr;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
@@ -13,18 +15,27 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 
-public class Squelette extends EntiteOffensif  {
-
+public class Squelette extends Entite {
     private Joueur joueur;
     private Aetoile aetoile;
     private long lastPathCalculationTime;
 
-    public Squelette( Monde monde, double x, double y, Direction direction, Hitbox hitbox, Joueur joueur, Aetoile aetoile) {
-        super( monde,  x,  y,  direction,  100,  10,  10,1 ,  10,  0.005, hitbox);
+    public Squelette(Monde monde, double x, double y, Direction direction, Hitbox hitbox, Joueur joueur, Aetoile aetoile) {
+        super(monde, x, y, direction,
+                ParametreMonstre.PV_SQUELETTE,
+                ParametreMonstre.ATTAQUE_SQUELETTE,
+                ParametreMonstre.DEFENSE_SQUELETTE,
+                ParametreMonstre.ATTAQUE_SPECIALE_SQUELETTE,
+                ParametreMonstre.DEFENSE_SPECIALE_SQUELETTE,
+                ParametreMonstre.VITESSE_SQUELETTE,
+                hitbox);
         this.joueur = joueur;
         this.aetoile = aetoile;
         this.lastPathCalculationTime = System.currentTimeMillis();
     }
+
+
+
 
 
     public void seDeplacerVers(Position joueurPosition) {
@@ -87,7 +98,28 @@ public class Squelette extends EntiteOffensif  {
 
     @Override
     public void unTour() {
-        seDeplacerVers(joueur.getPosition());
+        if (monde.estDansRayon(getPosition(), 5)){
+            seDeplacerVers(joueur.getPosition());
+        }
+        else {
+            seDeplaceAleatoire();
+        }
+    }
+
+    public void seDeplaceAleatoire(){
+        if (peutSeDeplacer()) {
+            if(Math.random()>0.95){
+                setSeDeplace(false);
+            }
+            else {
+                seDeplace(1);
+            }
+        }
+        else if(Math.random()>0.95)
+            setSeDeplace(true);
+
+        if(Math.random()>0.95)
+            setDirection(Direction.randomDirection());
     }
 
 

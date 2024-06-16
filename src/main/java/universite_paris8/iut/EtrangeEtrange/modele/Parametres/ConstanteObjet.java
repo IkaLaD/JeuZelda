@@ -76,6 +76,7 @@ public class ConstanteObjet
 
     public static Sortilege SORTILEGE1_LIVRE_MAGIQUE = new SortilegeOrbe();
     public static Sortilege SORTILEGE2_LIVRE_MAGIQUE = new SortilegePluitDeFleche();
+    public static Sortilege SORTILEGE3_LIVRE_SOIN = new SortilegeDeSoins();
     public static int SORT_MAXIMUM_LIVRE_MAGIQUE = 3;
     public static int STACK_MAX_LIVRE_MAGIQUE = 1;
     public static int PRIX_ACHAT_LIVRE_MAGIQUE = 120;

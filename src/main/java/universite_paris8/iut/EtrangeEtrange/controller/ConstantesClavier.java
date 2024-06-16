@@ -17,6 +17,7 @@ public class ConstantesClavier {
     public static KeyCode inventaire = KeyCode.I;
     public static KeyCode courrir = KeyCode.L;
 
+    public static KeyCode sort1 = KeyCode.C;
     public static KeyCode sort2 = KeyCode.W;
     public static KeyCode sort3 = KeyCode.X;
     public static KeyCode degattest = KeyCode.Y;
@@ -27,6 +28,7 @@ public class ConstantesClavier {
     public static KeyCode menuDeplacementHaut = KeyCode.Z;
     public static KeyCode menuDeplacementBas = KeyCode.S;
     public static KeyCode menuSelectionner =KeyCode.L;
+
 
     public static void setAttaquer(KeyCode attaquer) {
         ConstantesClavier.attaquer = attaquer;

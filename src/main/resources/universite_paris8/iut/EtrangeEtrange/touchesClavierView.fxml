@@ -182,7 +182,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <TextArea fx:id="Sort2" minHeight="30" maxHeight="30" minWidth="30" maxWidth="30" />
+                  <TextArea fx:id="Sort1" minHeight="30" maxHeight="30" minWidth="30" maxWidth="30" />
                </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -207,12 +207,12 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="292.0">
                <children>
-                  <Label text="Sort 3" minWidth="100" maxWidth="100">
+                  <Label text="Sort 2" minWidth="100" maxWidth="100">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Label>
-                  <TextArea fx:id="Sort3" minHeight="30" maxHeight="30" minWidth="30" maxWidth="30" />
+                  <TextArea fx:id="Sort2" minHeight="30" maxHeight="30" minWidth="30" maxWidth="30" />
                </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -235,11 +235,23 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="311.0">
-               <Button text="Valider" fx:id="boutton" onMouseClicked="#bouttonClick"/>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="292.0">
+               <children>
+                  <Label text="Sort 3" minWidth="100" maxWidth="100">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextArea fx:id="Sort3" minHeight="30" maxHeight="30" minWidth="30" maxWidth="30" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
             </HBox>
          </children>
       </HBox>
-
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="311.0">
+         <Button text="Valider" fx:id="boutton" onMouseClicked="#bouttonClick"/>
+      </HBox>
    </children>
 </VBox>

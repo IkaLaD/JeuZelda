@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Bloc.Bloc;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss.RoiSquelette;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable.Marchand;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre.Slime;
@@ -403,10 +402,14 @@ public class Monde {
         this.dropsAuSol.addListener(gestionAffichageDropAuSol);
     }
 
+    public boolean estDansRayon(Position positionCentre, double rayon){
+        Position positionJoueur = getJoueur().getPosition();
 
+        double distance = Math.sqrt(Math.pow(positionJoueur.getX() - positionCentre.getX(), 2) +
+        Math.pow(positionJoueur.getY() - positionCentre.getY(), 2));
 
-
-
+        return distance <= rayon;
+    }
 
 
     public void setListenerListeEntites(GestionAffichageSpriteEntite gestionAffichageSprite) {
@@ -467,6 +470,17 @@ public class Monde {
     }
 
 
+    public ArrayList<Entite> getEntites() {
+        ArrayList<Entite> toutesLesEntites = new ArrayList<>();
+
+        // Ajouter tous les acteurs qui sont des entités
+        for (Acteur acteur : this.acteurs) {
+            if (acteur instanceof Entite) {
+                toutesLesEntites.add((Entite) acteur);
+            }
+        }
+        return toutesLesEntites;
+    }
 }
 
 

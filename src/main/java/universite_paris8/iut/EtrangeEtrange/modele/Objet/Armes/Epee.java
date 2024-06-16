@@ -2,6 +2,7 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Rechargeable;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstanteObjet;
@@ -25,6 +26,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     private boolean peutTaper;
     private short cycle;
     private long derniereApelle;
+    private Entite utilisateur;
 
 
     public Epee()
@@ -41,6 +43,7 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     {
         if (peutTaper)
         {
+            utilisateur = entite;
             setPosition(entite.getPosition());
             setMonde(entite.getMonde());
             setDirection(entite.getDirection());
@@ -125,9 +128,12 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
     @Override
     public void causeCollision(Acteur acteur)
     {
-        acteur.subitAttaque(this);
+        acteur.subitAttaque(this,(EntiteOffensif) utilisateur);
         monde.ajoutActeurAsupprimer(this);
     }
+
+    @Override
+    public void subitAttaque(Dommageable causeDegat, EntiteOffensif entiteOffensif) {  /*  NE FAIT RIEN */ }
 
     @Override
     public int prixAchat() {
@@ -204,6 +210,5 @@ public class Epee extends Acteur implements Dommageable,Rechargeable,Arme
 
     @Override
     public void subitCollision(Acteur acteur) {/*NE FAIT RIEN*/}
-    @Override
-    public void subitAttaque(Dommageable causeDegat) {  /*  NE FAIT RIEN */ }
+
 }

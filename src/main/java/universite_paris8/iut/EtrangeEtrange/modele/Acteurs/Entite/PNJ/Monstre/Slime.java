@@ -27,20 +27,15 @@ public class Slime extends Entite {
      * @param direction La direction dans laquelle l'entité est orientée.
      * @param hitbox    La hitbox de l'entité.
      */
-    private Aetoile aetoile;
-    private long lastPathCalculationTime;
-    private Joueur joueur;
 
-    public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox, Aetoile aEtoile, Joueur joueur) {
+
+    public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(monde, x, y, direction,
                 ParametreMonstre.PV_SLIME,
                 ParametreMonstre.DEFENSE_SLIME,
                 ParametreMonstre.DEFENSE_SPECIALE_SLIME,
                 ParametreMonstre.VITESSE_SLIME,
                 hitbox);
-        this.joueur = joueur;
-        this.aetoile = aEtoile;
-        this.lastPathCalculationTime = System.currentTimeMillis();
     }
 
     @Override
@@ -48,11 +43,6 @@ public class Slime extends Entite {
     {
         deplacementAleatoire();
     }
-
-    private boolean positionAtteinte(Position position) {
-        return Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1;
-    }
-
 
     public void deplacementAleatoire(){
         if (peutSeDeplacer()) {
@@ -72,7 +62,6 @@ public class Slime extends Entite {
 
     }
 
-
     @Override
     public String typeActeur() {
         return "slime";
@@ -82,8 +71,8 @@ public class Slime extends Entite {
     public void dropApresMort() {
         double x = getPosition().getX();
         double y = getPosition().getY();
-        for(int i = 0 ; i < 5 ; i++)
-            getMonde().ajouterDropAuSol(new DropAuSol(new PieceOr(), 1, new Position(x, y)));
+        getMonde().ajouterDropAuSol(new DropAuSol(new PieceOr(), 1, new Position(x, y)));
+        System.out.println("passage");
     }
 
     @Override
@@ -91,11 +80,10 @@ public class Slime extends Entite {
         return true;
     }
 
-
-
-
-
-
-
+    @Override
+    public Prompt getPrompt()
+    {
+       return  null;
+    }
 
 }

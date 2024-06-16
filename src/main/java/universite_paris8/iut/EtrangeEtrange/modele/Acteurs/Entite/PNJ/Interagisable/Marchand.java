@@ -1,6 +1,7 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Interagisable;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Interaction.Action.ActionVendre;
 
@@ -73,9 +74,7 @@ public class Marchand extends Humanoide implements Dropable
     public boolean estUnEnemie() {return false;}
 
     @Override
-    public void subitAttaque(Dommageable causeDegat) {
-
-    }
+    public  void subitAttaque(Dommageable causeDegat, EntiteOffensif entiteOffensif){}
 
     private void initPrompt()
     {
@@ -99,12 +98,12 @@ public class Marchand extends Humanoide implements Dropable
 
 
 
+
+
     @Override
-    public void attaque(Arme arme) {
+    public void attaque() {
 
     }
-
-
 
     @Override
     public void lanceUnSort(int numSort) {

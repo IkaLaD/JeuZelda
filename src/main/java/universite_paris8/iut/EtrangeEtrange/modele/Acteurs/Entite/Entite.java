@@ -40,7 +40,10 @@ public abstract class Entite extends Acteur
      * Subit des dégâts infligés par une source dommageable.
      * @param causeDegat La source de dégâts.
      */
-    public void subitAttaque(Dommageable causeDegat) {enlevePv((subitDegatPhysique(causeDegat.degatPhysique(),0)+subitDegatSpecial(causeDegat.degatSpecial(),0))/2);}
+    public void subitAttaque(Dommageable causeDegat,EntiteOffensif entiteOffensif)
+    {
+        enlevePv((subitDegatPhysique(entiteOffensif.getAttaque(),causeDegat.degatPhysique()) + subitDegatSpecial(causeDegat.degatSpecial(), entiteOffensif.getAttaqueSpecial()))/2);
+    }
 
     public void subitCollision(Acteur acteur) {acteur.causeCollision(this);}
     public void causeCollision(Acteur acteur) {acteur.seFaitPousser(this);}

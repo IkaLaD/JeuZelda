@@ -27,20 +27,15 @@ public class Slime extends Entite {
      * @param direction La direction dans laquelle l'entité est orientée.
      * @param hitbox    La hitbox de l'entité.
      */
-    private Aetoile aetoile;
-    private long lastPathCalculationTime;
-    private Joueur joueur;
 
-    public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox, Aetoile aEtoile, Joueur joueur) {
+
+    public Slime(Monde monde, double x, double y, Direction direction, Hitbox hitbox) {
         super(monde, x, y, direction,
                 ParametreMonstre.PV_SLIME,
                 ParametreMonstre.DEFENSE_SLIME,
                 ParametreMonstre.DEFENSE_SPECIALE_SLIME,
                 ParametreMonstre.VITESSE_SLIME,
                 hitbox);
-        this.joueur = joueur;
-        this.aetoile = aEtoile;
-        this.lastPathCalculationTime = System.currentTimeMillis();
     }
 
     @Override
@@ -48,11 +43,6 @@ public class Slime extends Entite {
     {
         deplacementAleatoire();
     }
-
-    private boolean positionAtteinte(Position position) {
-        return Math.abs(getPosition().getX() - position.getX()) < 0.1 && Math.abs(getPosition().getY() - position.getY()) < 0.1;
-    }
-
 
     public void deplacementAleatoire(){
         if (peutSeDeplacer()) {
@@ -73,11 +63,6 @@ public class Slime extends Entite {
     }
 
     @Override
-    public void subitCollision(Acteur acteur) {
-
-    }
-
-    @Override
     public String typeActeur() {
         return "slime";
     }
@@ -94,24 +79,6 @@ public class Slime extends Entite {
     public boolean estUnEnemie() {
         return true;
     }
-
-    @Override
-    public void subitAttaque(Dommageable causeDegat) {
-        enlevePv(20);
-    }
-
-
-
-    @Override
-    protected double subitDegatPhysique(double attaqueEntite, double degatArme) {
-        return 0;
-    }
-
-    @Override
-    protected double subitDegatSpecial(double attaqueSpecialEntite, double degatArme) {
-        return 0;
-    }
-
 
     @Override
     public Prompt getPrompt()

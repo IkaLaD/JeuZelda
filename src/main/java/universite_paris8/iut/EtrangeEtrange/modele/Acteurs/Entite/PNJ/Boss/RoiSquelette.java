@@ -8,6 +8,9 @@ import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Attaque.SortilegePluitDeFleche;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Orbe;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ParametreMonstre;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
@@ -44,14 +47,17 @@ public class RoiSquelette extends EntiteOffensif
         setPosition(x, y); // Positionnement initial du Roi Squelette
     }
 
-    @Override
-    public void attaque(Arme arme) {
 
+    @Override
+    public void attaque() {
+        Epee epee = new Epee();
+        epee.utilise(this);
     }
 
     @Override
     public void lanceUnSort(int numSort) {
-
+        Sortilege sortilege = new SortilegePluitDeFleche();
+        sortilege.utilise(this);
     }
 
     @Override

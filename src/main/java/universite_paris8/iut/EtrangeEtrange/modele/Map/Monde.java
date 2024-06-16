@@ -126,7 +126,7 @@ public class Monde {
                         if (monstre == 4)
                             acteur = new Marchand(this, j+0.5 ,ligneIndex+0.5, Direction.BAS);
                         else if(monstre == 2)
-                            acteur = new Slime(this, j+0.5, ligneIndex+0.5, Direction.BAS, new Hitbox(0.25, 0.5), new Aetoile(this), joueur);
+                            acteur = new Slime(this, j+0.5, ligneIndex+0.5, Direction.BAS, new Hitbox(0.25, 0.5));
                         else if(monstre == 3)
                             acteur = new Squelette(this, j+0.5, ligneIndex+0.5,  Direction.BAS, new Hitbox(0.5, 0.5),joueur , new Aetoile(this));
                         else if(monstre == 1)
@@ -169,6 +169,11 @@ public class Monde {
             {
                 acteur2.subitCollision(acteur);
             }
+        }
+
+        if (collisionAvecActeur(acteur,joueur) && acteur != joueur)
+        {
+            joueur.subitCollision(acteur);
         }
     }
 
@@ -346,7 +351,6 @@ public class Monde {
         return collision;
     }
 
-    //TODO CORRIGER METHODE
     public boolean collisionAvecActeur(Acteur acteur1,Acteur acteur2)
     {
         double vitesse = acteur1.getVitesse();

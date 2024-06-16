@@ -8,6 +8,8 @@ import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arc;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Attaque.SortilegePluitDeFleche;
+import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epee;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ParametreMonstre;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.PieceOr;
 import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
@@ -21,6 +23,7 @@ public class Squelette extends EntiteOffensif {
     private Joueur joueur;
     private Aetoile aetoile;
     private long lastPathCalculationTime;
+    private Epee epee ;
 
     public Squelette(Monde monde, double x, double y, Direction direction, Hitbox hitbox, Joueur joueur, Aetoile aetoile) {
         super(monde, x, y, direction,
@@ -34,6 +37,7 @@ public class Squelette extends EntiteOffensif {
         this.joueur = joueur;
         this.aetoile = aetoile;
         this.lastPathCalculationTime = System.currentTimeMillis();
+        epee = new Epee();
     }
 
 
@@ -89,7 +93,8 @@ public class Squelette extends EntiteOffensif {
     }
 
     @Override
-    public void attaque(Arme arme) {
+    public void attaque() {
+        epee.utilise(this);
 
     }
 
@@ -103,7 +108,7 @@ public class Squelette extends EntiteOffensif {
         if (monde.estDansRayon(getPosition(), 6)){
             seDeplacerVers(joueur.getPosition());
             if (monde.estDansRayon(getPosition(), 2)){
-                attaque(new Arc());
+                attaque();
             }
         }
         else {

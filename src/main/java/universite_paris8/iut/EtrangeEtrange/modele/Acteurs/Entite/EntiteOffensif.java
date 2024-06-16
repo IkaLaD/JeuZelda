@@ -40,9 +40,9 @@ public abstract class EntiteOffensif extends Entite
 
     /**
      * Effectue une attaque avec une arme.
-     * @param arme L'arme utilisée pour l'attaque.
+     *
      */
-    public abstract void attaque(Arme arme);
+    public abstract void attaque();
 
     /**
      * Lance un sort.

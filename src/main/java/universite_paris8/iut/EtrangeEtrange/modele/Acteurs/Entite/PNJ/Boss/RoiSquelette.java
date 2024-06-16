@@ -24,7 +24,7 @@ public class RoiSquelette extends EntiteOffensif
 {
 
     private long dernierTempsAttaque;
-    private long delaiAttaque = 200;
+    private long delaiAttaque = 75;
     private Position positionInitiale;
     private int etapeAttaque;
     private Position positionMilieu;
@@ -119,13 +119,6 @@ public class RoiSquelette extends EntiteOffensif
         return distance <= rayon;
     }
 
-    // Effectue une grande attaque circulaire
-    private void grandeAttaqueCirculaire() {
-        attaque();
-        new Orbe(getMonde().getJoueur()).utilise(this);
-        new Orbe(getMonde().getJoueur()).utilise(this);
-        new Orbe(getMonde().getJoueur()).utilise(this);
-    }
 
     // Invoque des squelettes pour aider le Roi Squelette
     private void invoquerSquelettes()
@@ -137,7 +130,6 @@ public class RoiSquelette extends EntiteOffensif
         Squelette squeletteDroite = new Squelette( getMonde(), positionBas.getX(), positionBas.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
         getMonde().ajoutActeur(squeletteGauche);
         getMonde().ajoutActeur(squeletteDroite);
-        new Orbe(getMonde().getJoueur()).utilise(this);
         new Potion().utilise(this);
         new Potion().utilise(this);
         new Potion().utilise(this);

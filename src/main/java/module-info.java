@@ -16,8 +16,6 @@ module com.example.essaie {
     exports universite_paris8.iut.EtrangeEtrange.modele.Parametres;
     opens universite_paris8.iut.EtrangeEtrange.modele.Parametres to javafx.fxml;
 
-    opens universite_paris8.iut.EtrangeEtrange.TestJunit to org.junit.platform.commons; // Ouvre le package des tests pour JUnit
-    exports universite_paris8.iut.EtrangeEtrange.TestJunit;
     exports universite_paris8.iut.EtrangeEtrange.modele.Utilitaire;
     opens universite_paris8.iut.EtrangeEtrange.modele.Utilitaire to javafx.fxml;
     

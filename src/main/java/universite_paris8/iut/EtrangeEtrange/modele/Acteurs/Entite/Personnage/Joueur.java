@@ -1,43 +1,48 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
+import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.Competences;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.CreationArbre;
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Dommageable;
+import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Offensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epee;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Monnaie.Piece;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Fleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Carquois;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Orbe;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Soins.Potion;
+import universite_paris8.iut.EtrangeEtrange.modele.Statistique.Attaque;
+import universite_paris8.iut.EtrangeEtrange.modele.Statistique.AttaqueSpecial;
+import universite_paris8.iut.EtrangeEtrange.modele.Stockage.DropAuSol;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Direction;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Humanoide;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Arc;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Contenant.Sac;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Objet;
+import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Représente le joueur dans le jeu.
  */
-public abstract class Joueur extends Humanoide
+public abstract class Joueur extends Entite implements Offensif
 {
+
+    protected Objet objetMainGauche;
+    protected Objet objetMainDroite;
+    protected Sac sac;
+
+    private Attaque attaque;
+    private AttaqueSpecial attaqueSpecial;
+
     private Set<Direction> directions;
     private Competences competences;
     protected Carquois carquois;
@@ -66,8 +71,23 @@ public abstract class Joueur extends Humanoide
         this.competences = CreationArbre.arbres();
         this.estEntrainDeCourir = false;
         this.directions = new HashSet<>();
+        this.attaque = new Attaque(attaque);
+        this.attaqueSpecial = new AttaqueSpecial(attaqueSpecial);
 
     }
+
+
+
+    @Override
+    public double getAttaque() {
+        return attaque.getAttaque();
+    }
+
+    @Override
+    public double getAttaqueSpecial() {
+        return attaqueSpecial.getAttaqueSpecial();
+    }
+
 
 
     public void actionMainDroite()
@@ -76,13 +96,10 @@ public abstract class Joueur extends Humanoide
         {
             if (objetMainDroite instanceof Utilisable utilisable)
             {
-                if (objetMainDroite instanceof Arme )
-                    attaque();
+                if (objetMainDroite instanceof Arc arc )
+                    arc.setFleche(carquois.retourneUneFleche());
 
-
-                utilisable.utilise(this);
-
-                if (objetMainDroite.durabilitee() == 0)
+                if (utilisable.utiliseePar(this))
                     objetMainDroite = null;
 
             }
@@ -105,26 +122,15 @@ public abstract class Joueur extends Humanoide
         }
     }
 
-    @Override
-    public void attaque()
-    {
-        if (objetMainDroite instanceof Arc arc)
-        {
-            Fleche flecheSimple = carquois.retourneUneFleche();
 
-            if (flecheSimple != null)
-                arc.setFleche(flecheSimple);
-        }
-    }
-
-    @Override
     public void lanceUnSort(int numSort)
     {
         if (objetMainDroite instanceof LivreMagique livreMagique)
         {
             Sortilege sortilege = livreMagique.getSortilege(numSort);
+
             if (sortilege != null)
-                sortilege.utilise(this);
+                sortilege.utiliseePar(this);
         }
     }
     @Override
@@ -151,6 +157,7 @@ public abstract class Joueur extends Humanoide
         }
     }
     public Competences getCompetences() { return this.competences; }
+
     public int getPiece(){
         int totalPiece = 0;
         for(int i = 0 ; i < sac.getTailleMax() ; i++){
@@ -165,5 +172,54 @@ public abstract class Joueur extends Humanoide
 
     @Override
     public void dropApresMort() {}
+
+
+
+    public Sac getSac()
+    {
+        return this.sac;
+    }
+
+
+    public Objet retournerObjetMainDroite()
+    {
+        Objet objet = this.objetMainDroite;
+        this.objetMainDroite = null;
+        return objet;
+    }
+    public void setObjetMainGauche(Objet objet){
+        this.objetMainGauche = objet;
+    }
+
+    public Objet retournerObjetMainGauche(){
+        Objet objet = this.objetMainGauche;
+        this.objetMainGauche=null;
+        return objet;
+    }
+    public Objet getObjetMainDroite(){
+        return this.objetMainDroite;
+    }
+    public Objet getObjetMainGauche(){
+        return this.objetMainGauche;
+    }
+
+    public void setObjetMainDroite(Objet objet){
+        this.objetMainDroite = objet;
+    }
+
+    public void ramasserObjet() {
+        ArrayList<DropAuSol> dropAuSols = getMonde().getDropAuSol();
+
+        for(int i = 0 ; i < dropAuSols.size() ; i++){
+            Position position1 = dropAuSols.get(i).getPosition();
+            if(Math.abs(getPosition().getX()+getDirection().getX()-position1.getX())<1)
+                if(Math.abs(getPosition().getY()+getDirection().getY()-position1.getY())<1) {
+                    if (sac.ajoutItem(dropAuSols.get(i).getObjet())) {
+                        getMonde().enleverDropAuSol(dropAuSols.get(i));
+                        i++;
+                    }
+                }
+        }
+    }
 
 }

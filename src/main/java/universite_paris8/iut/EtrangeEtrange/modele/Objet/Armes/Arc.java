@@ -29,7 +29,7 @@ public class Arc implements Arme,Rechargeable
     }
 
     @Override
-    public void utilise(Entite entite)
+    public boolean estUtiliseePar(Entite entite)
     {
         if (peutTirer && fleche != null)
         {

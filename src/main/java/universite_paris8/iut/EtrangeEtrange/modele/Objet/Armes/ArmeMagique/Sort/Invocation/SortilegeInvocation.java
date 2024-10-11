@@ -2,8 +2,6 @@ package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Acteur;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Personnage.Joueur;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Utilisable;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
@@ -29,7 +27,7 @@ public abstract class SortilegeInvocation extends Sortilege implements Utilisabl
         return peuInvoquer;
     }
     @Override
-    public void utilise(Entite entite)
+    public boolean estUtiliseePar(Entite entite)
     {
         if (peuInvoquer(entite))
         {

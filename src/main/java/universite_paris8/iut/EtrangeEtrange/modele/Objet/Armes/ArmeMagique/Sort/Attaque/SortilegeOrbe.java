@@ -1,7 +1,6 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Attaque;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Orbe;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ConstantesSortilege;
@@ -16,7 +15,7 @@ public class SortilegeOrbe extends Sortilege
     }
 
     @Override
-    public void utilise(Entite entite)
+    public boolean estUtiliseePar(Entite entite)
     {
         this.orbe = new Orbe();
 
@@ -26,7 +25,7 @@ public class SortilegeOrbe extends Sortilege
             this.derniereApelle = System.currentTimeMillis();
 
             entite.getMonde().ajoutRechargeable(this);
-            this.orbe.utilise(entite);
+            this.orbe.estUtiliseePar(entite);
         }
     }
 

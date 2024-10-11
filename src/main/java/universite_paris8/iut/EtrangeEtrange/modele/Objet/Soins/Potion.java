@@ -19,7 +19,7 @@ public class Potion implements Guerrisable, Objet, Utilisable
     public Potion(){this.durabilitee = DURABILITEE;}
 
     @Override
-    public void utilise(Entite entite)
+    public boolean estUtiliseePar(Entite entite)
     {
         if (durabilitee > 0)
         {

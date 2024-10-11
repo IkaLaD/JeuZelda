@@ -9,7 +9,7 @@ import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Hitbox;
 import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Position;
 
-public class Epee implements Dommageable,Rechargeable,Arme
+public class CoupEpee extends Acteur implements Dommageable,Rechargeable,Arme
 {
 
     private static final int DURABILITE = ConstanteObjet.DURABILITE_EPEE;
@@ -28,8 +28,9 @@ public class Epee implements Dommageable,Rechargeable,Arme
     private Entite utilisateur;
 
 
-    public Epee()
+    public CoupEpee()
     {
+        super(DURABILITE, VITESSE, HITBOX);
         this.peutTaper = true;
         this.cycle = 0;
         this.derniereApelle = 0;
@@ -130,7 +131,25 @@ public class Epee implements Dommageable,Rechargeable,Arme
         monde.ajoutActeurAsupprimer(this);
     }
 
+    @Override
+    public void subitAttaque(Dommageable causeDegat, EntiteOffensif entiteOffensif) {  /*  NE FAIT RIEN */ }
 
+    @Override
+    public int prixAchat() {
+        return PRIX_ACHAT;
+    }
+    @Override
+    public boolean peutSeDeplacer() { return true; }
+
+    @Override
+    public String typeActeur() {
+        return "epee";
+    }
+
+    @Override
+    public void dropApresMort() {
+
+    }
 
     @Override
     public long delaie() {

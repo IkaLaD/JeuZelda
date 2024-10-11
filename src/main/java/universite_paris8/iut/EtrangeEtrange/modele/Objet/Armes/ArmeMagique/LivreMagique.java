@@ -36,12 +36,12 @@ public  class LivreMagique implements Arme, Rechargeable
 
 
     @Override
-    public void utilise(Entite entite)
+    public boolean estUtiliseePar(Entite entite)
     {
         if (peutTirer)
         {
             Sortilege sortilege = this.sortileges.get(0);
-            sortilege.utilise(entite);
+            sortilege.estUtiliseePar(entite);
             this.derniereApelle = System.currentTimeMillis();
             entite.getMonde().ajoutRechargeable(this);
             peutTirer = false;

@@ -1,18 +1,14 @@
 package universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Boss;
 
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.Entite;
-import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.EntiteOffensif;
 import universite_paris8.iut.EtrangeEtrange.modele.Acteurs.Entite.PNJ.Monstre.Squelette;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Compétence.TypeCompetence;
-import universite_paris8.iut.EtrangeEtrange.modele.Interfaces.Arme;
 import universite_paris8.iut.EtrangeEtrange.modele.Map.Monde;
 
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.LivreMagique;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Attaque.SortilegePluitDeFleche;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.ArmeMagique.Sort.Sortilege;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Armes.Epee;
-import universite_paris8.iut.EtrangeEtrange.modele.Objet.Projectile.Orbe;
 import universite_paris8.iut.EtrangeEtrange.modele.Objet.Soins.Potion;
 import universite_paris8.iut.EtrangeEtrange.modele.Parametres.ParametreMonstre;
 import universite_paris8.iut.EtrangeEtrange.modele.Utilitaire.Aetoile;
@@ -35,14 +31,8 @@ public class RoiSquelette extends EntiteOffensif
     private Epee epee;
 
     public RoiSquelette(Monde monde, double x, double y, Direction direction) {
-        super(monde, x, y, direction,
-                ParametreMonstre.PV_ROI_SQUELETTE,
-                ParametreMonstre.ATTAQUE_ROI_SQUELETTE,
-                ParametreMonstre.DEFENSE_ROI_SQUELETTE,
-                ParametreMonstre.ATTAQUE_SPECIALE_ROI_SQUELETTE,
-                ParametreMonstre.DEFENSE_SPECIALE_ROI_SQUELETTE,
-                ParametreMonstre.VITESSE_ROI_SQUELETTE,
-                new Hitbox(1, 1));
+
+        this.epee = new Epee();
         this.dernierTempsAttaque = System.currentTimeMillis();
         this.positionInitiale = new Position(x, y);
         this.etapeAttaque = 0;
@@ -57,13 +47,13 @@ public class RoiSquelette extends EntiteOffensif
     @Override
     public void attaque() {
         Epee epee = new Epee();
-        epee.utilise(this);
+        epee.estUtiliseePar(this);
     }
 
     @Override
     public void lanceUnSort(int numSort) {
         Sortilege sortilege = new SortilegePluitDeFleche();
-        sortilege.utilise(this);
+        sortilege.estUtiliseePar(this);
     }
 
     @Override
@@ -78,37 +68,12 @@ public class RoiSquelette extends EntiteOffensif
                 return;
             }
         }
+
         if (monde.estDansRayon(getPosition(), 2)){
             attaque();
         }
 
-        long tempsActuel = System.currentTimeMillis();
-        if (tempsActuel - dernierTempsAttaque >= delaiAttaque)
-        {
 
-            switch (etapeAttaque) {
-                case 0:
-                    seDeplacerVers(positionMilieu);
-                    if (positionAtteinte(positionMilieu)) {
-                        etapeAttaque++;
-                    }
-                    break;
-                case 1:
-                    seDeplacerVers(positionMilieu);
-                    if (positionAtteinte(positionMilieu)) {
-                        invoquerSquelettes();
-                        etapeAttaque++;
-                    }
-                    break;
-                case 2:
-                    seDeplacerVers(position5_2);
-                    if (positionAtteinte(position5_2)) {
-                        etapeAttaque = 0; // Recommencer le cycle
-                    }
-                    break;
-            }
-            dernierTempsAttaque = tempsActuel;
-        }
     }
 
 
@@ -133,9 +98,9 @@ public class RoiSquelette extends EntiteOffensif
         Squelette squeletteDroite = new Squelette( getMonde(), positionBas.getX(), positionBas.getY(), Direction.BAS, new Hitbox(0.5, 0.5), getMonde().getJoueur(), new Aetoile(getMonde()));
         getMonde().ajoutActeur(squeletteGauche);
         getMonde().ajoutActeur(squeletteDroite);
-        new Potion().utilise(this);
-        new Potion().utilise(this);
-        new Potion().utilise(this);
+        new Potion().estUtiliseePar(this);
+        new Potion().estUtiliseePar(this);
+        new Potion().estUtiliseePar(this);
     }
 
     // Déplace le Roi Squelette vers une destination donnée
